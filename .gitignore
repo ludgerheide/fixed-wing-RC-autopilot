@@ -5,4 +5,8 @@
 *.xcscmblueprint
 
 #Build output
-autopilot/autopilot/Builds
+autopilot (AVR code)/autopilot/Builds 
+
+#EAGLE files
+*.b#*
+*.s#*
