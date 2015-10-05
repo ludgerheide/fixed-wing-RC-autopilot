@@ -1,4 +1,4 @@
-syntax = "proto2"
+syntax = "proto2";
 
 message DroneMessage {
 	enum FlightMode {
@@ -12,61 +12,63 @@ message DroneMessage {
 	}
 
 	message Position {
-		optional int32 timestamp;
-		optional int32 real_time;
+		optional int32 timestamp = 20;
+		optional int32 real_time = 21;
 	
-		required sint32 latitude;
-		required sint32 longitude;
-		optional int32 altitude;
+		required sint32 latitude = 22;
+		required sint32 longitude = 23;
+		optional int32 altitude = 24;
 	}
 	
 	message Velocity {	
-		optional int32 speed;
-		optional int32 course;
-		optional sint32 rate_of_climb;
+		optional int32 timestamp = 30;
+	
+		optional int32 speed = 31;
+		optional int32 course = 32;
+		optional sint32 rate_of_climb = 33;
 	}
 	
 	message Attitude {
-		optional int32 timestamp;
+		optional int32 timestamp = 40;
 		
-		required sint32 yaw;
-		required sint32 pitch;
-		required sint32 roll;
+		required sint32 yaw = 41;
+		required sint32 pitch = 42;
+		required sint32 roll = 43;
 	}
 	
 	message BaroData {
-		required int32 timestamp;
+		required int32 timestamp = 50;
 		
-		required float pressure;
-		required float temperature;
+		required float pressure = 51;
+		required float temperature = 52;
 	}
 	
 	message ThreeDimensionalData {
-		required int32 timestamp;
+		required int32 timestamp = 60;
 		
-		required float x;
-		required float y;
-		required float z;
+		required float x = 62;
+		required float y = 63;
+		required float z = 64;
 	}
 	
-	optional FlightMode current_mode;
-	optional Velocity current_speed;
-	optional PositionVelocity current_position;
-	optional Attitude current_attitude;
+	optional FlightMode current_mode = 1;
+	optional Velocity current_speed = 2;
+	optional Velocity current_position = 3;
+	optional Attitude current_attitude = 4;
 	
-	optional BaroData bmp_raw;
-	optional ThreeDimensionalData gyro_raw;
-	optional ThreeDimensionalData mag_raw;
-	optional ThreeDimensionalData accel_raw;
+	optional BaroData bmp_raw = 5;
+	optional ThreeDimensionalData gyro_raw = 6;
+	optional ThreeDimensionalData mag_raw = 7;
+	optional ThreeDimensionalData accel_raw = 8;
 	
-	optional int32 battery_current;
-	optional int32 battery_voltage;
-	optional int32 battery_percentage;
+	optional int32 battery_current = 9;
+	optional int32 battery_voltage = 10;
+	optional int32 battery_percentage = 11;
 	
 	//Now the "input" messages
-	optional Position new_waypoint;
-	optional Position new_home_base;
-	optional float sea_level_pressure;
-	optional Attitude command_set;
-	optional FlightMode new_mode;
+	optional Position new_waypoint = 12;
+	optional Position new_home_base = 13;
+	optional float sea_level_pressure = 14;
+	optional Attitude command_set = 15;
+	optional FlightMode new_mode = 16;
 }

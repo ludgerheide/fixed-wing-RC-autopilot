@@ -10,3 +10,6 @@
 #EAGLE files
 *.b#*
 *.s#*
+
+#ignore protobuf-generated files
+*.pb.*
