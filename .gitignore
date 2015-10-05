@@ -1,0 +1,8 @@
+## Xcode
+*.xccheckout
+*.moved-aside
+*.xcuserstate
+*.xcscmblueprint
+
+#Build output
+autopilot/autopilot/Builds
