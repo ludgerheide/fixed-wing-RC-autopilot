@@ -1,0 +1,72 @@
+syntax = "proto2"
+
+message DroneMessage {
+	enum FlightMode {
+		m_degraded = 0;
+		m_passThrough = 1;
+		m_flybywire = 2;
+		m_autonomous = 3;
+		m_landed = 4;
+		mx_autonomous_ai = 5;
+		mx_unavailable = 6;
+	}
+
+	message Position {
+		optional int32 timestamp;
+		optional int32 real_time;
+	
+		required sint32 latitude;
+		required sint32 longitude;
+		optional int32 altitude;
+	}
+	
+	message Velocity {	
+		optional int32 speed;
+		optional int32 course;
+		optional sint32 rate_of_climb;
+	}
+	
+	message Attitude {
+		optional int32 timestamp;
+		
+		required sint32 yaw;
+		required sint32 pitch;
+		required sint32 roll;
+	}
+	
+	message BaroData {
+		required int32 timestamp;
+		
+		required float pressure;
+		required float temperature;
+	}
+	
+	message ThreeDimensionalData {
+		required int32 timestamp;
+		
+		required float x;
+		required float y;
+		required float z;
+	}
+	
+	optional FlightMode current_mode;
+	optional Velocity current_speed;
+	optional PositionVelocity current_position;
+	optional Attitude current_attitude;
+	
+	optional BaroData bmp_raw;
+	optional ThreeDimensionalData gyro_raw;
+	optional ThreeDimensionalData mag_raw;
+	optional ThreeDimensionalData accel_raw;
+	
+	optional int32 battery_current;
+	optional int32 battery_voltage;
+	optional int32 battery_percentage;
+	
+	//Now the "input" messages
+	optional Position new_waypoint;
+	optional Position new_home_base;
+	optional float sea_level_pressure;
+	optional Attitude command_set;
+	optional FlightMode new_mode;
+}
