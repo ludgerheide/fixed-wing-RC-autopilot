@@ -23,15 +23,15 @@ message DroneMessage {
 	message Velocity {	
 		optional int32 timestamp = 30;
 	
-		optional int32 speed = 31;
-		optional int32 course = 32;
+		required int32 speed = 31;
+		required int32 course_over_ground = 32;
 		optional sint32 rate_of_climb = 33;
 	}
 	
 	message Attitude {
 		optional int32 timestamp = 40;
 		
-		required sint32 yaw = 41;
+		required sint32 course_magnetic = 41;
 		required sint32 pitch = 42;
 		required sint32 roll = 43;
 	}
@@ -51,9 +51,15 @@ message DroneMessage {
 		required float z = 64;
 	}
 	
+	message CommandSet {
+		required sint32 yaw = 70;
+		required sint32 pitch = 71;
+		required sint32 roll = 72;
+	}
+	
 	optional FlightMode current_mode = 1;
 	optional Velocity current_speed = 2;
-	optional Velocity current_position = 3;
+	optional Position current_position = 3;
 	optional Attitude current_attitude = 4;
 	
 	optional BaroData bmp_raw = 5;
@@ -69,6 +75,6 @@ message DroneMessage {
 	optional Position new_waypoint = 12;
 	optional Position new_home_base = 13;
 	optional float sea_level_pressure = 14;
-	optional Attitude command_set = 15;
+	optional CommandSet command_set = 15;
 	optional FlightMode new_mode = 16;
 }

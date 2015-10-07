@@ -109,11 +109,12 @@ CDEFS = -DF_CPU=$(F_CPU)UL
 CDEFS += -D__ASSERT_USE_STDERR
 #CDEFS += -DI2C_DEBUG
 #CDEFS += -DIMU_DEBUG
-CDEFS += -DGPS_DEBUG
+#CDEFS += -DGPS_DEBUG
+CDEFS += -DCOMMS_DEBUG
 
 
 # Place -I options here
-CINCS =
+CINCS = -I/usr/local/include
 
 
 

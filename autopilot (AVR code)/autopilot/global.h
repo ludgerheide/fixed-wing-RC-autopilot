@@ -37,4 +37,41 @@
 //#define F_CPU        3686400               		// 3.69MHz processor
 #define CYCLES_PER_US ((F_CPU+500000)/1000000) 	// cpu cycles per microsecond
 
+//Global variables for the aircraft status
+extern float seaLevelPressure;
+
+typedef struct {
+    u32 timestamp;
+    
+    float latitude;
+    float longitude;
+    s32 altitude; //In centimeters
+} position_struct;
+position_struct currentPosition;
+
+typedef struct {
+    u32 timestamp;
+    
+    float courseOverGround;
+    u16 speed; //In cm/s
+    float rateOfClimb;
+} velocity_struct;
+velocity_struct currentVelocity;
+
+typedef struct {
+    u32 timestamp;
+    
+    float courseMagnetic;
+    float pitch;
+    float roll;
+} attitude_struct;
+attitude_struct attitude;
+
+typedef struct {
+    s16 yaw;
+    s16 pitch;
+    s16 roll;
+} commandSet_struct;
+commandSet_struct commandSet;
+
 #endif

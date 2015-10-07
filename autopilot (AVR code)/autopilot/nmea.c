@@ -163,8 +163,6 @@ void nmeaProcessGPGGA(u08* packet) {
 	// convert to pure degrees [dd.dddd] format
 	minutesfrac = modf(GpsInfo.PosLLA.lat/100, &degrees);
 	GpsInfo.PosLLA.lat = degrees + (minutesfrac*100)/60;
-	// convert to radians
-	GpsInfo.PosLLA.lat *= (M_PI/180);
 	while(packet[i++] != ',');				// next field: N/S indicator
 	
 	// correct latitute for N/S
@@ -176,8 +174,6 @@ void nmeaProcessGPGGA(u08* packet) {
 	// convert to pure degrees [dd.dddd] format
 	minutesfrac = modf(GpsInfo.PosLLA.lon/100, &degrees);
 	GpsInfo.PosLLA.lon = degrees + (minutesfrac*100)/60;
-	// convert to radians
-	GpsInfo.PosLLA.lon *= (M_PI/180);
 	while(packet[i++] != ',');				// next field: E/W indicator
 
 	// correct latitute for E/W

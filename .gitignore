@@ -3,6 +3,7 @@
 *.moved-aside
 *.xcuserstate
 *.xcscmblueprint
+*.xcbkptlist
 
 #Build output
 */autopilot/Builds

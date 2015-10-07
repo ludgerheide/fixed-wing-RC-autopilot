@@ -9,6 +9,7 @@
 #include "xBee.h"
 #include "uart4.h"
 #include "pinSetup.h"
+#include "communicationsHandler.h"
 #include <assert.h>
 
 #define TX_BUFFER_SIZE 118
@@ -95,21 +96,30 @@ void xBeeSendPayload(char* payload, uint8_t bufferSize, bool shouldAck, uint8_t 
         xBeeTxBuffer[16] = 0b00000001;
     }
     
-    //Now the RF data
+    //Now the RF payload
     for (uint8_t i = 0; i < bufferSize; i++) {
         xBeeTxBuffer[17 + i] = payload[i];
     }
     
-    xBeeTxBuffer[17 + bufferSize] = xBeeGenerateChecksum(&xBeeTxBuffer[3], 17 + bufferSize);
+    xBeeTxBuffer[17 + bufferSize] = xBeeGenerateChecksum(&xBeeTxBuffer[3], TX_NONDATA_SIZE + bufferSize);
+    
+    for(u08 i = 0; i < bufferSize + 18; i++) {
+        printf("%02x ", xBeeTxBuffer[i]);
+    }
+    printf("\r\n");
     
     //Now the payload is complete. Send it out over the serial port
     uint8_t result = uartSendBuffer(XBEE_UART, xBeeTxBuffer, bufferSize + 18);
     
-    if(result == 0) {
+    printf("uart: %i, size: %i, result: %i\r\n", XBEE_UART, bufferSize + 18, result);
+    
+    if(result != FALSE) {
         return;
     }
     else {
+        #ifdef COMMS_DEBUG
         printf("Error Sending!\r\n");
+        #endif
     }
 }
 
@@ -124,8 +134,9 @@ static uint8_t xBeeGenerateChecksum(char* msg, uint8_t size) {
 
 //Called if a byte is received over the serial port. Checks if it is a start byte and the fills th ebuffer accordingly
 void xBeeByteReceiver(unsigned char c) {
+    #ifdef COMMS_DEBUG
     printf(" %02x",c);
-    fflush(stdout);
+    #endif
     if(received_index == 0) {
         //We are looking for the start byte, 0x7E
         if(c == 0x7E) {
@@ -146,8 +157,9 @@ void xBeeByteReceiver(unsigned char c) {
         if(checksum == c) {
             //We have recieved a correnct message, set the "Ready" flag
             xBeeNewMessageReady = true;
+            #ifdef COMMS_DEBUG
             printf("\r\n");
-            fflush(stdout);
+            #endif
             //TODO: Assert the RTS (?) line so no more data gets sent until we dealt with this data
         } else {
             received_size = 0;
@@ -169,6 +181,7 @@ void xBeeHandleMessage(void) {
         {
             char* protoBufMessage = &xBeeRxBuffer[12];
             uint8_t protoBufSize = received_size - 12;
+            commsProcessMessage(protoBufMessage, protoBufSize);
         }
             break;
             
@@ -181,7 +194,9 @@ void xBeeHandleMessage(void) {
         }
             
         default:
+            #ifdef COMMS_DEBUG
             printf("Other packet type received!");
+            #endif
             break;
     }
     //Reset the received index and "new message ready" flag
