@@ -13,19 +13,22 @@
 #ifndef MadgwickAHRS_h
 #define MadgwickAHRS_h
 
+#include "avrlibtypes.h"
+
 //----------------------------------------------------------------------------------------------------
 // Variable declaration
 
-extern volatile float beta;				// algorithm gain
-extern volatile float q0, q1, q2, q3;	// quaternion of sensor frame relative to auxiliary frame
+extern float beta;				// algorithm gain
+extern float q0, q1, q2, q3;	// quaternion of sensor frame relative to auxiliary frame
+extern u32 lastUpdate;
 
 //---------------------------------------------------------------------------------------------------
 // Function declarations
 
-void MadgwickAHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, float mx, float my, float mz);
-void MadgwickAHRSupdateIMU(float gx, float gy, float gz, float ax, float ay, float az);
+void MadgwickAHRSupdate(u32 currentTime, float gx, float gy, float gz, float ax, float ay, float az, float mx, float my, float mz);
+void MadgwickAHRSupdateIMU(u32 currentTime, float gx, float gy, float gz, float ax, float ay, float az);
 
-void getYawPitchRollRad(float* yaw, float* pitch, float* roll);
+void getYawPitchRollDegrees(float* yaw, float* pitch, float* roll);
 
 #endif
 //=====================================================================================================

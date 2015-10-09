@@ -33,9 +33,6 @@ void xBeeHandleMessage(void);
 // void sendBufferFunc(char *buffer, uint8_t nBytes)
 void xBeeAttachSendFunction(uint8_t (*tx_func)(char* buffer, uint8_t numBytes));
 
-//Attaches the acknowgledgement handler function
-void xBeeAttachAckFunction(void (*ack_func)(uint8_t frameID));
-
 //Attaches the functiont hat gets called when we receive a "transmit status"
 void xBeeAttachTxStatusHandler(void (*stat_func)(uint8_t frameID, uint8_t retryCount, uint8_t txStatus));
 

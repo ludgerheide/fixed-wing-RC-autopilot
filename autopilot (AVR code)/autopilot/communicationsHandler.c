@@ -40,7 +40,7 @@ const static u16 telemetryDelay = 500; //The delay between each telemetry messag
 //These hold the timestamps for the last packets that were
 // a) transmitted over the telemetry
 // b) send thtough the serial (logging port)
-static u32 telPosTime, telVelTime, telAttitudeTime, telAttitudeTime;
+static u32 telPosTime, telVelTime, telAttitudeTime;
 static u32 logPosTime, logVelTime, logAttitudeTime, logBaroDataTime, logRawGyroTime, logRawAccelTime, logRawMagTime, logHomeBaseTime, logWaypointTime, logCommandSetTime;
 
 //Function to convert degrees to a fixed-point 16 byte integer
@@ -262,6 +262,7 @@ static u08 createProtobuf(messagePurpose thePurpose, u08* messageLength) {
 //Initializes the communications (the xBee serial and the RTS output pin)
 void commsInit(void) {
     xBeeInit();
+    xBeeAttachTxStatusHandler( txStatusHandler );
 }
 
 void commsProcessMessage(char* message, u08 size) {
@@ -323,9 +324,10 @@ void commsCheckAndSendTelemetry(void) {
     //Check if the serial buffer is empty, we should sens a new msg
     //and the last transmission has been acked (disreagars the ack check if more than one second has passed since the last transmission
     if(uartReadyTx[XBEE_UART] && (now - lastTxTime > telemetryDelay) && (lastTxAcked || now - lastTxTime > 1000)) {
-        if(createProtobuf(telemetry, &telemetryLength)) {
+        if(!createProtobuf(telemetry, &telemetryLength)) {
             xBeeSendPayload(messageBuffer, telemetryLength, false, 0xAB);
             lastTxAcked = FALSE;
+            lastTxTime = now;
         }
         #ifdef COMMS_DEBUG
         else {

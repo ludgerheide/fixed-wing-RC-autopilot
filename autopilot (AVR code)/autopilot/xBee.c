@@ -29,8 +29,6 @@ uint16_t received_size = 0;
 //The RX and ack handlers
 typedef uint8_t (*u08FuncPtr)(char* buffer, uint8_t numBytes);
 static u08FuncPtr serialTxFunc;
-typedef void (*voidFuncPtr)(uint8_t frameID);
-static voidFuncPtr ackFunc;
 //The handler for a transmit status
 typedef void (*txFuncPtr)(uint8_t frameID, uint8_t retryCount, uint8_t txStatus);
 static txFuncPtr txStatusFunc;
@@ -47,7 +45,6 @@ static uint8_t xBeeGenerateChecksum(char* msg, uint8_t size);
 
 void xBeeInit(void) {
     serialTxFunc = 0;
-    ackFunc = 0;
     txStatusFunc = 0;
     
     //Initialize the xbee uart
@@ -135,7 +132,7 @@ static uint8_t xBeeGenerateChecksum(char* msg, uint8_t size) {
 //Called if a byte is received over the serial port. Checks if it is a start byte and the fills th ebuffer accordingly
 void xBeeByteReceiver(unsigned char c) {
     #ifdef COMMS_DEBUG
-    printf(" %02x",c);
+    //printf(" %02x",c);
     #endif
     if(received_index == 0) {
         //We are looking for the start byte, 0x7E
@@ -158,15 +155,16 @@ void xBeeByteReceiver(unsigned char c) {
             //We have recieved a correnct message, set the "Ready" flag
             xBeeNewMessageReady = true;
             #ifdef COMMS_DEBUG
-            printf("\r\n");
+            //printf("\r\n");
             #endif
-            //TODO: Assert the RTS (?) line so no more data gets sent until we dealt with this data
         } else {
             received_size = 0;
             received_index = 0;
         }
     } else {
-        printf("Buffer overflow!");
+        received_size = 0;
+        received_index = 0;
+        printf("Buffer overflow @%i!\r\n", __LINE__);
     }
     received_index++;
 }
@@ -210,11 +208,6 @@ void xBeeHandleMessage(void) {
 // void sendBufferFunc(char *buffer, uint8_t nBytes)
 void xBeeAttachSendFunction(uint8_t (*tx_func)(char* buffer, uint8_t numBytes)) {
     serialTxFunc = tx_func;
-}
-
-//Attaches the acknowgledgement handler function
-void xBeeAttachAckFunction(void (*ack_func)(uint8_t frameID)) {
-    ackFunc = ack_func;
 }
 
 void xBeeAttachTxStatusHandler(void (*stat_func)(uint8_t frameID, uint8_t retryCount, uint8_t txStatus)) {

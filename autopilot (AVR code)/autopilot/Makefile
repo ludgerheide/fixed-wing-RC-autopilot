@@ -339,7 +339,7 @@ program: $(OBJDIR)/$(TARGET).hex $(OBJDIR)/$(TARGET).eep
 	scp "$(OBJDIR)/$(TARGET).hex" pi@$(SSH_IP):/tmp/
 #   Execute the upload
 #   Remove the file
-	ssh pi@$(SSH_IP) "avrdude -p atmega2560 -P gpio -c gpio -Uflash:w:/tmp/$(TARGET).hex:i; rm -v /tmp/$(TARGET).hex"
+	ssh pi@$(SSH_IP) "avrdude -q -p atmega2560 -P gpio -B 0.25 -c gpio -Uflash:w:/tmp/$(TARGET).hex:i; rm -v /tmp/$(TARGET).hex"
 
 
 # Generate avr-gdb config/init file which does the following:

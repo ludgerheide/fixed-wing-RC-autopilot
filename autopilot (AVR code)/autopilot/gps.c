@@ -100,7 +100,6 @@ void gpsRxHandler(unsigned char c) {
     }
     
     //check if the character was a '\n'
-    assert(newlineCount <= numberOfSentences);
     if(c == '\n') {
         //If the last message received was a GGA, this is the end of the corresponding VTG.
         // Discard it to resynchronize
