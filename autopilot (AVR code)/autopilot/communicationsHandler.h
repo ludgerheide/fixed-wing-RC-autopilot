@@ -12,9 +12,9 @@
 #include <stdio.h>
 #include "avrlibtypes.h"
 
-#include <pb_decode.h>
-#include <pb_encode.h>
-#include <pb_common.h>
+#include "pb_decode.h"
+#include "pb_encode.h"
+#include "pb_common.h"
 
 #include "xBee.h"
 #include "communicationProtocol.pb.h"
@@ -25,5 +25,9 @@ void commsInit(void);
 void commsProcessMessage(char* message, u08 size);
 
 void commsSendStatusReport(void);
+
+//Called when a status is received
+void txStatusHandler(uint8_t frameID, uint8_t retryCount, uint8_t txStatus);
+
 
 #endif /* communicationsHandler_h */

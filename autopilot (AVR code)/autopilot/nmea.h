@@ -34,18 +34,20 @@
 #include "buffer.h"
 
 struct PositionLLA {
+    u32 timestamp;
+    
     float lat;
     float lon;
     float alt;
     float TimeOfFix;
-    u16 updates;
 };
 
 struct VelocityHS {
+    u32 timestamp;
+    
     float heading;
     float speed;
     float TimeOfFix;
-    u16 updates;
 };
 
 typedef struct struct_GpsInfo {

@@ -26,6 +26,10 @@
 // global AVRLIB types definitions
 #include "avrlibtypes.h"
 
+#include "bmp.h"
+#include "gyro.h"
+#include "accelMag.h"
+
 // project/system dependent defines
 
 // CPU clock speed
@@ -37,26 +41,25 @@
 //#define F_CPU        3686400               		// 3.69MHz processor
 #define CYCLES_PER_US ((F_CPU+500000)/1000000) 	// cpu cycles per microsecond
 
-//Global variables for the aircraft status
-extern float seaLevelPressure;
-
 typedef struct {
     u32 timestamp;
     
-    float latitude;
-    float longitude;
-    s32 altitude; //In centimeters
-} position_struct;
-position_struct currentPosition;
+    s16 yaw;
+    s16 pitch;
+    s16 roll;
+} commandSet_struct;
+commandSet_struct commandSet;
 
-typedef struct {
-    u32 timestamp;
-    
-    float courseOverGround;
-    u16 speed; //In cm/s
-    float rateOfClimb;
-} velocity_struct;
-velocity_struct currentVelocity;
+typedef enum {
+    m_degraded = 0,
+    m_passThrough = 1,
+    m_flybywire = 2,
+    m_autonomou = 3,
+    m_landed = 4,
+    mx_autonomous_ai = 5,
+    mx_unavailable = 6
+} flightMode;
+flightMode currentFlightMode;
 
 typedef struct {
     u32 timestamp;
@@ -65,13 +68,23 @@ typedef struct {
     float pitch;
     float roll;
 } attitude_struct;
-attitude_struct attitude;
+attitude_struct currentAttitude;
 
 typedef struct {
-    s16 yaw;
-    s16 pitch;
-    s16 roll;
-} commandSet_struct;
-commandSet_struct commandSet;
+    u32 timestamp;
+    
+    float latitude;
+    float longitude;
+    float altitude; //Meters ASL
+} waypoint;
+waypoint currentTarget;
+waypoint homeBase;
+
+pressureEvent curPressure;
+magEvent curMag;
+accelEvent curAccel;
+gyroEvent curGyro;
+
+float seaLevelPressure; //Initialize to standard pressure for now
 
 #endif

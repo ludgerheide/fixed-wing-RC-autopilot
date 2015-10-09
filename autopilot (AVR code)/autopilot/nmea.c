@@ -28,6 +28,7 @@
 #include <stdlib.h>
 #include <math.h>
 
+#include "timer.h"
 #include "global.h"
 #include "buffer.h"
 #include "gps.h"
@@ -183,8 +184,11 @@ void nmeaProcessGPGGA(u08* packet) {
 	// position fix status
 	// 0 = Invalid, 1 = Valid SPS, 2 = Valid DGPS, 3 = Valid PPS
 	// check for good position fix
-	if( (packet[i] != '0') && (packet[i] != ',') )
-		GpsInfo.PosLLA.updates++;
+    if( (packet[i] != '0') && (packet[i] != ',') ) {
+        u32 now = millis();
+        GpsInfo.PosLLA.timestamp = now;
+        GpsInfo.VelHS.timestamp = now;
+    }
 	while(packet[i++] != ',');				// next field: satellites used
 	
 	// get number of satellites used in GPS solution
@@ -236,7 +240,5 @@ void nmeaProcessGPVTG(u08* packet) {
 	GpsInfo.VelHS.speed = strtod((char*)&packet[i], &endptr);
 	while(packet[i++] != ',');				// next field: 'K'
 	while(packet[i++] != '*');				// next field: checksum
-
-	GpsInfo.VelHS.updates++;
 }
 

@@ -237,7 +237,7 @@ void bmpGetData(pressureEvent* myEvent) {
     myEvent->temperature = t;
 }
 
-float pressureToAltitude(float atmosphericPressure, float seaLevelPressure) {
+float pressureToAltitude(float atmosphericPressure, float theSeaLevelPressure) {
     // Equation taken from BMP180 datasheet (page 16):
     //  http://www.adafruit.com/datasheets/BST-BMP180-DS000-09.pdf
     
@@ -245,5 +245,5 @@ float pressureToAltitude(float atmosphericPressure, float seaLevelPressure) {
     // at high altitude.  See this thread for more information:
     //  http://forums.adafruit.com/viewtopic.php?f=22&t=58064
     
-    return 44330.0 * (1.0 - pow(atmosphericPressure / seaLevelPressure, 0.1903));
+    return 44330.0 * (1.0 - pow(atmosphericPressure / theSeaLevelPressure, 0.1903));
 }

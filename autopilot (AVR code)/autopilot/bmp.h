@@ -118,6 +118,6 @@ void bmpGetTempDataFromI2cBuffer(void);
 void bmpGetData(pressureEvent* myEvent);
 
 //Convert a pressure reading to altitude
-float pressureToAltitude(float atmosphericPressure, float seaLevelPressure);
+float pressureToAltitude(float atmosphericPressure, float theSeaLevelPressure);
 
 #endif /* bmp_h */

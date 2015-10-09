@@ -215,16 +215,16 @@ float invSqrt(float x) {
     return 1/sqrt(x);
 }
 
-void getYawPitchRollRad(float* yaw, float* pitch, float* roll) {
+void getYawPitchRollDegrees(float* yaw, float* pitch, float* roll) {
     float gx, gy, gz; // estimated gravity direction
     
     gx = 2 * (q1*q3 - q0*q2);
     gy = 2 * (q0*q1 + q2*q3);
     gz = q0*q0 - q1*q1 - q2*q2 + q3*q3;
     
-    *yaw = atan2(2 * q1 * q2 - 2 * q0 * q3, 2 * q0*q0 + 2 * q1 * q1 - 1);
-    *pitch = atan(gx / sqrt(gy*gy + gz*gz));
-    *roll = atan(gy / sqrt(gx*gx + gz*gz));
+    *yaw = (180/M_PI) * atan2(2 * q1 * q2 - 2 * q0 * q3, 2 * q0*q0 + 2 * q1 * q1 - 1);
+    *pitch = (180/M_PI) * atan(gx / sqrt(gy*gy + gz*gz));
+    *roll = (180/M_PI) * atan(gy / sqrt(gx*gx + gz*gz));
 }
 
 

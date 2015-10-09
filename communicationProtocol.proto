@@ -46,15 +46,23 @@ message DroneMessage {
 	message ThreeDimensionalData {
 		required int32 timestamp = 60;
 		
-		required float x = 62;
-		required float y = 63;
-		required float z = 64;
+		required float x = 61;
+		required float y = 62;
+		required float z = 63;
+	}
+	
+	message BatteryData {
+		required int32 timestamp = 70;
+		
+		required int32 voltage = 71;
+		required int32 current = 72;
+		required int32 percentage = 73;
 	}
 	
 	message CommandSet {
-		required sint32 yaw = 70;
-		required sint32 pitch = 71;
-		required sint32 roll = 72;
+		required sint32 yaw = 80;
+		required sint32 pitch = 81;
+		required sint32 roll = 82;
 	}
 	
 	optional FlightMode current_mode = 1;
@@ -67,13 +75,11 @@ message DroneMessage {
 	optional ThreeDimensionalData mag_raw = 7;
 	optional ThreeDimensionalData accel_raw = 8;
 	
-	optional int32 battery_current = 9;
-	optional int32 battery_voltage = 10;
-	optional int32 battery_percentage = 11;
+	optional BatteryData current_battery_data = 9;
 	
 	//Now the "input" messages
-	optional Position new_waypoint = 12;
-	optional Position new_home_base = 13;
+	optional Position waypoint = 12;
+	optional Position home_base = 13;
 	optional float sea_level_pressure = 14;
 	optional CommandSet command_set = 15;
 	optional FlightMode new_mode = 16;

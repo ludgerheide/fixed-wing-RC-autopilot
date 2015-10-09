@@ -12,8 +12,8 @@
 #include "communicationsHandler.h"
 #include <assert.h>
 
-#define TX_BUFFER_SIZE 118
-#define RX_BUFFER_SIZE 100 //TODO: identify min size
+#define TX_BUFFER_SIZE 128
+#define RX_BUFFER_SIZE 128 //TODO: identify min size
 
 #define TX_NONDATA_SIZE 14
 
