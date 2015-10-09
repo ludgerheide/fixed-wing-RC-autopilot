@@ -24,7 +24,11 @@ void commsInit(void);
 
 void commsProcessMessage(char* message, u08 size);
 
-void commsSendStatusReport(void);
+//Telemetry goes out over the radio and is a small packet with posoition, velocity and attitude
+void commsCheckAndSendTelemetry(void);
+
+//Logging goes out over the serial port and contains *a lot* of data
+void commsCheckAndSendLogging(void);
 
 //Called when a status is received
 void txStatusHandler(uint8_t frameID, uint8_t retryCount, uint8_t txStatus);

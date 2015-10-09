@@ -316,7 +316,7 @@ void commsProcessMessage(char* message, u08 size) {
     }
 }
 
-void commsSendTelemetry(void) {
+void commsCheckAndSendTelemetry(void) {
     u32 now = millis();
     u08 telemetryLength;
     
@@ -332,6 +332,32 @@ void commsSendTelemetry(void) {
             printf("Creating protobuf failed @ %i\r\n", __LINE__);
         }
         #endif
+    }
+}
+
+void commsCheckAndSendLogging(void) {
+    u32 now = millis();
+    u08 loggingLength;
+    
+    //Check if the serial buffer is empty
+    if(uartReadyTx[RASPI_UART]) {
+        if(!createProtobuf(messageBuffer, &loggingLength)) {
+            //Nonzero return code indicates failure
+            #ifdef COMMS_DEBUG
+            printf("Creating protobuf failed @ %i\r\n", __LINE__);
+            #endif
+            return;
+        }
+        //If we get here creating the protobuf succeeded. Put the length in the buffer first, then the message
+        uartAddToTxBuffer(RASPI_UART, loggingLength);
+        
+        u08 checksum = 0;
+        //Add the data and add a checksum
+        for(u08 i = 0; i < loggingLength; i++) {
+            uartAddToTxBuffer(RASPI_UART, messageBuffer[i]);
+            checksum += messageBuffer[i];
+        }
+        uartAddToTxBuffer(RASPI_UART, checksum);
     }
 }
 
