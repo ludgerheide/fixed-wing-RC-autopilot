@@ -99,16 +99,19 @@ void xBeeSendPayload(char* payload, uint8_t bufferSize, bool shouldAck, uint8_t 
     }
     
     xBeeTxBuffer[17 + bufferSize] = xBeeGenerateChecksum(&xBeeTxBuffer[3], TX_NONDATA_SIZE + bufferSize);
-    
+    #ifdef COMMS_DEBUG
     for(u08 i = 0; i < bufferSize + 18; i++) {
         printf("%02x ", xBeeTxBuffer[i]);
     }
     printf("\r\n");
+    #endif
     
     //Now the payload is complete. Send it out over the serial port
     uint8_t result = uartSendBuffer(XBEE_UART, xBeeTxBuffer, bufferSize + 18);
     
+    #ifdef COMMS_DEBUG
     printf("uart: %i, size: %i, result: %i\r\n", XBEE_UART, bufferSize + 18, result);
+    #endif
     
     if(result != FALSE) {
         return;
@@ -154,9 +157,6 @@ void xBeeByteReceiver(unsigned char c) {
         if(checksum == c) {
             //We have recieved a correnct message, set the "Ready" flag
             xBeeNewMessageReady = true;
-            #ifdef COMMS_DEBUG
-            //printf("\r\n");
-            #endif
         } else {
             received_size = 0;
             received_index = 0;
@@ -164,7 +164,9 @@ void xBeeByteReceiver(unsigned char c) {
     } else {
         received_size = 0;
         received_index = 0;
+        #ifdef COMMS_DEBUG
         printf("Buffer overflow @%i!\r\n", __LINE__);
+        #endif
     }
     received_index++;
 }

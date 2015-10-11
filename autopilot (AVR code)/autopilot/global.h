@@ -44,11 +44,12 @@
 typedef struct {
     u32 timestamp;
     
-    s16 yaw;
-    s16 pitch;
-    s16 roll;
+    u08 yaw;
+    u08 pitch;
+    u08 thrust;
 } commandSet_struct;
-commandSet_struct commandSet;
+commandSet_struct inputCommandSet;
+commandSet_struct outputCommandSet;
 
 typedef enum {
     m_degraded = 0,

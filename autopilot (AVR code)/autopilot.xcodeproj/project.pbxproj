@@ -12,6 +12,7 @@
 		E4089A701BC47A5B00A7D508 /* pb_encode.c in Sources */ = {isa = PBXBuildFile; fileRef = E4089A6C1BC47A5B00A7D508 /* pb_encode.c */; settings = {ASSET_TAGS = (); }; };
 		E40EAC971BC3CA9600657063 /* communicationProtocol.pb.c in Sources */ = {isa = PBXBuildFile; fileRef = E40EAC951BC3CA9600657063 /* communicationProtocol.pb.c */; settings = {ASSET_TAGS = (); }; };
 		E40EAC9A1BC3CB1000657063 /* communicationsHandler.c in Sources */ = {isa = PBXBuildFile; fileRef = E40EAC981BC3CB1000657063 /* communicationsHandler.c */; settings = {ASSET_TAGS = (); }; };
+		E4A0E7F71BC9189100168960 /* servo.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A0E7F51BC9189100168960 /* servo.c */; settings = {ASSET_TAGS = (); }; };
 		E4FBB4B71BC31BFC00D6A64F /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4B61BC31BFC00D6A64F /* Makefile */; };
 		E4FBB4E91BC31C3200D6A64F /* accelMag.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4C91BC31C3200D6A64F /* accelMag.c */; settings = {ASSET_TAGS = (); }; };
 		E4FBB4EA1BC31C3200D6A64F /* bmp.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4CD1BC31C3200D6A64F /* bmp.c */; settings = {ASSET_TAGS = (); }; };
@@ -40,6 +41,9 @@
 		E40EAC961BC3CA9600657063 /* communicationProtocol.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = communicationProtocol.pb.h; sourceTree = "<group>"; };
 		E40EAC981BC3CB1000657063 /* communicationsHandler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = communicationsHandler.c; sourceTree = "<group>"; };
 		E40EAC991BC3CB1000657063 /* communicationsHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = communicationsHandler.h; sourceTree = "<group>"; };
+		E4A0E7F51BC9189100168960 /* servo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = servo.c; sourceTree = "<group>"; };
+		E4A0E7F61BC9189100168960 /* servo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = servo.h; sourceTree = "<group>"; };
+		E4A0E7F81BC9192900168960 /* servoconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = servoconf.h; sourceTree = "<group>"; };
 		E4FBB4B01BC31BFC00D6A64F /* Index */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Index; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4FBB4B61BC31BFC00D6A64F /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		E4FBB4C91BC31C3200D6A64F /* accelMag.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = accelMag.c; sourceTree = "<group>"; };
@@ -164,6 +168,8 @@
 				E4FBB4DE1BC31C3200D6A64F /* nmea.c */,
 				E4FBB4E41BC31C3200D6A64F /* uart4.h */,
 				E4FBB4E31BC31C3200D6A64F /* uart4.c */,
+				E4A0E7F61BC9189100168960 /* servo.h */,
+				E4A0E7F51BC9189100168960 /* servo.c */,
 			);
 			name = avrlib;
 			sourceTree = "<group>";
@@ -187,6 +193,7 @@
 				E4FBB4D11BC31C3200D6A64F /* global.h */,
 				E4FBB4D81BC31C3200D6A64F /* i2cconf.h */,
 				E4FBB4E01BC31C3200D6A64F /* pinSetup.h */,
+				E4A0E7F81BC9192900168960 /* servoconf.h */,
 			);
 			name = config;
 			sourceTree = "<group>";
@@ -334,6 +341,7 @@
 				E40EAC9A1BC3CB1000657063 /* communicationsHandler.c in Sources */,
 				E4FBB4EB1BC31C3200D6A64F /* buffer.c in Sources */,
 				E4FBB4F11BC31C3200D6A64F /* main.c in Sources */,
+				E4A0E7F71BC9189100168960 /* servo.c in Sources */,
 				E4FBB4E91BC31C3200D6A64F /* accelMag.c in Sources */,
 				E4FBB4EF1BC31C3200D6A64F /* imuBoard.c in Sources */,
 			);

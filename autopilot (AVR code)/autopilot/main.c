@@ -15,15 +15,19 @@
 #include "pinSetup.h"
 #include "MadgwickAHRS.h"
 #include "communicationsHandler.h"
+#include "servo.h"
 
 #include "uart4.h"
 
 void initIO(void) {
+    servoInit();
     printfAttachToUart();
     timerInit();
     IMUinit();
     gpsInit();
     commsInit();
+    
+    _delay_ms(1000);
 }
 
 int main(void) {
@@ -54,12 +58,22 @@ int main(void) {
         
         //Send telemetry
         commsCheckAndSendTelemetry();
+        commsCheckAndSendLogging();
         
         //TODO: Send logging
         
         
-        //TODO: Set servos
+        // Set servos
+        if(inputCommandSet.timestamp - outputCommandSet.timestamp) {
+            outputCommandSet.timestamp = millis();
+            outputCommandSet.yaw = inputCommandSet.yaw;
+            outputCommandSet.pitch = inputCommandSet.pitch;
+            outputCommandSet.thrust = inputCommandSet.thrust;
+        }
         
+        servoSetPosition(YAW_SERVO_CHAN, outputCommandSet.yaw);
+        servoSetPosition(PITCH_SERVO_CHAN, outputCommandSet.pitch);
+        servoSetPosition(THRUST_SERVO_CHAN, outputCommandSet.thrust);
     }
     return 0; // never reached
 }

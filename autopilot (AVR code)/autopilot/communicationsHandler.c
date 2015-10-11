@@ -21,6 +21,7 @@
 #include "timer.h"
 #include "global.h"
 #include <assert.h>
+#include <math.h>
 
 #define KMH_TO_CMS (1.0/0.036)
 
@@ -29,7 +30,7 @@ typedef enum {
     logging
 }messagePurpose;
 
-static char messageBuffer[128];
+static char messageBuffer[255];
 
 //This holds the ID and time of the last transmission. We use it to refreain from sending until the last one has gone through
 //As well as limiting the telemetry frequency
@@ -41,7 +42,7 @@ const static u16 telemetryDelay = 500; //The delay between each telemetry messag
 // a) transmitted over the telemetry
 // b) send thtough the serial (logging port)
 static u32 telPosTime, telVelTime, telAttitudeTime;
-static u32 logPosTime, logVelTime, logAttitudeTime, logBaroDataTime, logRawGyroTime, logRawAccelTime, logRawMagTime, logHomeBaseTime, logWaypointTime, logCommandSetTime;
+static u32 logPosTime, logVelTime, logAttitudeTime, logBaroDataTime, logRawGyroTime, logRawAccelTime, logRawMagTime, logHomeBaseTime, logWaypointTime, logInCommandSetTime, logOutCommandSetTime;
 
 //Function to convert degrees to a fixed-point 16 byte integer
 static s16 degreesToInt(float degrees) {
@@ -87,8 +88,8 @@ static u08 createProtobuf(messagePurpose thePurpose, u08* messageLength) {
             outgoingMsg.current_position.has_real_time = true;
             outgoingMsg.current_position.real_time = GpsInfo.PosLLA.TimeOfFix;
         }
-        outgoingMsg.current_position.latitude = degreesToInt(GpsInfo.PosLLA.lat);
-        outgoingMsg.current_position.longitude = degreesToInt(GpsInfo.PosLLA.lon);
+        outgoingMsg.current_position.latitude = GpsInfo.PosLLA.lat;
+        outgoingMsg.current_position.longitude = GpsInfo.PosLLA.lon;
         outgoingMsg.current_position.has_altitude = true;
         outgoingMsg.current_position.altitude = pressureToAltitude(curPressure.pressure, seaLevelPressure) * 100; //To convert to cventimeters
         
@@ -110,7 +111,7 @@ static u08 createProtobuf(messagePurpose thePurpose, u08* messageLength) {
             outgoingMsg.current_speed.timestamp = GpsInfo.VelHS.timestamp;
         }
         
-        outgoingMsg.current_speed.speed = GpsInfo.VelHS.speed; //in km/h
+        outgoingMsg.current_speed.speed = GpsInfo.VelHS.speed * 1000; //in m/h
         outgoingMsg.current_speed.course_over_ground = degreesToInt(GpsInfo.VelHS.heading);
         
         //Now update the time
@@ -202,8 +203,8 @@ static u08 createProtobuf(messagePurpose thePurpose, u08* messageLength) {
         outgoingMsg.waypoint.has_timestamp = true;
         outgoingMsg.waypoint.timestamp = currentTarget.timestamp;
         
-        outgoingMsg.waypoint.latitude = degreesToInt(currentTarget.latitude);
-        outgoingMsg.waypoint.longitude = degreesToInt(currentTarget.latitude);
+        outgoingMsg.waypoint.latitude = currentTarget.latitude;
+        outgoingMsg.waypoint.longitude = currentTarget.latitude;
         
         outgoingMsg.waypoint.has_altitude = true;
         outgoingMsg.waypoint.altitude = currentTarget.altitude * 100;
@@ -219,11 +220,14 @@ static u08 createProtobuf(messagePurpose thePurpose, u08* messageLength) {
         outgoingMsg.home_base.has_timestamp = true;
         outgoingMsg.home_base.timestamp = homeBase.timestamp;
         
-        outgoingMsg.home_base.latitude = degreesToInt(homeBase.latitude);
-        outgoingMsg.home_base.longitude = degreesToInt(homeBase.longitude);
+        outgoingMsg.home_base.latitude = homeBase.latitude;
+        outgoingMsg.home_base.longitude = homeBase.longitude;
         
         outgoingMsg.home_base.has_altitude = true;
         outgoingMsg.home_base.altitude = homeBase.altitude * 100;
+        
+        //Time update
+        logHomeBaseTime = homeBase.timestamp;
     }
     
     //SLP
@@ -232,13 +236,28 @@ static u08 createProtobuf(messagePurpose thePurpose, u08* messageLength) {
         outgoingMsg.sea_level_pressure = seaLevelPressure;
     }
     
-    //Command set
-    if(thePurpose == logging && commandSet.timestamp - logCommandSetTime) {
-        outgoingMsg.has_command_set = true;
+    //Input Command set
+    if(thePurpose == logging && inputCommandSet.timestamp - logInCommandSetTime) {
+        outgoingMsg.has_input_command_set = true;
         
-        outgoingMsg.command_set.yaw = commandSet.yaw;
-        outgoingMsg.command_set.pitch = commandSet.pitch;
-        outgoingMsg.command_set.roll = commandSet.roll;
+        outgoingMsg.input_command_set.yaw = inputCommandSet.yaw;
+        outgoingMsg.input_command_set.pitch = inputCommandSet.pitch;
+        outgoingMsg.input_command_set.thrust = inputCommandSet.thrust;
+        
+        //Time update
+        logInCommandSetTime = inputCommandSet.timestamp;
+    }
+    
+    //Output Command set
+    if(thePurpose == logging && outputCommandSet.timestamp - logOutCommandSetTime) {
+        outgoingMsg.has_output_command_set = true;
+        
+        outgoingMsg.output_command_set.yaw = outputCommandSet.yaw;
+        outgoingMsg.output_command_set.pitch = outputCommandSet.pitch;
+        outgoingMsg.output_command_set.thrust = outputCommandSet.thrust;
+        
+        //Time update
+        logOutCommandSetTime = outputCommandSet.timestamp;
     }
     
     //Now create the buffer and write the message out
@@ -267,6 +286,7 @@ void commsInit(void) {
 
 void commsProcessMessage(char* message, u08 size) {
     assert(size <= 100);
+    u32 now = millis();
     
     //Zero out the message so we only get valid data
     DroneMessage incomingMsg = DroneMessage_init_zero;
@@ -284,10 +304,12 @@ void commsProcessMessage(char* message, u08 size) {
     }
 
     //Now do stuff according to the content of the decoded message
-    if(incomingMsg.has_command_set) {
-        if(incomingMsg.command_set.yaw <= INT16_MAX && incomingMsg.command_set.yaw >= INT16_MIN) {
+    if(incomingMsg.has_input_command_set) {
+        inputCommandSet.timestamp = now;
+        
+        if(incomingMsg.input_command_set.yaw <= UINT8_MAX && incomingMsg.input_command_set.yaw >= 0) {
             //We have a valid yaw
-            commandSet.yaw = incomingMsg.command_set.yaw;
+            inputCommandSet.yaw = incomingMsg.input_command_set.yaw;
         }
         #ifdef COMMS_DEBUG
         else {
@@ -295,9 +317,9 @@ void commsProcessMessage(char* message, u08 size) {
         }
         #endif
         
-        if(incomingMsg.command_set.pitch <= INT16_MAX && incomingMsg.command_set.pitch >= INT16_MIN) {
+        if(incomingMsg.input_command_set.pitch <= UINT8_MAX && incomingMsg.input_command_set.pitch >= 0) {
             //We have a valid pitch
-            commandSet.pitch = incomingMsg.command_set.pitch;
+            inputCommandSet.pitch = incomingMsg.input_command_set.pitch;
         }
         #ifdef COMMS_DEBUG
         else {
@@ -305,15 +327,47 @@ void commsProcessMessage(char* message, u08 size) {
         }
         #endif
         
-        if(incomingMsg.command_set.roll <= INT16_MAX && incomingMsg.command_set.roll >= INT16_MIN) {
-            //We have a valid pitch
-            commandSet.roll = incomingMsg.command_set.roll;
+        if(incomingMsg.input_command_set.thrust <= UINT8_MAX && incomingMsg.input_command_set.thrust >= 0) {
+            //We have a valid thrust
+            inputCommandSet.thrust = incomingMsg.input_command_set.thrust;
         }
         #ifdef COMMS_DEBUG
         else {
             printf("Roll out of bounds! %i", __LINE__);
         }
         #endif
+    }
+    
+    if(incomingMsg.has_sea_level_pressure) {
+        seaLevelPressure = incomingMsg.sea_level_pressure;
+    }
+    
+    if(incomingMsg.has_waypoint) {
+        currentTarget.timestamp = now;
+        
+        currentTarget.latitude = incomingMsg.waypoint.latitude;
+        currentTarget.longitude = incomingMsg.waypoint.longitude;
+        if(incomingMsg.waypoint.has_altitude) {
+            currentTarget.altitude = incomingMsg.waypoint.altitude / 100.0;
+        } else {
+            currentTarget.altitude = NAN;
+        }
+    }
+    
+    if(incomingMsg.has_home_base) {
+        homeBase.timestamp = now;
+        
+        homeBase.latitude = incomingMsg.home_base.latitude;
+        homeBase.longitude = incomingMsg.home_base.longitude;
+        if(incomingMsg.home_base.has_altitude) {
+            homeBase.altitude = incomingMsg.home_base.altitude / 100.0;
+        } else {
+            homeBase.altitude = NAN;
+        }
+    }
+    
+    if(incomingMsg.has_new_mode) {
+        currentFlightMode = incomingMsg.new_mode;
     }
 }
 
@@ -324,16 +378,16 @@ void commsCheckAndSendTelemetry(void) {
     //Check if the serial buffer is empty, we should sens a new msg
     //and the last transmission has been acked (disreagars the ack check if more than one second has passed since the last transmission
     if(uartReadyTx[XBEE_UART] && (now - lastTxTime > telemetryDelay) && (lastTxAcked || now - lastTxTime > 1000)) {
-        if(!createProtobuf(telemetry, &telemetryLength)) {
+        if(createProtobuf(telemetry, &telemetryLength)) {
+            #ifdef COMMS_DEBUG
+            printf("Creating protobuf failed @ %i\r\n", __LINE__);
+            #endif
+            return;
+        } else {
             xBeeSendPayload(messageBuffer, telemetryLength, false, 0xAB);
             lastTxAcked = FALSE;
             lastTxTime = now;
         }
-        #ifdef COMMS_DEBUG
-        else {
-            printf("Creating protobuf failed @ %i\r\n", __LINE__);
-        }
-        #endif
     }
 }
 
@@ -342,14 +396,18 @@ void commsCheckAndSendLogging(void) {
     
     //Check if the serial buffer is empty
     if(uartReadyTx[RASPI_UART]) {
-        if(!createProtobuf(logging, &loggingLength)) {
+        if(createProtobuf(logging, &loggingLength)) {
             //Nonzero return code indicates failure
             #ifdef COMMS_DEBUG
             printf("Creating protobuf failed @ %i\r\n", __LINE__);
             #endif
             return;
         }
-        //If we get here creating the protobuf succeeded. Put the length in the buffer first, then the message
+        //If we get here creating the protobuf succeeded. Put the magic number in the buffer first, then the length, then the message
+        uartAddToTxBuffer(RASPI_UART, 0xCA);
+        uartAddToTxBuffer(RASPI_UART, 0xFE);
+        uartAddToTxBuffer(RASPI_UART, 0xBA);
+        uartAddToTxBuffer(RASPI_UART, 0xBE);
         uartAddToTxBuffer(RASPI_UART, loggingLength);
         
         u08 checksum = 0;

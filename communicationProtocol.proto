@@ -15,8 +15,8 @@ message DroneMessage {
 		optional int32 timestamp = 20;
 		optional int32 real_time = 21;
 	
-		required sint32 latitude = 22;
-		required sint32 longitude = 23;
+		required float latitude = 22;
+		required float longitude = 23;
 		optional int32 altitude = 24;
 	}
 	
@@ -60,9 +60,9 @@ message DroneMessage {
 	}
 	
 	message CommandSet {
-		required sint32 yaw = 80;
-		required sint32 pitch = 81;
-		required sint32 roll = 82;
+		required int32 yaw = 80;
+		required int32 pitch = 81;
+		required int32 thrust = 82;
 	}
 	
 	optional FlightMode current_mode = 1;
@@ -74,13 +74,13 @@ message DroneMessage {
 	optional ThreeDimensionalData gyro_raw = 6;
 	optional ThreeDimensionalData mag_raw = 7;
 	optional ThreeDimensionalData accel_raw = 8;
-	
 	optional BatteryData current_battery_data = 9;
+	optional CommandSet output_command_set = 10;
 	
 	//Now the "input" messages
 	optional Position waypoint = 12;
 	optional Position home_base = 13;
 	optional float sea_level_pressure = 14;
-	optional CommandSet command_set = 15;
+	optional CommandSet input_command_set = 15;
 	optional FlightMode new_mode = 16;
 }
