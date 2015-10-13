@@ -2,40 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="084ecefe-e36b-42fb-b818-2d0223c0e14e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/ArtificialHorizon$1$1.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/ArtificialHorizon$1$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/ArtificialHorizon$1$2.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/ArtificialHorizon$1$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/ArtificialHorizon$1$3.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/ArtificialHorizon$1$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/ArtificialHorizon$1.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/ArtificialHorizon$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/ArtificialHorizon.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/ArtificialHorizon.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$1.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$1.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$Attitude$1.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$Attitude$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$Attitude$Builder.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$Attitude$Builder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$Attitude.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$Attitude.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$BaroData$1.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$BaroData$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$BaroData$Builder.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$BaroData$Builder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$BaroData.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$BaroData.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$Builder.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$Builder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$CommandSet$1.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$CommandSet$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$CommandSet$Builder.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$CommandSet$Builder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$CommandSet.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$CommandSet.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$CommandSetOrBuilder.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$CommandSetOrBuilder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$FlightMode$1.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$FlightMode$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$FlightMode.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$FlightMode.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$Position$1.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$Position$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$Position$Builder.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$Position$Builder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$Position.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$Position.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$PositionOrBuilder.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$PositionOrBuilder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$ThreeDimensionalData$1.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$ThreeDimensionalData$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$ThreeDimensionalData$Builder.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$ThreeDimensionalData$Builder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$ThreeDimensionalData.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$ThreeDimensionalData.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$Velocity$1.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$Velocity$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$Velocity$Builder.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$Velocity$Builder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$Velocity.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage$Velocity.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessage.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessageOrBuilder.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol$DroneMessageOrBuilder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol.class" afterPath="$PROJECT_DIR$/out/production/telemetryReceiver/de/lhtechnologies/CommunicationProtocol.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Drone Control/Drone Control/AppDelegate.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Drone Control/Drone Control/AppDelegate.m" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Drone Control/Drone Control/Assets.xcassets/AppIcon.appiconset/Contents.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Drone Control/Drone Control.xcodeproj/xcuserdata/ludger.xcuserdatad/xcschemes/Drone Control.xcscheme" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Drone Control/Drone Control/Info.plist" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Drone Control/Drone Control/Base.lproj/Main.storyboard" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Drone Control/Drone Control/ViewController.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Drone Control/Drone Control/ViewController.m" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Drone Control/Drone Control.xcodeproj/project.xcworkspace/contents.xcworkspacedata" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Drone Control/Drone Control/main.m" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Drone Control/Drone Control.xcodeproj/project.pbxproj" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Drone Control/Drone Control.xcodeproj/xcuserdata/ludger.xcuserdatad/xcschemes/xcschememanagement.plist" />
     </list>
     <ignored path="telemetryReceiver.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -82,8 +60,8 @@
       <file leaf-file-name="CommunicationProtocol.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/de/lhtechnologies/CommunicationProtocol.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6496063">
-              <caret line="34" column="84" selection-start-line="34" selection-start-column="84" selection-end-line="34" selection-end-column="84" />
+            <state vertical-scroll-proportion="0.34948742">
+              <caret line="59" column="7" selection-start-line="59" selection-start-column="7" selection-end-line="59" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -150,7 +128,6 @@
     <panes>
       <pane id="Scope" />
       <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -203,6 +180,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -283,28 +261,28 @@
     <frame x="0" y="23" width="1920" height="1173" extended-state="6" />
     <editor active="false" />
     <layout>
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19114584" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32243416" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32931355" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32931355" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2824705" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19114584" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39981446" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32243416" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2824705" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32931355" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39981446" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -342,7 +320,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="1262" column="31" selection-start-line="1262" selection-start-column="23" selection-end-line="1262" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -350,7 +327,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="28" column="30" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -381,7 +357,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -389,7 +364,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="82" column="36" selection-start-line="82" selection-start-column="36" selection-end-line="82" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -414,7 +388,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="1262" column="31" selection-start-line="1262" selection-start-column="23" selection-end-line="1262" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -422,7 +395,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="28" column="30" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -453,7 +425,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -461,7 +432,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="82" column="36" selection-start-line="82" selection-start-column="36" selection-end-line="82" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -486,7 +456,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="1262" column="31" selection-start-line="1262" selection-start-column="23" selection-end-line="1262" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -494,7 +463,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="28" column="30" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -525,7 +493,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -533,7 +500,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="82" column="36" selection-start-line="82" selection-start-column="36" selection-end-line="82" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -558,7 +524,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="1262" column="31" selection-start-line="1262" selection-start-column="23" selection-end-line="1262" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -566,7 +531,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="28" column="30" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -597,7 +561,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -605,7 +568,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="82" column="36" selection-start-line="82" selection-start-column="36" selection-end-line="82" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -652,7 +614,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="82" column="36" selection-start-line="82" selection-start-column="36" selection-end-line="82" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -660,7 +621,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="1262" column="31" selection-start-line="1262" selection-start-column="23" selection-end-line="1262" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -668,7 +628,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="28" column="30" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -683,7 +642,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -699,7 +657,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="79" column="13" selection-start-line="79" selection-start-column="13" selection-end-line="79" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -730,8 +687,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/de/lhtechnologies/CommunicationProtocol.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6496063">
-          <caret line="34" column="84" selection-start-line="34" selection-start-column="84" selection-end-line="34" selection-end-column="84" />
+        <state vertical-scroll-proportion="0.34948742">
+          <caret line="59" column="7" selection-start-line="59" selection-start-column="7" selection-end-line="59" selection-end-column="7" />
           <folding />
         </state>
       </provider>
