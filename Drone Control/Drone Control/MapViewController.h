@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  MapViewController.h
 //  Drone Control
 //
 //  Created by Ludger Heide on 13.10.15.
@@ -7,9 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <MapKit/MapKit.h>
 
-@interface ViewController : NSViewController
 
+@interface MapViewController : NSViewController
 
 @end
-
