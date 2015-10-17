@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -691,15 +692,97 @@
         <scene sceneID="7R5-O1-rZf">
             <objects>
                 <viewController id="xOD-sX-6Bq" customClass="PFDViewController" sceneMemberID="viewController">
-                    <view key="view" id="OeJ-i3-gy1" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                    <view key="view" id="OeJ-i3-gy1">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="336"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="OuM-J1-krQ">
+                                <rect key="frame" x="0.0" y="0.0" width="67" height="336"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="OuM-J1-krQ" secondAttribute="height" multiplier="1:5" id="2qx-qQ-Hss"/>
+                                </constraints>
+                                <animations/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="WuJ-ch-loz"/>
+                            </imageView>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I1N-SG-Asf">
+                                <rect key="frame" x="67" y="0.0" width="316" height="311"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="I1N-SG-Asf" secondAttribute="height" multiplier="1:1" id="fUw-j6-PcU"/>
+                                </constraints>
+                                <animations/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="foR-Ru-kCy"/>
+                            </imageView>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="lKG-sb-8An">
+                                <rect key="frame" x="383" y="0.0" width="67" height="336"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="lKG-sb-8An" secondAttribute="height" multiplier="1:5" id="KC6-5U-f9W"/>
+                                </constraints>
+                                <animations/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="9sV-LQ-aXq"/>
+                            </imageView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PbC-gU-vYG">
+                                <rect key="frame" x="0.0" y="155" width="67" height="25"/>
+                                <animations/>
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" title="999" drawsBackground="YES" id="M7a-fe-XLO">
+                                    <font key="font" size="16" name="Monaco"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yZP-Wy-om5">
+                                <rect key="frame" x="383" y="155" width="67" height="25"/>
+                                <animations/>
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" title="999" drawsBackground="YES" id="YtD-QI-22r">
+                                    <font key="font" size="16" name="Monaco"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JqQ-GL-SOX">
+                                <rect key="frame" x="67" y="316" width="316" height="20"/>
+                                <animations/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" drawsBackground="YES" id="C4b-0v-pcn">
+                                    <font key="font" size="16" name="Monaco"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="yZP-Wy-om5" secondAttribute="trailing" id="3wn-Iz-beY"/>
+                            <constraint firstItem="OuM-J1-krQ" firstAttribute="top" secondItem="OeJ-i3-gy1" secondAttribute="top" id="8Ej-li-bvQ"/>
+                            <constraint firstAttribute="bottom" secondItem="lKG-sb-8An" secondAttribute="bottom" id="IYt-GB-kle"/>
+                            <constraint firstItem="lKG-sb-8An" firstAttribute="leading" secondItem="I1N-SG-Asf" secondAttribute="trailing" id="Jti-Hy-QiH"/>
+                            <constraint firstItem="yZP-Wy-om5" firstAttribute="leading" secondItem="I1N-SG-Asf" secondAttribute="trailing" id="KYe-x9-sZA"/>
+                            <constraint firstItem="I1N-SG-Asf" firstAttribute="leading" secondItem="OuM-J1-krQ" secondAttribute="trailing" id="Pbw-Y5-iuB"/>
+                            <constraint firstItem="PbC-gU-vYG" firstAttribute="leading" secondItem="OeJ-i3-gy1" secondAttribute="leading" id="aA9-J9-2LU"/>
+                            <constraint firstItem="lKG-sb-8An" firstAttribute="top" secondItem="OeJ-i3-gy1" secondAttribute="top" id="aHj-7l-EdE"/>
+                            <constraint firstAttribute="bottom" secondItem="I1N-SG-Asf" secondAttribute="bottom" id="f9Q-jE-epL"/>
+                            <constraint firstAttribute="trailing" secondItem="lKG-sb-8An" secondAttribute="trailing" id="fqv-5h-mwm"/>
+                            <constraint firstItem="lKG-sb-8An" firstAttribute="leading" secondItem="JqQ-GL-SOX" secondAttribute="trailing" id="gSi-ZF-KXo"/>
+                            <constraint firstItem="I1N-SG-Asf" firstAttribute="leading" secondItem="PbC-gU-vYG" secondAttribute="trailing" id="hHw-wI-c5z"/>
+                            <constraint firstAttribute="bottom" secondItem="OuM-J1-krQ" secondAttribute="bottom" id="i93-8G-z6f"/>
+                            <constraint firstItem="yZP-Wy-om5" firstAttribute="centerY" secondItem="OeJ-i3-gy1" secondAttribute="centerY" id="kLi-xw-GyU"/>
+                            <constraint firstItem="PbC-gU-vYG" firstAttribute="centerY" secondItem="OeJ-i3-gy1" secondAttribute="centerY" id="mR2-RC-cr4"/>
+                            <constraint firstItem="JqQ-GL-SOX" firstAttribute="top" secondItem="OeJ-i3-gy1" secondAttribute="top" id="qsw-Cz-WJW"/>
+                            <constraint firstItem="JqQ-GL-SOX" firstAttribute="leading" secondItem="OuM-J1-krQ" secondAttribute="trailing" id="xNP-cv-6eA"/>
+                            <constraint firstItem="OuM-J1-krQ" firstAttribute="leading" secondItem="OeJ-i3-gy1" secondAttribute="leading" id="y3t-ap-vc6"/>
+                            <constraint firstItem="I1N-SG-Asf" firstAttribute="top" secondItem="JqQ-GL-SOX" secondAttribute="bottom" id="z7n-Xj-P0O"/>
+                        </constraints>
                         <animations/>
                     </view>
+                    <connections>
+                        <outlet property="label_Altitude" destination="YtD-QI-22r" id="HZH-Bz-vPa"/>
+                        <outlet property="label_Speed" destination="PbC-gU-vYG" id="29Z-7h-rSk"/>
+                        <outlet property="label_heading" destination="JqQ-GL-SOX" id="pIv-Sj-Atb"/>
+                        <outlet property="view_altitudeTape" destination="lKG-sb-8An" id="mQY-Lj-dOR"/>
+                        <outlet property="view_horizon" destination="I1N-SG-Asf" id="bFX-hX-fJd"/>
+                        <outlet property="view_speedTape" destination="OuM-J1-krQ" id="GGD-MD-GDa"/>
+                    </connections>
                 </viewController>
                 <customObject id="kRK-5n-b7V" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="730" y="438"/>
+            <point key="canvasLocation" x="730" y="420"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="7Hj-I6-KgI">

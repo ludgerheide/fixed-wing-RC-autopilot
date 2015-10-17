@@ -15,7 +15,6 @@
 		E41538FB1BCD19900059E75F /* ForceFeedback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E41538FA1BCD19900059E75F /* ForceFeedback.framework */; };
 		E41539041BCD2E010059E75F /* Xbox360Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = E41539001BCD2E010059E75F /* Xbox360Controller.m */; settings = {ASSET_TAGS = (); }; };
 		E41539051BCD2E010059E75F /* Xbox360ControllerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E41539031BCD2E010059E75F /* Xbox360ControllerManager.m */; settings = {ASSET_TAGS = (); }; };
-		E4224F9C1BD15379001A9307 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4224F9B1BD15379001A9307 /* SpriteKit.framework */; };
 		E4283A621BD1590D00B33195 /* SplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4283A611BD1590D00B33195 /* SplitViewController.m */; settings = {ASSET_TAGS = (); }; };
 		E4D6B7FA1BCD461B00D9FCF0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4D6B7F91BCD461B00D9FCF0 /* MapKit.framework */; };
 		E4D6B8001BCD471000D9FCF0 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D6B7FF1BCD471000D9FCF0 /* MapViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -53,7 +52,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4224F9C1BD15379001A9307 /* SpriteKit.framework in Frameworks */,
 				E4D6B7FA1BCD461B00D9FCF0 /* MapKit.framework in Frameworks */,
 				E41538FB1BCD19900059E75F /* ForceFeedback.framework in Frameworks */,
 				E41538F91BCD198A0059E75F /* IOKit.framework in Frameworks */,
@@ -85,12 +83,12 @@
 				E41538FE1BCD2DF50059E75F /* Xbox360ControllerManager */,
 				E41538E21BCD18BC0059E75F /* AppDelegate.h */,
 				E41538E31BCD18BC0059E75F /* AppDelegate.m */,
+				E4283A601BD1590D00B33195 /* SplitViewController.h */,
+				E4283A611BD1590D00B33195 /* SplitViewController.m */,
 				E4D6B7FE1BCD471000D9FCF0 /* MapViewController.h */,
 				E4D6B7FF1BCD471000D9FCF0 /* MapViewController.m */,
 				E4D6B8211BCD494600D9FCF0 /* PFDViewController.h */,
 				E4D6B8221BCD494600D9FCF0 /* PFDViewController.m */,
-				E4283A601BD1590D00B33195 /* SplitViewController.h */,
-				E4283A611BD1590D00B33195 /* SplitViewController.m */,
 				E41538EB1BCD18BC0059E75F /* Assets.xcassets */,
 				E41538ED1BCD18BC0059E75F /* Main.storyboard */,
 				E41538F01BCD18BC0059E75F /* Info.plist */,

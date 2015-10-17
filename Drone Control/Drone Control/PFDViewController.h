@@ -7,8 +7,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <SpriteKit/SpriteKit.h>
 
 @interface PFDViewController : NSViewController
+
+@property (nonatomic) NSNumber* speed;
+@property (nonatomic) NSNumber* altitude;
+@property (nonatomic) NSNumber* pitch;
+@property (nonatomic) NSNumber* roll;
+@property (nonatomic) NSNumber* heading;
 
 @end
