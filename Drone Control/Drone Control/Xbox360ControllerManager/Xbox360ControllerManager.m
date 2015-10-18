@@ -124,10 +124,10 @@ static Xbox360ControllerManager *sharedXbox360ControllerManager = nil;
         BOOL deviceWired = IOObjectConformsTo(hidDevice, "Xbox360ControllerClass");
         BOOL deviceWireless = IOObjectConformsTo(hidDevice, "WirelessHIDDevice");
 
-		io_name_t className;
-		IOReturn ioReturnValue = kIOReturnSuccess;
-		ioReturnValue = IOObjectGetClass(hidDevice, className);
-		NSLog(@"%s",className);
+//		io_name_t className;
+//		IOReturn ioReturnValue = kIOReturnSuccess;
+//		ioReturnValue = IOObjectGetClass(hidDevice, className);
+//		NSLog(@"%s",className);
 		
         if ((!deviceWired) && (!deviceWireless))
         {
