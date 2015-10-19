@@ -21,7 +21,7 @@
 
 @interface CommsModel : NSObject <ORSSerialPortDelegate>
 
-@property id<attitudeDelegate> attitudeDelegate;
-@property id<positionDelegate> positionDelegate;
+@property (weak) id<attitudeDelegate> attitudeDelegate;
+@property (weak) id<positionDelegate> positionDelegate;
 
 @end
