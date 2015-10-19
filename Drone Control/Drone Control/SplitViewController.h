@@ -7,7 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "CommsModel.h"
 
-@interface SplitViewController : NSSplitViewController
+@interface SplitViewController : NSSplitViewController <attitudeDelegate, positionDelegate>
 
 @end

@@ -13,12 +13,25 @@
 @end
 
 @implementation MapViewController
+{
+    MKMapView* myMapView;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
-    MKMapView* myMapView = (MKMapView*) self.view;
-    [myMapView setMapType: MKMapTypeHybrid];
+    myMapView = (MKMapView*) self.view;
+    myMapView.mapType = MKMapTypeHybridFlyover;
+    myMapView.scrollEnabled = NO;
+    myMapView.pitchEnabled = NO;
+}
+
+-(void)updateMapWithLatitude: (NSNumber*) latitude longitude: (NSNumber*) longitude {
+    CLLocationCoordinate2D coords;
+    coords.latitude = latitude.doubleValue;
+    coords.longitude = longitude.doubleValue;
+    
+    myMapView.centerCoordinate = coords;
 }
 
 @end

@@ -7,13 +7,16 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "CommsModel.h"
 
-@interface PFDViewController : NSViewController
+@interface PFDViewController : NSViewController;
 
 @property (nonatomic) NSNumber* speed;
 @property (nonatomic) NSNumber* altitude;
 @property (nonatomic) NSNumber* pitch;
 @property (nonatomic) NSNumber* roll;
 @property (nonatomic) NSNumber* heading;
+
+- (void) updateHorizon;
 
 @end

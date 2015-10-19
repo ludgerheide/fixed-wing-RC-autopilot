@@ -51,26 +51,14 @@
 }
 
 @synthesize pitch;
-
--(void) setPitch: (NSNumber*) thePitch {
-    pitch = thePitch;
-    [self updateHorizon];
-}
-
 @synthesize roll;
-
--(void) setRoll: (NSNumber*) theRoll {
-    roll = theRoll;
-    [self updateHorizon];
-}
 
 @synthesize heading;
 
 -(void) setHeading: (NSNumber*) theHeading {
 heading = theHeading;
-[self updateHorizon];
+[self updateHeading];
 }
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -269,12 +257,6 @@ heading = theHeading;
 }
 
 - (void) viewDidLayout {
-    speed = [NSNumber numberWithDouble: 56];
-    altitude = [NSNumber numberWithDouble: 34];
-    pitch = [NSNumber numberWithDouble: -20];
-    roll = [NSNumber numberWithDouble: -20];
-    heading = [NSNumber numberWithFloat: 10];
-    
     [self updateSpeedTape];
     [self updateAltitudeTape];
     [self updateHorizon];

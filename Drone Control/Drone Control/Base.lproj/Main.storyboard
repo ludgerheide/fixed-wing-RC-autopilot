@@ -696,7 +696,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="450" height="336"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="OuM-J1-krQ">
+                            <imageView canDrawConcurrently="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="OuM-J1-krQ">
                                 <rect key="frame" x="0.0" y="0.0" width="67" height="336"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="OuM-J1-krQ" secondAttribute="height" multiplier="1:5" id="2qx-qQ-Hss"/>
@@ -704,15 +704,15 @@
                                 <animations/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="WuJ-ch-loz"/>
                             </imageView>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I1N-SG-Asf">
-                                <rect key="frame" x="67" y="0.0" width="316" height="311"/>
+                            <imageView canDrawConcurrently="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="I1N-SG-Asf">
+                                <rect key="frame" x="67" y="0.0" width="316" height="316"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="I1N-SG-Asf" secondAttribute="height" multiplier="1:1" id="fUw-j6-PcU"/>
                                 </constraints>
                                 <animations/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="foR-Ru-kCy"/>
                             </imageView>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="lKG-sb-8An">
+                            <imageView canDrawConcurrently="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="lKG-sb-8An">
                                 <rect key="frame" x="383" y="0.0" width="67" height="336"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="lKG-sb-8An" secondAttribute="height" multiplier="1:5" id="KC6-5U-f9W"/>

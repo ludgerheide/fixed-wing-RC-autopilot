@@ -12,4 +12,6 @@
 
 @interface MapViewController : NSViewController
 
+-(void)updateMapWithLatitude: (NSNumber*) latitude longitude: (NSNumber*) longitude;
+
 @end

@@ -16,6 +16,10 @@
 		E41539041BCD2E010059E75F /* Xbox360Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = E41539001BCD2E010059E75F /* Xbox360Controller.m */; settings = {ASSET_TAGS = (); }; };
 		E41539051BCD2E010059E75F /* Xbox360ControllerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E41539031BCD2E010059E75F /* Xbox360ControllerManager.m */; settings = {ASSET_TAGS = (); }; };
 		E4283A621BD1590D00B33195 /* SplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4283A611BD1590D00B33195 /* SplitViewController.m */; settings = {ASSET_TAGS = (); }; };
+		E43B3F0D1BD425C800D0C2F3 /* XBeeMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = E43B3F091BD425C800D0C2F3 /* XBeeMessage.m */; settings = {ASSET_TAGS = (); }; };
+		E43B3F351BD4262400D0C2F3 /* libProtocolBuffers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E43B3F341BD4262400D0C2F3 /* libProtocolBuffers.a */; };
+		E43B3F381BD4264400D0C2F3 /* CommunicationProtocol.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = E43B3F371BD4264400D0C2F3 /* CommunicationProtocol.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E43B3F3B1BD42C3800D0C2F3 /* CommsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E43B3F3A1BD42C3800D0C2F3 /* CommsModel.m */; settings = {ASSET_TAGS = (); }; };
 		E4D0CD071BD3B4F6001F552D /* ORSSerialBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D0CCFE1BD3B4F6001F552D /* ORSSerialBuffer.m */; settings = {ASSET_TAGS = (); }; };
 		E4D0CD081BD3B4F6001F552D /* ORSSerialPacketDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D0CD001BD3B4F6001F552D /* ORSSerialPacketDescriptor.m */; settings = {ASSET_TAGS = (); }; };
 		E4D0CD091BD3B4F6001F552D /* ORSSerialPort.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D0CD021BD3B4F6001F552D /* ORSSerialPort.m */; settings = {ASSET_TAGS = (); }; };
@@ -44,6 +48,46 @@
 		E4224F9B1BD15379001A9307 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		E4283A601BD1590D00B33195 /* SplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplitViewController.h; sourceTree = "<group>"; };
 		E4283A611BD1590D00B33195 /* SplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplitViewController.m; sourceTree = "<group>"; };
+		E43B3F091BD425C800D0C2F3 /* XBeeMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XBeeMessage.m; sourceTree = "<group>"; };
+		E43B3F0B1BD425C800D0C2F3 /* XBeeMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XBeeMessage.h; sourceTree = "<group>"; };
+		E43B3F111BD425F300D0C2F3 /* GPBArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GPBArray.h; path = Protobuf/GPBArray.h; sourceTree = "<group>"; };
+		E43B3F121BD425F300D0C2F3 /* GPBBootstrap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GPBBootstrap.h; path = Protobuf/GPBBootstrap.h; sourceTree = "<group>"; };
+		E43B3F131BD425F300D0C2F3 /* GPBCodedInputStream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GPBCodedInputStream.h; path = Protobuf/GPBCodedInputStream.h; sourceTree = "<group>"; };
+		E43B3F141BD425F300D0C2F3 /* GPBCodedOutputStream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GPBCodedOutputStream.h; path = Protobuf/GPBCodedOutputStream.h; sourceTree = "<group>"; };
+		E43B3F151BD425F300D0C2F3 /* GPBDescriptor_PackagePrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GPBDescriptor_PackagePrivate.h; path = Protobuf/GPBDescriptor_PackagePrivate.h; sourceTree = "<group>"; };
+		E43B3F161BD425F300D0C2F3 /* GPBDescriptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GPBDescriptor.h; path = Protobuf/GPBDescriptor.h; sourceTree = "<group>"; };
+		E43B3F171BD425F300D0C2F3 /* GPBDictionary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GPBDictionary.h; path = Protobuf/GPBDictionary.h; sourceTree = "<group>"; };
+		E43B3F181BD425F300D0C2F3 /* GPBExtensionInternals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GPBExtensionInternals.h; path = Protobuf/GPBExtensionInternals.h; sourceTree = "<group>"; };
+		E43B3F191BD425F300D0C2F3 /* GPBExtensionRegistry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GPBExtensionRegistry.h; path = Protobuf/GPBExtensionRegistry.h; sourceTree = "<group>"; };
+		E43B3F1A1BD425F300D0C2F3 /* GPBMessage_PackagePrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GPBMessage_PackagePrivate.h; path = Protobuf/GPBMessage_PackagePrivate.h; sourceTree = "<group>"; };
+		E43B3F1B1BD425F300D0C2F3 /* GPBMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GPBMessage.h; path = Protobuf/GPBMessage.h; sourceTree = "<group>"; };
+		E43B3F1C1BD425F300D0C2F3 /* GPBProtocolBuffers_RuntimeSupport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GPBProtocolBuffers_RuntimeSupport.h; path = Protobuf/GPBProtocolBuffers_RuntimeSupport.h; sourceTree = "<group>"; };
+		E43B3F1D1BD425F300D0C2F3 /* GPBProtocolBuffers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GPBProtocolBuffers.h; path = Protobuf/GPBProtocolBuffers.h; sourceTree = "<group>"; };
+		E43B3F1E1BD425F300D0C2F3 /* GPBRootObject_PackagePrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GPBRootObject_PackagePrivate.h; path = Protobuf/GPBRootObject_PackagePrivate.h; sourceTree = "<group>"; };
+		E43B3F1F1BD425F300D0C2F3 /* GPBRootObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GPBRootObject.h; path = Protobuf/GPBRootObject.h; sourceTree = "<group>"; };
+		E43B3F201BD425F300D0C2F3 /* GPBRuntimeTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GPBRuntimeTypes.h; path = Protobuf/GPBRuntimeTypes.h; sourceTree = "<group>"; };
+		E43B3F211BD425F300D0C2F3 /* GPBUnknownField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GPBUnknownField.h; path = Protobuf/GPBUnknownField.h; sourceTree = "<group>"; };
+		E43B3F221BD425F300D0C2F3 /* GPBUnknownFieldSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GPBUnknownFieldSet.h; path = Protobuf/GPBUnknownFieldSet.h; sourceTree = "<group>"; };
+		E43B3F231BD425F300D0C2F3 /* GPBUtilities_PackagePrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GPBUtilities_PackagePrivate.h; path = Protobuf/GPBUtilities_PackagePrivate.h; sourceTree = "<group>"; };
+		E43B3F241BD425F300D0C2F3 /* GPBUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GPBUtilities.h; path = Protobuf/GPBUtilities.h; sourceTree = "<group>"; };
+		E43B3F251BD425F300D0C2F3 /* GPBWellKnownTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GPBWellKnownTypes.h; path = Protobuf/GPBWellKnownTypes.h; sourceTree = "<group>"; };
+		E43B3F261BD425F300D0C2F3 /* GPBWireFormat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GPBWireFormat.h; path = Protobuf/GPBWireFormat.h; sourceTree = "<group>"; };
+		E43B3F291BD4260500D0C2F3 /* Any.pbobjc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Any.pbobjc.h; path = Protobuf/google/protobuf/Any.pbobjc.h; sourceTree = "<group>"; };
+		E43B3F2A1BD4260500D0C2F3 /* Api.pbobjc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Api.pbobjc.h; path = Protobuf/google/protobuf/Api.pbobjc.h; sourceTree = "<group>"; };
+		E43B3F2B1BD4260500D0C2F3 /* Descriptor.pbobjc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Descriptor.pbobjc.h; path = Protobuf/google/protobuf/Descriptor.pbobjc.h; sourceTree = "<group>"; };
+		E43B3F2C1BD4260500D0C2F3 /* Duration.pbobjc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Duration.pbobjc.h; path = Protobuf/google/protobuf/Duration.pbobjc.h; sourceTree = "<group>"; };
+		E43B3F2D1BD4260500D0C2F3 /* Empty.pbobjc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Empty.pbobjc.h; path = Protobuf/google/protobuf/Empty.pbobjc.h; sourceTree = "<group>"; };
+		E43B3F2E1BD4260500D0C2F3 /* FieldMask.pbobjc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FieldMask.pbobjc.h; path = Protobuf/google/protobuf/FieldMask.pbobjc.h; sourceTree = "<group>"; };
+		E43B3F2F1BD4260500D0C2F3 /* SourceContext.pbobjc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SourceContext.pbobjc.h; path = Protobuf/google/protobuf/SourceContext.pbobjc.h; sourceTree = "<group>"; };
+		E43B3F301BD4260500D0C2F3 /* Struct.pbobjc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Struct.pbobjc.h; path = Protobuf/google/protobuf/Struct.pbobjc.h; sourceTree = "<group>"; };
+		E43B3F311BD4260500D0C2F3 /* Timestamp.pbobjc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Timestamp.pbobjc.h; path = Protobuf/google/protobuf/Timestamp.pbobjc.h; sourceTree = "<group>"; };
+		E43B3F321BD4260500D0C2F3 /* Type.pbobjc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Type.pbobjc.h; path = Protobuf/google/protobuf/Type.pbobjc.h; sourceTree = "<group>"; };
+		E43B3F331BD4260500D0C2F3 /* Wrappers.pbobjc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Wrappers.pbobjc.h; path = Protobuf/google/protobuf/Wrappers.pbobjc.h; sourceTree = "<group>"; };
+		E43B3F341BD4262400D0C2F3 /* libProtocolBuffers.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libProtocolBuffers.a; path = Protobuf/libProtocolBuffers.a; sourceTree = "<group>"; };
+		E43B3F361BD4264400D0C2F3 /* CommunicationProtocol.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunicationProtocol.pbobjc.h; sourceTree = "<group>"; };
+		E43B3F371BD4264400D0C2F3 /* CommunicationProtocol.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunicationProtocol.pbobjc.m; sourceTree = "<group>"; };
+		E43B3F391BD42C3800D0C2F3 /* CommsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommsModel.h; sourceTree = "<group>"; };
+		E43B3F3A1BD42C3800D0C2F3 /* CommsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommsModel.m; sourceTree = "<group>"; };
 		E4D0CCFD1BD3B4F6001F552D /* ORSSerialBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORSSerialBuffer.h; sourceTree = "<group>"; };
 		E4D0CCFE1BD3B4F6001F552D /* ORSSerialBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORSSerialBuffer.m; sourceTree = "<group>"; };
 		E4D0CCFF1BD3B4F6001F552D /* ORSSerialPacketDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORSSerialPacketDescriptor.h; sourceTree = "<group>"; };
@@ -67,6 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E43B3F351BD4262400D0C2F3 /* libProtocolBuffers.a in Frameworks */,
 				E4D6B7FA1BCD461B00D9FCF0 /* MapKit.framework in Frameworks */,
 				E41538FB1BCD19900059E75F /* ForceFeedback.framework in Frameworks */,
 				E41538F91BCD198A0059E75F /* IOKit.framework in Frameworks */,
@@ -95,16 +140,18 @@
 		E41538E11BCD18BC0059E75F /* Drone Control */ = {
 			isa = PBXGroup;
 			children = (
+				E43B3F0F1BD425D400D0C2F3 /* Protobuf */,
 				E4D0CCFC1BD3B4F6001F552D /* ORSSerial */,
 				E41538FE1BCD2DF50059E75F /* Xbox360ControllerManager */,
+				E43B3F101BD425DB00D0C2F3 /* View Controllers */,
 				E41538E21BCD18BC0059E75F /* AppDelegate.h */,
 				E41538E31BCD18BC0059E75F /* AppDelegate.m */,
-				E4283A601BD1590D00B33195 /* SplitViewController.h */,
-				E4283A611BD1590D00B33195 /* SplitViewController.m */,
-				E4D6B7FE1BCD471000D9FCF0 /* MapViewController.h */,
-				E4D6B7FF1BCD471000D9FCF0 /* MapViewController.m */,
-				E4D6B8211BCD494600D9FCF0 /* PFDViewController.h */,
-				E4D6B8221BCD494600D9FCF0 /* PFDViewController.m */,
+				E43B3F391BD42C3800D0C2F3 /* CommsModel.h */,
+				E43B3F3A1BD42C3800D0C2F3 /* CommsModel.m */,
+				E43B3F0B1BD425C800D0C2F3 /* XBeeMessage.h */,
+				E43B3F091BD425C800D0C2F3 /* XBeeMessage.m */,
+				E43B3F361BD4264400D0C2F3 /* CommunicationProtocol.pbobjc.h */,
+				E43B3F371BD4264400D0C2F3 /* CommunicationProtocol.pbobjc.m */,
 				E41538EB1BCD18BC0059E75F /* Assets.xcassets */,
 				E41538ED1BCD18BC0059E75F /* Main.storyboard */,
 				E41538F01BCD18BC0059E75F /* Info.plist */,
@@ -136,6 +183,76 @@
 				E41539031BCD2E010059E75F /* Xbox360ControllerManager.m */,
 			);
 			name = Xbox360ControllerManager;
+			sourceTree = "<group>";
+		};
+		E43B3F0F1BD425D400D0C2F3 /* Protobuf */ = {
+			isa = PBXGroup;
+			children = (
+				E43B3F271BD425F600D0C2F3 /* google */,
+				E43B3F111BD425F300D0C2F3 /* GPBArray.h */,
+				E43B3F121BD425F300D0C2F3 /* GPBBootstrap.h */,
+				E43B3F131BD425F300D0C2F3 /* GPBCodedInputStream.h */,
+				E43B3F141BD425F300D0C2F3 /* GPBCodedOutputStream.h */,
+				E43B3F151BD425F300D0C2F3 /* GPBDescriptor_PackagePrivate.h */,
+				E43B3F161BD425F300D0C2F3 /* GPBDescriptor.h */,
+				E43B3F171BD425F300D0C2F3 /* GPBDictionary.h */,
+				E43B3F181BD425F300D0C2F3 /* GPBExtensionInternals.h */,
+				E43B3F191BD425F300D0C2F3 /* GPBExtensionRegistry.h */,
+				E43B3F1A1BD425F300D0C2F3 /* GPBMessage_PackagePrivate.h */,
+				E43B3F1B1BD425F300D0C2F3 /* GPBMessage.h */,
+				E43B3F1C1BD425F300D0C2F3 /* GPBProtocolBuffers_RuntimeSupport.h */,
+				E43B3F1D1BD425F300D0C2F3 /* GPBProtocolBuffers.h */,
+				E43B3F1E1BD425F300D0C2F3 /* GPBRootObject_PackagePrivate.h */,
+				E43B3F1F1BD425F300D0C2F3 /* GPBRootObject.h */,
+				E43B3F201BD425F300D0C2F3 /* GPBRuntimeTypes.h */,
+				E43B3F211BD425F300D0C2F3 /* GPBUnknownField.h */,
+				E43B3F221BD425F300D0C2F3 /* GPBUnknownFieldSet.h */,
+				E43B3F231BD425F300D0C2F3 /* GPBUtilities_PackagePrivate.h */,
+				E43B3F241BD425F300D0C2F3 /* GPBUtilities.h */,
+				E43B3F251BD425F300D0C2F3 /* GPBWellKnownTypes.h */,
+				E43B3F261BD425F300D0C2F3 /* GPBWireFormat.h */,
+			);
+			name = Protobuf;
+			sourceTree = "<group>";
+		};
+		E43B3F101BD425DB00D0C2F3 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E4283A601BD1590D00B33195 /* SplitViewController.h */,
+				E4283A611BD1590D00B33195 /* SplitViewController.m */,
+				E4D6B7FE1BCD471000D9FCF0 /* MapViewController.h */,
+				E4D6B7FF1BCD471000D9FCF0 /* MapViewController.m */,
+				E4D6B8211BCD494600D9FCF0 /* PFDViewController.h */,
+				E4D6B8221BCD494600D9FCF0 /* PFDViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		E43B3F271BD425F600D0C2F3 /* google */ = {
+			isa = PBXGroup;
+			children = (
+				E43B3F341BD4262400D0C2F3 /* libProtocolBuffers.a */,
+				E43B3F281BD425FA00D0C2F3 /* protobuf */,
+			);
+			name = google;
+			sourceTree = "<group>";
+		};
+		E43B3F281BD425FA00D0C2F3 /* protobuf */ = {
+			isa = PBXGroup;
+			children = (
+				E43B3F291BD4260500D0C2F3 /* Any.pbobjc.h */,
+				E43B3F2A1BD4260500D0C2F3 /* Api.pbobjc.h */,
+				E43B3F2B1BD4260500D0C2F3 /* Descriptor.pbobjc.h */,
+				E43B3F2C1BD4260500D0C2F3 /* Duration.pbobjc.h */,
+				E43B3F2D1BD4260500D0C2F3 /* Empty.pbobjc.h */,
+				E43B3F2E1BD4260500D0C2F3 /* FieldMask.pbobjc.h */,
+				E43B3F2F1BD4260500D0C2F3 /* SourceContext.pbobjc.h */,
+				E43B3F301BD4260500D0C2F3 /* Struct.pbobjc.h */,
+				E43B3F311BD4260500D0C2F3 /* Timestamp.pbobjc.h */,
+				E43B3F321BD4260500D0C2F3 /* Type.pbobjc.h */,
+				E43B3F331BD4260500D0C2F3 /* Wrappers.pbobjc.h */,
+			);
+			name = protobuf;
 			sourceTree = "<group>";
 		};
 		E4D0CCFC1BD3B4F6001F552D /* ORSSerial */ = {
@@ -225,17 +342,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				E41539051BCD2E010059E75F /* Xbox360ControllerManager.m in Sources */,
+				E43B3F0D1BD425C800D0C2F3 /* XBeeMessage.m in Sources */,
 				E4D0CD091BD3B4F6001F552D /* ORSSerialPort.m in Sources */,
 				E41539041BCD2E010059E75F /* Xbox360Controller.m in Sources */,
 				E4D0CD071BD3B4F6001F552D /* ORSSerialBuffer.m in Sources */,
 				E4283A621BD1590D00B33195 /* SplitViewController.m in Sources */,
 				E4D0CD0A1BD3B4F6001F552D /* ORSSerialPortManager.m in Sources */,
+				E43B3F3B1BD42C3800D0C2F3 /* CommsModel.m in Sources */,
 				E4D0CD0B1BD3B4F6001F552D /* ORSSerialRequest.m in Sources */,
 				E4D6B8001BCD471000D9FCF0 /* MapViewController.m in Sources */,
 				E41538E71BCD18BC0059E75F /* main.m in Sources */,
 				E4D0CD081BD3B4F6001F552D /* ORSSerialPacketDescriptor.m in Sources */,
 				E4D6B8231BCD494600D9FCF0 /* PFDViewController.m in Sources */,
 				E41538E41BCD18BC0059E75F /* AppDelegate.m in Sources */,
+				E43B3F381BD4264400D0C2F3 /* CommunicationProtocol.pbobjc.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +461,10 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Drone Control/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(PROJECT_DIR)/Drone Control/Protobuf\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "de.lhtechnologies.Drone-Control";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -355,6 +479,10 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Drone Control/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(PROJECT_DIR)/Drone Control/Protobuf\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "de.lhtechnologies.Drone-Control";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
