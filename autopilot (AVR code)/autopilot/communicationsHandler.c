@@ -12,6 +12,7 @@
 #include "pb_encode.h"
 #include "pb_decode.h"
 #include "pb_common.h"
+#include "buffer.h"
 
 #include "nmea.h"
 #include "bmp.h"
@@ -36,7 +37,7 @@ static char messageBuffer[255];
 //As well as limiting the telemetry frequency
 static BOOL lastTxAcked;
 static u32 lastTxTime;
-const static u16 telemetryDelay = 0; //The delay between each telemetry message in milliseconds
+const static u16 telemetryDelay = 500; //The delay between each telemetry message in milliseconds
 
 //These hold the timestamps for the last packets that were
 // a) transmitted over the telemetry
@@ -267,11 +268,15 @@ static u08 createProtobuf(messagePurpose thePurpose, u08* messageLength) {
     bool status = pb_encode(&stream, DroneMessage_fields, &outgoingMsg);
     *messageLength = stream.bytes_written;
     
+    #ifdef COMMS_DEBUG
+    printf("Created message of size %i for purpose %i \r\n", *messageLength, thePurpose);
+    #endif
+    
     /* Then just check for any errors.. */
     if (!status)
     {
         #ifdef COMMS_DEBUG
-        printf("Encoding failed: %s\n", PB_GET_ERROR(&stream));
+        printf("Encoding failed: %s\r\n", PB_GET_ERROR(&stream));
         #endif
         return 1;
     }
@@ -392,7 +397,7 @@ void commsCheckAndSendTelemetry(void) {
 }
 
 void commsCheckAndSendLogging(void) {
-    u08 loggingLength;
+    u08 loggingLength = 0;
     
     //Check if the serial buffer is empty
     if(uartReadyTx[RASPI_UART]) {
@@ -419,6 +424,12 @@ void commsCheckAndSendLogging(void) {
             checksum += messageBuffer[i];
         }
         uartAddToTxBuffer(RASPI_UART, checksum);
+        #ifdef COMMS_DEBUG
+        for(u08 i = 0; i < uartGetTxBuffer(RASPI_UART)->datalength; i++) {
+            printf("%02x ", uartGetTxBuffer(RASPI_UART)->dataptr[i]);
+        }
+        printf("\r\n");
+        #endif
         uartSendTxBuffer(RASPI_UART);
     }
 }
