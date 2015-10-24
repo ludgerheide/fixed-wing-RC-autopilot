@@ -403,11 +403,13 @@ void commsCheckAndSendLogging(void) {
             #endif
             return;
         }
+        
         //If we get here creating the protobuf succeeded. Put the magic number in the buffer first, then the length, then the message
-        uartAddToTxBuffer(RASPI_UART, 0xCA);
-        uartAddToTxBuffer(RASPI_UART, 0xFE);
-        uartAddToTxBuffer(RASPI_UART, 0xBA);
-        uartAddToTxBuffer(RASPI_UART, 0xBE);
+        uartAddToTxBuffer(RASPI_UART, 's');
+        uartAddToTxBuffer(RASPI_UART, 't');
+        uartAddToTxBuffer(RASPI_UART, 'a');
+        uartAddToTxBuffer(RASPI_UART, 'r');
+        uartAddToTxBuffer(RASPI_UART, 't');
         uartAddToTxBuffer(RASPI_UART, loggingLength);
         
         u08 checksum = 0;
