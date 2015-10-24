@@ -58,7 +58,7 @@ void gpsInit(void) {
 
 //Checks if the GPS_UART buffer is ready for an NMEA update
 BOOL gpsCheck(void) {
-    if(newlineCount == numberOfSentences) {
+    if(newlineCount >= numberOfSentences) {
         return TRUE;
     } else {
         return FALSE;
@@ -67,7 +67,7 @@ BOOL gpsCheck(void) {
 
 //Calls the NMEA parser and updates the struct
 void gpsUpdate(void) {
-    assert(newlineCount == numberOfSentences);
+    assert(newlineCount >= numberOfSentences);
     
     //We have to call process() twice, once for the GGA, once for the VTG
     nmeaProcess(uartGetRxBuffer(GPS_UART));
@@ -98,9 +98,8 @@ void gpsRxHandler(unsigned char c) {
             bufferAddToEnd(serialRxBuffer, c);
         }
     }
-    
     //check if the character was a '\n'
-    if(c == '\n') {
+    else if(c == '\n') {
         //If the last message received was a GGA, this is the end of the corresponding VTG.
         // Discard it to resynchronize
         if(lastMessageReceived == NMEA_GPGGA) {
