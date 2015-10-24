@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E40AF0071BD5824200A4009C /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E40AF0061BD5824200A4009C /* CoreImage.framework */; };
 		E41538E41BCD18BC0059E75F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E41538E31BCD18BC0059E75F /* AppDelegate.m */; };
 		E41538E71BCD18BC0059E75F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E41538E61BCD18BC0059E75F /* main.m */; };
 		E41538EC1BCD18BC0059E75F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E41538EB1BCD18BC0059E75F /* Assets.xcassets */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E40AF0061BD5824200A4009C /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		E41538DF1BCD18BC0059E75F /* Drone Control.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Drone Control.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E41538E21BCD18BC0059E75F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E41538E31BCD18BC0059E75F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E40AF0071BD5824200A4009C /* CoreImage.framework in Frameworks */,
 				E43B3F351BD4262400D0C2F3 /* libProtocolBuffers.a in Frameworks */,
 				E4D6B7FA1BCD461B00D9FCF0 /* MapKit.framework in Frameworks */,
 				E41538FB1BCD19900059E75F /* ForceFeedback.framework in Frameworks */,
@@ -124,6 +127,7 @@
 		E41538D61BCD18BC0059E75F = {
 			isa = PBXGroup;
 			children = (
+				E40AF0061BD5824200A4009C /* CoreImage.framework */,
 				E41538E11BCD18BC0059E75F /* Drone Control */,
 				E41538E01BCD18BC0059E75F /* Products */,
 			);

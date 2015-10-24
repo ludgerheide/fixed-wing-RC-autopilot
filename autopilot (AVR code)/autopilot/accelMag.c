@@ -124,7 +124,7 @@ void accelDisableDrdy(void) {
 }
 
 void accelEnableDrdy(void) {
-    //Disable the LIN1 DRDY interrupt
+    //Enable the LIN1 DRDY interrupt
     accelWrite8(LSM303_REGISTER_ACCEL_CTRL_REG3_A, 0x10);
 }
 

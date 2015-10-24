@@ -10,9 +10,9 @@
 #define pinSetup_h
 
 //UART Numbers and ther functions
-#define XBEE_UART 0
+#define XBEE_UART 3
 #define GPS_UART 2
-#define RASPI_UART 3
+#define RASPI_UART 0
 
 //The Servo numbers
 #define SERVO_PORT PORTB
