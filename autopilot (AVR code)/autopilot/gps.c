@@ -98,8 +98,14 @@ void gpsRxHandler(unsigned char c) {
             bufferAddToEnd(serialRxBuffer, c);
         }
     }
+    
     //check if the character was a '\n'
     else if(c == '\n') {
+        //If we have aprtial sentence in the buffer (we started receiving after the start, discard it
+        if(bufferGetAtIndex(serialRxBuffer, 0) != '$') {
+            newlineCount = 0;
+            bufferFlush(serialRxBuffer);
+        }
         //If the last message received was a GGA, this is the end of the corresponding VTG.
         // Discard it to resynchronize
         if(lastMessageReceived == NMEA_GPGGA) {

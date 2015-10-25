@@ -205,6 +205,9 @@ void nmeaProcessGPGGA(u08* packet) {
 	while(packet[i++] != ',');				// next field: DGPS age
 	while(packet[i++] != ',');				// next field: DGPS station ID
 	while(packet[i++] != '*');				// next field: checksum
+    #ifdef GPS_DEBUG
+    printf("Lat: %f, Lon: %f, time: %lu\r\n", GpsInfo.PosLLA.lat, GpsInfo.PosLLA.lon, GpsInfo.PosLLA.timestamp);
+    #endif
 }
 
 void nmeaProcessGPVTG(u08* packet) {
