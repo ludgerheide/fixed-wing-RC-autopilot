@@ -60,9 +60,6 @@ int main(void) {
         commsCheckAndSendTelemetry();
         commsCheckAndSendLogging();
         
-        //TODO: Send logging
-        
-        
         // Set servos
         if(inputCommandSet.timestamp - outputCommandSet.timestamp) {
             outputCommandSet.timestamp = millis();

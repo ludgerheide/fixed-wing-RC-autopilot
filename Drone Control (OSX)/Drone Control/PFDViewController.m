@@ -26,13 +26,11 @@
     IBOutlet NSImageView* view_altitudeTape;
     IBOutlet NSTextFieldCell *label_Altitude;
     IBOutlet NSTextField *label_heading;
-    IBOutlet NSOpenGLView *glview_horizon;
+    IBOutlet NSImageView *view_horizon;
     
     NSImage* img_speedTape;
     NSImage* img_altituteTape;
-    NSImage* img_horizon;
     NSImage* img_invalid;
-    NSImage* img_mask;
     
     CIContext* context;
     
@@ -72,27 +70,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
+    
+    //Create NSImages for the software rendered stuff
     img_speedTape = [NSImage imageNamed: @"Speed Tape"];
     img_altituteTape = [NSImage imageNamed: @"Altitude Tape"];
-    img_horizon = [NSImage imageNamed: @"Horizon"];
     img_invalid = [NSImage imageNamed: @"Invalid"];
-    img_mask = [NSImage imageNamed: @"Mask"];
     
-    //Create an OpenGL context
-    glViewport (0, 0, 1000, 1000);
-    glMatrixMode (GL_PROJECTION);
-    glLoadIdentity ();
-    glOrtho (0, 1000, 0, 1000, -1, 1);
-    glMatrixMode (GL_MODELVIEW);
-    glLoadIdentity ();
-    glBlendFunc (GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-    glEnable (GL_BLEND);
+    //Create the CI context
+    context = [CIContext contextWithCGContext: [[NSGraphicsContext currentContext] graphicsPort]
+                                      options: nil];
     
-    context = [CIContext contextWithCGLContext: glview_horizon.openGLContext.CGLContextObj
-                                   pixelFormat: glview_horizon.pixelFormat.CGLPixelFormatObj
-                                    colorSpace: CGDisplayCopyColorSpace(kCGDirectMainDisplay)
-                                       options:nil];
-    
+    //Create CIIimages for the hardware rendered stuff
+    NSImage* img_mask = [NSImage imageNamed: @"Mask"];
+    NSImage* img_horizon = [NSImage imageNamed: @"Horizon"];
     //Create CIImage for X, Horizon and overlay
     NSData* tiffData;
     NSBitmapImageRep* bitmap;
@@ -102,8 +92,7 @@
     ci_invalid = [[CIImage alloc] initWithBitmapImageRep:bitmap];
     
     //Horizon
-    NSImage* img_horizon_png = [NSImage imageNamed: @"Horizon-1"];
-    tiffData = [img_horizon_png TIFFRepresentation];
+    tiffData = [img_horizon TIFFRepresentation];
     bitmap = [NSBitmapImageRep imageRepWithData:tiffData];
     ci_horizon = [[CIImage alloc] initWithBitmapImageRep:bitmap];
     
@@ -227,82 +216,44 @@
     label_Altitude.font = theFont;
 }
 
-//- (void) updateHorizonX {
-//    NSImage* rendered_horizon = [[NSImage alloc] initWithSize: view_horizon.bounds.size];
-//    
-//    if(pitch && roll) {
-//        NSImage* translated_horizon = [[NSImage alloc] initWithSize: view_horizon.bounds.size];
-//        CGRect sourceRect = CGRectMake(0, (img_horizon.size.height/(2*PITCH_AT_END)) * (pitch.doubleValue + PITCH_AT_END) - img_horizon.size.width/2, img_horizon.size.width, img_horizon.size.width);
-//        CGRect targetRect = CGRectMake(0, 0, translated_horizon.size.width, translated_horizon.size.height);
-//        
-//        [translated_horizon lockFocus];
-//        [img_horizon drawInRect: targetRect
-//                       fromRect: sourceRect
-//                      operation: NSCompositeCopy
-//                       fraction: 1.0];
-//        [translated_horizon unlockFocus];
-//        
-//        //Now rotate the rendered horizon
-//        NSAffineTransform* transform = [NSAffineTransform transform];
-//        [transform translateXBy: translated_horizon.size.width/2
-//                            yBy: translated_horizon.size.height/2];
-//        [transform rotateByDegrees: roll.doubleValue];
-//        [transform translateXBy: -translated_horizon.size.width
-//                            yBy: -translated_horizon.size.height];
-//        
-//        [rendered_horizon lockFocus];
-//        [transform concat];
-//        [translated_horizon drawAtPoint: NSMakePoint(rendered_horizon.size.width/2, rendered_horizon.size.height/2)
-//                               fromRect: NSZeroRect
-//                              operation: NSCompositeCopy
-//                               fraction: 1.0];
-//        [rendered_horizon unlockFocus];
-//        
-//    } else {
-//        //Copy the X
-//        NSRect destRect = NSMakeRect(0, 0, rendered_horizon.size.width, rendered_horizon.size.height);
-//        NSRect sourceRect = NSMakeRect(0, 0, img_invalid.size.width, img_invalid.size.height);
-//        
-//        [rendered_horizon lockFocus];
-//        [img_invalid drawInRect: destRect
-//                       fromRect: sourceRect
-//                      operation: NSCompositeCopy
-//                       fraction: 1.0];
-//        [rendered_horizon unlockFocus];
-//    }
-//    
-//    
-//    //Now add the mask
-//    [rendered_horizon lockFocus];
-//    [img_mask drawInRect: NSMakeRect(0, 0, rendered_horizon.size.width, rendered_horizon.size.height)
-//                fromRect:NSZeroRect
-//               operation: NSCompositeSourceOver
-//                fraction: 1.0];
-//    [rendered_horizon unlockFocus];
-//    
-//    view_horizon.image = rendered_horizon;
-//}
-
 -(void) updateHorizon {
+    const CGFloat horizon_height = 4400;
+    const CGFloat horizon_width = 1000;
+    
     //Do the pitch transform
-    CIFilter *cropFilter = [CIFilter filterWithName:@"CICrop"];
-    CIVector *cropRect = [CIVector vectorWithX: 0
-                                             Y: ((4400/(2*PITCH_AT_END)) * (pitch.doubleValue + PITCH_AT_END) - 1000/2)
-                                             Z: 1000
-                                             W: 1000];
-    [cropFilter setValue: ci_horizon forKey:@"inputImage"];
-    [cropFilter setValue: cropRect forKey:@"inputRectangle"];
-    CIImage *ci_horizon_translated = cropFilter.outputImage;
+    CIFilter *cropFilter = [CIFilter filterWithName: @"CICrop"];
+    CIVector* cropRect = [CIVector vectorWithCGRect: CGRectMake(0, ((horizon_height/(2.0*PITCH_AT_END)) * (pitch.doubleValue + PITCH_AT_END) - horizon_width/2), horizon_width, horizon_width)];
+    [cropFilter setValue: ci_horizon forKey: @"inputImage"];
+    [cropFilter setValue: cropRect forKey: @"inputRectangle"];
     
-    //Resize to our viewport
-    CIFilter *resizeFilter = [CIFilter filterWithName:@"CILanczosScaleTransform"];
-    [resizeFilter setValue: ci_horizon_translated forKey:@"inputImage"];
-    [resizeFilter setValue:[NSNumber numberWithFloat:1.0f] forKey:@"inputAspectRatio"];
-    [resizeFilter setValue:[NSNumber numberWithFloat: (glview_horizon.bounds.size.width / 1000)] forKey:@"inputScale"];
-    CIImage *ci_horizon_resized = resizeFilter.outputImage;
+    //TODO: Do the roll transformation
+    CIFilter *rollFilter = [CIFilter filterWithName: @"CIAffineTransform"];
+    NSAffineTransform* transform = [NSAffineTransform transform];
+    [transform translateXBy: +horizon_width/2
+                        yBy: +horizon_width/2];
+    [transform rotateByDegrees: roll.doubleValue];
+            [transform translateXBy: -horizon_width/2
+                                yBy: -(horizon_height/(2.0*PITCH_AT_END)) * (pitch.doubleValue + PITCH_AT_END)];
+    [rollFilter setValue: cropFilter.outputImage forKey: @"inputImage"];
+    [rollFilter setValue: transform forKey: @"inputTransform"];
     
-    [context drawImage: ci_horizon_resized inRect: glview_horizon.bounds fromRect: ci_horizon_resized.extent];
-    return;
+    //Overlay the mask
+    CIFilter* maskFilter = [CIFilter filterWithName: @"CISourceOverCompositing"];
+    [maskFilter setValue: rollFilter.outputImage forKey: @"inputBackgroundImage"];
+    [maskFilter setValue: ci_mask forKey: @"inputImage"];
+    
+    //Crop back to a square shape
+    CIFilter *cropFilter2 = [CIFilter filterWithName: @"CICrop"];
+    CIVector* cropRect2 = [CIVector vectorWithCGRect: CGRectMake(0, 0, horizon_width, horizon_width)];
+    [cropFilter2 setValue: maskFilter.outputImage forKey: @"inputImage"];
+    [cropFilter2 setValue: cropRect2 forKey: @"inputRectangle"];
+    
+    //Output the image
+    NSCIImageRep *rep = [NSCIImageRep imageRepWithCIImage: cropFilter2.outputImage];
+    NSImage *new_horizon = [[NSImage alloc] initWithSize:rep.size];
+    [new_horizon addRepresentation:rep];
+    
+    view_horizon.image = new_horizon;
 }
 
 -(void) updateHeading {
@@ -322,12 +273,6 @@
 }
 
 - (void) viewDidLayout {
-    speed = [NSNumber numberWithDouble: 56];
-    altitude = [NSNumber numberWithDouble: 34];
-    pitch = [NSNumber numberWithDouble: -20];
-    roll = [NSNumber numberWithDouble: -20];
-    heading = [NSNumber numberWithFloat: 10];
-    
     [self updateSpeedTape];
     [self updateAltitudeTape];
     [self updateHorizon];

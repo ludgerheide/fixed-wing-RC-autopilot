@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -693,27 +693,27 @@
             <objects>
                 <viewController id="xOD-sX-6Bq" customClass="PFDViewController" sceneMemberID="viewController">
                     <view key="view" id="OeJ-i3-gy1">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="330"/>
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="336"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <imageView canDrawConcurrently="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="OuM-J1-krQ">
-                                <rect key="frame" x="0.0" y="0.0" width="66" height="330"/>
+                                <rect key="frame" x="0.0" y="0.0" width="67" height="336"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="OuM-J1-krQ" secondAttribute="height" multiplier="1:5" id="2qx-qQ-Hss"/>
+                                    <constraint firstAttribute="width" secondItem="OuM-J1-krQ" secondAttribute="height" multiplier="1:5" id="7IY-M9-OaU"/>
                                 </constraints>
                                 <animations/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="WuJ-ch-loz"/>
                             </imageView>
                             <imageView canDrawConcurrently="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="lKG-sb-8An">
-                                <rect key="frame" x="384" y="0.0" width="66" height="330"/>
+                                <rect key="frame" x="383" y="0.0" width="67" height="336"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="lKG-sb-8An" secondAttribute="height" multiplier="1:5" id="KC6-5U-f9W"/>
+                                    <constraint firstAttribute="width" secondItem="lKG-sb-8An" secondAttribute="height" multiplier="1:5" id="ZDt-6t-3CX"/>
                                 </constraints>
                                 <animations/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="9sV-LQ-aXq"/>
                             </imageView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PbC-gU-vYG">
-                                <rect key="frame" x="0.0" y="153" width="66" height="25"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PbC-gU-vYG">
+                                <rect key="frame" x="0.0" y="155" width="67" height="25"/>
                                 <animations/>
                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" title="999" drawsBackground="YES" id="M7a-fe-XLO">
                                     <font key="font" size="16" name="Monaco"/>
@@ -722,7 +722,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JqQ-GL-SOX">
-                                <rect key="frame" x="66" y="310" width="318" height="20"/>
+                                <rect key="frame" x="67" y="316" width="316" height="20"/>
                                 <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" drawsBackground="YES" id="C4b-0v-pcn">
                                     <font key="font" size="16" name="Monaco"/>
@@ -730,15 +730,16 @@
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </textFieldCell>
                             </textField>
-                            <openGLView useAuxiliaryDepthBufferStencil="NO" allowOffline="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XxZ-fp-btc">
-                                <rect key="frame" x="66" y="0.0" width="310" height="310"/>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="xvn-85-Ra1">
+                                <rect key="frame" x="67" y="0.0" width="316" height="316"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="XxZ-fp-btc" secondAttribute="height" multiplier="1:1" id="RLp-QO-oJe"/>
+                                    <constraint firstAttribute="width" secondItem="xvn-85-Ra1" secondAttribute="height" multiplier="1:1" id="IeU-iZ-fAT"/>
                                 </constraints>
                                 <animations/>
-                            </openGLView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yZP-Wy-om5">
-                                <rect key="frame" x="376" y="153" width="74" height="25"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyUpOrDown" id="yLx-UK-fjo"/>
+                            </imageView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yZP-Wy-om5">
+                                <rect key="frame" x="383" y="155" width="67" height="25"/>
                                 <animations/>
                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" title="999" drawsBackground="YES" id="YtD-QI-22r">
                                     <font key="font" size="16" name="Monaco"/>
@@ -748,42 +749,40 @@
                             </textField>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="OuM-J1-krQ" firstAttribute="top" secondItem="OeJ-i3-gy1" secondAttribute="top" id="15P-Jt-4Lc"/>
-                            <constraint firstAttribute="trailing" secondItem="lKG-sb-8An" secondAttribute="trailing" id="1w5-ID-nwc"/>
-                            <constraint firstAttribute="trailing" secondItem="yZP-Wy-om5" secondAttribute="trailing" id="2Cy-hq-lrg"/>
-                            <constraint firstItem="JqQ-GL-SOX" firstAttribute="leading" secondItem="OuM-J1-krQ" secondAttribute="trailing" id="9zq-Q5-qcM"/>
-                            <constraint firstItem="lKG-sb-8An" firstAttribute="leading" secondItem="XxZ-fp-btc" secondAttribute="trailing" constant="8" id="BIw-9s-EtF"/>
-                            <constraint firstItem="yZP-Wy-om5" firstAttribute="centerY" secondItem="OeJ-i3-gy1" secondAttribute="centerY" id="Ljt-cx-05y"/>
-                            <constraint firstItem="XxZ-fp-btc" firstAttribute="leading" secondItem="PbC-gU-vYG" secondAttribute="trailing" id="QiG-YV-ySh"/>
-                            <constraint firstItem="XxZ-fp-btc" firstAttribute="leading" secondItem="PbC-gU-vYG" secondAttribute="trailing" id="V3e-AR-ObU"/>
-                            <constraint firstItem="yZP-Wy-om5" firstAttribute="leading" secondItem="XxZ-fp-btc" secondAttribute="trailing" id="V6l-qt-iAH"/>
-                            <constraint firstItem="lKG-sb-8An" firstAttribute="leading" secondItem="JqQ-GL-SOX" secondAttribute="trailing" id="Vem-gA-mM1"/>
-                            <constraint firstAttribute="bottom" secondItem="XxZ-fp-btc" secondAttribute="bottom" id="Xbs-wG-QrS"/>
-                            <constraint firstItem="OuM-J1-krQ" firstAttribute="leading" secondItem="OeJ-i3-gy1" secondAttribute="leading" id="be4-Of-qlL"/>
-                            <constraint firstItem="XxZ-fp-btc" firstAttribute="leading" secondItem="OuM-J1-krQ" secondAttribute="trailing" id="cFY-t5-Y0M"/>
-                            <constraint firstItem="PbC-gU-vYG" firstAttribute="leading" secondItem="OeJ-i3-gy1" secondAttribute="leading" id="cN5-Cl-sKu"/>
-                            <constraint firstItem="lKG-sb-8An" firstAttribute="top" secondItem="OeJ-i3-gy1" secondAttribute="top" id="gWH-5U-U5U"/>
-                            <constraint firstItem="JqQ-GL-SOX" firstAttribute="top" secondItem="OeJ-i3-gy1" secondAttribute="top" id="hfc-Mp-t81"/>
-                            <constraint firstItem="PbC-gU-vYG" firstAttribute="centerY" secondItem="OeJ-i3-gy1" secondAttribute="centerY" id="jfd-ZQ-m6g"/>
-                            <constraint firstAttribute="bottom" secondItem="OuM-J1-krQ" secondAttribute="bottom" id="sv4-zg-4em"/>
-                            <constraint firstAttribute="bottom" secondItem="lKG-sb-8An" secondAttribute="bottom" id="svl-53-HCG"/>
-                            <constraint firstItem="XxZ-fp-btc" firstAttribute="top" secondItem="JqQ-GL-SOX" secondAttribute="bottom" id="u46-E3-sha"/>
-                            <constraint firstItem="yZP-Wy-om5" firstAttribute="leading" secondItem="XxZ-fp-btc" secondAttribute="trailing" id="wrT-MO-tmQ"/>
+                            <constraint firstItem="yZP-Wy-om5" firstAttribute="leading" secondItem="xvn-85-Ra1" secondAttribute="trailing" id="0hZ-gf-sFD"/>
+                            <constraint firstItem="PbC-gU-vYG" firstAttribute="centerY" secondItem="OeJ-i3-gy1" secondAttribute="centerY" id="3mB-NJ-VCl"/>
+                            <constraint firstAttribute="trailing" secondItem="yZP-Wy-om5" secondAttribute="trailing" id="7eC-Vp-wRg"/>
+                            <constraint firstAttribute="trailing" secondItem="lKG-sb-8An" secondAttribute="trailing" id="BYT-4f-ugL"/>
+                            <constraint firstItem="lKG-sb-8An" firstAttribute="top" secondItem="OeJ-i3-gy1" secondAttribute="top" id="IRv-Lj-hKI"/>
+                            <constraint firstItem="OuM-J1-krQ" firstAttribute="leading" secondItem="OeJ-i3-gy1" secondAttribute="leading" id="J9f-yL-JKo"/>
+                            <constraint firstItem="xvn-85-Ra1" firstAttribute="leading" secondItem="PbC-gU-vYG" secondAttribute="trailing" id="JUn-tk-iGC"/>
+                            <constraint firstItem="xvn-85-Ra1" firstAttribute="top" secondItem="JqQ-GL-SOX" secondAttribute="bottom" id="QCy-Y8-Cgm"/>
+                            <constraint firstItem="PbC-gU-vYG" firstAttribute="leading" secondItem="OeJ-i3-gy1" secondAttribute="leading" id="Ss4-Df-uEF"/>
+                            <constraint firstAttribute="bottom" secondItem="OuM-J1-krQ" secondAttribute="bottom" id="ZOk-PN-v0T"/>
+                            <constraint firstItem="lKG-sb-8An" firstAttribute="leading" secondItem="JqQ-GL-SOX" secondAttribute="trailing" id="e5R-fR-NKk"/>
+                            <constraint firstItem="xvn-85-Ra1" firstAttribute="leading" secondItem="OuM-J1-krQ" secondAttribute="trailing" id="eIH-25-OK1"/>
+                            <constraint firstItem="OuM-J1-krQ" firstAttribute="top" secondItem="OeJ-i3-gy1" secondAttribute="top" id="gFT-T3-YJa"/>
+                            <constraint firstItem="JqQ-GL-SOX" firstAttribute="top" secondItem="OeJ-i3-gy1" secondAttribute="top" id="iQt-ru-k94"/>
+                            <constraint firstAttribute="bottom" secondItem="xvn-85-Ra1" secondAttribute="bottom" id="kdh-4D-3OT"/>
+                            <constraint firstAttribute="bottom" secondItem="lKG-sb-8An" secondAttribute="bottom" id="okT-Mh-6ne"/>
+                            <constraint firstItem="JqQ-GL-SOX" firstAttribute="leading" secondItem="OuM-J1-krQ" secondAttribute="trailing" id="v0K-Rm-AUa"/>
+                            <constraint firstItem="yZP-Wy-om5" firstAttribute="centerY" secondItem="OeJ-i3-gy1" secondAttribute="centerY" id="voN-Fa-83x"/>
+                            <constraint firstItem="lKG-sb-8An" firstAttribute="leading" secondItem="xvn-85-Ra1" secondAttribute="trailing" id="vof-4Z-tjl"/>
                         </constraints>
                         <animations/>
                     </view>
                     <connections>
-                        <outlet property="glview_horizon" destination="XxZ-fp-btc" id="gbq-3p-yNw"/>
                         <outlet property="label_Altitude" destination="YtD-QI-22r" id="HZH-Bz-vPa"/>
                         <outlet property="label_Speed" destination="PbC-gU-vYG" id="29Z-7h-rSk"/>
                         <outlet property="label_heading" destination="JqQ-GL-SOX" id="pIv-Sj-Atb"/>
                         <outlet property="view_altitudeTape" destination="lKG-sb-8An" id="mQY-Lj-dOR"/>
+                        <outlet property="view_horizon" destination="xvn-85-Ra1" id="Ljj-V6-e2q"/>
                         <outlet property="view_speedTape" destination="OuM-J1-krQ" id="GGD-MD-GDa"/>
                     </connections>
                 </viewController>
                 <customObject id="kRK-5n-b7V" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="730" y="423"/>
+            <point key="canvasLocation" x="730" y="420"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="7Hj-I6-KgI">
