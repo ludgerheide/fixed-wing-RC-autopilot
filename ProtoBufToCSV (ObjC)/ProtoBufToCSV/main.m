@@ -28,43 +28,48 @@ int main(int argc, const char * argv[]) {
         
         while ([iStream hasBytesAvailable]) {
             //Search until the magic sequence is found
+            uint8_t startFound = 0;
             uint8_t startByte;
             for(uint8_t i = 0; i < sizeof(startSequence); i++) {
                 [iStream read: &startByte maxLength: 1];
                 if(startByte != startSequence[i]) {
                     break;
                 }
+                startFound++;
             }
-            uint8_t length;
-            [iStream read: &length maxLength: 1];
-            
-            uint8_t* msgBuf = malloc(length);
-            [iStream read: msgBuf maxLength: length];
-            
-            uint8 checksum;
-            [iStream read: &checksum maxLength: 1];
-            
-            uint8_t calculatedChecksum = 0;
-            for(uint8_t i = 0; i < length; i++) {
-                calculatedChecksum += msgBuf[i];
-            }
-            @autoreleasepool {
-                if(checksum == calculatedChecksum) {
-                    NSData* theData = [NSData dataWithBytes: msgBuf length: length];
-                    NSError* myError;
-                    DroneMessage* msg = [[DroneMessage alloc] initWithData: theData error: &myError];
-                    if(myError) {
-                        decodingErrors++;
-                    } else {
-                        [writer writeMessage: msg];
-                        successCount++;
-                    }
-                } else {
-                    checksumErrors++;
-                }
+            if(startFound == 5) {
                 
+                uint8_t length;
+                [iStream read: &length maxLength: 1];
+                
+                uint8_t* msgBuf = malloc(length);
+                [iStream read: msgBuf maxLength: length];
+                
+                uint8 checksum;
+                [iStream read: &checksum maxLength: 1];
+                
+                uint8_t calculatedChecksum = 0;
+                for(uint8_t i = 0; i < length; i++) {
+                    calculatedChecksum += msgBuf[i];
+                }
+                @autoreleasepool {
+                    if(checksum == calculatedChecksum) {
+                        NSData* theData = [NSData dataWithBytes: msgBuf length: length];
+                        NSError* myError;
+                        DroneMessage* msg = [[DroneMessage alloc] initWithData: theData error: &myError];
+                        if(myError) {
+                            decodingErrors++;
+                        } else {
+                            [writer writeMessage: msg];
+                            successCount++;
+                        }
+                    } else {
+                        checksumErrors++;
+                    }
+                    
+                }
+                free(msgBuf);
             }
-            free(msgBuf);
         }
         NSLog(@"Decoding Errors:  %9lu", decodingErrors);
         NSLog(@"Checksum errors:  %9lu", checksumErrors);

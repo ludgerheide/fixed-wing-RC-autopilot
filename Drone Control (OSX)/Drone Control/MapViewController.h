@@ -10,8 +10,8 @@
 #import <MapKit/MapKit.h>
 
 
-@interface MapViewController : NSViewController
+@interface MapViewController : NSViewController <MKMapViewDelegate>
 
--(void)updateMapWithLatitude: (NSNumber*) latitude longitude: (NSNumber*) longitude;
+-(void)updateMapWithLatitude: (NSNumber*) latitude longitude: (NSNumber*) longitude altitude: (NSNumber*) altitude course: (NSNumber*) course speed: (NSNumber*) speed;
 
 @end

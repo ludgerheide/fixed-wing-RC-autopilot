@@ -220,38 +220,50 @@
     const CGFloat horizon_height = 4400;
     const CGFloat horizon_width = 1000;
     
-    //Do the pitch transform
-    CIFilter *cropFilter = [CIFilter filterWithName: @"CICrop"];
-    CIVector* cropRect = [CIVector vectorWithCGRect: CGRectMake(0, ((horizon_height/(2.0*PITCH_AT_END)) * (pitch.doubleValue + PITCH_AT_END) - horizon_width/2), horizon_width, horizon_width)];
-    [cropFilter setValue: ci_horizon forKey: @"inputImage"];
-    [cropFilter setValue: cropRect forKey: @"inputRectangle"];
-    
-    //TODO: Do the roll transformation
-    CIFilter *rollFilter = [CIFilter filterWithName: @"CIAffineTransform"];
-    NSAffineTransform* transform = [NSAffineTransform transform];
-    [transform translateXBy: +horizon_width/2
-                        yBy: +horizon_width/2];
-    [transform rotateByDegrees: roll.doubleValue];
-            [transform translateXBy: -horizon_width/2
-                                yBy: -(horizon_height/(2.0*PITCH_AT_END)) * (pitch.doubleValue + PITCH_AT_END)];
-    [rollFilter setValue: cropFilter.outputImage forKey: @"inputImage"];
-    [rollFilter setValue: transform forKey: @"inputTransform"];
-    
-    //Overlay the mask
-    CIFilter* maskFilter = [CIFilter filterWithName: @"CISourceOverCompositing"];
-    [maskFilter setValue: rollFilter.outputImage forKey: @"inputBackgroundImage"];
-    [maskFilter setValue: ci_mask forKey: @"inputImage"];
-    
-    //Crop back to a square shape
-    CIFilter *cropFilter2 = [CIFilter filterWithName: @"CICrop"];
-    CIVector* cropRect2 = [CIVector vectorWithCGRect: CGRectMake(0, 0, horizon_width, horizon_width)];
-    [cropFilter2 setValue: maskFilter.outputImage forKey: @"inputImage"];
-    [cropFilter2 setValue: cropRect2 forKey: @"inputRectangle"];
-    
-    //Output the image
-    NSCIImageRep *rep = [NSCIImageRep imageRepWithCIImage: cropFilter2.outputImage];
-    NSImage *new_horizon = [[NSImage alloc] initWithSize:rep.size];
-    [new_horizon addRepresentation:rep];
+    NSImage* new_horizon;
+    if(pitch && roll) {
+        //Do the pitch transform
+        CIFilter *cropFilter = [CIFilter filterWithName: @"CICrop"];
+        CIVector* cropRect = [CIVector vectorWithCGRect: CGRectMake(0, ((horizon_height/(2.0*PITCH_AT_END)) * (pitch.doubleValue + PITCH_AT_END) - horizon_width/2), horizon_width, horizon_width)];
+        [cropFilter setValue: ci_horizon forKey: @"inputImage"];
+        [cropFilter setValue: cropRect forKey: @"inputRectangle"];
+        
+        //TODO: Do the roll transformation
+        CIFilter *rollFilter = [CIFilter filterWithName: @"CIAffineTransform"];
+        NSAffineTransform* transform = [NSAffineTransform transform];
+        [transform translateXBy: +horizon_width/2
+                            yBy: +horizon_width/2];
+        [transform rotateByDegrees: roll.doubleValue];
+        [transform translateXBy: -horizon_width/2
+                            yBy: -(horizon_height/(2.0*PITCH_AT_END)) * (pitch.doubleValue + PITCH_AT_END)];
+        [rollFilter setValue: cropFilter.outputImage forKey: @"inputImage"];
+        [rollFilter setValue: transform forKey: @"inputTransform"];
+        
+        //Overlay the mask
+        CIFilter* maskFilter = [CIFilter filterWithName: @"CISourceOverCompositing"];
+        [maskFilter setValue: rollFilter.outputImage forKey: @"inputBackgroundImage"];
+        [maskFilter setValue: ci_mask forKey: @"inputImage"];
+        
+        //Crop back to a square shape
+        CIFilter *cropFilter2 = [CIFilter filterWithName: @"CICrop"];
+        CIVector* cropRect2 = [CIVector vectorWithCGRect: CGRectMake(0, 0, horizon_width, horizon_width)];
+        [cropFilter2 setValue: maskFilter.outputImage forKey: @"inputImage"];
+        [cropFilter2 setValue: cropRect2 forKey: @"inputRectangle"];
+        
+        //Output the image
+        NSCIImageRep *rep = [NSCIImageRep imageRepWithCIImage: cropFilter2.outputImage];
+        new_horizon = [[NSImage alloc] initWithSize:rep.size];
+        [new_horizon addRepresentation:rep];
+    } else {
+        CIFilter* maskFilter = [CIFilter filterWithName: @"CISourceOverCompositing"];
+        [maskFilter setValue: ci_invalid forKey: @"inputBackgroundImage"];
+        [maskFilter setValue: ci_mask forKey: @"inputImage"];
+        
+        //Output the image
+        NSCIImageRep *rep = [NSCIImageRep imageRepWithCIImage: maskFilter.outputImage];
+        new_horizon = [[NSImage alloc] initWithSize:rep.size];
+        [new_horizon addRepresentation:rep];
+    }
     
     view_horizon.image = new_horizon;
 }

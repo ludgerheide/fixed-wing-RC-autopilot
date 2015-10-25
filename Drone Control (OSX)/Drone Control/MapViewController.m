@@ -15,23 +15,80 @@
 @implementation MapViewController
 {
     MKMapView* myMapView;
+    
+    NSMutableArray* track;
+    MKPolyline* polyLine;
+    MKPointAnnotation *currentPosPin;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
     myMapView = (MKMapView*) self.view;
-    myMapView.mapType = MKMapTypeHybridFlyover;
-    myMapView.scrollEnabled = NO;
+    myMapView.mapType = MKMapTypeStandard;
+    myMapView.scrollEnabled = YES;
     myMapView.pitchEnabled = NO;
+    myMapView.delegate = self;
+    
+    //Initialize the treck array
+    track = [[NSMutableArray alloc] init];
 }
 
--(void)updateMapWithLatitude: (NSNumber*) latitude longitude: (NSNumber*) longitude {
+-(void)updateMapWithLatitude: (NSNumber*) latitude longitude: (NSNumber*) longitude altitude: (NSNumber*) altitude course: (NSNumber*) course speed: (NSNumber*) speed {
     CLLocationCoordinate2D coords;
     coords.latitude = latitude.doubleValue;
     coords.longitude = longitude.doubleValue;
     
-    myMapView.centerCoordinate = coords;
+    //Re-Center the view of necessary
+    if(!MKMapRectContainsPoint(myMapView.visibleMapRect, MKMapPointForCoordinate(coords))) {
+        [myMapView setCenterCoordinate: coords animated: YES];
+    }
+    
+    //Add out point to the track
+    CLLocation* loc = [[CLLocation alloc] initWithCoordinate: coords
+                                                    altitude: altitude.doubleValue
+                                          horizontalAccuracy: 0
+                                            verticalAccuracy: 0
+                                                      course: course.doubleValue
+                                                       speed: speed.doubleValue
+                                                   timestamp:[NSDate date]];
+    [track addObject: loc];
+    
+    
+    //Add a pin at the current position
+    [myMapView removeAnnotation: currentPosPin];
+    currentPosPin = [[MKPointAnnotation alloc] init];
+    currentPosPin.coordinate = coords;
+    [myMapView addAnnotation: currentPosPin];
+    
+    //Create a C array and a polyline
+    CLLocationCoordinate2D* points = malloc(sizeof(CLLocationCoordinate2D) * track.count);
+    if(points != NULL) {
+        for(NSUInteger i = 0; i < track.count; i++) {
+            CLLocation *trackPoint = [track objectAtIndex: i];
+            points[i] = trackPoint.coordinate;
+        }
+        //Remove the old Polyine and add the new one
+        [myMapView removeOverlay: polyLine];
+        polyLine = [MKPolyline polylineWithCoordinates: points count: track.count];
+        [myMapView addOverlay: polyLine];
+    }
 }
+
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id <MKOverlay>)overlay {
+    MKPolylineRenderer *polyLineRenderer = [[MKPolylineRenderer alloc] initWithPolyline:overlay];
+    polyLineRenderer.strokeColor = [NSColor redColor];
+    polyLineRenderer.lineWidth = 5.0;
+    
+    return polyLineRenderer;
+    
+}
+
+//- (nullable MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
+//    MKPinAnnotationView *pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"DETAILPIN_ID"];
+//    [pinView setAnimatesDrop: NO];
+//    [pinView setCanShowCallout:NO];
+//    return pinView;
+//}
 
 @end
