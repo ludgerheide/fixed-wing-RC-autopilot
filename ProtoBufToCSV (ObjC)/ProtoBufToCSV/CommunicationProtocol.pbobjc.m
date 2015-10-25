@@ -313,7 +313,7 @@ BOOL DroneMessage_FlightMode_IsValidValue(int32_t value__) {
 typedef struct DroneMessage_Position__storage_ {
   uint32_t _has_storage_[1];
   int32_t timestamp;
-  int32_t realTime;
+  float realTime;
   float latitude;
   float longitude;
   int32_t altitude;
@@ -341,9 +341,9 @@ typedef struct DroneMessage_Position__storage_ {
         .number = DroneMessage_Position_FieldNumber_RealTime,
         .hasIndex = 1,
         .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeInt32,
+        .dataType = GPBDataTypeFloat,
         .offset = offsetof(DroneMessage_Position__storage_, realTime),
-        .defaultValue.valueInt32 = 0,
+        .defaultValue.valueFloat = 0,
         .dataTypeSpecific.className = NULL,
         .fieldOptions = NULL,
       },

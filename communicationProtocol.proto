@@ -13,7 +13,7 @@ message DroneMessage {
 
 	message Position {
 		optional int32 timestamp = 20;
-		optional int32 real_time = 21;
+		optional float real_time = 21;
 	
 		required float latitude = 22;
 		required float longitude = 23;

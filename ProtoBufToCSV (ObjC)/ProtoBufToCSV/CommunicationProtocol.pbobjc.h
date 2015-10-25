@@ -134,7 +134,7 @@ typedef GPB_ENUM(DroneMessage_Position_FieldNumber) {
 @property(nonatomic, readwrite) int32_t timestamp;
 
 @property(nonatomic, readwrite) BOOL hasRealTime;
-@property(nonatomic, readwrite) int32_t realTime;
+@property(nonatomic, readwrite) float realTime;
 
 @property(nonatomic, readwrite) BOOL hasLatitude;
 @property(nonatomic, readwrite) float latitude;
