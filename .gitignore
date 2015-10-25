@@ -15,6 +15,7 @@
 #ignore protobuf-generated files
 *.pb.*
 CommunicationProtocol.java
+*.pbobjc.*
 
 #IntelliJ
 *.idea/workspace.xml
