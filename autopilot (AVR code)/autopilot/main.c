@@ -57,13 +57,11 @@ int main(void) {
         currentAttitude.timestamp = millis();
         
         //Send telemetry
-        //commsCheckAndSendTelemetry();
-        //commsCheckAndSendLogging();
+//        commsCheckAndSendTelemetry();
+        commsCheckAndSendLogging();
         
-        // Set servos
-        if((s32)(inputCommandSet.timestamp) - (s32)(outputCommandSet.timestamp) > 0) {
-            printf("Pitch: %i, Yaw: %i, Thrust: %i\r\n", inputCommandSet.pitch, inputCommandSet.yaw, inputCommandSet.thrust);
-            
+        // Set servos       
+        if((inputCommandSet.timestamp) - (outputCommandSet.timestamp)) {            
             outputCommandSet.timestamp = millis();
             outputCommandSet.yaw = inputCommandSet.yaw;
             outputCommandSet.pitch = inputCommandSet.pitch;

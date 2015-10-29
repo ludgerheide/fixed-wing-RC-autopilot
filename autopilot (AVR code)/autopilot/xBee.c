@@ -37,7 +37,7 @@ static txFuncPtr txStatusFunc;
 static char xBeeTxBuffer[TX_BUFFER_SIZE];
 static char xBeeRxBuffer[RX_BUFFER_SIZE];
 
-bool xBeeNewMessageReady = false;
+volatile bool xBeeNewMessageReady = false;
 
 //FUnction prototypes
 //Calaculates the checksum of a xBee API message
@@ -135,7 +135,7 @@ static uint8_t xBeeGenerateChecksum(char* msg, uint8_t size) {
 //Called if a byte is received over the serial port. Checks if it is a start byte and the fills th ebuffer accordingly
 void xBeeByteReceiver(unsigned char c) {
     #ifdef COMMS_DEBUG
-    printf("%u: %02x\r\n",received_index, c);
+    //printf("%u: %02x\r\n",received_index, c);
     #endif
     if(received_index == 0) {
         //We are looking for the start byte, 0x7E
@@ -150,24 +150,40 @@ void xBeeByteReceiver(unsigned char c) {
     } else if (received_index == 2) {
         //This is the LSB of the size
         received_size |= c;
-        printf("size: %04x, %u\r\n", received_size, received_size);
-    } else if (received_index < received_size + 2 && (received_index - 2) < RX_BUFFER_SIZE) {
+    } else if (received_index < received_size + 3 && (received_index - 3) < RX_BUFFER_SIZE) {
         xBeeRxBuffer[received_index - 3] = c;
-    } else if (received_index == received_size + 2) {
+    } else if (received_index == received_size + 3) {
+        #ifdef COMMS_DEBUG
+        printf("RX complete\r\n!");
+        #endif
         uint8_t checksum = xBeeGenerateChecksum(xBeeRxBuffer, received_size);
         if(checksum == c) {
+            #ifdef COMMS_DEBUG
+            printf("Message complete and checked!\r\n!");
+            #endif
+            
             //We have recieved a correnct message, set the "Ready" flag
             xBeeNewMessageReady = true;
         } else {
+            #ifdef COMMS_DEBUG
+            printf("Checksum failed!\r\n");
+            #endif
+
             received_size = 0;
             received_index = 0;
         }
     } else {
-        received_size = 0;
-        received_index = 0;
         #ifdef COMMS_DEBUG
         printf("Buffer overflow @%i!\r\n", __LINE__);
+        for(u08 i = 0; i < received_size; i++) {
+            printf("%02x ", xBeeRxBuffer[i]);
+        }
+        printf("Size: %u\r\n", received_size);
         #endif
+        
+        received_size = 0;
+        received_index = 0;
+        return;
     }
     received_index++;
 }
@@ -176,6 +192,13 @@ void xBeeByteReceiver(unsigned char c) {
 void xBeeHandleMessage(void) {
 #define XBEE_MSGTYPE_TXSTATUS 0x8B
 #define XBEE_MSGTYPE_RECEIVE 0x90
+    
+    #ifdef COMMS_DEBUG
+    for(u08 i = 0; i < received_size; i++) {
+        printf("%02x ", xBeeRxBuffer[i]);
+    }
+    printf("Size: %u\r\n", received_size);
+    #endif
     
     switch (xBeeRxBuffer[0]) {
         case XBEE_MSGTYPE_RECEIVE:

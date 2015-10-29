@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-extern bool xBeeNewMessageReady;
+extern volatile bool xBeeNewMessageReady;
 
 //Initializes the xBee serial port and attaches the callbacks
 void xBeeInit(void);

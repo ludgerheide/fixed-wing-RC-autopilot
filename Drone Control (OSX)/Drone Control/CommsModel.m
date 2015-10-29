@@ -6,6 +6,8 @@
 //  Copyright © 2015 Ludger Heide. All rights reserved.
 //
 
+#define POLLING_INTERVAL 0.05 //20hz
+
 #define INSTRUMENTTIMEOUT 0.5
 
 #import "CommsModel.h"
@@ -49,7 +51,7 @@
         controllerModel = [[XboxModel alloc] init];
         
         //Schedule the repeating timer for the controller
-        controllerPollTimer = [NSTimer scheduledTimerWithTimeInterval: 0.1 target: self selector: @selector(sendControllerSample:) userInfo:nil repeats: YES];
+        controllerPollTimer = [NSTimer scheduledTimerWithTimeInterval: POLLING_INTERVAL target: self selector: @selector(sendControllerSample:) userInfo:nil repeats: YES];
     }
     return self;
 }
@@ -65,21 +67,21 @@
 //This method collects a sample from the XBox controller and sends
 - (void) sendControllerSample: (NSTimer*) theTimer {
     commandSet cs = [controllerModel getValues];
-    NSLog(@"%+1.2f, %1.2f, %1.2f", cs.elevator, cs.rudder, cs.thrust);
     
     //Create a protobuf with this stuff and send it
     DroneMessage* msg = [[DroneMessage alloc] init];
     
     const uint8_t servo_max = 255;
     
-    msg.inputCommandSet.pitch = round(cs.elevator + 1.0 * (servo_max / 2.0));
-    msg.inputCommandSet.yaw = round(cs.rudder + 1.0 * (servo_max / 2.0));
+    msg.inputCommandSet.pitch = round((cs.elevator + 1.0) * (servo_max / 2.0));
+    msg.inputCommandSet.yaw = round((cs.rudder + 1.0) * (servo_max / 2.0));
     msg.inputCommandSet.thrust = round(cs.thrust * servo_max);
+    NSLog(@"%3i, %3i, %3i", msg.inputCommandSet.pitch, msg.inputCommandSet.yaw, msg.inputCommandSet.thrust);
     
     XBeeMessage* xBeeMsg = [[XBeeMessage alloc] initWithPayload: msg.data];
     
     xBeeMsg.shouldAck = false;
-    xBeeMsg.frameID = 0xEF;
+    xBeeMsg.frameID = 0x00;
     
     [myPort sendData: xBeeMsg.encodeMessage];
 }
@@ -116,6 +118,13 @@
         
         NSMutableData* newData = [NSMutableData dataWithBytes: (receivedData.bytes + recSize + 4) length: receivedData.length - (recSize + 4)];
         receivedData = newData;
+        
+        printf("RX: ");
+        for(uint8_t i = 0; i < packet.length; i++) {
+            const uint8_t* x = packet.bytes;
+            printf("%02x ", x[i]);
+        }
+        printf("\r\n");
         
         XBeeMessage* myMsg = [[XBeeMessage alloc] initWithRawMessage: packet];
         if(myMsg != nil) {

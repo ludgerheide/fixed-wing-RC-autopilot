@@ -314,6 +314,10 @@ void commsProcessMessage(char* message, u08 size) {
 
     //Now do stuff according to the content of the decoded message
     if(incomingMsg.has_input_command_set) {
+        #ifdef COMMS_DEBUG
+        printf("Protobuf: Have inpoutCommadnsSet Yaw: %li Pitch: %li Thrust: %li!\r\n", incomingMsg.input_command_set.yaw, incomingMsg.input_command_set.pitch, incomingMsg.input_command_set.thrust);
+        #endif
+        
         inputCommandSet.timestamp = now;
         
         if(incomingMsg.input_command_set.yaw <= UINT8_MAX && incomingMsg.input_command_set.yaw >= 0) {
@@ -348,10 +352,18 @@ void commsProcessMessage(char* message, u08 size) {
     }
     
     if(incomingMsg.has_sea_level_pressure) {
+        #ifdef COMMS_DEBUG
+        printf("Protobuf: Have sea level pressure!\r\n");
+        #endif
+        
         seaLevelPressure = incomingMsg.sea_level_pressure;
     }
     
     if(incomingMsg.has_waypoint) {
+        #ifdef COMMS_DEBUG
+        printf("Protobuf: Have waypoint!\r\n");
+        #endif
+        
         currentTarget.timestamp = now;
         
         currentTarget.latitude = incomingMsg.waypoint.latitude;
@@ -364,6 +376,10 @@ void commsProcessMessage(char* message, u08 size) {
     }
     
     if(incomingMsg.has_home_base) {
+        #ifdef COMMS_DEBUG
+        printf("Protobuf: Have home base!\r\n");
+        #endif
+        
         homeBase.timestamp = now;
         
         homeBase.latitude = incomingMsg.home_base.latitude;
@@ -376,6 +392,10 @@ void commsProcessMessage(char* message, u08 size) {
     }
     
     if(incomingMsg.has_new_mode) {
+        #ifdef COMMS_DEBUG
+        printf("Protobuf: Have new mode!\r\n");
+        #endif
+        
         currentFlightMode = incomingMsg.new_mode;
     }
 }
