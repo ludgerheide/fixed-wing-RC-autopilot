@@ -27,6 +27,11 @@ void initIO(void) {
     gpsInit();
     commsInit();
     
+    //Initialize the output command set
+    outputCommandSet.yaw = 127;
+    outputCommandSet.pitch = 127;
+    outputCommandSet.thrust = 0;
+    
     _delay_ms(1000);
 }
 
@@ -57,11 +62,11 @@ int main(void) {
         currentAttitude.timestamp = millis();
         
         //Send telemetry
-//        commsCheckAndSendTelemetry();
-        commsCheckAndSendLogging();
+        commsCheckAndSendTelemetry();
+//        commsCheckAndSendLogging();
         
         // Set servos       
-        if((inputCommandSet.timestamp) - (outputCommandSet.timestamp)) {            
+        if((inputCommandSet.timestamp) - (outputCommandSet.timestamp)) {
             outputCommandSet.timestamp = millis();
             outputCommandSet.yaw = inputCommandSet.yaw;
             outputCommandSet.pitch = inputCommandSet.pitch;

@@ -15,14 +15,23 @@
 #define RASPI_UART 0
 
 //The Servo numbers
-#define SERVO_PORT PORTB
+#define SERVO1_PORT PORTB
+#define SERVO2_PORT PORTB
+#define SERVO3_PORT PORTB
+
+#define YAW_SERVO_PORT PORTB
+#define YAW_SERVO_DDR DDRB
 #define YAW_SERVO_PIN 6
 #define YAW_SERVO_CHAN 0
 
+#define PITCH_SERVO_PORT PORTB
+#define PITCH_SERVO_DDR DDRB
 #define PITCH_SERVO_PIN 5
 #define PITCH_SERVO_CHAN 1
 
-#define THRUST_SERVO_PIN 4
+#define THRUST_SERVO_PORT PORTL
+#define THRUST_SERVO_DDR DDRL
+#define THRUST_SERVO_PIN 6
 #define THRUST_SERVO_CHAN 2
 
 #endif /* pinSetup_h */

@@ -86,14 +86,14 @@ void servoInit(void)
     sei();
     
     //Set the servo pins as output
-    sbi(SERVO_PORT, YAW_SERVO_PIN);
-    sbi(SERVO_PORT, PITCH_SERVO_PIN);
-    sbi(SERVO_PORT, THRUST_SERVO_PIN);
+    sbi(YAW_SERVO_DDR, YAW_SERVO_PIN);
+    sbi(PITCH_SERVO_DDR, PITCH_SERVO_PIN);
+    sbi(THRUST_SERVO_DDR, THRUST_SERVO_PIN);
     
     //Attach the pitch, yaw, thurst servis
-    servoSetChannelIO(0, _SFR_IO_ADDR(SERVO_PORT), YAW_SERVO_PIN);
-    servoSetChannelIO(1, _SFR_IO_ADDR(SERVO_PORT), PITCH_SERVO_PIN);
-    servoSetChannelIO(2, _SFR_IO_ADDR(SERVO_PORT), THRUST_SERVO_PIN);
+    servoSetChannelIO(0, _SFR_IO_ADDR(YAW_SERVO_PORT), YAW_SERVO_PIN);
+    servoSetChannelIO(1, _SFR_IO_ADDR(PITCH_SERVO_PORT), PITCH_SERVO_PIN);
+    servoSetChannelIO(2, _SFR_IO_ADDR(THRUST_SERVO_PORT), THRUST_SERVO_PIN);
     
     //Set the servos to a middle value
     for(u08 i = 0; i < 3; i++) {

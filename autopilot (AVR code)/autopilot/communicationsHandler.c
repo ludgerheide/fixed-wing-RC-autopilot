@@ -37,7 +37,7 @@ static char messageBuffer[255];
 //As well as limiting the telemetry frequency
 static BOOL lastTxAcked;
 static u32 lastTxTime;
-const static u16 telemetryDelay = 333; //The delay between each telemetry message in milliseconds
+const static u16 telemetryDelay = 100; //The delay between each telemetry message in milliseconds
 
 //These hold the timestamps for the last packets that were
 // a) transmitted over the telemetry
@@ -46,7 +46,7 @@ static u32 telPosTime, telVelTime, telAttitudeTime;
 static u32 logPosTime, logVelTime, logAttitudeTime, logBaroDataTime, logRawGyroTime, logRawAccelTime, logRawMagTime, logHomeBaseTime, logWaypointTime, logInCommandSetTime, logOutCommandSetTime;
 
 //Function to convert degrees to a fixed-point 16 byte integer
-static s16 degreesToInt(float degrees) {
+s16 degreesToInt(float degrees) {
     //360 degrees stays in the 16-bit bounds if right shifted by six bits
     // Or multiplied by 64
     
@@ -54,7 +54,7 @@ static s16 degreesToInt(float degrees) {
 }
 
 //Converts a fixed-point interger to a float
-static float intToDegrees(s16 fixedPoint) {
+float intToDegrees(s16 fixedPoint) {
     //360 degrees stays in the 16-bit bounds if right shifted by six bits
     // Or multiplied by 64
     

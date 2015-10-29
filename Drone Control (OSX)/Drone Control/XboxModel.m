@@ -62,7 +62,9 @@
     } else if (rudder < -MAX_RUDDER) {
         rudder = -MAX_RUDDER;
     }
-    cs.rudder = rudder;
+    
+    //INVERT THE RUDDER INPUT BECAUSE THE SERVO IS SWITCHED
+    cs.rudder = -rudder;
     
     //Now, take the thrust
     double thrust = theController.rightTrigger;

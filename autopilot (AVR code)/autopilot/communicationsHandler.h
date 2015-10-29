@@ -24,6 +24,12 @@ void commsInit(void);
 
 void commsProcessMessage(char* message, u08 size);
 
+//Function to convert degrees to a fixed-point 16 byte integer
+s16 degreesToInt(float degrees);
+
+//Converts a fixed-point interger to a float
+float intToDegrees(s16 fixedPoint);
+
 //Telemetry goes out over the radio and is a small packet with posoition, velocity and attitude
 void commsCheckAndSendTelemetry(void);
 

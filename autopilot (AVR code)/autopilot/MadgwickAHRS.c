@@ -230,9 +230,11 @@ void getYawPitchRollDegrees(float* yaw, float* pitch, float* roll) {
     gy = 2 * (q0*q1 + q2*q3);
     gz = q0*q0 - q1*q1 - q2*q2 + q3*q3;
     
+    //Switch pitch and roll because of the final assembly direction
+    //And invert the roll
     *yaw = (180/M_PI) * atan2(2 * q1 * q2 - 2 * q0 * q3, 2 * q0*q0 + 2 * q1 * q1 - 1);
-    *pitch = (180/M_PI) * atan(gx / sqrt(gy*gy + gz*gz));
-    *roll = (180/M_PI) * atan(gy / sqrt(gx*gx + gz*gz));
+    *roll = -(180/M_PI) * atan(gx / sqrt(gy*gy + gz*gz));
+    *pitch = (180/M_PI) * atan(gy / sqrt(gx*gx + gz*gz));
 }
 
 

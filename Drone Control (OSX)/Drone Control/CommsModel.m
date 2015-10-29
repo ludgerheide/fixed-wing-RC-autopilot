@@ -8,7 +8,7 @@
 
 #define POLLING_INTERVAL 0.05 //20hz
 
-#define INSTRUMENTTIMEOUT 0.5
+#define INSTRUMENTTIMEOUT 2
 
 #import "CommsModel.h"
 #import "XBeeMessage.h"
