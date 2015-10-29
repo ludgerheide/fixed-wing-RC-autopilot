@@ -87,6 +87,7 @@
         case XBEE_MSGTYPE_TXSTATUS:
         {
             if(delegate) {
+                NSLog(@"Ack receeved for frame ID %02x, retryCount %02x, txSTatus %02x", msgBytes[4], msgBytes[7], msgBytes[8]);
                 [delegate didReceiveTransmitStatusWithFrameID: msgBytes[4] retryCount: msgBytes[7] txStatus: msgBytes[8]];
             }
             break;

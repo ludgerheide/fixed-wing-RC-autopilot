@@ -135,7 +135,7 @@ static uint8_t xBeeGenerateChecksum(char* msg, uint8_t size) {
 //Called if a byte is received over the serial port. Checks if it is a start byte and the fills th ebuffer accordingly
 void xBeeByteReceiver(unsigned char c) {
     #ifdef COMMS_DEBUG
-    //printf(" %02x",c);
+    printf("%u: %02x\r\n",received_index, c);
     #endif
     if(received_index == 0) {
         //We are looking for the start byte, 0x7E
@@ -150,9 +150,10 @@ void xBeeByteReceiver(unsigned char c) {
     } else if (received_index == 2) {
         //This is the LSB of the size
         received_size |= c;
-    } else if (received_index < received_size + 3 && (received_index - 3) < RX_BUFFER_SIZE) {
+        printf("size: %04x, %u\r\n", received_size, received_size);
+    } else if (received_index < received_size + 2 && (received_index - 2) < RX_BUFFER_SIZE) {
         xBeeRxBuffer[received_index - 3] = c;
-    } else if (received_index == received_size + 3) {
+    } else if (received_index == received_size + 2) {
         uint8_t checksum = xBeeGenerateChecksum(xBeeRxBuffer, received_size);
         if(checksum == c) {
             //We have recieved a correnct message, set the "Ready" flag

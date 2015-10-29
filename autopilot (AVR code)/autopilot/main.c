@@ -46,7 +46,6 @@ int main(void) {
         }
         if(gpsCheck()) {
             gpsUpdate();
-            printf("GPS: %lu @ %lu\r\n", GpsInfo.PosLLA.timestamp, millis());
         }
         
         //TODO: Analyse if we are using expired or invalid data and try to reset the sensors
@@ -58,11 +57,13 @@ int main(void) {
         currentAttitude.timestamp = millis();
         
         //Send telemetry
-        commsCheckAndSendTelemetry();
+        //commsCheckAndSendTelemetry();
         //commsCheckAndSendLogging();
         
         // Set servos
-        if(inputCommandSet.timestamp - outputCommandSet.timestamp) {
+        if((s32)(inputCommandSet.timestamp) - (s32)(outputCommandSet.timestamp) > 0) {
+            printf("Pitch: %i, Yaw: %i, Thrust: %i\r\n", inputCommandSet.pitch, inputCommandSet.yaw, inputCommandSet.thrust);
+            
             outputCommandSet.timestamp = millis();
             outputCommandSet.yaw = inputCommandSet.yaw;
             outputCommandSet.pitch = inputCommandSet.pitch;

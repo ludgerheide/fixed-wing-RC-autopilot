@@ -35,6 +35,11 @@
 }
 
 -(void)updateMapWithLatitude: (NSNumber*) latitude longitude: (NSNumber*) longitude altitude: (NSNumber*) altitude course: (NSNumber*) course speed: (NSNumber*) speed {
+    if(latitude == nil || longitude == nil) {
+        //We do not have valid cdoordinates. remove the pin
+        [myMapView removeAnnotation: currentPosPin];
+        return;
+    }
     CLLocationCoordinate2D coords;
     coords.latitude = latitude.doubleValue;
     coords.longitude = longitude.doubleValue;

@@ -290,6 +290,10 @@ void commsInit(void) {
 }
 
 void commsProcessMessage(char* message, u08 size) {
+    #ifdef COMMS_DEBUG
+    printf("Processing msg!");
+    #endif
+    
     assert(size <= 100);
     u32 now = millis();
     

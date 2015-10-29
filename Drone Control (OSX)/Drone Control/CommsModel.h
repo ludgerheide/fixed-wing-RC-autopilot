@@ -24,4 +24,9 @@
 @property (weak) id<attitudeDelegate> attitudeDelegate;
 @property (weak) id<positionDelegate> positionDelegate;
 
+//This method invalidates the Attitude and map view when the timeout is exceeded
+- (void) timeOutExceeded:(NSTimer*) theTimer;
+
+//This method collects a sample from the XBox controller and sends
+- (void) sendControllerSample: (NSTimer*) theTimer;
 @end
