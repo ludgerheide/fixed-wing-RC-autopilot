@@ -28,6 +28,11 @@
     IBOutlet NSTextField *label_heading;
     IBOutlet NSImageView *view_horizon;
     
+    IBOutlet NSTextField* label_controller;
+    NSNumber* pitch;
+    NSNumber* yaw;
+    NSNumber* thrust;
+    
     NSImage* img_speedTape;
     NSImage* img_altituteTape;
     NSImage* img_invalid;
@@ -273,7 +278,7 @@
     if(heading) {
         double roundedHeadng = round(heading.doubleValue);
         headingString = [NSString stringWithFormat: @"%03.0f", roundedHeadng];
-        label_heading.textColor = [NSColor blackColor];
+        label_heading.textColor = [NSColor whiteColor];
     } else {
         headingString = @" X ";
         label_heading.textColor = [NSColor redColor];
@@ -284,10 +289,34 @@
     label_heading.font = theFont;
 }
 
+//Method for ControllerDelegate
+-(void) controllerChangedWithPitch: (NSNumber*) thePitch yaw: (NSNumber*) theYaw thrust: (NSNumber*) theThrust {
+    pitch = thePitch;
+    yaw = theYaw;
+    thrust = theThrust;
+    [self updateControllerText];
+}
+
+-(void) updateControllerText {
+    NSString* controllerString;
+    if(pitch && yaw && thrust) {
+        controllerString = [NSString stringWithFormat: @"P: %+1.1f, Y: %+1.1f, T: %+1.1f", pitch.doubleValue, yaw.doubleValue, thrust.doubleValue];
+        label_controller.textColor = [NSColor whiteColor];
+    } else {
+        controllerString = @"No Controller!";
+        label_controller.textColor = [NSColor redColor];
+    }
+    label_controller.stringValue = controllerString;
+    CGFloat fontSize = view_speedTape.bounds.size.width / 6;
+    NSFont* theFont = [NSFont fontWithDescriptor: [NSFontDescriptor fontDescriptorWithName: @"Monaco" size: fontSize] size: fontSize];
+    label_controller.font = theFont;
+}
+
 - (void) viewDidLayout {
     [self updateSpeedTape];
     [self updateAltitudeTape];
     [self updateHorizon];
     [self updateHeading];
+    [self updateControllerText];
 }
 @end

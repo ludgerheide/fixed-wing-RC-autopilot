@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ORSSerial/ORSSerialPort.h"
 
 @interface AppDelegate ()
 
@@ -20,6 +21,8 @@
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
+    ORSSerialPort *myPort = [ORSSerialPort serialPortWithPath: @"/dev/tty.usbserial-DA017KGT"];
+    [myPort close];
 }
 
 @end

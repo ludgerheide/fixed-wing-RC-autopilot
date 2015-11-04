@@ -6,7 +6,7 @@
 //  Copyright © 2015 Ludger Heide. All rights reserved.
 //
 
-#define POLLING_INTERVAL 0.05 //20hz
+#define POLLING_INTERVAL 0.1 //10hz
 
 #define INSTRUMENTTIMEOUT 2
 
@@ -19,6 +19,7 @@
 @implementation CommsModel
 {
     ORSSerialPort* myPort;
+    
     NSMutableData* receivedData;
     
     XboxModel* controllerModel;
@@ -29,6 +30,7 @@
 
 @synthesize attitudeDelegate;
 @synthesize positionDelegate;
+@synthesize controllerDelegate;
 
 
 - (CommsModel*) init {
@@ -50,8 +52,12 @@
         //Now, the controller
         controllerModel = [[XboxModel alloc] init];
         
-        //Schedule the repeating timer for the controller
-        controllerPollTimer = [NSTimer scheduledTimerWithTimeInterval: POLLING_INTERVAL target: self selector: @selector(sendControllerSample:) userInfo:nil repeats: YES];
+        if(controllerModel) {
+            //Schedule the repeating timer for the controller
+            controllerPollTimer = [NSTimer scheduledTimerWithTimeInterval: POLLING_INTERVAL target: self selector: @selector(sendControllerSample:) userInfo:nil repeats: YES];
+        } else {
+            
+        }
     }
     return self;
 }
@@ -67,6 +73,14 @@
 //This method collects a sample from the XBox controller and sends
 - (void) sendControllerSample: (NSTimer*) theTimer {
     commandSet cs = [controllerModel getValues];
+    
+    NSNumber* pitch = [NSNumber numberWithDouble: cs.elevator];
+    NSNumber* yaw = [NSNumber numberWithDouble: cs.rudder];
+    NSNumber* thrust = [NSNumber numberWithDouble: cs.thrust];
+    
+    if(controllerDelegate) {
+        [controllerDelegate controllerChangedWithPitch: pitch yaw: yaw thrust: thrust];
+    }
     
     //Create a protobuf with this stuff and send it
     DroneMessage* msg = [[DroneMessage alloc] init];

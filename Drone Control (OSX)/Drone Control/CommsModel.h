@@ -19,10 +19,16 @@
 -(void) positionChangedToLatitude: (NSNumber*) latitude longitude: (NSNumber*) longitude altitude: (NSNumber*) altitude courseOverGround: (NSNumber*) courseOverGround speed: (NSNumber*) speed;
 @end
 
+@protocol controllerDelegate <NSObject>
+@required
+-(void) controllerChangedWithPitch: (NSNumber*) pitch yaw: (NSNumber*) yaw thrust: (NSNumber*) thrust;
+@end
+
 @interface CommsModel : NSObject <ORSSerialPortDelegate>
 
 @property (weak) id<attitudeDelegate> attitudeDelegate;
 @property (weak) id<positionDelegate> positionDelegate;
+@property (weak) id<controllerDelegate> controllerDelegate;
 
 //This method invalidates the Attitude and map view when the timeout is exceeded
 - (void) timeOutExceeded:(NSTimer*) theTimer;

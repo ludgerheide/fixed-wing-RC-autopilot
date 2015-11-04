@@ -25,6 +25,8 @@
     Xbox360Controller* theController;
     double elevatorTrim;
     double rudderTrim;
+    
+    NSTimer *shutOffTimer;
 }
 
 -(id) init {
@@ -33,11 +35,12 @@
         Xbox360ControllerManager* sharedManager = [Xbox360ControllerManager sharedInstance];
         [sharedManager updateControllers];
         
-        theController = [sharedManager getController: 0];
-        if(theController == nil) {
+        if(sharedManager.controllerCount == 0) {
             NSLog(@"Connecting to controller faile!");
             return nil;
         }
+            
+        theController = [sharedManager getController: 0];
         theController.delegate = self;
     }
     return self;
@@ -85,7 +88,7 @@
         elevatorTrim -= STEP_ELEVATOR_TRIM;
     } else {
         [theController runMotorsLarge: 0 Small: 100];
-        NSTimer* shutOffTimer = [NSTimer scheduledTimerWithTimeInterval: MAX_TRIM_VIBRATION_DURATION target: self selector: @selector(stopMotors:) userInfo: nil repeats:NO];
+        shutOffTimer = [NSTimer scheduledTimerWithTimeInterval: MAX_TRIM_VIBRATION_DURATION target: self selector: @selector(stopMotors:) userInfo: nil repeats:NO];
     }
 }
 
@@ -96,7 +99,7 @@
         elevatorTrim += STEP_ELEVATOR_TRIM;
     } else {
         [theController runMotorsLarge: 0 Small: 100];
-        NSTimer* shutOffTimer = [NSTimer scheduledTimerWithTimeInterval: MAX_TRIM_VIBRATION_DURATION target: self selector: @selector(stopMotors:) userInfo: nil repeats:NO];
+        shutOffTimer = [NSTimer scheduledTimerWithTimeInterval: MAX_TRIM_VIBRATION_DURATION target: self selector: @selector(stopMotors:) userInfo: nil repeats:NO];
     }
 }
 
@@ -106,7 +109,7 @@
         rudderTrim -= STEP_RUDDER_TRIM;
     } else {
         [theController runMotorsLarge: 0 Small: 100];
-        NSTimer* shutOffTimer = [NSTimer scheduledTimerWithTimeInterval: MAX_TRIM_VIBRATION_DURATION target: self selector: @selector(stopMotors:) userInfo: nil repeats:NO];
+        shutOffTimer = [NSTimer scheduledTimerWithTimeInterval: MAX_TRIM_VIBRATION_DURATION target: self selector: @selector(stopMotors:) userInfo: nil repeats:NO];
     }
 }
 
@@ -116,7 +119,7 @@
         rudderTrim += STEP_RUDDER_TRIM;
     } else {
         [theController runMotorsLarge: 0 Small: 100];
-        NSTimer* shutOffTimer = [NSTimer scheduledTimerWithTimeInterval: MAX_TRIM_VIBRATION_DURATION target: self selector: @selector(stopMotors:) userInfo: nil repeats:NO];
+        shutOffTimer = [NSTimer scheduledTimerWithTimeInterval: MAX_TRIM_VIBRATION_DURATION target: self selector: @selector(stopMotors:) userInfo: nil repeats:NO];
     }
 }
 
