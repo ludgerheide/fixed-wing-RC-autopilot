@@ -63,7 +63,7 @@ int main(void) {
         
         //Send telemetry
         commsCheckAndSendTelemetry();
-//        commsCheckAndSendLogging();
+        commsCheckAndSendLogging();
         
         // Set servos       
         if((inputCommandSet.timestamp) - (outputCommandSet.timestamp)) {

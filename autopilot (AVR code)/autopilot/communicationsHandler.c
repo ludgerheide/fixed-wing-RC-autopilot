@@ -37,7 +37,7 @@ static char messageBuffer[255];
 //As well as limiting the telemetry frequency
 static BOOL lastTxAcked;
 static u32 lastTxTime;
-const static u16 telemetryDelay = 100; //The delay between each telemetry message in milliseconds
+const static u16 telemetryDelay = 500; //The delay between each telemetry message in milliseconds
 
 //These hold the timestamps for the last packets that were
 // a) transmitted over the telemetry
