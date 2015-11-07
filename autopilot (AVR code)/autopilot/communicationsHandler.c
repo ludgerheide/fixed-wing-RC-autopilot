@@ -77,6 +77,12 @@ static u08 createProtobuf(messagePurpose thePurpose, u08* messageLength) {
         outgoingMsg.current_mode = currentFlightMode;
     }
     
+    //Current time for logging, then always
+    if(thePurpose == logging) {
+        outgoingMsg.timestamp = millis();
+        outgoingMsg.has_timestamp = true;
+    }
+    
     //Position and velocity for both, but with the correct last update
     if((thePurpose == logging && GpsInfo.PosLLA.timestamp - logPosTime) || (thePurpose == telemetry && GpsInfo.PosLLA.timestamp - telPosTime)) {
         outgoingMsg.has_current_position = true;
