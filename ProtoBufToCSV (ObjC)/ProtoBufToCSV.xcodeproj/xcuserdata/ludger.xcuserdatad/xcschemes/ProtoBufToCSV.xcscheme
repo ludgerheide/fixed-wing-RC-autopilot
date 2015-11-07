@@ -63,7 +63,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = " /Users/ludger/Downloads/2015-10-24.protobuf"
+            argument = " /Users/ludger/Downloads/x.protobuf"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

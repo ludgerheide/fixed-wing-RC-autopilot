@@ -2,6 +2,7 @@ package de.lhtechnologies;
 
 import com.beust.jcommander.JCommander;
 import com.sun.javaws.exceptions.InvalidArgumentException;
+import sun.nio.ch.Net;
 
 import java.io.FileOutputStream;
 import java.net.DatagramSocket;
@@ -57,9 +58,15 @@ public class Main {
             inputReceiver.outAddress = uri.getHost();
 
             //Now start listening on this connection
-            InetAddress address = InetAddress.getByName(host);
-            inputReceiver.outSocket = new DatagramSocket(port, address);
+            InetAddress address = InetAddress.getByName("0.0.0.0");
+            inputReceiver.outSocket = new DatagramSocket(NetworkInputReceiver.DEFAULT_PORT, address);
         }
+
+        //Set verbosity
+        inputReceiver.verbose = clp.verbose;
+
+        //Set syncinc
+        inputReceiver.sync = clp.sync;
 
         //Receive data in an infinite loop
         inputReceiver.startReceiving();

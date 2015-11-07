@@ -21,3 +21,5 @@ CommunicationProtocol.java
 *.idea/workspace.xml
 *.idea/tasks.xml
 *.class
+
+TelemetryViewer/out/artifacts/TelemetryViewer_jar/TelemetryViewer.jar

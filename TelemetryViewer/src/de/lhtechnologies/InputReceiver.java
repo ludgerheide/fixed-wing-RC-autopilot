@@ -8,7 +8,6 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.nio.charset.Charset;
 
 import static de.lhtechnologies.CommunicationProtocol.*;
 
@@ -22,48 +21,58 @@ public abstract class InputReceiver {
     public DatagramSocket outSocket;
     public String outAddress;
     public int outPort;
+    public boolean sync;
+
+    public boolean verbose;
+    private int validMessageCount;
 
     public abstract void startReceiving();
 
-    public void processMessage(byte[] protobuf) {
+    public void processMessage(byte[] protobuf) throws InvalidProtocolBufferException {
         DroneMessage msg;
 
-        try {
-            msg = DroneMessage.parseFrom(protobuf);
+        msg = DroneMessage.parseFrom(protobuf);
 
-            if(outFile != null) {
-                //Write start to the ouput file
-                try {
-                    outFile.write(startMarker.getBytes());
-                    outFile.write(protobuf);
-                    outFile.write(InputReceiver.calculateChecksum(protobuf));
-                    outFile.flush();
+        if(outFile != null) {
+            //Write start to the ouput file
+            try {
+                outFile.write(startMarker.getBytes());
+
+                //Create the length
+                byte[] lengthByte = new byte[1];
+                lengthByte[0] = (byte)protobuf.length;
+                outFile.write(lengthByte);
+                outFile.write(protobuf);
+                outFile.write(InputReceiver.calculateChecksum(protobuf));
+                outFile.flush();
+                if(sync) {
                     outFile.getFD().sync();
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+        }
 
-            if(outSocket != null) {
-                //Send out over network
-                InetAddress address = null;
-                try {
-                    address = InetAddress.getByName(outAddress);
-                } catch (UnknownHostException e) {
-                    e.printStackTrace();
-                }
-                DatagramPacket packet = new DatagramPacket(protobuf, protobuf.length, address, outPort);
-                try {
-                    outSocket.send(packet);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        if(outSocket != null) {
+            //Send out over network
+            InetAddress address = null;
+            try {
+                address = InetAddress.getByName(outAddress);
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
             }
+            DatagramPacket packet = new DatagramPacket(protobuf, protobuf.length, address, outPort);
+            try {
+                outSocket.send(packet);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
-            //Write to display
+        //Write to display
+        System.out.format("Message %d received%n", validMessageCount++);
+        if(verbose) {
             System.out.println(msg);
-        } catch (InvalidProtocolBufferException e) {
-            e.printStackTrace();
         }
     }
 

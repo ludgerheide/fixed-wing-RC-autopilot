@@ -1,5 +1,7 @@
 package de.lhtechnologies;
 
+import com.google.protobuf.InvalidProtocolBufferException;
+
 import java.io.IOException;
 import java.net.*;
 
@@ -44,7 +46,12 @@ public class NetworkInputReceiver extends InputReceiver {
             for(int i = 0; i < payload.length; i++) {
                 payload[i] = payloadBuffer[i];
             }
-            super.processMessage(payload);
+
+            try {
+                super.processMessage(payload);
+            } catch (InvalidProtocolBufferException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

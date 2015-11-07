@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TelemetryViewer:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/TelemetryViewer_jar</output-path>
+    <root id="archive" name="TelemetryViewer.jar">
+      <element id="module-output" name="TelemetryViewer" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/RXTXcomm.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

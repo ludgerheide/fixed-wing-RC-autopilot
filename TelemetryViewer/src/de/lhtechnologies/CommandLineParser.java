@@ -26,4 +26,7 @@ public class CommandLineParser {
 
     @Parameter(names = {"-d", "--device"}, description = "Device to receive serial data from (mutually exclusive with -r)")
     public String deviceFile;
+
+    @Parameter(names = "--sync", description = "fsync() after every write")
+    public boolean sync;
 }
