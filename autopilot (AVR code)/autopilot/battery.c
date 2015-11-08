@@ -72,10 +72,14 @@ typedef enum {
 static volatile adcMode theMode;
 
 //Value between 0 and 1023. 512 means 0 amps, 1023 means 25A, 0 -25A
-static volatile short batteryCurrent;
+static volatile u16 batteryCurrent;
 
 //Value between 0 and 1023. 0 means 0 V vBat, 1023 means 1.1 V measured, that corresponds to 8,433333333333333 V vBat
-static volatile short batteryVoltage;
+static volatile u16 batteryVoltage;
+
+//values for the low pass filter
+static volatile u32 sumVoltage, sumCurrent;
+const u16 alpha = 9; //thsi is a bitshoft, 8 corresponds to a multiplication by 64
 
 // configure A2D converter clock division (prescaling)
 static void a2dSetPrescaler(unsigned char prescale)
@@ -132,7 +136,7 @@ static float convertVoltage(void) {
     //For 2.56V reference
     //const float conversionFactor = 19.626666666 / 1023;
     //For 5V reference
-    const float conversionFactor = 38.33333333 / 1023;
+    const float conversionFactor = 38.33333333 / (1023);
     
     return voltage * conversionFactor;
 }
@@ -145,7 +149,7 @@ static float convertCurrent(void) {
     //Subtract to get to the ± 511.5 range
     current -= 511.5;
     
-    const float conversionFactor = 50.0 / 1023;
+    const float conversionFactor = 50.0 / (1023);
     
     return current * conversionFactor;
 }
@@ -169,10 +173,14 @@ ISR(ADC_vect) {
             
         case ADC_VOLTAGE_SECOND:
             //Read the result
-            batteryVoltage = inb(ADCL) | (inb(ADCH)<<8);
+            {
+                u16 newVoltage = inb(ADCL) | (inb(ADCH)<<8);
+                sumVoltage = sumVoltage - batteryVoltage + newVoltage;
+                batteryVoltage = (sumVoltage+(1<<(alpha - 1)))>>(alpha);
+            }
             
             a2dStartConversion(CURRENT_CHANNEL);
-                              
+            
             theMode = ADC_CURRENT_FIRST;
             break;
             
@@ -185,7 +193,11 @@ ISR(ADC_vect) {
             
         case ADC_CURRENT_SECOND:
             //Read the result
-            batteryCurrent = inb(ADCL) | (inb(ADCH)<<8);
+            {
+                short newCurrent = inb(ADCL) | (inb(ADCH)<<8);
+                sumCurrent = sumCurrent - batteryCurrent + newCurrent;
+                batteryCurrent = (sumCurrent+(1<<(alpha - 1)))>>(alpha);
+            }
             
             a2dStartConversion(VOLTAGE_CHANNEL);
             theMode = ADC_VOLTAGE_FIRST;

@@ -23,3 +23,7 @@ CommunicationProtocol.java
 *.class
 
 TelemetryViewer/out/artifacts/TelemetryViewer_jar/TelemetryViewer.jar
+
+*.dat
+
+*.protobuf

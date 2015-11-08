@@ -157,6 +157,7 @@ static u08 createProtobuf(messagePurpose thePurpose, u08* messageLength) {
         
         //For logging, add timestamp
         if(thePurpose == logging) {
+            outgoingMsg.current_battery_data.has_timestamp = true;
             outgoingMsg.current_battery_data.timestamp = curBattery.timestamp;
         }
         

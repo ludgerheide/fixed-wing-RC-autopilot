@@ -128,7 +128,7 @@ CINCS = -I/usr/local/include
 CFLAGS = -g$(DEBUG)
 CFLAGS += $(CDEFS) $(CINCS)
 CFLAGS += -O$(OPT)
-CFLAGS += -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums
+CFLAGS += -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -ffreestanding
 CFLAGS += -Wall -Wstrict-prototypes
 CFLAGS += -Wa,-adhlns=$(addprefix $(OBJDIR)/,$(<:.c=.lst))
 CFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
@@ -158,8 +158,8 @@ PRINTF_LIB_FLOAT = -Wl,-u,vfprintf -lprintf_flt
 
 # If this is left blank, then it will use the Standard printf version.
 #PRINTF_LIB =
-#PRINTF_LIB = $(PRINTF_LIB_MIN)
-PRINTF_LIB = $(PRINTF_LIB_FLOAT)
+PRINTF_LIB = $(PRINTF_LIB_MIN)
+#PRINTF_LIB = $(PRINTF_LIB_FLOAT)
 
 
 # Minimalistic scanf version
@@ -169,8 +169,8 @@ SCANF_LIB_MIN = -Wl,-u,vfscanf -lscanf_min
 SCANF_LIB_FLOAT = -Wl,-u,vfscanf -lscanf_flt
 
 # If this is left blank, then it will use the Standard scanf version.
-SCANF_LIB = 
-#SCANF_LIB = $(SCANF_LIB_MIN)
+#SCANF_LIB =
+SCANF_LIB = $(SCANF_LIB_MIN)
 #SCANF_LIB = $(SCANF_LIB_FLOAT)
 
 
@@ -200,6 +200,7 @@ LDFLAGS = -Wl,-Map=$(OBJDIR)/$(TARGET).map,--cref
 LDFLAGS += $(EXTMEMOPTS)
 LDFLAGS += $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
 LDFLAGS += -Wl,--gc-sections
+LDFLAGS += -Wl,--relax
 
 
 #---------------- Debugging Options ----------------

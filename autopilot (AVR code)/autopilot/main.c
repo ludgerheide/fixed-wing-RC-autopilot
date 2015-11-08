@@ -35,6 +35,7 @@ void initIO(void) {
     outputCommandSet.thrust = 0;
 }
 
+int main(void) __attribute__ ((noreturn));
 int main(void) {
     initIO();
     
@@ -78,5 +79,4 @@ int main(void) {
         servoSetPosition(PITCH_SERVO_CHAN, outputCommandSet.pitch);
         servoSetPosition(THRUST_SERVO_CHAN, outputCommandSet.thrust);
     }
-    return 0; // never reached
 }
