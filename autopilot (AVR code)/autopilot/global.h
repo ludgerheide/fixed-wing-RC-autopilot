@@ -29,6 +29,7 @@
 #include "bmp.h"
 #include "gyro.h"
 #include "accelMag.h"
+#include "battery.h"
 
 // project/system dependent defines
 
@@ -85,6 +86,7 @@ pressureEvent curPressure;
 magEvent curMag;
 accelEvent curAccel;
 gyroEvent curGyro;
+batteryEvent curBattery;
 
 float seaLevelPressure; //Initialize to standard pressure for now
 

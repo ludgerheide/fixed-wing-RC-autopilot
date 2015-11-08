@@ -34,4 +34,8 @@
 #define THRUST_SERVO_PIN 6
 #define THRUST_SERVO_CHAN 2
 
+//The adc channels
+#define VOLTAGE_CHANNEL 1
+#define CURRENT_CHANNEL 8
+
 #endif /* pinSetup_h */

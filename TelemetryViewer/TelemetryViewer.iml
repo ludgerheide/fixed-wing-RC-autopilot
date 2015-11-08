@@ -8,5 +8,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="RXTXcomm" level="project" />
+    <orderEntry type="library" name="LiveGraph.2.0.beta01.Complete" level="project" />
+    <orderEntry type="library" name="SoftNetConsultUtils.2.01.slim" level="project" />
   </component>
 </module>

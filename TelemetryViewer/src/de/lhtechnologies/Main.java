@@ -68,6 +68,11 @@ public class Main {
         //Set syncinc
         inputReceiver.sync = clp.sync;
 
+        if(clp.dataStreamEnabled) {
+            inputReceiver.dataStreamEnabled = true;
+            inputReceiver.setupDataStream();
+        }
+
         //Receive data in an infinite loop
         inputReceiver.startReceiving();
     }

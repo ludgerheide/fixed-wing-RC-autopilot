@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SoftNetConsultUtils.2.01.slim">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/SoftNetConsultUtils.2.01.slim.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

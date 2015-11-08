@@ -53,11 +53,10 @@ message DroneMessage {
 	}
 	
 	message BatteryData {
-		required int32 timestamp = 70;
+		optional int32 timestamp = 70;
 		
 		required int32 voltage = 71;
 		required int32 current = 72;
-		required int32 percentage = 73;
 	}
 	
 	message CommandSet {

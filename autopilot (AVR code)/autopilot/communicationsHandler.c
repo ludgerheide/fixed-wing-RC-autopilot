@@ -42,8 +42,8 @@ const static u16 telemetryDelay = 500; //The delay between each telemetry messag
 //These hold the timestamps for the last packets that were
 // a) transmitted over the telemetry
 // b) send thtough the serial (logging port)
-static u32 telPosTime, telVelTime, telAttitudeTime;
-static u32 logPosTime, logVelTime, logAttitudeTime, logBaroDataTime, logRawGyroTime, logRawAccelTime, logRawMagTime, logHomeBaseTime, logWaypointTime, logInCommandSetTime, logOutCommandSetTime;
+static u32 telPosTime, telVelTime, telAttitudeTime, telBatteryTime;
+static u32 logPosTime, logVelTime, logAttitudeTime, logBaroDataTime, logRawGyroTime, logRawAccelTime, logRawMagTime, logHomeBaseTime, logWaypointTime, logInCommandSetTime, logOutCommandSetTime, logBatteryTime;
 
 //Function to convert degrees to a fixed-point 16 byte integer
 s16 degreesToInt(float degrees) {
@@ -148,6 +148,26 @@ static u08 createProtobuf(messagePurpose thePurpose, u08* messageLength) {
             logAttitudeTime = currentAttitude.timestamp;
         } else {
             telAttitudeTime = currentAttitude.timestamp;
+        }
+    }
+    
+    //Battery for both, as above
+    if ((thePurpose == logging && curBattery.timestamp - logBatteryTime) || (thePurpose == telemetry && curBattery.timestamp - telBatteryTime)) {
+        outgoingMsg.has_current_battery_data = true;
+        
+        //For logging, add timestamp
+        if(thePurpose == logging) {
+            outgoingMsg.current_battery_data.timestamp = curBattery.timestamp;
+        }
+        
+        outgoingMsg.current_battery_data.voltage = curBattery.voltage * 1000; // in mV
+        outgoingMsg.current_battery_data.current = curBattery.current * 1000; // in mA
+        
+        //Now update the time
+        if(thePurpose == logging) {
+            logBatteryTime = curBattery.timestamp;
+        } else {
+            telBatteryTime = curBattery.timestamp;
         }
     }
     
@@ -269,21 +289,21 @@ static u08 createProtobuf(messagePurpose thePurpose, u08* messageLength) {
     
     //Now create the buffer and write the message out
     pb_ostream_t stream = pb_ostream_from_buffer((u08*)messageBuffer, sizeof(messageBuffer));
-
+    
     /* Now we are ready to encode the message! */
     bool status = pb_encode(&stream, DroneMessage_fields, &outgoingMsg);
     *messageLength = stream.bytes_written;
     
-    #ifdef COMMS_DEBUG
+#ifdef COMMS_DEBUG
     printf("Created message of size %i for purpose %i \r\n", *messageLength, thePurpose);
-    #endif
+#endif
     
     /* Then just check for any errors.. */
     if (!status)
     {
-        #ifdef COMMS_DEBUG
+#ifdef COMMS_DEBUG
         printf("Encoding failed: %s\r\n", PB_GET_ERROR(&stream));
-        #endif
+#endif
         return 1;
     }
     return 0;
@@ -296,9 +316,9 @@ void commsInit(void) {
 }
 
 void commsProcessMessage(char* message, u08 size) {
-    #ifdef COMMS_DEBUG
+#ifdef COMMS_DEBUG
     printf("Processing msg!");
-    #endif
+#endif
     
     assert(size <= 100);
     u32 now = millis();
@@ -312,17 +332,17 @@ void commsProcessMessage(char* message, u08 size) {
     BOOL status = pb_decode(&inStream, DroneMessage_fields, &incomingMsg);
     
     if(!status) {
-        #ifdef COMMS_DEBUG
+#ifdef COMMS_DEBUG
         printf("Decoding failed!");
-        #endif
+#endif
         return;
     }
-
+    
     //Now do stuff according to the content of the decoded message
     if(incomingMsg.has_input_command_set) {
-        #ifdef COMMS_DEBUG
+#ifdef COMMS_DEBUG
         printf("Protobuf: Have inpoutCommadnsSet Yaw: %li Pitch: %li Thrust: %li!\r\n", incomingMsg.input_command_set.yaw, incomingMsg.input_command_set.pitch, incomingMsg.input_command_set.thrust);
-        #endif
+#endif
         
         inputCommandSet.timestamp = now;
         
@@ -330,45 +350,45 @@ void commsProcessMessage(char* message, u08 size) {
             //We have a valid yaw
             inputCommandSet.yaw = incomingMsg.input_command_set.yaw;
         }
-        #ifdef COMMS_DEBUG
+#ifdef COMMS_DEBUG
         else {
             printf("Yaw out of bounds! %i", __LINE__);
         }
-        #endif
+#endif
         
         if(incomingMsg.input_command_set.pitch <= UINT8_MAX && incomingMsg.input_command_set.pitch >= 0) {
             //We have a valid pitch
             inputCommandSet.pitch = incomingMsg.input_command_set.pitch;
         }
-        #ifdef COMMS_DEBUG
+#ifdef COMMS_DEBUG
         else {
             printf("Pitch out of bounds! %i", __LINE__);
         }
-        #endif
+#endif
         
         if(incomingMsg.input_command_set.thrust <= UINT8_MAX && incomingMsg.input_command_set.thrust >= 0) {
             //We have a valid thrust
             inputCommandSet.thrust = incomingMsg.input_command_set.thrust;
         }
-        #ifdef COMMS_DEBUG
+#ifdef COMMS_DEBUG
         else {
             printf("Roll out of bounds! %i", __LINE__);
         }
-        #endif
+#endif
     }
     
     if(incomingMsg.has_sea_level_pressure) {
-        #ifdef COMMS_DEBUG
+#ifdef COMMS_DEBUG
         printf("Protobuf: Have sea level pressure!\r\n");
-        #endif
+#endif
         
         seaLevelPressure = incomingMsg.sea_level_pressure;
     }
     
     if(incomingMsg.has_waypoint) {
-        #ifdef COMMS_DEBUG
+#ifdef COMMS_DEBUG
         printf("Protobuf: Have waypoint!\r\n");
-        #endif
+#endif
         
         currentTarget.timestamp = now;
         
@@ -382,9 +402,9 @@ void commsProcessMessage(char* message, u08 size) {
     }
     
     if(incomingMsg.has_home_base) {
-        #ifdef COMMS_DEBUG
+#ifdef COMMS_DEBUG
         printf("Protobuf: Have home base!\r\n");
-        #endif
+#endif
         
         homeBase.timestamp = now;
         
@@ -398,9 +418,9 @@ void commsProcessMessage(char* message, u08 size) {
     }
     
     if(incomingMsg.has_new_mode) {
-        #ifdef COMMS_DEBUG
+#ifdef COMMS_DEBUG
         printf("Protobuf: Have new mode!\r\n");
-        #endif
+#endif
         
         currentFlightMode = incomingMsg.new_mode;
     }
@@ -414,9 +434,9 @@ void commsCheckAndSendTelemetry(void) {
     //and the last transmission has been acked (disreagars the ack check if more than one second has passed since the last transmission
     if(uartReadyTx[XBEE_UART] && (now - lastTxTime > telemetryDelay) && (lastTxAcked || now - lastTxTime > 1000)) {
         if(createProtobuf(telemetry, &telemetryLength)) {
-            #ifdef COMMS_DEBUG
+#ifdef COMMS_DEBUG
             printf("Creating protobuf failed @ %i\r\n", __LINE__);
-            #endif
+#endif
             return;
         } else {
             xBeeSendPayload(messageBuffer, telemetryLength, false, 0xAB);
@@ -433,9 +453,9 @@ void commsCheckAndSendLogging(void) {
     if(uartReadyTx[RASPI_UART]) {
         if(createProtobuf(logging, &loggingLength)) {
             //Nonzero return code indicates failure
-            #ifdef COMMS_DEBUG
+#ifdef COMMS_DEBUG
             printf("Creating protobuf failed @ %i\r\n", __LINE__);
-            #endif
+#endif
             return;
         }
         
@@ -454,26 +474,26 @@ void commsCheckAndSendLogging(void) {
             checksum += messageBuffer[i];
         }
         uartAddToTxBuffer(RASPI_UART, checksum);
-        #ifdef COMMS_DEBUG
+#ifdef COMMS_DEBUG
         for(u08 i = 0; i < uartGetTxBuffer(RASPI_UART)->datalength; i++) {
             printf("%02x ", uartGetTxBuffer(RASPI_UART)->dataptr[i]);
         }
         printf("\r\n");
-        #endif
+#endif
         uartSendTxBuffer(RASPI_UART);
     }
 }
 
 void txStatusHandler(uint8_t frameID, uint8_t retryCount, uint8_t txStatus) {
     if(frameID == 0xAB) {
-        #ifdef COMMS_DEBUG
+#ifdef COMMS_DEBUG
         printf("Tx Ack for fram %02X, retryCount %02X, status %02X\r\n", frameID, retryCount, txStatus);
-        #endif
+#endif
         lastTxAcked = TRUE;
     }
-    #ifdef COMMS_DEBUG
+#ifdef COMMS_DEBUG
     else{
         printf("Invalid msg @%i\r\n", __LINE__);
     }
-    #endif
+#endif
 }

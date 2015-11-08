@@ -29,4 +29,7 @@ public class CommandLineParser {
 
     @Parameter(names = "--sync", description = "fsync() after every write")
     public boolean sync;
+
+    @Parameter(names = "--datastream", description = "create data stream")
+    public boolean dataStreamEnabled;
 }

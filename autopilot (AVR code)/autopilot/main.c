@@ -16,6 +16,7 @@
 #include "MadgwickAHRS.h"
 #include "communicationsHandler.h"
 #include "servo.h"
+#include "battery.h"
 
 #include "uart4.h"
 
@@ -26,13 +27,12 @@ void initIO(void) {
     IMUinit();
     gpsInit();
     commsInit();
+    batteryInit();
     
     //Initialize the output command set
     outputCommandSet.yaw = 127;
     outputCommandSet.pitch = 127;
     outputCommandSet.thrust = 0;
-    
-    _delay_ms(1000);
 }
 
 int main(void) {
@@ -44,6 +44,7 @@ int main(void) {
         accelGetData(&curAccel);
         magGetData(&curMag);
         bmpGetData(&curPressure);
+        batteryGetData(&curBattery);
         
         //Check if we have a new GPS and xbee available
         if(xBeeNewMessageReady) {

@@ -7,27 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E4089A6E1BC47A5B00A7D508 /* pb_common.c in Sources */ = {isa = PBXBuildFile; fileRef = E4089A681BC47A5B00A7D508 /* pb_common.c */; settings = {ASSET_TAGS = (); }; };
-		E4089A6F1BC47A5B00A7D508 /* pb_decode.c in Sources */ = {isa = PBXBuildFile; fileRef = E4089A6A1BC47A5B00A7D508 /* pb_decode.c */; settings = {ASSET_TAGS = (); }; };
-		E4089A701BC47A5B00A7D508 /* pb_encode.c in Sources */ = {isa = PBXBuildFile; fileRef = E4089A6C1BC47A5B00A7D508 /* pb_encode.c */; settings = {ASSET_TAGS = (); }; };
-		E40EAC971BC3CA9600657063 /* communicationProtocol.pb.c in Sources */ = {isa = PBXBuildFile; fileRef = E40EAC951BC3CA9600657063 /* communicationProtocol.pb.c */; settings = {ASSET_TAGS = (); }; };
-		E40EAC9A1BC3CB1000657063 /* communicationsHandler.c in Sources */ = {isa = PBXBuildFile; fileRef = E40EAC981BC3CB1000657063 /* communicationsHandler.c */; settings = {ASSET_TAGS = (); }; };
-		E4A0E7F71BC9189100168960 /* servo.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A0E7F51BC9189100168960 /* servo.c */; settings = {ASSET_TAGS = (); }; };
+		E4089A6E1BC47A5B00A7D508 /* pb_common.c in Sources */ = {isa = PBXBuildFile; fileRef = E4089A681BC47A5B00A7D508 /* pb_common.c */; };
+		E4089A6F1BC47A5B00A7D508 /* pb_decode.c in Sources */ = {isa = PBXBuildFile; fileRef = E4089A6A1BC47A5B00A7D508 /* pb_decode.c */; };
+		E4089A701BC47A5B00A7D508 /* pb_encode.c in Sources */ = {isa = PBXBuildFile; fileRef = E4089A6C1BC47A5B00A7D508 /* pb_encode.c */; };
+		E40EAC971BC3CA9600657063 /* communicationProtocol.pb.c in Sources */ = {isa = PBXBuildFile; fileRef = E40EAC951BC3CA9600657063 /* communicationProtocol.pb.c */; };
+		E40EAC9A1BC3CB1000657063 /* communicationsHandler.c in Sources */ = {isa = PBXBuildFile; fileRef = E40EAC981BC3CB1000657063 /* communicationsHandler.c */; };
+		E4A0E7F71BC9189100168960 /* servo.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A0E7F51BC9189100168960 /* servo.c */; };
 		E4FBB4B71BC31BFC00D6A64F /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4B61BC31BFC00D6A64F /* Makefile */; };
-		E4FBB4E91BC31C3200D6A64F /* accelMag.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4C91BC31C3200D6A64F /* accelMag.c */; settings = {ASSET_TAGS = (); }; };
-		E4FBB4EA1BC31C3200D6A64F /* bmp.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4CD1BC31C3200D6A64F /* bmp.c */; settings = {ASSET_TAGS = (); }; };
-		E4FBB4EB1BC31C3200D6A64F /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4CF1BC31C3200D6A64F /* buffer.c */; settings = {ASSET_TAGS = (); }; };
-		E4FBB4EC1BC31C3200D6A64F /* gps.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4D21BC31C3200D6A64F /* gps.c */; settings = {ASSET_TAGS = (); }; };
-		E4FBB4ED1BC31C3200D6A64F /* gyro.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4D41BC31C3200D6A64F /* gyro.c */; settings = {ASSET_TAGS = (); }; };
-		E4FBB4EE1BC31C3200D6A64F /* i2c.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4D61BC31C3200D6A64F /* i2c.c */; settings = {ASSET_TAGS = (); }; };
-		E4FBB4EF1BC31C3200D6A64F /* imuBoard.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4D91BC31C3200D6A64F /* imuBoard.c */; settings = {ASSET_TAGS = (); }; };
-		E4FBB4F01BC31C3200D6A64F /* MadgwickAHRS.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4DB1BC31C3200D6A64F /* MadgwickAHRS.c */; settings = {ASSET_TAGS = (); }; };
-		E4FBB4F11BC31C3200D6A64F /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4DD1BC31C3200D6A64F /* main.c */; settings = {ASSET_TAGS = (); }; };
-		E4FBB4F21BC31C3200D6A64F /* nmea.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4DE1BC31C3200D6A64F /* nmea.c */; settings = {ASSET_TAGS = (); }; };
-		E4FBB4F31BC31C3200D6A64F /* timer.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4E11BC31C3200D6A64F /* timer.c */; settings = {ASSET_TAGS = (); }; };
-		E4FBB4F41BC31C3200D6A64F /* uart4.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4E31BC31C3200D6A64F /* uart4.c */; settings = {ASSET_TAGS = (); }; };
-		E4FBB4F51BC31C3200D6A64F /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4E51BC31C3200D6A64F /* utils.c */; settings = {ASSET_TAGS = (); }; };
-		E4FBB4F61BC31C3200D6A64F /* xBee.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4E71BC31C3200D6A64F /* xBee.c */; settings = {ASSET_TAGS = (); }; };
+		E4FBB4E91BC31C3200D6A64F /* accelMag.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4C91BC31C3200D6A64F /* accelMag.c */; };
+		E4FBB4EA1BC31C3200D6A64F /* bmp.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4CD1BC31C3200D6A64F /* bmp.c */; };
+		E4FBB4EB1BC31C3200D6A64F /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4CF1BC31C3200D6A64F /* buffer.c */; };
+		E4FBB4EC1BC31C3200D6A64F /* gps.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4D21BC31C3200D6A64F /* gps.c */; };
+		E4FBB4ED1BC31C3200D6A64F /* gyro.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4D41BC31C3200D6A64F /* gyro.c */; };
+		E4FBB4EE1BC31C3200D6A64F /* i2c.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4D61BC31C3200D6A64F /* i2c.c */; };
+		E4FBB4EF1BC31C3200D6A64F /* imuBoard.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4D91BC31C3200D6A64F /* imuBoard.c */; };
+		E4FBB4F01BC31C3200D6A64F /* MadgwickAHRS.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4DB1BC31C3200D6A64F /* MadgwickAHRS.c */; };
+		E4FBB4F11BC31C3200D6A64F /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4DD1BC31C3200D6A64F /* main.c */; };
+		E4FBB4F21BC31C3200D6A64F /* nmea.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4DE1BC31C3200D6A64F /* nmea.c */; };
+		E4FBB4F31BC31C3200D6A64F /* timer.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4E11BC31C3200D6A64F /* timer.c */; };
+		E4FBB4F41BC31C3200D6A64F /* uart4.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4E31BC31C3200D6A64F /* uart4.c */; };
+		E4FBB4F51BC31C3200D6A64F /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4E51BC31C3200D6A64F /* utils.c */; };
+		E4FBB4F61BC31C3200D6A64F /* xBee.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4E71BC31C3200D6A64F /* xBee.c */; };
+		E4FC11F41BEEA9BA0040534F /* battery.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FC11F21BEEA9BA0040534F /* battery.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +79,8 @@
 		E4FBB4E61BC31C3200D6A64F /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
 		E4FBB4E71BC31C3200D6A64F /* xBee.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xBee.c; sourceTree = "<group>"; };
 		E4FBB4E81BC31C3200D6A64F /* xBee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xBee.h; sourceTree = "<group>"; };
+		E4FC11F21BEEA9BA0040534F /* battery.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = battery.c; sourceTree = "<group>"; };
+		E4FC11F31BEEA9BA0040534F /* battery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = battery.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -150,6 +153,8 @@
 				E4FBB4D41BC31C3200D6A64F /* gyro.c */,
 				E4FBB4DA1BC31C3200D6A64F /* imuBoard.h */,
 				E4FBB4D91BC31C3200D6A64F /* imuBoard.c */,
+				E4FC11F31BEEA9BA0040534F /* battery.h */,
+				E4FC11F21BEEA9BA0040534F /* battery.c */,
 			);
 			name = sensors;
 			sourceTree = "<group>";
@@ -330,6 +335,7 @@
 				E40EAC971BC3CA9600657063 /* communicationProtocol.pb.c in Sources */,
 				E4089A6E1BC47A5B00A7D508 /* pb_common.c in Sources */,
 				E4FBB4ED1BC31C3200D6A64F /* gyro.c in Sources */,
+				E4FC11F41BEEA9BA0040534F /* battery.c in Sources */,
 				E4FBB4EC1BC31C3200D6A64F /* gps.c in Sources */,
 				E4FBB4F31BC31C3200D6A64F /* timer.c in Sources */,
 				E4FBB4F01BC31C3200D6A64F /* MadgwickAHRS.c in Sources */,
