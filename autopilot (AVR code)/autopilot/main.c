@@ -17,6 +17,7 @@
 #include "communicationsHandler.h"
 #include "servo.h"
 #include "battery.h"
+#include "flightController.h"
 
 #include "uart4.h"
 
@@ -67,13 +68,7 @@ int main(void) {
         commsCheckAndSendTelemetry();
         commsCheckAndSendLogging();
         
-        // Set servos       
-        if((inputCommandSet.timestamp) - (outputCommandSet.timestamp)) {
-            outputCommandSet.timestamp = millis();
-            outputCommandSet.yaw = inputCommandSet.yaw;
-            outputCommandSet.pitch = inputCommandSet.pitch;
-            outputCommandSet.thrust = inputCommandSet.thrust;
-        }
+        updateFlightControls();
         
         servoSetPosition(YAW_SERVO_CHAN, outputCommandSet.yaw);
         servoSetPosition(PITCH_SERVO_CHAN, outputCommandSet.pitch);

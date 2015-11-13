@@ -13,6 +13,7 @@
 		E40EAC971BC3CA9600657063 /* communicationProtocol.pb.c in Sources */ = {isa = PBXBuildFile; fileRef = E40EAC951BC3CA9600657063 /* communicationProtocol.pb.c */; };
 		E40EAC9A1BC3CB1000657063 /* communicationsHandler.c in Sources */ = {isa = PBXBuildFile; fileRef = E40EAC981BC3CB1000657063 /* communicationsHandler.c */; };
 		E4A0E7F71BC9189100168960 /* servo.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A0E7F51BC9189100168960 /* servo.c */; };
+		E4C6CE8E1BF66E7300545241 /* flightController.c in Sources */ = {isa = PBXBuildFile; fileRef = E4C6CE8C1BF66E7300545241 /* flightController.c */; };
 		E4FBB4B71BC31BFC00D6A64F /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4B61BC31BFC00D6A64F /* Makefile */; };
 		E4FBB4E91BC31C3200D6A64F /* accelMag.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4C91BC31C3200D6A64F /* accelMag.c */; };
 		E4FBB4EA1BC31C3200D6A64F /* bmp.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4CD1BC31C3200D6A64F /* bmp.c */; };
@@ -45,6 +46,8 @@
 		E4A0E7F51BC9189100168960 /* servo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = servo.c; sourceTree = "<group>"; };
 		E4A0E7F61BC9189100168960 /* servo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = servo.h; sourceTree = "<group>"; };
 		E4A0E7F81BC9192900168960 /* servoconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = servoconf.h; sourceTree = "<group>"; };
+		E4C6CE8C1BF66E7300545241 /* flightController.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = flightController.c; sourceTree = "<group>"; };
+		E4C6CE8D1BF66E7300545241 /* flightController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = flightController.h; sourceTree = "<group>"; };
 		E4FBB4B01BC31BFC00D6A64F /* Index */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Index; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4FBB4B61BC31BFC00D6A64F /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		E4FBB4C91BC31C3200D6A64F /* accelMag.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = accelMag.c; sourceTree = "<group>"; };
@@ -121,6 +124,8 @@
 				E4FBB4F71BC31C3700D6A64F /* sensors */,
 				E4FBB4F91BC31C4600D6A64F /* comms */,
 				E4FBB4DD1BC31C3200D6A64F /* main.c */,
+				E4C6CE8C1BF66E7300545241 /* flightController.c */,
+				E4C6CE8D1BF66E7300545241 /* flightController.h */,
 				E4FBB4E21BC31C3200D6A64F /* timer.h */,
 				E4FBB4E11BC31C3200D6A64F /* timer.c */,
 				E4FBB4E61BC31C3200D6A64F /* utils.h */,
@@ -339,6 +344,7 @@
 				E4FBB4EC1BC31C3200D6A64F /* gps.c in Sources */,
 				E4FBB4F31BC31C3200D6A64F /* timer.c in Sources */,
 				E4FBB4F01BC31C3200D6A64F /* MadgwickAHRS.c in Sources */,
+				E4C6CE8E1BF66E7300545241 /* flightController.c in Sources */,
 				E4FBB4B71BC31BFC00D6A64F /* Makefile in Sources */,
 				E4089A701BC47A5B00A7D508 /* pb_encode.c in Sources */,
 				E4FBB4EA1BC31C3200D6A64F /* bmp.c in Sources */,

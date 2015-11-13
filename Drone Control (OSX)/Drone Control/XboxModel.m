@@ -9,12 +9,15 @@
 #import "XboxModel.h"
 #import "Xbox360ControllerManager/Xbox360ControllerManager.h"
 #import "Xbox360ControllerManager/Xbox360Controller.h"
+#import <math.h>
 
 #define MAX_ELEVATOR 1.0
 #define STEP_ELEVATOR_TRIM 0.1
 
 #define MAX_RUDDER 1.0
 #define STEP_RUDDER_TRIM 0.1
+
+#define DEADZONE_SIZE 0.1
 
 #define MAX_TRIM_VIBRATION_DURATION 0.33
 
@@ -51,7 +54,13 @@
     commandSet cs;
     
     //First, Pitch from the right y-axis
-    double pitch = theController.rightStickY + (TRIM_RANGE * elevatorTrim);
+    double pitch = theController.rightStickY;
+    if(fabs(pitch) <= DEADZONE_SIZE) {
+        pitch = 0;
+    }
+    
+    pitch += (TRIM_RANGE * elevatorTrim);
+    
     if(pitch > MAX_ELEVATOR) {
         pitch = MAX_ELEVATOR;
     } else if (pitch < -MAX_ELEVATOR) {
@@ -59,7 +68,13 @@
     }
     cs.elevator = pitch;
     
-    double rudder = theController.rightStickX + (TRIM_RANGE * rudderTrim);
+    double rudder = theController.rightStickX;
+    if(fabs(rudder) <= DEADZONE_SIZE) {
+        rudder = 0;
+    }
+    
+    rudder += (TRIM_RANGE * rudderTrim);
+    
     if(rudder > MAX_RUDDER) {
         rudder = MAX_RUDDER;
     } else if (rudder < -MAX_RUDDER) {

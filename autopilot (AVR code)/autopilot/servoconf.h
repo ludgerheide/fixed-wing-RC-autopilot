@@ -70,8 +70,8 @@
 //#define SERVO_MAX				71
 //#define SERVO_MIN				17
 // The numbers below good for parallax servos at an F_CPU of ~14.745MHz.
-#define SERVO_MAX				142
-#define SERVO_MIN				34
+#define SERVO_MAX				120
+#define SERVO_MIN				60
 
 // set servo scaled range
 //		This sets the scaled position range of the servo.  Allowed scaled

@@ -300,7 +300,7 @@
 -(void) updateControllerText {
     NSString* controllerString;
     if(pitch && yaw && thrust) {
-        controllerString = [NSString stringWithFormat: @"P: %+1.1f, Y: %+1.1f, T: %+1.1f", pitch.doubleValue, yaw.doubleValue, thrust.doubleValue];
+        controllerString = [NSString stringWithFormat: @"P: %+3.0f, Y: %+3.0f, T: %+3.0f", pitch.doubleValue*100, yaw.doubleValue*100, thrust.doubleValue*100];
         label_controller.textColor = [NSColor whiteColor];
     } else {
         controllerString = @"No Controller!";
