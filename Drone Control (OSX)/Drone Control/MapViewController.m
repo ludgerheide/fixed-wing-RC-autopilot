@@ -19,6 +19,8 @@
     NSMutableArray* track;
     MKPolyline* polyLine;
     MKPointAnnotation *currentPosPin;
+    
+    CLLocationCoordinate2D* points;
 }
 
 - (void)viewDidLoad {
@@ -66,15 +68,18 @@
     currentPosPin.coordinate = coords;
     [myMapView addAnnotation: currentPosPin];
     
+    //Delete the old points array and polyLine
+    [myMapView removeOverlay: polyLine];
+    free(points);
+    
     //Create a C array and a polyline
-    CLLocationCoordinate2D* points = malloc(sizeof(CLLocationCoordinate2D) * track.count);
+    points = malloc(sizeof(CLLocationCoordinate2D) * track.count);
     if(points != NULL) {
         for(NSUInteger i = 0; i < track.count; i++) {
             CLLocation *trackPoint = [track objectAtIndex: i];
             points[i] = trackPoint.coordinate;
         }
         //Remove the old Polyine and add the new one
-        [myMapView removeOverlay: polyLine];
         polyLine = [MKPolyline polylineWithCoordinates: points count: track.count];
         [myMapView addOverlay: polyLine];
     }

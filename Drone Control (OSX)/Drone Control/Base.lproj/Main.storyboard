@@ -696,7 +696,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="450" height="364"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <imageView canDrawConcurrently="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="OuM-J1-krQ">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="OuM-J1-krQ">
                                 <rect key="frame" x="0.0" y="0.0" width="73" height="364"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="OuM-J1-krQ" secondAttribute="height" multiplier="1:5" id="7IY-M9-OaU"/>
@@ -704,7 +704,7 @@
                                 <animations/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="WuJ-ch-loz"/>
                             </imageView>
-                            <imageView canDrawConcurrently="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="lKG-sb-8An">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="lKG-sb-8An">
                                 <rect key="frame" x="377" y="0.0" width="73" height="364"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="lKG-sb-8An" secondAttribute="height" multiplier="1:5" id="ZDt-6t-3CX"/>
