@@ -12,6 +12,10 @@
 #include <assert.h>
 #include <avr/io.h>
 
+#ifndef _unused
+#define _unused(x) ((void)x)
+#endif
+
 #ifndef CRITICAL_SECTION_START
 #define CRITICAL_SECTION_START	unsigned char _sreg = SREG; cli()
 #define CRITICAL_SECTION_END	SREG = _sreg
@@ -39,6 +43,7 @@ static void gyroWrite8(u08 reg, u08 value) {
     
     u08 i2cstat = i2cMasterSendNI(L3GD20_ADDRESS, 2, (u08*)&transmission);
     assert(i2cstat == I2C_OK);
+    _unused(i2cstat);
 }
 
 //Read from a specified register
@@ -49,6 +54,7 @@ static u08 gyroRead8(u08 reg) {
     u08 outByte;
     i2cstat = i2cMasterReceiveNI(L3GD20_ADDRESS, 1, &outByte);
     assert(i2cstat == I2C_OK);
+    _unused(i2cstat);
     
     return outByte;
 }
