@@ -90,7 +90,6 @@
     msg.inputCommandSet.pitch = round((cs.elevator + 1.0) * (servo_max / 2.0));
     msg.inputCommandSet.yaw = round((cs.rudder + 1.0) * (servo_max / 2.0));
     msg.inputCommandSet.thrust = round(cs.thrust * servo_max);
-    NSLog(@"%3i, %3i, %3i", msg.inputCommandSet.pitch, msg.inputCommandSet.yaw, msg.inputCommandSet.thrust);
     
     XBeeMessage* xBeeMsg = [[XBeeMessage alloc] initWithPayload: msg.data];
     
@@ -132,13 +131,6 @@
         
         NSMutableData* newData = [NSMutableData dataWithBytes: (receivedData.bytes + recSize + 4) length: receivedData.length - (recSize + 4)];
         receivedData = newData;
-        
-        printf("RX: ");
-        for(uint8_t i = 0; i < packet.length; i++) {
-            const uint8_t* x = packet.bytes;
-            printf("%02x ", x[i]);
-        }
-        printf("\r\n");
         
         XBeeMessage* myMsg = [[XBeeMessage alloc] initWithRawMessage: packet];
         if(myMsg != nil) {

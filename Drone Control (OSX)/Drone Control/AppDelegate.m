@@ -20,6 +20,7 @@
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
+    NSLog(@"Closing!");
     // Insert code here to tear down your application
     ORSSerialPort *myPort = [ORSSerialPort serialPortWithPath: @"/dev/tty.usbserial-DA017KGT"];
     [myPort close];

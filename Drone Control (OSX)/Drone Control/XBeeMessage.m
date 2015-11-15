@@ -153,11 +153,6 @@
     
     rawBytes[17 + payloadData.length] = [XBeeMessage calculateChecksum: &rawBytes[3] forSize: (NONDATA_SIZE + payloadData.length)];
     
-    for(uint8_t i = 0; i < payloadData.length + NONDATA_SIZE_INCLUDING_HEADER; i++) {
-        printf("%02x ", rawBytes[i]);
-    }
-    printf("\r\n");
-    
     //Now the C stuff is done and we go back into an objective-C Object
     NSData* rawData = [NSData dataWithBytes: rawBytes length: payloadData.length + NONDATA_SIZE_INCLUDING_HEADER];
     free(rawBytes);

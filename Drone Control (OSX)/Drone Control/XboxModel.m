@@ -39,7 +39,7 @@
         [sharedManager updateControllers];
         
         if(sharedManager.controllerCount == 0) {
-            NSLog(@"Connecting to controller faile!");
+            NSLog(@"Connecting to controller failed!");
             return nil;
         }
             
