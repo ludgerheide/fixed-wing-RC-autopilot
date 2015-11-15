@@ -31,6 +31,7 @@
 @synthesize attitudeDelegate;
 @synthesize positionDelegate;
 @synthesize controllerDelegate;
+@synthesize batteryDelegate;
 
 
 - (CommsModel*) init {
@@ -170,6 +171,16 @@
                                                        altitude: [NSNumber numberWithDouble: altitude]
                                                courseOverGround: [NSNumber numberWithDouble: courseOverGround]
                                                           speed: [NSNumber numberWithDouble: speed]];
+                }
+            }
+            
+            if(myDecodedMsg.hasCurrentBatteryData) {
+                double voltage = myDecodedMsg.currentBatteryData.voltage / 1000.0;
+                double current = myDecodedMsg.currentBatteryData.current / 1000.0;
+                
+                if(batteryDelegate) {
+                    [batteryDelegate batteryChangedToVoltage: [NSNumber numberWithDouble: voltage]
+                                                     current: [NSNumber numberWithDouble: current]];
                 }
             }
         }

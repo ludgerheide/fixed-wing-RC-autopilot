@@ -47,6 +47,7 @@
     myComms.attitudeDelegate = self;
     myComms.positionDelegate = self;
     myComms.controllerDelegate = myPFD;
+    myComms.batteryDelegate = myPFD;
 }
 
 //Protocol methods

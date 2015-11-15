@@ -33,6 +33,10 @@
     NSNumber* yaw;
     NSNumber* thrust;
     
+    IBOutlet NSTextField* label_battery;
+    NSNumber* voltage;
+    NSNumber* current;
+    
     NSImage* img_speedTape;
     NSImage* img_altituteTape;
     NSImage* img_invalid;
@@ -312,11 +316,40 @@
     label_controller.font = theFont;
 }
 
+//Method for batteryDelegate
+- (void) batteryChangedToVoltage: (NSNumber*) theVoltage current: (NSNumber*) theCurrent {
+    voltage = theVoltage;
+    current = theCurrent;
+    [self updateBatteryText];
+}
+
+-(void) updateBatteryText {
+    NSString* batteryString;
+    if(voltage && current) {
+        batteryString = [NSString stringWithFormat: @"%3.1f V, %3.1f A", [voltage doubleValue], [current doubleValue]];
+        if([voltage doubleValue] > 6.75) {
+            label_battery.textColor = [NSColor whiteColor];
+        } else {
+            label_battery.textColor = [NSColor redColor];
+        }
+    } else {
+        batteryString = @"No Battery Data!";
+        label_controller.textColor = [NSColor redColor];
+    }
+    label_battery.stringValue = batteryString;
+    CGFloat fontSize = view_speedTape.bounds.size.width / 6;
+    NSFont* theFont = [NSFont fontWithDescriptor: [NSFontDescriptor fontDescriptorWithName: @"Monaco" size: fontSize] size: fontSize];
+    label_battery.font = theFont;
+    
+    
+}
+
 - (void) viewDidLayout {
     [self updateSpeedTape];
     [self updateAltitudeTape];
     [self updateHorizon];
     [self updateHeading];
     [self updateControllerText];
+    [self updateBatteryText];
 }
 @end

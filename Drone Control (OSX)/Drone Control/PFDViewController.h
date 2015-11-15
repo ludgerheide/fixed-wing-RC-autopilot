@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "CommsModel.h"
 
-@interface PFDViewController : NSViewController <controllerDelegate>;
+@interface PFDViewController : NSViewController <controllerDelegate, batteryDelegate>;
 
 @property (nonatomic) NSNumber* speed;
 @property (nonatomic) NSNumber* altitude;

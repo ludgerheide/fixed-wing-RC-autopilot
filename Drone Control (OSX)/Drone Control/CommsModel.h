@@ -24,11 +24,17 @@
 -(void) controllerChangedWithPitch: (NSNumber*) pitch yaw: (NSNumber*) yaw thrust: (NSNumber*) thrust;
 @end
 
+@protocol batteryDelegate <NSObject>
+@required
+- (void) batteryChangedToVoltage: (NSNumber*) voltage current: (NSNumber*) current;
+@end
+
 @interface CommsModel : NSObject <ORSSerialPortDelegate>
 
 @property (weak) id<attitudeDelegate> attitudeDelegate;
 @property (weak) id<positionDelegate> positionDelegate;
 @property (weak) id<controllerDelegate> controllerDelegate;
+@property (weak) id<batteryDelegate> batteryDelegate;
 
 //This method invalidates the Attitude and map view when the timeout is exceeded
 - (void) timeOutExceeded:(NSTimer*) theTimer;
