@@ -30,10 +30,16 @@ void initIO(void) {
     commsInit();
     batteryInit();
     
-    //Initialize the output command set
+    //Initialize the input and output command set
+    outputCommandSet.timestamp = 0;
     outputCommandSet.yaw = 127;
     outputCommandSet.pitch = 127;
     outputCommandSet.thrust = 0;
+    
+    inputCommandSet.timestamp = 0;
+    inputCommandSet.yaw = 127;
+    inputCommandSet.pitch = 127;
+    inputCommandSet.thrust = 0;
 }
 
 int main(void) __attribute__ ((noreturn));

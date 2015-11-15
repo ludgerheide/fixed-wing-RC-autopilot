@@ -13,7 +13,9 @@
 
 #define INPUT_TIMEOUT 500 //Maximum age of input command set in milliseconds
 #define SENSOR_TIMEOUT 250 //Maximum age of sensor data to be considered valid
-#define MAX_ROTATION (M_PI/4.0)
+#define MAX_ROTATION (M_PI/4.0) //The rotation a full stick correspinds to (in rad/s)
+
+#define THRESHOLD_VOLTAGE 6.75
 
 static void degradedUpdate(void);
 static void passthroughUpdate(void);
@@ -27,8 +29,8 @@ void updateFlightControls(void) {
         currentFlightMode = m_degraded;
         degradedUpdate();
     } else {
-        currentFlightMode = m_passThrough;
-        passthroughUpdate();
+        currentFlightMode = m_flybywire;
+        flyByWireUpdate();
     }
 }
 
@@ -66,6 +68,29 @@ static void passthroughUpdate(void) {
         outputCommandSet.pitch = inputCommandSet.pitch;
         outputCommandSet.thrust = inputCommandSet.thrust;
     }
+}
+
+
+static void flyByWireUpdate(void) {
+    outputCommandSet.timestamp = millis();
+    
+    //Only allow 50% thrust if the voltage if below 6.75
+    if(curBattery.voltage < THRESHOLD_VOLTAGE) {
+        outputCommandSet.thrust = MIN(inputCommandSet.thrust, 127);
+    } else {
+        outputCommandSet.thrust = inputCommandSet.thrust;
+    }
+    
+    //Interpret the stick values as rotation requests
+    float wantedPitchRotation = mapfloat(inputCommandSet.pitch, 0, 255, -MAX_ROTATION, MAX_ROTATION);
+    float wantedYawRotation = mapfloat(inputCommandSet.yaw, 0, 255, -MAX_ROTATION, MAX_ROTATION);
+    
+    float pitchDifference = curGyro.x - wantedPitchRotation;
+    float rotationDifference = curGyro.z - wantedYawRotation;
+    
+    //Now map the difference back to an output value
+    outputCommandSet.pitch = mapfloat(pitchDifference, MAX_ROTATION, -MAX_ROTATION, 0, 255);
+    outputCommandSet.yaw = mapfloat(rotationDifference, MAX_ROTATION, -MAX_ROTATION, 0, 255);
 }
 
 float mapfloat(float x, float in_min, float in_max, float out_min, float out_max) {
