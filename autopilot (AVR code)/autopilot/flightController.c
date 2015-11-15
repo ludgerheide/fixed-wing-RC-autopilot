@@ -18,7 +18,6 @@
 #define THRESHOLD_VOLTAGE 6.75
 
 static void degradedUpdate(void);
-static void passthroughUpdate(void);
 static void flyByWireUpdate(void);
 
 void updateFlightControls(void) {
@@ -57,16 +56,6 @@ static void degradedUpdate(void) {
     } else {
         float yawRate = curGyro.z; //In radians per second
         outputCommandSet.yaw = mapfloat(yawRate, +MAX_ROTATION, -MAX_ROTATION, 0, 255);
-    }
-}
-
-static void passthroughUpdate(void) {
-    // Set servos
-    if((inputCommandSet.timestamp) - (outputCommandSet.timestamp)) {
-        outputCommandSet.timestamp = millis();
-        outputCommandSet.yaw = inputCommandSet.yaw;
-        outputCommandSet.pitch = inputCommandSet.pitch;
-        outputCommandSet.thrust = inputCommandSet.thrust;
     }
 }
 

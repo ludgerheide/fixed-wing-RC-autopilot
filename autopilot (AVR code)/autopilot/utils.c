@@ -9,6 +9,7 @@
 #include "utils.h"
 #include "uart4.h"
 #include <assert.h>
+#include <avr/eeprom.h>
 
 #include "pinSetup.h"
 
@@ -35,5 +36,17 @@ void uartPutStr(u08 nUart, char* string) {
     while(*string != '\0') {
         uartSendByte(nUart, *string);
         string++;
+    }
+}
+
+//Reads in the sea level pressure from eeprom and checks its validity
+void readSlpFromEEPROM(void) {
+    float slpFromRom = eeprom_read_float(EEPROM_SLP_ADDRESS);
+    
+    if(slpFromRom <= 1100 && slpFromRom >= 850) {
+        //Our value is within the allowed bounds
+        seaLevelPressure = slpFromRom;
+    } else {
+        seaLevelPressure = 1013; //Stanard pressure otherwise
     }
 }

@@ -63,6 +63,23 @@
     return self;
 }
 
+-(void) sendSeaLevelPressure: (NSNumber*) thePressure {
+    if(thePressure.doubleValue <= 1100 && thePressure.doubleValue >= 850) {
+        //We have a valid pressure, create a message containing it
+        //Create a protobuf with this stuff and send it
+        DroneMessage* msg = [[DroneMessage alloc] init];
+        msg.seaLevelPressure = thePressure.doubleValue;
+        
+        XBeeMessage* xBeeMsg = [[XBeeMessage alloc] initWithPayload: msg.data];
+        
+        xBeeMsg.shouldAck = true;
+        xBeeMsg.frameID = 0xFE;
+        
+        [myPort sendData: xBeeMsg.encodeMessage];
+
+    }
+}
+
 //This method invalidates the Attitude and map view when the timeout is exceeded
 - (void) timeOutExceeded:(NSTimer*) theTimer {
     //Send a nil attitude to the delegates

@@ -41,4 +41,7 @@
 
 //This method collects a sample from the XBox controller and sends
 - (void) sendControllerSample: (NSTimer*) theTimer;
+
+//This method sends the sea level pressure to the plane
+-(void) sendSeaLevelPressure: (NSNumber*) thePressure;
 @end

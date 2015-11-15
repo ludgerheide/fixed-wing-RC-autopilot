@@ -21,4 +21,7 @@ int raspiPutChar(char c, FILE* stream);
 //Utility function that puts a string into a UART byte-wise
 void uartPutStr(u08 nUart, char* string);
 
+//Reads in the sea level pressure from eeprom and checks its validity
+void readSlpFromEEPROM(void);
+
 #endif /* utils_h */

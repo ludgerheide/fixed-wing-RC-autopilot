@@ -22,6 +22,7 @@
 #include "uart4.h"
 
 void initIO(void) {
+    readSlpFromEEPROM();
     servoInit();
     printfAttachToUart();
     timerInit();

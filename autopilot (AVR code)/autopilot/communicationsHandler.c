@@ -23,8 +23,12 @@
 #include "global.h"
 #include <assert.h>
 #include <math.h>
+#include <avr/eeprom.h>
 
-#define KMH_TO_CMS (1.0/0.036)
+#ifndef CRITICAL_SECTION_START
+#define CRITICAL_SECTION_START	unsigned char _sreg = SREG; cli()
+#define CRITICAL_SECTION_END	SREG = _sreg
+#endif
 
 typedef enum {
     telemetry,
@@ -382,8 +386,13 @@ void commsProcessMessage(char* message, u08 size) {
 #ifdef COMMS_DEBUG
         printf("Protobuf: Have sea level pressure!\r\n");
 #endif
+        //Check if value is sane and update ram and eeprom
+        if(incomingMsg.sea_level_pressure <= 1100 && incomingMsg.sea_level_pressure >= 850) {
+            seaLevelPressure = incomingMsg.sea_level_pressure;
+            
+            eeprom_update_float(EEPROM_SLP_ADDRESS, seaLevelPressure);
+        }
         
-        seaLevelPressure = incomingMsg.sea_level_pressure;
     }
     
     if(incomingMsg.has_waypoint) {
