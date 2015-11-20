@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E40AF0071BD5824200A4009C /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E40AF0061BD5824200A4009C /* CoreImage.framework */; };
 		E41538E41BCD18BC0059E75F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E41538E31BCD18BC0059E75F /* AppDelegate.m */; };
 		E41538E71BCD18BC0059E75F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E41538E61BCD18BC0059E75F /* main.m */; };
 		E41538EC1BCD18BC0059E75F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E41538EB1BCD18BC0059E75F /* Assets.xcassets */; };
@@ -22,6 +21,10 @@
 		E43B3F381BD4264400D0C2F3 /* CommunicationProtocol.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = E43B3F371BD4264400D0C2F3 /* CommunicationProtocol.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E43B3F3B1BD42C3800D0C2F3 /* CommsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E43B3F3A1BD42C3800D0C2F3 /* CommsModel.m */; };
 		E48118231BE1706B003FC42F /* XboxModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E48118221BE1706B003FC42F /* XboxModel.m */; };
+		E4B843111BFCA6B4001E5DBB /* UtilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4B843101BFCA6B4001E5DBB /* UtilityViewController.m */; };
+		E4B843151BFCA99C001E5DBB /* GStreamerInit.m in Sources */ = {isa = PBXBuildFile; fileRef = E4B843141BFCA99C001E5DBB /* GStreamerInit.m */; };
+		E4B843181BFCA9B6001E5DBB /* GStreamerBackend.m in Sources */ = {isa = PBXBuildFile; fileRef = E4B843171BFCA9B6001E5DBB /* GStreamerBackend.m */; };
+		E4B8431A1BFCAA90001E5DBB /* GStreamer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4B843191BFCAA90001E5DBB /* GStreamer.framework */; };
 		E4D0CD071BD3B4F6001F552D /* ORSSerialBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D0CCFE1BD3B4F6001F552D /* ORSSerialBuffer.m */; };
 		E4D0CD081BD3B4F6001F552D /* ORSSerialPacketDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D0CD001BD3B4F6001F552D /* ORSSerialPacketDescriptor.m */; };
 		E4D0CD091BD3B4F6001F552D /* ORSSerialPort.m in Sources */ = {isa = PBXBuildFile; fileRef = E4D0CD021BD3B4F6001F552D /* ORSSerialPort.m */; };
@@ -33,7 +36,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E40AF0061BD5824200A4009C /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		E41538DF1BCD18BC0059E75F /* Drone Control.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Drone Control.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E41538E21BCD18BC0059E75F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E41538E31BCD18BC0059E75F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -48,7 +50,6 @@
 		E41539011BCD2E010059E75F /* Xbox360ControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Xbox360ControllerDelegate.h; path = Xbox360ControllerManager/Xbox360ControllerDelegate.h; sourceTree = "<group>"; };
 		E41539021BCD2E010059E75F /* Xbox360ControllerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Xbox360ControllerManager.h; path = Xbox360ControllerManager/Xbox360ControllerManager.h; sourceTree = "<group>"; };
 		E41539031BCD2E010059E75F /* Xbox360ControllerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Xbox360ControllerManager.m; path = Xbox360ControllerManager/Xbox360ControllerManager.m; sourceTree = "<group>"; };
-		E4224F9B1BD15379001A9307 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		E4283A601BD1590D00B33195 /* SplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplitViewController.h; sourceTree = "<group>"; };
 		E4283A611BD1590D00B33195 /* SplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplitViewController.m; sourceTree = "<group>"; };
 		E43B3F091BD425C800D0C2F3 /* XBeeMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XBeeMessage.m; sourceTree = "<group>"; };
@@ -93,6 +94,13 @@
 		E43B3F3A1BD42C3800D0C2F3 /* CommsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommsModel.m; sourceTree = "<group>"; };
 		E48118211BE1706B003FC42F /* XboxModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XboxModel.h; sourceTree = "<group>"; };
 		E48118221BE1706B003FC42F /* XboxModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XboxModel.m; sourceTree = "<group>"; };
+		E4B8430F1BFCA6B4001E5DBB /* UtilityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilityViewController.h; sourceTree = "<group>"; };
+		E4B843101BFCA6B4001E5DBB /* UtilityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilityViewController.m; sourceTree = "<group>"; };
+		E4B843131BFCA99C001E5DBB /* GStreamerInit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GStreamerInit.h; sourceTree = "<group>"; };
+		E4B843141BFCA99C001E5DBB /* GStreamerInit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GStreamerInit.m; sourceTree = "<group>"; };
+		E4B843161BFCA9B6001E5DBB /* GStreamerBackend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GStreamerBackend.h; sourceTree = "<group>"; };
+		E4B843171BFCA9B6001E5DBB /* GStreamerBackend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GStreamerBackend.m; sourceTree = "<group>"; };
+		E4B843191BFCAA90001E5DBB /* GStreamer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GStreamer.framework; path = /Library/Frameworks/GStreamer.framework; sourceTree = "<absolute>"; };
 		E4D0CCFD1BD3B4F6001F552D /* ORSSerialBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORSSerialBuffer.h; sourceTree = "<group>"; };
 		E4D0CCFE1BD3B4F6001F552D /* ORSSerialBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORSSerialBuffer.m; sourceTree = "<group>"; };
 		E4D0CCFF1BD3B4F6001F552D /* ORSSerialPacketDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORSSerialPacketDescriptor.h; sourceTree = "<group>"; };
@@ -116,7 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E40AF0071BD5824200A4009C /* CoreImage.framework in Frameworks */,
+				E4B8431A1BFCAA90001E5DBB /* GStreamer.framework in Frameworks */,
 				E43B3F351BD4262400D0C2F3 /* libProtocolBuffers.a in Frameworks */,
 				E4D6B7FA1BCD461B00D9FCF0 /* MapKit.framework in Frameworks */,
 				E41538FB1BCD19900059E75F /* ForceFeedback.framework in Frameworks */,
@@ -130,7 +138,6 @@
 		E41538D61BCD18BC0059E75F = {
 			isa = PBXGroup;
 			children = (
-				E40AF0061BD5824200A4009C /* CoreImage.framework */,
 				E41538E11BCD18BC0059E75F /* Drone Control */,
 				E41538E01BCD18BC0059E75F /* Products */,
 			);
@@ -150,7 +157,8 @@
 				E43B3F0F1BD425D400D0C2F3 /* Protobuf */,
 				E4D0CCFC1BD3B4F6001F552D /* ORSSerial */,
 				E41538FE1BCD2DF50059E75F /* Xbox360ControllerManager */,
-				E43B3F101BD425DB00D0C2F3 /* View Controllers */,
+				E43B3F101BD425DB00D0C2F3 /* Main Window */,
+				E4B843121BFCA6C8001E5DBB /* Utility Window */,
 				E41538E21BCD18BC0059E75F /* AppDelegate.h */,
 				E41538E31BCD18BC0059E75F /* AppDelegate.m */,
 				E43B3F391BD42C3800D0C2F3 /* CommsModel.h */,
@@ -172,7 +180,7 @@
 		E41538E51BCD18BC0059E75F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E4224F9B1BD15379001A9307 /* SpriteKit.framework */,
+				E4B843191BFCAA90001E5DBB /* GStreamer.framework */,
 				E4D6B8241BCD496D00D9FCF0 /* AddressBook.framework */,
 				E4D6B7F91BCD461B00D9FCF0 /* MapKit.framework */,
 				E41538FA1BCD19900059E75F /* ForceFeedback.framework */,
@@ -224,7 +232,7 @@
 			name = Protobuf;
 			sourceTree = "<group>";
 		};
-		E43B3F101BD425DB00D0C2F3 /* View Controllers */ = {
+		E43B3F101BD425DB00D0C2F3 /* Main Window */ = {
 			isa = PBXGroup;
 			children = (
 				E4283A601BD1590D00B33195 /* SplitViewController.h */,
@@ -234,7 +242,7 @@
 				E4D6B8211BCD494600D9FCF0 /* PFDViewController.h */,
 				E4D6B8221BCD494600D9FCF0 /* PFDViewController.m */,
 			);
-			name = "View Controllers";
+			name = "Main Window";
 			sourceTree = "<group>";
 		};
 		E43B3F271BD425F600D0C2F3 /* google */ = {
@@ -262,6 +270,19 @@
 				E43B3F331BD4260500D0C2F3 /* Wrappers.pbobjc.h */,
 			);
 			name = protobuf;
+			sourceTree = "<group>";
+		};
+		E4B843121BFCA6C8001E5DBB /* Utility Window */ = {
+			isa = PBXGroup;
+			children = (
+				E4B8430F1BFCA6B4001E5DBB /* UtilityViewController.h */,
+				E4B843101BFCA6B4001E5DBB /* UtilityViewController.m */,
+				E4B843161BFCA9B6001E5DBB /* GStreamerBackend.h */,
+				E4B843171BFCA9B6001E5DBB /* GStreamerBackend.m */,
+				E4B843131BFCA99C001E5DBB /* GStreamerInit.h */,
+				E4B843141BFCA99C001E5DBB /* GStreamerInit.m */,
+			);
+			name = "Utility Window";
 			sourceTree = "<group>";
 		};
 		E4D0CCFC1BD3B4F6001F552D /* ORSSerial */ = {
@@ -352,6 +373,8 @@
 			files = (
 				E41539051BCD2E010059E75F /* Xbox360ControllerManager.m in Sources */,
 				E43B3F0D1BD425C800D0C2F3 /* XBeeMessage.m in Sources */,
+				E4B843181BFCA9B6001E5DBB /* GStreamerBackend.m in Sources */,
+				E4B843151BFCA99C001E5DBB /* GStreamerInit.m in Sources */,
 				E4D0CD091BD3B4F6001F552D /* ORSSerialPort.m in Sources */,
 				E41539041BCD2E010059E75F /* Xbox360Controller.m in Sources */,
 				E4D0CD071BD3B4F6001F552D /* ORSSerialBuffer.m in Sources */,
@@ -366,6 +389,7 @@
 				E4D6B8231BCD494600D9FCF0 /* PFDViewController.m in Sources */,
 				E41538E41BCD18BC0059E75F /* AppDelegate.m in Sources */,
 				E43B3F381BD4264400D0C2F3 /* CommunicationProtocol.pbobjc.m in Sources */,
+				E4B843111BFCA6B4001E5DBB /* UtilityViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,7 +492,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Library/Frameworks,
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "/Library/Frameworks/GStreamer.framework/Versions/1.0/Headers/**";
 				INFOPLIST_FILE = "Drone Control/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -486,7 +515,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Library/Frameworks,
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "/Library/Frameworks/GStreamer.framework/Versions/1.0/Headers/**";
 				INFOPLIST_FILE = "Drone Control/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
