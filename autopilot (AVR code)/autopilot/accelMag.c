@@ -92,9 +92,9 @@ static u08 magRead8(u08 reg) {
 
 
 BOOL accelInit(void) {
-    const u08 regSetting = 0x57; //0x57 for 100Hz, 0x27 for 10Hz
+    const u08 regSetting = 0x67; //0x67 for 200 Hz, 0x57 for 100Hz, 0x27 for 10Hz
     
-    // Enable the accelerometer (10Hz) TODO: up it to 100Hz
+    // Enable the accelerometer
     accelWrite8(LSM303_REGISTER_ACCEL_CTRL_REG1_A, regSetting);
     
     //Disable the LIN1 DRDY interrupt
@@ -114,7 +114,7 @@ BOOL magInit(void) {
     magWrite8(LSM303_REGISTER_MAG_MR_REG_M, 0x00);
     
     //Set the update rate to 75Hz
-    const u08 regSetting = 0x18; //0x18 for 75Hz, 0x08 for 3Hz
+    const u08 regSetting = 0x1C; //0x1C for 220Hz, 0x18 for 75Hz, 0x08 for 3Hz
     magWrite8(LSM303_REGISTER_MAG_CRA_REG_M, regSetting);
     
     u08 reg_cra_m = magRead8(LSM303_REGISTER_MAG_CRA_REG_M);

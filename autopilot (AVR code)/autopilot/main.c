@@ -67,7 +67,7 @@ int main(void) {
         
         
         //Update the madgwick algorithm
-        MadgwickAHRSupdate(millis(), curGyro.x, curGyro.y, curGyro.z, curAccel.x, curAccel.y, curAccel.z, curMag.x, curMag.y, curMag.z);
+        MadgwickAHRSupdate(micros(), curGyro.x, curGyro.y, curGyro.z, curAccel.x, curAccel.y, curAccel.z, curMag.x, curMag.y, curMag.z);
         getYawPitchRollDegrees(&currentAttitude.courseMagnetic, &currentAttitude.pitch, &currentAttitude.roll);
         currentAttitude.timestamp = millis();
         

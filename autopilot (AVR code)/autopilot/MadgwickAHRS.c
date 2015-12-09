@@ -124,7 +124,7 @@ void MadgwickAHRSupdate(u32 currentTime, float gx, float gy, float gz, float ax,
 	}
 
 	// Integrate rate of change of quaternion to yield quaternion
-    float delayInSeconds = (currentTime - lastUpdate) / 1000.0;
+    float delayInSeconds = (currentTime - lastUpdate) / 1000000.0;
     
 	q0 += qDot1 * delayInSeconds;
 	q1 += qDot2 * delayInSeconds;
@@ -199,7 +199,7 @@ void MadgwickAHRSupdateIMU(u32 currentTime, float gx, float gy, float gz, float 
 	}
 
     // Integrate rate of change of quaternion to yield quaternion
-    float delayInSeconds = (currentTime - lastUpdate) / 1000.0;
+    float delayInSeconds = (currentTime - lastUpdate) / 1000000.0;
     
     q0 += qDot1 * delayInSeconds;
     q1 += qDot2 * delayInSeconds;

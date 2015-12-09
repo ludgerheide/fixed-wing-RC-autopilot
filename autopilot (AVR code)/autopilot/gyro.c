@@ -83,7 +83,9 @@ BOOL gyroInit(gyroRange_t range) {
     
     /* Reset then switch to normal mode and enable all three channels */
     gyroWrite8(GYRO_REGISTER_CTRL_REG1, 0x00);
-    gyroWrite8(GYRO_REGISTER_CTRL_REG1, 0x0F);
+    
+    //Everything enabled, 190Hz Data Rate with 12.5Hz low-pass filter (?) (0x0F for 95Hz)
+    gyroWrite8(GYRO_REGISTER_CTRL_REG1, 0x4F);
     /* ------------------------------------------------------------------ */
     
     /* Set CTRL_REG2 (0x21)
