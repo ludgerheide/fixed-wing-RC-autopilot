@@ -15,6 +15,7 @@ uint8_t startSequence[5] = {'s', 't', 'a', 'r', 't'};
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         NSString* path = [NSString stringWithCString: argv[1] encoding: NSASCIIStringEncoding];
+        NSString* prefix = [NSString stringWithCString: argv[2] encoding: NSASCIIStringEncoding];
         NSInputStream* iStream = [NSInputStream inputStreamWithFileAtPath: path];
         [iStream scheduleInRunLoop:[NSRunLoop currentRunLoop]
                            forMode:NSDefaultRunLoopMode];
@@ -24,7 +25,7 @@ int main(int argc, const char * argv[]) {
         unsigned long decodingErrors = 0;
         unsigned long successCount = 0;
         
-        ProtobufWriter* writer = [[ProtobufWriter alloc] init];
+        ProtobufWriter* writer = [[ProtobufWriter alloc] initWithPrefix: prefix];
         
         while ([iStream hasBytesAvailable]) {
             //Search until the magic sequence is found

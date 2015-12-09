@@ -43,8 +43,8 @@
     gst_backend = [[GStreamerBackend alloc] init:self videoView: nvVideoView];
     
     /* Make these constant for now, later we will change them */
-    media_width = 1280;
-    media_height = 720;
+    media_width = 640;
+    media_height = 480;
 }
 
 - (IBAction)buUpdatePressed:(id)sender {

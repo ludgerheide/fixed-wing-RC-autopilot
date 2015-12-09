@@ -6,7 +6,7 @@
 //  Copyright © 2015 Ludger Heide. All rights reserved.
 //
 
-#define POLLING_INTERVAL 0.1 //10hz
+#define POLLING_INTERVAL 0.05 //20hz
 
 #define INSTRUMENTTIMEOUT 2
 
@@ -86,6 +86,7 @@
     [attitudeDelegate attituteChangedToCourse: nil
                                         pitch: nil
                                          roll: nil];
+    [positionDelegate positionChangedToLatitude: nil longitude: nil altitude: nil courseOverGround: nil speed: nil];
 }
 
 //This method collects a sample from the XBox controller and sends

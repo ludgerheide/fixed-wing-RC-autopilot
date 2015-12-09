@@ -7,10 +7,11 @@
 //
 
 #import "ProtobufWriter.h"
+#import <assert.h>
 
 @implementation ProtobufWriter
 {
-    NSOutputStream *streamGPX, *streamPositionVelocity, *streamAttitude, *streamBmpRaw, *streamGyroRaw, *streamMagRaw, *streamAccelRaw;
+    NSOutputStream *streamInputCommandSet, *streamOutputCommandSet, *streamBatteryData, *streamFlightMode, *streamGPX, *streamPositionVelocity, *streamAttitude, *streamBmpRaw, *streamGyroRaw, *streamMagRaw, *streamAccelRaw;
 }
 
 -(id) init {
@@ -23,6 +24,26 @@
         if(prefix == nil) {
             prefix = @"";
         }
+        
+        NSString* pathICS = [NSString stringWithFormat: @"%@inputCommands.csv", prefix];
+        streamInputCommandSet = [NSOutputStream outputStreamToFileAtPath: pathICS append: NO];
+        [streamInputCommandSet scheduleInRunLoop: [NSRunLoop currentRunLoop] forMode: NSDefaultRunLoopMode];
+        [streamInputCommandSet open];
+        
+        NSString* pathOCS = [NSString stringWithFormat: @"%@outputCommands.csv", prefix];
+        streamOutputCommandSet = [NSOutputStream outputStreamToFileAtPath: pathOCS append: NO];
+        [streamOutputCommandSet scheduleInRunLoop: [NSRunLoop currentRunLoop] forMode: NSDefaultRunLoopMode];
+        [streamOutputCommandSet open];
+        
+        NSString* pathBatteryData = [NSString stringWithFormat: @"%@batteryData.csv", prefix];
+        streamBatteryData = [NSOutputStream outputStreamToFileAtPath: pathBatteryData append: NO];
+        [streamBatteryData scheduleInRunLoop: [NSRunLoop currentRunLoop] forMode: NSDefaultRunLoopMode];
+        [streamBatteryData open];
+        
+        NSString* pathFlightMode = [NSString stringWithFormat: @"%@flightMode.csv", prefix];
+        streamFlightMode = [NSOutputStream outputStreamToFileAtPath: pathFlightMode append: NO];
+        [streamFlightMode scheduleInRunLoop: [NSRunLoop currentRunLoop] forMode: NSDefaultRunLoopMode];
+        [streamFlightMode open];
         
         NSString* pathGPX = [NSString stringWithFormat: @"%@track.gpx", prefix];
         streamGPX = [NSOutputStream outputStreamToFileAtPath: pathGPX append: NO];
@@ -65,6 +86,30 @@
 }
 
 -(void) writeMessage: (DroneMessage* _Nonnull) msg {
+    if(msg.hasInputCommandSet) {
+        NSString* string = [NSString stringWithFormat: @"%u, %u, %u, %u\n", (uint32_t)msg.timestamp, msg.inputCommandSet.yaw, msg.inputCommandSet.pitch, msg.inputCommandSet.thrust];
+        NSData* data = [string dataUsingEncoding: NSUTF8StringEncoding];
+        [streamInputCommandSet write: data.bytes maxLength: data.length];
+    }
+    
+    if(msg.hasOutputCommandSet) {
+        NSString* string = [NSString stringWithFormat: @"%u, %u, %u, %u\n", (uint32_t)msg.timestamp, msg.outputCommandSet.yaw, msg.outputCommandSet.pitch, msg.outputCommandSet.thrust];
+        NSData* data = [string dataUsingEncoding: NSUTF8StringEncoding];
+        [streamOutputCommandSet write: data.bytes maxLength: data.length];
+    }
+    
+    if(msg.hasCurrentBatteryData) {
+        NSString* string = [NSString stringWithFormat: @"%u, %u, %u\n", (uint32_t)msg.currentBatteryData.timestamp, msg.currentBatteryData.voltage, msg.currentBatteryData.current];
+        NSData* data = [string dataUsingEncoding: NSUTF8StringEncoding];
+        [streamBatteryData write: data.bytes maxLength: data.length];
+    }
+    
+    if(msg.hasCurrentMode) {
+        NSString* string = [NSString stringWithFormat: @"%u, %u\n", (uint32_t)msg.timestamp, msg.currentMode];
+        NSData* data = [string dataUsingEncoding: NSUTF8StringEncoding];
+        [streamFlightMode write: data.bytes maxLength: data.length];
+    }
+    
     if(msg.hasAccelRaw) {
         NSString* string = [NSString stringWithFormat: @"%u, %f, %f, %f\n", (uint32_t)msg.accelRaw.timestamp, msg.accelRaw.x, msg.accelRaw.y, msg.accelRaw.z];
         NSData* data = [string dataUsingEncoding: NSUTF8StringEncoding];
@@ -106,6 +151,14 @@
 }
 
 -(void) flush {
+    [streamInputCommandSet close];
+    [streamInputCommandSet removeFromRunLoop: [NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [streamOutputCommandSet close];
+    [streamOutputCommandSet removeFromRunLoop: [NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [streamBatteryData close];
+    [streamBatteryData removeFromRunLoop: [NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [streamFlightMode close];
+    [streamFlightMode removeFromRunLoop: [NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     [streamAccelRaw close];
     [streamAccelRaw removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     [streamAttitude close];

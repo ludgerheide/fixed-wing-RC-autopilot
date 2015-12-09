@@ -51,28 +51,28 @@
 }
 
 //Display the SLP alert after the view has appeared
-//- (void)viewDidAppear {
-//    //Send sea level pressure to the plane
-//    NSAlert *alert = [[NSAlert alloc] init];
-//    [alert setMessageText:@"Please enter the current sea level pressure"];
-//    [alert addButtonWithTitle:@"Ok"];
-//    [alert addButtonWithTitle:@"Cancel"];
-//    
-//    NSTextField *input = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)];
-//    [input setStringValue:@""];
-//    
-//    [alert setAccessoryView:input];
-//    NSInteger button = [alert runModal];
-//    if (button == NSAlertFirstButtonReturn) {
-//        NSString* slpString = [input stringValue];
-//        NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
-//        f.numberStyle = NSNumberFormatterDecimalStyle;
-//        NSNumber *myNumber = [f numberFromString: slpString];
-//        [myComms sendSeaLevelPressure: myNumber];
-//    } else if (button == NSAlertSecondButtonReturn) {
-//        
-//    }
-//}
+- (void)viewDidAppear {
+    //Send sea level pressure to the plane
+    NSAlert *alert = [[NSAlert alloc] init];
+    [alert setMessageText:@"Please enter the current sea level pressure"];
+    [alert addButtonWithTitle:@"Ok"];
+    [alert addButtonWithTitle:@"Cancel"];
+    
+    NSTextField *input = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)];
+    [input setStringValue:@""];
+    
+    [alert setAccessoryView:input];
+    NSInteger button = [alert runModal];
+    if (button == NSAlertFirstButtonReturn) {
+        NSString* slpString = [input stringValue];
+        NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+        f.numberStyle = NSNumberFormatterDecimalStyle;
+        NSNumber *myNumber = [f numberFromString: slpString];
+        [myComms sendSeaLevelPressure: myNumber];
+    } else if (button == NSAlertSecondButtonReturn) {
+        
+    }
+}
 
 //Protocol methods
 - (void) positionChangedToLatitude:(NSNumber *)latitude longitude:(NSNumber *)longitude altitude:(NSNumber *)altitude courseOverGround:(NSNumber *)courseOverGround speed:(NSNumber *)speed {

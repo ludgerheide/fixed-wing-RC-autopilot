@@ -54,7 +54,7 @@
     commandSet cs;
     
     //First, Pitch from the right y-axis
-    double pitch = theController.rightStickY;
+    double pitch = theController.leftStickY;
     if(fabs(pitch) <= DEADZONE_SIZE) {
         pitch = 0;
     }
@@ -68,7 +68,7 @@
     }
     cs.elevator = pitch;
     
-    double rudder = theController.rightStickX;
+    double rudder = theController.leftStickX;
     if(fabs(rudder) <= DEADZONE_SIZE) {
         rudder = 0;
     }
