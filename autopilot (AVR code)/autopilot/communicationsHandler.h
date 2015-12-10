@@ -37,7 +37,7 @@ void commsCheckAndSendTelemetry(void);
 void commsCheckAndSendLogging(void);
 
 //Called when a status is received
-void txStatusHandler(uint8_t frameID, uint8_t retryCount, uint8_t txStatus);
+void txStatusHandler(uint8_t frameID, __attribute__ ((unused)) uint8_t retryCount, __attribute__ ((unused)) uint8_t txStatus);
 
 
 #endif /* communicationsHandler_h */

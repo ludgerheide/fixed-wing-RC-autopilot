@@ -41,7 +41,7 @@ static char messageBuffer[255];
 //As well as limiting the telemetry frequency
 static BOOL lastTxAcked;
 static u32 lastTxTime;
-const static u16 telemetryDelay = 500; //The delay between each telemetry message in milliseconds
+static const u16 telemetryDelay = 500; //The delay between each telemetry message in milliseconds
 
 //These hold the timestamps for the last packets that were
 // a) transmitted over the telemetry
@@ -494,7 +494,7 @@ void commsCheckAndSendLogging(void) {
     }
 }
 
-void txStatusHandler(uint8_t frameID, uint8_t retryCount, uint8_t txStatus) {
+void txStatusHandler(uint8_t frameID, __attribute__ ((unused)) uint8_t retryCount, __attribute__ ((unused)) uint8_t txStatus) {
     if(frameID == 0xAB) {
 #ifdef COMMS_DEBUG
         printf("Tx Ack for fram %02X, retryCount %02X, status %02X\r\n", frameID, retryCount, txStatus);

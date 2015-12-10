@@ -47,7 +47,7 @@ unsigned short uartRxOverflow[4];
 #endif
 
 typedef void (*voidFuncPtru08)(unsigned char);
-volatile static voidFuncPtru08 UartRxFunc[4];
+static volatile voidFuncPtru08 UartRxFunc[4];
 
 void uartInit(u08 nUart) {
     assert(nUart < 4);

@@ -24,7 +24,7 @@ void printfAttachToUart(void) {
 }
 
 //Standards-compliant putchar function that sends stuff to the raspberry pi
-int raspiPutChar(char c, FILE* stream) {
+int raspiPutChar(char c, __attribute__ ((unused)) FILE* stream) {
     uartSendByte(RASPI_UART, c);
     return 0;
 }
