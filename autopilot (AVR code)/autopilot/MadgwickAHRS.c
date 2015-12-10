@@ -217,10 +217,21 @@ void MadgwickAHRSupdateIMU(u32 currentTime, float gx, float gy, float gz, float 
 }
 
 //---------------------------------------------------------------------------------------------------
-// Slow inverse square-root
+// Fast inverse square-root
 
 float invSqrt(float x) {
-    return 1/sqrt(x);
+    s32 i;
+    float x2, y;
+    const float threehalfs = 1.5F;
+    
+    x2 = x * 0.5F;
+    y  = x;
+    i = (union { float f; long l; }) {y} .l;    // evil floating point bit level hacking
+    i  = 0x5f3759df - ( i >> 1 );               // what the fuck?
+    y = (union { long l; float f; }) {i} .f;
+    y  = y * ( threehalfs - ( x2 * y * y ) );   // 1st iteration
+    
+    return y;
 }
 
 void getYawPitchRollDegrees(float* yaw, float* pitch, float* roll) {
