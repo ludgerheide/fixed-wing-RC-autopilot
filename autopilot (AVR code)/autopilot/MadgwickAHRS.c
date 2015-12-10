@@ -16,6 +16,8 @@
 // Header files
 
 #include "MadgwickAHRS.h"
+
+#define fabs(x) __builtin_fabs(x)
 #include <math.h>
 
 //---------------------------------------------------------------------------------------------------
@@ -234,6 +236,38 @@ float invSqrt(float x) {
     return y;
 }
 
+#define PI_FLOAT     3.14159265f
+#define PIBY2_FLOAT  1.5707963f
+float fast_atan2(float y, float x) {
+    if ( x == 0.0f )
+    {
+        if ( y > 0.0f ) return PIBY2_FLOAT;
+        if ( y == 0.0f ) return 0.0f;
+        return -PIBY2_FLOAT;
+    }
+    float atan;
+    float z = y/x;
+    if ( fabs( z ) < 1.0f )
+    {
+        atan = z/(1.0f + 0.28f*z*z);
+        if ( x < 0.0f )
+        {
+            if ( y < 0.0f ) return atan - PI_FLOAT;
+            return atan + PI_FLOAT;
+        }
+    }
+    else
+    {
+        atan = PIBY2_FLOAT - z/(z*z + 0.28f);
+        if ( y < 0.0f ) return atan - PI_FLOAT;
+    }
+    return atan;
+}
+
+float fast_atan(float x) {
+    return M_PI_4*x - x*(fabs(x) - 1)*(0.2447 + 0.0663*fabs(x));
+}
+
 void getYawPitchRollDegrees(float* yaw, float* pitch, float* roll) {
     float gx, gy, gz; // estimated gravity direction
     
@@ -241,11 +275,12 @@ void getYawPitchRollDegrees(float* yaw, float* pitch, float* roll) {
     gy = 2 * (q0*q1 + q2*q3);
     gz = q0*q0 - q1*q1 - q2*q2 + q3*q3;
     
+    
     //Switch pitch and roll because of the final assembly direction
     //And invert the roll
-    *yaw = (180/M_PI) * atan2(2 * q1 * q2 - 2 * q0 * q3, 2 * q0*q0 + 2 * q1 * q1 - 1);
-    *roll = -(180/M_PI) * atan(gx / sqrt(gy*gy + gz*gz));
-    *pitch = (180/M_PI) * atan(gy / sqrt(gx*gx + gz*gz));
+    *yaw = (180/M_PI) * fast_atan2(2 * q1 * q2 - 2 * q0 * q3, 2 * q0*q0 + 2 * q1 * q1 - 1);
+    *roll = -(180/M_PI) * fast_atan(gx / sqrt(gy*gy + gz*gz));
+    *pitch = (180/M_PI) * fast_atan(gy / sqrt(gx*gx + gz*gz));
 }
 
 
