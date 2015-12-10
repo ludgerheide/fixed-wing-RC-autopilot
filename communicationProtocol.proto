@@ -18,7 +18,8 @@ message DroneMessage {
 	
 		required float latitude = 22;
 		required float longitude = 23;
-		optional int32 altitude = 24;
+		optional int32 gps_altitude = 25;
+		optional int32 numberOfSatellites = 26;
 	}
 	
 	message Velocity {	
@@ -65,10 +66,22 @@ message DroneMessage {
 		required int32 thrust = 82;
 	}
 	
+	message Waypoint {	
+		optional int32 timestamp = 90;
+	
+		required float latitude = 91;
+		required float longitude = 92;
+		optional int32 altitude = 93;
+	}
+	
+	//A timestamp
+	optional int32 timestamp = 17;
+	
 	optional FlightMode current_mode = 1;
 	optional Velocity current_speed = 2;
 	optional Position current_position = 3;
 	optional Attitude current_attitude = 4;
+	optional int32 current_altitude = 18;
 	
 	optional BaroData bmp_raw = 5;
 	optional ThreeDimensionalData gyro_raw = 6;
@@ -78,12 +91,9 @@ message DroneMessage {
 	optional CommandSet output_command_set = 10;
 	
 	//Now the "input" messages
-	optional Position waypoint = 12;
-	optional Position home_base = 13;
+	optional Waypoint waypoint = 12;
+	optional Waypoint home_base = 13;
 	optional float sea_level_pressure = 14;
 	optional CommandSet input_command_set = 15;
 	optional FlightMode new_mode = 16;
-	
-	//A timestamp
-	optional int32 timestamp = 17;
 }

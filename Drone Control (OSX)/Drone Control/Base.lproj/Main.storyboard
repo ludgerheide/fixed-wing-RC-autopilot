@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9060"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -210,7 +210,6 @@
                     <splitView key="splitView" dividerStyle="thin" vertical="YES" id="ICP-qt-3mk">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
                     </splitView>
                     <connections>
                         <segue destination="xOD-sX-6Bq" kind="relationship" relationship="splitItems" id="5Ln-ii-jyy"/>
@@ -249,7 +248,6 @@
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fWL-2S-7SV">
                                 <rect key="frame" x="351" y="46" width="85" height="32"/>
-                                <animations/>
                                 <buttonCell key="cell" type="push" title="Update" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qkR-Lj-Rfo">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -260,7 +258,6 @@
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="quP-BN-yOy">
                                 <rect key="frame" x="370" y="13" width="66" height="32"/>
-                                <animations/>
                                 <buttonCell key="cell" type="push" title="Play" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="CSk-7a-uxB">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -271,7 +268,6 @@
                             </button>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vah-Pu-aeA">
                                 <rect key="frame" x="143" y="52" width="206" height="22"/>
-                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="sa9-BU-yjU">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -280,7 +276,6 @@
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CoQ-wd-gBR">
                                 <rect key="frame" x="18" y="22" width="159" height="17"/>
-                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Video Status: Unavailable" id="xfC-sg-TUq">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -289,7 +284,6 @@
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="w5e-jH-ySL">
                                 <rect key="frame" x="18" y="55" width="119" height="17"/>
-                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Sea Level Pressure" id="lhy-na-1Qy">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -305,14 +299,12 @@
                                             <constraint firstAttribute="height" constant="96" id="3E0-7d-USd"/>
                                             <constraint firstAttribute="width" constant="163" id="qpJ-Sa-zc9"/>
                                         </constraints>
-                                        <animations/>
                                     </customView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="jHb-Id-fea" firstAttribute="centerY" secondItem="YJZ-ry-3VS" secondAttribute="centerY" id="4qd-F5-5Kp"/>
                                     <constraint firstItem="jHb-Id-fea" firstAttribute="centerX" secondItem="YJZ-ry-3VS" secondAttribute="centerX" id="bdf-Tf-6Xh"/>
                                 </constraints>
-                                <animations/>
                             </customView>
                         </subviews>
                         <constraints>
@@ -333,7 +325,6 @@
                             <constraint firstItem="quP-BN-yOy" firstAttribute="top" secondItem="fWL-2S-7SV" secondAttribute="bottom" constant="12" id="gqD-Gf-Ctj"/>
                             <constraint firstItem="w5e-jH-ySL" firstAttribute="top" secondItem="YJZ-ry-3VS" secondAttribute="bottom" constant="10" id="qUU-ZS-te7"/>
                         </constraints>
-                        <animations/>
                     </view>
                     <connections>
                         <outlet property="buPlayPause" destination="quP-BN-yOy" id="Kxj-Xk-KJM"/>
@@ -362,7 +353,6 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="OuM-J1-krQ" secondAttribute="height" multiplier="1:5" id="7IY-M9-OaU"/>
                                 </constraints>
-                                <animations/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="WuJ-ch-loz"/>
                             </imageView>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="lKG-sb-8An">
@@ -370,56 +360,49 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="lKG-sb-8An" secondAttribute="height" multiplier="1:5" id="ZDt-6t-3CX"/>
                                 </constraints>
-                                <animations/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="9sV-LQ-aXq"/>
                             </imageView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="PbC-gU-vYG">
                                 <rect key="frame" x="0.0" y="170" width="73" height="25"/>
-                                <animations/>
                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" title="999" drawsBackground="YES" id="M7a-fe-XLO">
                                     <font key="font" size="16" name="Monaco"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField canDrawConcurrently="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JqQ-GL-SOX">
+                            <textField canDrawConcurrently="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="JqQ-GL-SOX">
                                 <rect key="frame" x="73" y="344" width="304" height="20"/>
-                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Heading" placeholderString="Heading" drawsBackground="YES" id="C4b-0v-pcn">
                                     <font key="font" size="16" name="Monaco"/>
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </textFieldCell>
                             </textField>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xvn-85-Ra1">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="xvn-85-Ra1">
                                 <rect key="frame" x="73" y="40" width="304" height="304"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="xvn-85-Ra1" secondAttribute="height" multiplier="1:1" id="IeU-iZ-fAT"/>
                                 </constraints>
-                                <animations/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyUpOrDown" id="yLx-UK-fjo"/>
                             </imageView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="yZP-Wy-om5">
                                 <rect key="frame" x="377" y="170" width="73" height="25"/>
-                                <animations/>
                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" title="999" drawsBackground="YES" id="YtD-QI-22r">
                                     <font key="font" size="16" name="Monaco"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField canDrawConcurrently="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B8v-of-Zxe">
+                            <textField canDrawConcurrently="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="B8v-of-Zxe">
                                 <rect key="frame" x="73" y="0.0" width="304" height="20"/>
-                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Battery" drawsBackground="YES" id="5fV-ID-03y">
                                     <font key="font" size="16" name="Monaco"/>
                                     <color key="textColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </textFieldCell>
                             </textField>
-                            <textField canDrawConcurrently="YES" horizontalHuggingPriority="251" verticalHuggingPriority="751" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="88m-Yh-wOL">
+                            <textField canDrawConcurrently="YES" horizontalHuggingPriority="251" verticalHuggingPriority="751" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="88m-Yh-wOL">
                                 <rect key="frame" x="73" y="20" width="304" height="20"/>
-                                <animations/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Heading" drawsBackground="YES" id="4Xn-Rw-ggn">
                                     <font key="font" size="16" name="Monaco"/>
                                     <color key="textColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -454,7 +437,6 @@
                             <constraint firstItem="yZP-Wy-om5" firstAttribute="centerY" secondItem="OeJ-i3-gy1" secondAttribute="centerY" id="voN-Fa-83x"/>
                             <constraint firstItem="lKG-sb-8An" firstAttribute="leading" secondItem="xvn-85-Ra1" secondAttribute="trailing" id="vof-4Z-tjl"/>
                         </constraints>
-                        <animations/>
                     </view>
                     <connections>
                         <outlet property="label_Altitude" destination="YtD-QI-22r" id="HZH-Bz-vPa"/>
@@ -478,7 +460,6 @@
                     <view key="view" id="5cE-tE-L7W" customClass="MKMapView">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
                     </view>
                 </viewController>
                 <customObject id="8WG-bt-ILV" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

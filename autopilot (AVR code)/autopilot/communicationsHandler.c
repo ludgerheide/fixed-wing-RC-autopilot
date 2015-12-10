@@ -46,8 +46,8 @@ static const u16 telemetryDelay = 500; //The delay between each telemetry messag
 //These hold the timestamps for the last packets that were
 // a) transmitted over the telemetry
 // b) send thtough the serial (logging port)
-static u32 telPosTime, telVelTime, telAttitudeTime, telBatteryTime;
-static u32 logPosTime, logVelTime, logAttitudeTime, logBaroDataTime, logRawGyroTime, logRawAccelTime, logRawMagTime, logHomeBaseTime, logWaypointTime, logInCommandSetTime, logOutCommandSetTime, logBatteryTime;
+static u32 telPosTime, telVelTime, telAttitudeTime, telAltitudeTime, telBatteryTime;
+static u32 logPosTime, logVelTime, logAttitudeTime, logAltitudeTime, logBaroDataTime, logRawGyroTime, logRawAccelTime, logRawMagTime, logHomeBaseTime, logWaypointTime, logInCommandSetTime, logOutCommandSetTime, logBatteryTime;
 
 //Function to convert degrees to a fixed-point 16 byte integer
 s16 degreesToInt(float degrees) {
@@ -87,22 +87,26 @@ static u08 createProtobuf(messagePurpose thePurpose, u08* messageLength) {
         outgoingMsg.has_timestamp = true;
     }
     
-    //Position and velocity for both, but with the correct last update
+    //Position for both, but with the correct last update
     if((thePurpose == logging && GpsInfo.PosLLA.timestamp - logPosTime) || (thePurpose == telemetry && GpsInfo.PosLLA.timestamp - telPosTime)) {
         outgoingMsg.has_current_position = true;
         
-        //For logging, add real time and timestamp
+        //For logging, add real time, timestamp, gps altitude and number of satellites
         if(thePurpose == logging) {
             outgoingMsg.current_position.has_timestamp = true;
             outgoingMsg.current_position.timestamp = GpsInfo.PosLLA.timestamp;
             
             outgoingMsg.current_position.has_real_time = true;
             outgoingMsg.current_position.real_time = GpsInfo.PosLLA.TimeOfFix;
+            
+            outgoingMsg.current_position.has_gps_altitude = true;
+            outgoingMsg.current_position.gps_altitude = GpsInfo.PosLLA.alt * 100; //To convert to cventimeters
+            
+            outgoingMsg.current_position.has_numberOfSatellites = true;
+            outgoingMsg.current_position.numberOfSatellites = GpsInfo.numSVs;
         }
         outgoingMsg.current_position.latitude = GpsInfo.PosLLA.lat;
         outgoingMsg.current_position.longitude = GpsInfo.PosLLA.lon;
-        outgoingMsg.current_position.has_altitude = true;
-        outgoingMsg.current_position.altitude = pressureToAltitude(curPressure.pressure, seaLevelPressure) * 100; //To convert to cventimeters
         
         //Now update the time
         if(thePurpose == logging) {
@@ -154,6 +158,20 @@ static u08 createProtobuf(messagePurpose thePurpose, u08* messageLength) {
             telAttitudeTime = currentAttitude.timestamp;
         }
     }
+    
+    //Altitude for both
+    if ((thePurpose == logging && curPressure.timestamp - logAltitudeTime) || (thePurpose == telemetry && curPressure.timestamp - telAltitudeTime)) {
+        outgoingMsg.has_current_altitude = true;
+        outgoingMsg.current_altitude = pressureToAltitude(curPressure.pressure, seaLevelPressure) * 100;
+        
+        //Now update the time
+        if(thePurpose == logging) {
+            logAltitudeTime = curPressure.timestamp;
+        } else {
+            telAltitudeTime = curPressure.timestamp;
+        }
+    }
+
     
     //Battery for both, as above
     if ((thePurpose == logging && curBattery.timestamp - logBatteryTime) || (thePurpose == telemetry && curBattery.timestamp - telBatteryTime)) {

@@ -16,8 +16,11 @@
 
 @protocol positionDelegate <NSObject>
 @required
--(void) positionChangedToLatitude: (NSNumber*) latitude longitude: (NSNumber*) longitude altitude: (NSNumber*) altitude courseOverGround: (NSNumber*) courseOverGround speed: (NSNumber*) speed;
+-(void) positionChangedToLatitude: (NSNumber*) latitude longitude: (NSNumber*) longitude courseOverGround: (NSNumber*) courseOverGround speed: (NSNumber*) speed;
+-(void) altitudeChanged: (NSNumber*) altitude;
 @end
+
+
 
 @protocol controllerDelegate <NSObject>
 @required

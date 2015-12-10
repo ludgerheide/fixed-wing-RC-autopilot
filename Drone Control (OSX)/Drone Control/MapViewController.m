@@ -36,7 +36,7 @@
     track = [[NSMutableArray alloc] init];
 }
 
--(void)updateMapWithLatitude: (NSNumber*) latitude longitude: (NSNumber*) longitude altitude: (NSNumber*) altitude course: (NSNumber*) course speed: (NSNumber*) speed {
+-(void)updateMapWithLatitude: (NSNumber*) latitude longitude: (NSNumber*) longitude course: (NSNumber*) course speed: (NSNumber*) speed {
     if(latitude == nil || longitude == nil) {
         //We do not have valid cdoordinates. remove the pin
         [myMapView removeAnnotation: currentPosPin];
@@ -53,7 +53,7 @@
     
     //Add out point to the track
     CLLocation* loc = [[CLLocation alloc] initWithCoordinate: coords
-                                                    altitude: altitude.doubleValue
+                                                    altitude: 0
                                           horizontalAccuracy: 0
                                             verticalAccuracy: 0
                                                       course: course.doubleValue

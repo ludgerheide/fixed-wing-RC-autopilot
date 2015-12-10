@@ -86,7 +86,8 @@
     [attitudeDelegate attituteChangedToCourse: nil
                                         pitch: nil
                                          roll: nil];
-    [positionDelegate positionChangedToLatitude: nil longitude: nil altitude: nil courseOverGround: nil speed: nil];
+    [positionDelegate positionChangedToLatitude: nil longitude: nil courseOverGround: nil speed: nil];
+    [positionDelegate altitudeChanged: nil];
 }
 
 //This method collects a sample from the XBox controller and sends
@@ -179,16 +180,20 @@
             if(myDecodedMsg.hasCurrentPosition) {
                 double latitude = myDecodedMsg.currentPosition.latitude;
                 double longitude = myDecodedMsg.currentPosition.longitude;
-                double altitude = myDecodedMsg.currentPosition.altitude / 100.0;
-                
                 double speed = myDecodedMsg.currentSpeed.speed / 1000.0;
                 double courseOverGround = myDecodedMsg.currentSpeed.courseOverGround/64.0;
                 if(positionDelegate) {
                     [positionDelegate positionChangedToLatitude: [NSNumber numberWithDouble: latitude]
                                                       longitude: [NSNumber numberWithDouble: longitude]
-                                                       altitude: [NSNumber numberWithDouble: altitude]
                                                courseOverGround: [NSNumber numberWithDouble: courseOverGround]
                                                           speed: [NSNumber numberWithDouble: speed]];
+                }
+            }
+            
+            if(myDecodedMsg.hasCurrentAltitude) {
+                double altitude = myDecodedMsg.currentAltitude / 100.0;
+                if(positionDelegate) {
+                    [positionDelegate altitudeChanged: [NSNumber numberWithDouble: altitude]];
                 }
             }
             

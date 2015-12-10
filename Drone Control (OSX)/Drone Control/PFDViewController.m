@@ -211,7 +211,7 @@
     view_altitudeTape.image = rendered_altituteTape;
     
     NSString* altitudeString;
-    if(speed) {
+    if(altitude) {
         double roundedAltitude = round(altitude.doubleValue);
         altitudeString = [NSString stringWithFormat: @"%3.0f", roundedAltitude];
         label_Altitude.textColor = [NSColor blackColor];

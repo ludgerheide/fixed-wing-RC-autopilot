@@ -45,7 +45,8 @@ void gpsInit(void) {
     
     //Set teh update-rate to 1Hz, 1000ms between sentences (update to 5hz later)
     //const char* updateRateCommand = "$PMTK220,1000*1F\r\n";
-    const char* updateRateCommand = "$PMTK220,200*2C\r\n";
+    //const char* updateRateCommand = "$PMTK220,200*2C\r\n";
+    const char* updateRateCommand = "$PMTK220,500*2B\r\n";
     
     uartPutStr(GPS_UART, (char*)updateRateCommand);
     

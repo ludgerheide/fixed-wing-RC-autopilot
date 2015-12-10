@@ -75,9 +75,12 @@
 }
 
 //Protocol methods
-- (void) positionChangedToLatitude:(NSNumber *)latitude longitude:(NSNumber *)longitude altitude:(NSNumber *)altitude courseOverGround:(NSNumber *)courseOverGround speed:(NSNumber *)speed {
-    [myMap updateMapWithLatitude: latitude longitude: longitude altitude: altitude course: courseOverGround speed: speed];
+- (void) positionChangedToLatitude:(NSNumber *)latitude longitude:(NSNumber *)longitude courseOverGround:(NSNumber *)courseOverGround speed:(NSNumber *)speed {
+    [myMap updateMapWithLatitude: latitude longitude: longitude course: courseOverGround speed: speed];
     myPFD.speed = speed;
+}
+
+- (void) altitudeChanged:(NSNumber *)altitude {
     myPFD.altitude = altitude;
 }
 
