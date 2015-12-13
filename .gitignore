@@ -7,6 +7,8 @@
 
 #Build output
 */autopilot/Builds
+Compass\ Calibration/magDump\ \(AVR\)/avr\ -\ magnetDump/Builds
+
 
 #EAGLE files
 *.b#*
