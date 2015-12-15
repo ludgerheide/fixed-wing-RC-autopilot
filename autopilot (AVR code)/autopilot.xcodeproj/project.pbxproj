@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E4074C4A1C1E2C7D006BCED4 /* altitudePitchController.c in Sources */ = {isa = PBXBuildFile; fileRef = E4074C481C1E2C7D006BCED4 /* altitudePitchController.c */; };
 		E4089A6E1BC47A5B00A7D508 /* pb_common.c in Sources */ = {isa = PBXBuildFile; fileRef = E4089A681BC47A5B00A7D508 /* pb_common.c */; };
 		E4089A6F1BC47A5B00A7D508 /* pb_decode.c in Sources */ = {isa = PBXBuildFile; fileRef = E4089A6A1BC47A5B00A7D508 /* pb_decode.c */; };
 		E4089A701BC47A5B00A7D508 /* pb_encode.c in Sources */ = {isa = PBXBuildFile; fileRef = E4089A6C1BC47A5B00A7D508 /* pb_encode.c */; };
@@ -33,6 +34,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E4074C481C1E2C7D006BCED4 /* altitudePitchController.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = altitudePitchController.c; sourceTree = "<group>"; };
+		E4074C491C1E2C7D006BCED4 /* altitudePitchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = altitudePitchController.h; sourceTree = "<group>"; };
 		E4089A681BC47A5B00A7D508 /* pb_common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pb_common.c; sourceTree = "<group>"; };
 		E4089A691BC47A5B00A7D508 /* pb_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pb_common.h; sourceTree = "<group>"; };
 		E4089A6A1BC47A5B00A7D508 /* pb_decode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pb_decode.c; sourceTree = "<group>"; };
@@ -87,6 +90,17 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		E4074C471C1E2BCC006BCED4 /* Flight Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E4C6CE8D1BF66E7300545241 /* flightController.h */,
+				E4C6CE8C1BF66E7300545241 /* flightController.c */,
+				E4074C491C1E2C7D006BCED4 /* altitudePitchController.h */,
+				E4074C481C1E2C7D006BCED4 /* altitudePitchController.c */,
+			);
+			name = "Flight Controllers";
+			sourceTree = "<group>";
+		};
 		E4089A671BC47A5100A7D508 /* protobuf */ = {
 			isa = PBXGroup;
 			children = (
@@ -124,8 +138,7 @@
 				E4FBB4F71BC31C3700D6A64F /* sensors */,
 				E4FBB4F91BC31C4600D6A64F /* comms */,
 				E4FBB4DD1BC31C3200D6A64F /* main.c */,
-				E4C6CE8C1BF66E7300545241 /* flightController.c */,
-				E4C6CE8D1BF66E7300545241 /* flightController.h */,
+				E4074C471C1E2BCC006BCED4 /* Flight Controllers */,
 				E4FBB4E21BC31C3200D6A64F /* timer.h */,
 				E4FBB4E11BC31C3200D6A64F /* timer.c */,
 				E4FBB4E61BC31C3200D6A64F /* utils.h */,
@@ -343,6 +356,7 @@
 				E4FC11F41BEEA9BA0040534F /* battery.c in Sources */,
 				E4FBB4EC1BC31C3200D6A64F /* gps.c in Sources */,
 				E4FBB4F31BC31C3200D6A64F /* timer.c in Sources */,
+				E4074C4A1C1E2C7D006BCED4 /* altitudePitchController.c in Sources */,
 				E4FBB4F01BC31C3200D6A64F /* MadgwickAHRS.c in Sources */,
 				E4C6CE8E1BF66E7300545241 /* flightController.c in Sources */,
 				E4FBB4B71BC31BFC00D6A64F /* Makefile in Sources */,

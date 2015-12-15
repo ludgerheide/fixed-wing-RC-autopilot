@@ -24,4 +24,13 @@ void uartPutStr(u08 nUart, char* string);
 //Reads in the sea level pressure from eeprom and checks its validity
 void readSlpFromEEPROM(void);
 
+//Maps a float from one range to another, making sure it's in bounds
+float mapfloat(float x, float in_min, float in_max, float out_min, float out_max);
+
+//Same for s32
+s32 maps32(s32 x, s32 in_min, s32 in_max, s32 out_min, s32 out_max);
+
+//Same for s16
+s16 maps16(s16 x, s16 in_min, s16 in_max, s16 out_min, s16 out_max);
+
 #endif /* utils_h */

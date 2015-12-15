@@ -50,3 +50,33 @@ void readSlpFromEEPROM(void) {
         seaLevelPressure = 1013; //Stanard pressure otherwise
     }
 }
+
+float mapfloat(float x, float in_min, float in_max, float out_min, float out_max) {
+    float out = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    if(out < out_min) {
+        out = out_min;
+    } else if(out > out_max) {
+        out = out_max;
+    }
+    return out;
+}
+
+s32 maps32(s32 x, s32 in_min, s32 in_max, s32 out_min, s32 out_max) {
+    s32 out = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    if(out < out_min) {
+        out = out_min;
+    } else if(out > out_max) {
+        out = out_max;
+    }
+    return out;
+}
+
+s16 maps16(s16 x, s16 in_min, s16 in_max, s16 out_min, s16 out_max) {
+    s16 out = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    if(out < out_min) {
+        out = out_min;
+    } else if(out > out_max) {
+        out = out_max;
+    }
+    return out;
+}

@@ -9,13 +9,16 @@
 #include "flightController.h"
 #include "timer.h"
 #include "global.h"
+#include "utils.h"
+#include "altitudePitchController.h"
+
 #include <math.h>
 
 #define INPUT_TIMEOUT 500 //Maximum age of input command set in milliseconds
 #define SENSOR_TIMEOUT 250 //Maximum age of sensor data to be considered valid
 #define MAX_ROTATION (M_PI/4.0) //The rotation a full stick correspinds to (in rad/s)
 
-#define THRESHOLD_VOLTAGE 6.75
+#define THRESHOLD_VOLTAGE 7.0
 
 static void degradedUpdate(void);
 static void flyByWireUpdate(void);
@@ -63,31 +66,19 @@ static void degradedUpdate(void) {
 static void flyByWireUpdate(void) {
     outputCommandSet.timestamp = millis();
     
-    //Only allow 50% thrust if the voltage if below 6.75
+    //Only allow 50% thrust if the voltage if below 7V
     if(curBattery.voltage < THRESHOLD_VOLTAGE) {
         outputCommandSet.thrust = MIN(inputCommandSet.thrust, 127);
     } else {
         outputCommandSet.thrust = inputCommandSet.thrust;
     }
     
+    //Send the pitch stock to the pitch controller
+    s08 pitchStickSigned = maps16(inputCommandSet.pitch, 0, UINT8_MAX, INT8_MIN, INT8_MAX);
+    outputCommandSet.pitch = calculateElevatorValue(pitchStickSigned);
+    
     //Interpret the stick values as rotation requests
-    float wantedPitchRotation = mapfloat(inputCommandSet.pitch, 0, 255, -MAX_ROTATION, MAX_ROTATION);
     float wantedYawRotation = mapfloat(inputCommandSet.yaw, 0, 255, -MAX_ROTATION, MAX_ROTATION);
-    
-    float pitchDifference = curGyro.x - wantedPitchRotation;
     float rotationDifference = curGyro.z - wantedYawRotation;
-    
-    //Now map the difference back to an output value
-    outputCommandSet.pitch = mapfloat(pitchDifference, MAX_ROTATION, -MAX_ROTATION, 0, 255);
     outputCommandSet.yaw = mapfloat(rotationDifference, MAX_ROTATION, -MAX_ROTATION, 0, 255);
-}
-
-float mapfloat(float x, float in_min, float in_max, float out_min, float out_max) {
-    float out = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-    if(out < out_min) {
-        out = out_min;
-    } else if(out > out_max) {
-        out = out_max;
-    }
-    return out;
 }
