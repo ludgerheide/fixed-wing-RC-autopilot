@@ -22,13 +22,13 @@
 #define MAX_CLIMB_ERROR 10000.0 //In centimeters
 
 #define MAX_PITCH_ANGLE 20 //The maximum up/down pitch
-#define MAX_PITCH_INTEGRAL 180
+#define MAX_PITCH_INTEGRAL 20
 
 
-#define MAX_ROTATION (M_PI/4.0) //The rotation a full stick correspinds to (in rad/s)
-#define ELEVATOR_PROPORTIONAL_GAIN 1.0
-#define ELEVATOR_INTEGRAL_GAIN 1.0
-#define ELEVATOR_DIFFERENTIAL_GAIN 1.0
+#define MAX_ROTATION M_PI //The rotation a full stick correspinds to (in rad/s)
+#define ELEVATOR_PROPORTIONAL_GAIN 0.66
+#define ELEVATOR_INTEGRAL_GAIN 0.33
+#define ELEVATOR_DIFFERENTIAL_GAIN 0.5
 
 s32 lastAltitude;
 u32 lastAltitudeTime;
@@ -109,19 +109,19 @@ u08 calculateElevatorValue(s08 targetPitchAngle) {
     lastPitchTime = currentAttitude.timestamp;
     
     //Anti-windup
-    if(integratedAltitude > MAX_PITCH_INTEGRAL) {
-        integratedAltitude = MAX_PITCH_INTEGRAL;
-    } else if (integratedAltitude < -MAX_PITCH_INTEGRAL) {
-        integratedAltitude = -MAX_PITCH_INTEGRAL;
+    if(integratedPitch > MAX_PITCH_INTEGRAL) {
+        integratedPitch = MAX_PITCH_INTEGRAL;
+    } else if (integratedPitch < -MAX_PITCH_INTEGRAL) {
+        integratedPitch = -MAX_PITCH_INTEGRAL;
     }
-    float pitchIntegralNormalized = mapfloat(integratedAltitude, -MAX_PITCH_INTEGRAL, MAX_PITCH_INTEGRAL, -1, 1);
+    float pitchIntegralNormalized = mapfloat(integratedPitch, -MAX_PITCH_INTEGRAL, MAX_PITCH_INTEGRAL, -1, 1);
     
     //Differential: Take the current pitch rotation, compare it to the pitch error
     float wantedPitchRotation = mapfloat(targetPitchAngle, INT8_MIN, INT8_MAX, -MAX_ROTATION, MAX_ROTATION);
-    float pitchDifference = curGyro.x - wantedPitchRotation;
+    float pitchDifference = -1 * (curGyro.x - wantedPitchRotation);
     float pitchDerivNormalized = mapfloat(pitchDifference, -MAX_ROTATION, MAX_ROTATION, -1, 1);
     
     //Add the three together and map them correctly
     float normalizedOutput = pitchProportionalNormalized * ELEVATOR_PROPORTIONAL_GAIN + pitchIntegralNormalized * ELEVATOR_INTEGRAL_GAIN + pitchDerivNormalized * ELEVATOR_DIFFERENTIAL_GAIN;
-    return mapfloat(normalizedOutput, -(ELEVATOR_PROPORTIONAL_GAIN + ELEVATOR_INTEGRAL_GAIN  + ELEVATOR_DIFFERENTIAL_GAIN), (ELEVATOR_PROPORTIONAL_GAIN + ELEVATOR_INTEGRAL_GAIN  + ELEVATOR_DIFFERENTIAL_GAIN), 0, UINT8_MAX);
+    return mapfloat(normalizedOutput, -1, 1, 0, UINT8_MAX);
 }

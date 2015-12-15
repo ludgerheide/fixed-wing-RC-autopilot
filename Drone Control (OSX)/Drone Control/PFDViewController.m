@@ -169,6 +169,7 @@
 }
 
 - (void) updateAltitudeTape {
+    [[NSSound soundNamed:@"Morse"] play];
     NSImage* rendered_altituteTape = [[NSImage alloc] initWithSize: view_altitudeTape.bounds.size];
     
     if(altitude) {

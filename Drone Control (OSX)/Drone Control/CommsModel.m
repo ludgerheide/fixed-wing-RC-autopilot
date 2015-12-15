@@ -153,7 +153,7 @@
         receivedData = newData;
         
         XBeeMessage* myMsg = [[XBeeMessage alloc] initWithRawMessage: packet];
-        if(myMsg != nil) {
+        if(myMsg != nil) {            
             NSError* myError;
             DroneMessage* myDecodedMsg = [DroneMessage parseFromData: myMsg.payloadData error: &myError];
             

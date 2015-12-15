@@ -74,11 +74,11 @@ static void flyByWireUpdate(void) {
     }
     
     //Send the pitch stock to the pitch controller
-    s08 pitchStickSigned = maps16(inputCommandSet.pitch, 0, UINT8_MAX, INT8_MIN, INT8_MAX);
+    s08 pitchStickSigned = mapfloat(inputCommandSet.pitch, 0, UINT8_MAX, INT8_MIN, INT8_MAX);
     outputCommandSet.pitch = calculateElevatorValue(pitchStickSigned);
     
     //Interpret the stick values as rotation requests
     float wantedYawRotation = mapfloat(inputCommandSet.yaw, 0, 255, -MAX_ROTATION, MAX_ROTATION);
     float rotationDifference = curGyro.z - wantedYawRotation;
-    outputCommandSet.yaw = mapfloat(rotationDifference, MAX_ROTATION, -MAX_ROTATION, 0, 255);
+    outputCommandSet.yaw = 127 mapfloat(rotationDifference, MAX_ROTATION, -MAX_ROTATION, 0, 255);
 }
