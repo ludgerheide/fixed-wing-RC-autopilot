@@ -50,7 +50,7 @@
         [streamGPX scheduleInRunLoop: [NSRunLoop currentRunLoop] forMode: NSDefaultRunLoopMode];
         [streamGPX open];
         [self prepareGPXFile];
-
+        
         
         NSString* pathAccelRaw = [NSString stringWithFormat: @"%@accelRaw.csv", prefix];
         streamAccelRaw = [NSOutputStream outputStreamToFileAtPath: pathAccelRaw append: NO];
@@ -126,13 +126,13 @@
         assert(msg.hasCurrentSpeed);
         assert(msg.currentPosition.hasRealTime);
         [self writeGPXFile: msg];
-        NSString* string = [NSString stringWithFormat: @"%u, %f, %f, %f, %f, %f, %f\n", (uint32_t)msg.currentPosition.timestamp, msg.currentPosition.realTime, msg.currentPosition.latitude, msg.currentPosition.longitude, msg.currentPosition.altitude / 100.0, msg.currentSpeed.speed / 1000.0, msg.currentSpeed.courseOverGround / 64.0];
+        NSString* string = [NSString stringWithFormat: @"%u, %f, %f, %f, %f, %i, %f ,%f\n", (uint32_t)msg.currentPosition.timestamp, msg.currentPosition.realTime, msg.currentPosition.latitude, msg.currentPosition.longitude, msg.currentPosition.gpsAltitude / 100.0, msg.currentPosition.numberOfSatellites, msg.currentSpeed.speed / 1000.0, msg.currentSpeed.courseOverGround / 64.0];
         NSData* data = [string dataUsingEncoding: NSUTF8StringEncoding];
         [streamPositionVelocity write: data.bytes maxLength: data.length];
     }
     
     if(msg.hasBmpRaw) {
-        NSString* string = [NSString stringWithFormat: @"%u, %f, %f\n", (uint32_t)msg.bmpRaw.timestamp, msg.bmpRaw.pressure, msg.bmpRaw.temperature];
+        NSString* string = [NSString stringWithFormat: @"%u, %f, %f, %f\n", (uint32_t)msg.bmpRaw.timestamp, msg.bmpRaw.pressure, msg.bmpRaw.temperature, msg.currentAltitude/100.0];
         NSData* data = [string dataUsingEncoding: NSUTF8StringEncoding];
         [streamBmpRaw write: data.bytes maxLength: data.length];
     }
@@ -196,7 +196,11 @@
 
 -(void) writeGPXFile: (DroneMessage* _Nonnull) msg {
     NSString* line1 = [NSString stringWithFormat: @"    <trkpt lat=\"%f\" lon=\"%f\">\n", msg.currentPosition.latitude, msg.currentPosition.longitude];
-    NSString* line2 = [NSString stringWithFormat: @"    <ele>%f</ele>\n", msg.currentPosition.altitude / 100.0];
+    
+    NSString* line2 = @"";
+    if(msg.hasCurrentAltitude) {
+        line2 = [NSString stringWithFormat: @"    <ele>%f</ele>\n", msg.currentAltitude / 100.0];
+    }
     
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
     NSInteger day = [components day];

@@ -18,7 +18,7 @@
 #define SENSOR_TIMEOUT 250 //Maximum age of sensor data to be considered valid
 #define MAX_ROTATION (M_PI/4.0) //The rotation a full stick correspinds to (in rad/s)
 
-#define THRESHOLD_VOLTAGE 7.0
+#define THRESHOLD_VOLTAGE 6.75
 
 static void degradedUpdate(void);
 static void flyByWireUpdate(void);
@@ -80,5 +80,5 @@ static void flyByWireUpdate(void) {
     //Interpret the stick values as rotation requests
     float wantedYawRotation = mapfloat(inputCommandSet.yaw, 0, 255, -MAX_ROTATION, MAX_ROTATION);
     float rotationDifference = curGyro.z - wantedYawRotation;
-    outputCommandSet.yaw = 127 mapfloat(rotationDifference, MAX_ROTATION, -MAX_ROTATION, 0, 255);
+    outputCommandSet.yaw = mapfloat(rotationDifference, MAX_ROTATION, -MAX_ROTATION, 0, 255);
 }
