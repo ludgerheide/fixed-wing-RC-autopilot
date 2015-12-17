@@ -63,8 +63,8 @@ int main(void) {
             gpsUpdate();
         }
         
-        //TODO: Analyse if we are using expired or invalid data and try to reset the sensors
-        
+        //Analyse if we are using expired or invalid data and try to reset the sensors
+        checkSensorsAndSetFlightMode();
         
         //Update the madgwick algorithm
         MadgwickAHRSupdate(micros(), curGyro.x, curGyro.y, curGyro.z, curAccel.x, curAccel.y, curAccel.z, curMag.x, curMag.y, curMag.z);

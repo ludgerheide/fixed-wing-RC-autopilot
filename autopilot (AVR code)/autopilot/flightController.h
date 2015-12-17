@@ -11,6 +11,8 @@
 
 #include <stdio.h>
 
+void checkSensorsAndSetFlightMode(void);
+
 void updateFlightControls(void);
 
 #endif /* flightController_h */
