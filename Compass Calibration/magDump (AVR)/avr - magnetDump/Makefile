@@ -105,15 +105,16 @@ CSTANDARD = -std=gnu99
 
 # Place -D or -U options here
 CDEFS = -DF_CPU=$(F_CPU)UL
-#CDEFS += -DNDEBUG
-CDEFS += -D__ASSERT_USE_STDERR
+CDEFS += -DNDEBUG
+#CDEFS += -D__ASSERT_USE_STDERR
 #CDEFS += -DI2C_DEBUG
 #CDEFS += -DIMU_DEBUG
-
+#CDEFS += -DGPS_DEBUG
+#CDEFS += -DCOMMS_DEBUG
 
 
 # Place -I options here
-CINCS =
+CINCS = -I/usr/local/include
 
 
 
@@ -127,8 +128,8 @@ CINCS =
 CFLAGS = -g$(DEBUG)
 CFLAGS += $(CDEFS) $(CINCS)
 CFLAGS += -O$(OPT)
-CFLAGS += -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums
-CFLAGS += -Wall -Wstrict-prototypes
+CFLAGS += -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -ffreestanding
+CFLAGS += -Wall -Wextra -Wstrict-prototypes
 CFLAGS += -Wa,-adhlns=$(addprefix $(OBJDIR)/,$(<:.c=.lst))
 CFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
 CFLAGS += $(CSTANDARD)
@@ -168,8 +169,8 @@ SCANF_LIB_MIN = -Wl,-u,vfscanf -lscanf_min
 SCANF_LIB_FLOAT = -Wl,-u,vfscanf -lscanf_flt
 
 # If this is left blank, then it will use the Standard scanf version.
-SCANF_LIB = 
-#SCANF_LIB = $(SCANF_LIB_MIN)
+#SCANF_LIB =
+SCANF_LIB = $(SCANF_LIB_MIN)
 #SCANF_LIB = $(SCANF_LIB_FLOAT)
 
 
@@ -199,6 +200,7 @@ LDFLAGS = -Wl,-Map=$(OBJDIR)/$(TARGET).map,--cref
 LDFLAGS += $(EXTMEMOPTS)
 LDFLAGS += $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
 LDFLAGS += -Wl,--gc-sections
+LDFLAGS += -Wl,--relax
 
 
 #---------------- Debugging Options ----------------
@@ -338,7 +340,7 @@ program: $(OBJDIR)/$(TARGET).hex $(OBJDIR)/$(TARGET).eep
 	scp "$(OBJDIR)/$(TARGET).hex" pi@$(SSH_IP):/tmp/
 #   Execute the upload
 #   Remove the file
-	ssh pi@$(SSH_IP) "avrdude -p atmega2560 -P gpio -c gpio -Uflash:w:/tmp/$(TARGET).hex:i; rm -v /tmp/$(TARGET).hex"
+	ssh pi@$(SSH_IP) "avrdude -q -p atmega2560 -P /dev/spidev0.1 -c linuxspi -Uflash:w:/tmp/$(TARGET).hex:i; rm -v /tmp/$(TARGET).hex"
 
 
 # Generate avr-gdb config/init file which does the following:

@@ -10,8 +10,8 @@
 #define pinSetup_h
 
 //UART Numbers and ther functions
-#define XBEE_UART 0
-#define GPS_UART 1
-#define RASPI_UART 3
+#define XBEE_UART 3
+#define GPS_UART 2
+#define RASPI_UART 0
 
 #endif /* pinSetup_h */

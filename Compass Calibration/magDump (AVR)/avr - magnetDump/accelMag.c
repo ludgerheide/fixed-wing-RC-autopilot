@@ -183,8 +183,8 @@ void magGetData(magEvent* myEvent) {
 // y =  m21 m22 m23 * (yin - offsety)
 // z    m31 m32 m33    zin - offsetz
 void magCompensate(magEvent* input, magEvent* output) {
-    const float magn_ellipsoid_center[3] = {1.18501, -5.07918, -0.0720533};
-    const float magn_ellipsoid_transform[3][3] = {{0.872294, 0.0138784, -0.00490974}, {0.0138784, 0.998489, -0.000269392}, {-0.00490974, -0.000269392, 0.770367}};
+    const float magn_ellipsoid_center[3] = {23.9234, -0.35877, 2.25237};
+    const float magn_ellipsoid_transform[3][3] = {{0.982285, -0.00897246, 0.0191484}, {-0.00897246, 0.956478, 0.00909634}, {0.0191484, 0.00909634, 0.979293}};
     
     //Forst, calibrate the offset
     output->x = input->x - magn_ellipsoid_center[0];
