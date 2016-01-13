@@ -1,0 +1,376 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E45F84D11C46BBD40012CC57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45F84D01C46BBD40012CC57 /* AppDelegate.swift */; };
+		E45F84D31C46BBD40012CC57 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45F84D21C46BBD40012CC57 /* FirstViewController.swift */; };
+		E45F84D51C46BBD40012CC57 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45F84D41C46BBD40012CC57 /* SecondViewController.swift */; };
+		E45F84D81C46BBD40012CC57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E45F84D61C46BBD40012CC57 /* Main.storyboard */; };
+		E45F84DA1C46BBD40012CC57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E45F84D91C46BBD40012CC57 /* Assets.xcassets */; };
+		E45F84DD1C46BBD40012CC57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E45F84DB1C46BBD40012CC57 /* LaunchScreen.storyboard */; };
+		E45F84F71C46C0D50012CC57 /* libProtocolBuffers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E45F84ED1C46BF440012CC57 /* libProtocolBuffers.a */; };
+		E45F84FB1C46C1900012CC57 /* CommunicationProtocol.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = E45F84FA1C46C1900012CC57 /* CommunicationProtocol.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E45F84EC1C46BF440012CC57 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E45F84E41C46BF440012CC57 /* ProtocolBuffers_iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7461B52E0F94FAF800A0C422;
+			remoteInfo = ProtocolBuffers;
+		};
+		E45F84F51C46C0C30012CC57 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E45F84E41C46BF440012CC57 /* ProtocolBuffers_iOS.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 7461B52D0F94FAF800A0C422;
+			remoteInfo = ProtocolBuffers;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E45F84CD1C46BBD40012CC57 /* Drone Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Drone Viewer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E45F84D01C46BBD40012CC57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E45F84D21C46BBD40012CC57 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		E45F84D41C46BBD40012CC57 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		E45F84D71C46BBD40012CC57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E45F84D91C46BBD40012CC57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E45F84DC1C46BBD40012CC57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E45F84DE1C46BBD40012CC57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E45F84E41C46BF440012CC57 /* ProtocolBuffers_iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ProtocolBuffers_iOS.xcodeproj; path = "protobuf-objectivec/ProtocolBuffers_iOS.xcodeproj"; sourceTree = "<group>"; };
+		E45F84F81C46C18F0012CC57 /* Drone Viewer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Drone Viewer-Bridging-Header.h"; path = "Drone Viewer/Drone Viewer-Bridging-Header.h"; sourceTree = "<group>"; };
+		E45F84F91C46C1900012CC57 /* CommunicationProtocol.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommunicationProtocol.pbobjc.h; path = "Drone Viewer/CommunicationProtocol.pbobjc.h"; sourceTree = "<group>"; };
+		E45F84FA1C46C1900012CC57 /* CommunicationProtocol.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommunicationProtocol.pbobjc.m; path = "Drone Viewer/CommunicationProtocol.pbobjc.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E45F84CA1C46BBD40012CC57 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E45F84F71C46C0D50012CC57 /* libProtocolBuffers.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E45F84C41C46BBD40012CC57 = {
+			isa = PBXGroup;
+			children = (
+				E45F84E41C46BF440012CC57 /* ProtocolBuffers_iOS.xcodeproj */,
+				E45F84CF1C46BBD40012CC57 /* Drone Viewer */,
+				E45F84FC1C46C1970012CC57 /* Supporting Files */,
+				E45F84CE1C46BBD40012CC57 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E45F84CE1C46BBD40012CC57 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E45F84CD1C46BBD40012CC57 /* Drone Viewer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E45F84CF1C46BBD40012CC57 /* Drone Viewer */ = {
+			isa = PBXGroup;
+			children = (
+				E45F84D01C46BBD40012CC57 /* AppDelegate.swift */,
+				E45F84D21C46BBD40012CC57 /* FirstViewController.swift */,
+				E45F84D41C46BBD40012CC57 /* SecondViewController.swift */,
+				E45F84D61C46BBD40012CC57 /* Main.storyboard */,
+				E45F84D91C46BBD40012CC57 /* Assets.xcassets */,
+				E45F84DB1C46BBD40012CC57 /* LaunchScreen.storyboard */,
+				E45F84DE1C46BBD40012CC57 /* Info.plist */,
+			);
+			path = "Drone Viewer";
+			sourceTree = "<group>";
+		};
+		E45F84E51C46BF440012CC57 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E45F84ED1C46BF440012CC57 /* libProtocolBuffers.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E45F84FC1C46C1970012CC57 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E45F84F91C46C1900012CC57 /* CommunicationProtocol.pbobjc.h */,
+				E45F84FA1C46C1900012CC57 /* CommunicationProtocol.pbobjc.m */,
+				E45F84F81C46C18F0012CC57 /* Drone Viewer-Bridging-Header.h */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E45F84CC1C46BBD40012CC57 /* Drone Viewer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E45F84E11C46BBD40012CC57 /* Build configuration list for PBXNativeTarget "Drone Viewer" */;
+			buildPhases = (
+				E45F84C91C46BBD40012CC57 /* Sources */,
+				E45F84CA1C46BBD40012CC57 /* Frameworks */,
+				E45F84CB1C46BBD40012CC57 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E45F84F61C46C0C30012CC57 /* PBXTargetDependency */,
+			);
+			name = "Drone Viewer";
+			productName = "Drone Viewer";
+			productReference = E45F84CD1C46BBD40012CC57 /* Drone Viewer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E45F84C51C46BBD40012CC57 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Ludger Heide";
+				TargetAttributes = {
+					E45F84CC1C46BBD40012CC57 = {
+						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 6C3S3R7W5Q;
+					};
+				};
+			};
+			buildConfigurationList = E45F84C81C46BBD40012CC57 /* Build configuration list for PBXProject "Drone Viewer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E45F84C41C46BBD40012CC57;
+			productRefGroup = E45F84CE1C46BBD40012CC57 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = E45F84E51C46BF440012CC57 /* Products */;
+					ProjectRef = E45F84E41C46BF440012CC57 /* ProtocolBuffers_iOS.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				E45F84CC1C46BBD40012CC57 /* Drone Viewer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		E45F84ED1C46BF440012CC57 /* libProtocolBuffers.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libProtocolBuffers.a;
+			remoteRef = E45F84EC1C46BF440012CC57 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E45F84CB1C46BBD40012CC57 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E45F84DD1C46BBD40012CC57 /* LaunchScreen.storyboard in Resources */,
+				E45F84DA1C46BBD40012CC57 /* Assets.xcassets in Resources */,
+				E45F84D81C46BBD40012CC57 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E45F84C91C46BBD40012CC57 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E45F84D51C46BBD40012CC57 /* SecondViewController.swift in Sources */,
+				E45F84D11C46BBD40012CC57 /* AppDelegate.swift in Sources */,
+				E45F84D31C46BBD40012CC57 /* FirstViewController.swift in Sources */,
+				E45F84FB1C46C1900012CC57 /* CommunicationProtocol.pbobjc.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E45F84F61C46C0C30012CC57 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ProtocolBuffers;
+			targetProxy = E45F84F51C46C0C30012CC57 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E45F84D61C46BBD40012CC57 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E45F84D71C46BBD40012CC57 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		E45F84DB1C46BBD40012CC57 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E45F84DC1C46BBD40012CC57 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E45F84DF1C46BBD40012CC57 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E45F84E01C46BBD40012CC57 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E45F84E21C46BBD40012CC57 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = "Drone Viewer/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.lhtechnologies.Drone-Viewer";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Drone Viewer/Drone Viewer-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/protobuf-objectivec\"";
+			};
+			name = Debug;
+		};
+		E45F84E31C46BBD40012CC57 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = "Drone Viewer/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.lhtechnologies.Drone-Viewer";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Drone Viewer/Drone Viewer-Bridging-Header.h";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/protobuf-objectivec\"";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E45F84C81C46BBD40012CC57 /* Build configuration list for PBXProject "Drone Viewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E45F84DF1C46BBD40012CC57 /* Debug */,
+				E45F84E01C46BBD40012CC57 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E45F84E11C46BBD40012CC57 /* Build configuration list for PBXNativeTarget "Drone Viewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E45F84E21C46BBD40012CC57 /* Debug */,
+				E45F84E31C46BBD40012CC57 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E45F84C51C46BBD40012CC57 /* Project object */;
+}
