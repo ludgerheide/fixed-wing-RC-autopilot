@@ -17,7 +17,7 @@ Compass\ Calibration/magDump\ \(AVR\)/avr\ -\ magnetDump/Builds
 #ignore protobuf-generated files
 *.pb.*
 CommunicationProtocol.java
-*.pbobjc.*
+CommunicationProtocol.pbobjc.*
 
 #IntelliJ
 *.idea/workspace.xml
