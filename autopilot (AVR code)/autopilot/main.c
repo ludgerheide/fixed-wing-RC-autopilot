@@ -51,7 +51,11 @@ int main(void) {
         //Get the current sensor events
         gyroGetData(&curGyro);
         accelGetData(&curAccel);
-        magGetData(&curMag);
+        
+        magEvent uncompensatedMag;
+        magGetData(&uncompensatedMag);
+        magCompensate(&uncompensatedMag, &curMag);
+        
         bmpGetData(&curPressure);
         batteryGetData(&curBattery);
         

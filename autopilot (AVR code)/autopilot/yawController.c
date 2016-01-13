@@ -35,11 +35,11 @@ s08 calculateRateOfTurn(s16 wantedCourse) {
 }
 
 //Calculate the rudder for a given pitch angle using a PID controller
-//INPUT: signed 8-bit value indicating the desired rate of turn
+//INPUT: signed 8-bit value indicating the desired rate of turn (positive means right)
 //OUTPUT: *unsigned* 8-bit value to go to the servo
 u08 calculateRudderValue(s08 targetRateOfTurn) {
     float yawRate = curGyro.z; //Positive value means turning to the right (clockwise), negative left (counteclockwise)
-    u08 bankAngle = currentAttitude.roll; //Positive value means dipping the right wing (clockwise viewed from behind the aircraft), negative means dipping left wing
+    s08 bankAngle = currentAttitude.roll; //Positive value means dipping the right wing (clockwise viewed from behind the aircraft), negative means dipping left wing
     
     //Interpret the input value as rotation
     float wantedYawRate = mapfloat(targetRateOfTurn, INT8_MIN, INT8_MAX, -MAX_YAW_ROTATION, MAX_YAW_ROTATION);
@@ -53,5 +53,5 @@ u08 calculateRudderValue(s08 targetRateOfTurn) {
     
     //Add the two together with respective coeffiecents
     float normalizedRudder = YAW_RATE_GAIN * normalizedYawDifference + BANK_ANGLE_GAIN * normalizedBankAngleDifference;
-    return mapfloat(normalizedRudder, -1, 1, 0, UINT8_MAX);
+    return mapfloat(normalizedRudder, 1, -1, 0, UINT8_MAX);
 }

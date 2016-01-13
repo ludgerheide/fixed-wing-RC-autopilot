@@ -80,7 +80,7 @@ static void flyByWireUpdate(void) {
     //Decrease thrust limit if battery voltage is below minimum, increase otherwise
     if(curBattery.voltage < THRESHOLD_VOLTAGE) {
         maxThrust--;
-    } else {
+    } else if (maxThrust < UINT8_MAX) {
         maxThrust++;
     }
     outputCommandSet.thrust = MIN(inputCommandSet.thrust, maxThrust);
@@ -89,8 +89,8 @@ static void flyByWireUpdate(void) {
     s08 pitchStickSigned = mapfloat(inputCommandSet.pitch, 0, UINT8_MAX, INT8_MIN, INT8_MAX);
     outputCommandSet.pitch = calculateElevatorValue(pitchStickSigned);
     
-    //Interpret the stick values as rotation requests
-    s08 yawStickSigned = mapfloat(inputCommandSet.yaw, 0, UINT8_MAX, INT8_MIN, INT8_MAX);
+    //Interpret the stick values as rotation requests (negate because stick is wrong way
+    s08 yawStickSigned = mapfloat(inputCommandSet.yaw, UINT8_MAX, 0, INT8_MIN, INT8_MAX);
     outputCommandSet.yaw = calculateRudderValue(yawStickSigned);
 }
 

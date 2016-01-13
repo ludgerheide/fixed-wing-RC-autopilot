@@ -275,10 +275,11 @@ void getYawPitchRollDegrees(float* yaw, float* pitch, float* roll) {
     gy = 2 * (q0*q1 + q2*q3);
     gz = q0*q0 - q1*q1 - q2*q2 + q3*q3;
     
-    //Flip yaw to a 0-360 scale
+    //Dubtract 90 to compensate for sesnsor direction, then Flip yaw to a 0-360 scale
     *yaw = (180/M_PI) * fast_atan2(2 * q1 * q2 - 2 * q0 * q3, 2 * q0*q0 + 2 * q1 * q1 - 1);
+    *yaw -= 90;
     if(*yaw < 0) {
-        yaw += 360;
+        *yaw += 360;
     }
     
     //Switch pitch and roll because of the final assembly direction
