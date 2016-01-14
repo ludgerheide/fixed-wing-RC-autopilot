@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		E45F84D11C46BBD40012CC57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45F84D01C46BBD40012CC57 /* AppDelegate.swift */; };
-		E45F84D31C46BBD40012CC57 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45F84D21C46BBD40012CC57 /* FirstViewController.swift */; };
-		E45F84D51C46BBD40012CC57 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45F84D41C46BBD40012CC57 /* SecondViewController.swift */; };
 		E45F84D81C46BBD40012CC57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E45F84D61C46BBD40012CC57 /* Main.storyboard */; };
 		E45F84DA1C46BBD40012CC57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E45F84D91C46BBD40012CC57 /* Assets.xcassets */; };
 		E45F84DD1C46BBD40012CC57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E45F84DB1C46BBD40012CC57 /* LaunchScreen.storyboard */; };
 		E45F84F71C46C0D50012CC57 /* libProtocolBuffers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E45F84ED1C46BF440012CC57 /* libProtocolBuffers.a */; };
 		E45F84FB1C46C1900012CC57 /* CommunicationProtocol.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = E45F84FA1C46C1900012CC57 /* CommunicationProtocol.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E498C5571C4810B800D26FF6 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E498C5551C4810B800D26FF6 /* DataViewController.swift */; };
+		E498C5581C4810B800D26FF6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E498C5561C4810B800D26FF6 /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,8 +37,6 @@
 /* Begin PBXFileReference section */
 		E45F84CD1C46BBD40012CC57 /* Drone Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Drone Viewer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E45F84D01C46BBD40012CC57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E45F84D21C46BBD40012CC57 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		E45F84D41C46BBD40012CC57 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		E45F84D71C46BBD40012CC57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E45F84D91C46BBD40012CC57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E45F84DC1C46BBD40012CC57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +45,8 @@
 		E45F84F81C46C18F0012CC57 /* Drone Viewer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Drone Viewer-Bridging-Header.h"; path = "Drone Viewer/Drone Viewer-Bridging-Header.h"; sourceTree = "<group>"; };
 		E45F84F91C46C1900012CC57 /* CommunicationProtocol.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommunicationProtocol.pbobjc.h; path = "Drone Viewer/CommunicationProtocol.pbobjc.h"; sourceTree = "<group>"; };
 		E45F84FA1C46C1900012CC57 /* CommunicationProtocol.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommunicationProtocol.pbobjc.m; path = "Drone Viewer/CommunicationProtocol.pbobjc.m"; sourceTree = "<group>"; };
+		E498C5551C4810B800D26FF6 /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
+		E498C5561C4810B800D26FF6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,8 +83,8 @@
 			isa = PBXGroup;
 			children = (
 				E45F84D01C46BBD40012CC57 /* AppDelegate.swift */,
-				E45F84D21C46BBD40012CC57 /* FirstViewController.swift */,
-				E45F84D41C46BBD40012CC57 /* SecondViewController.swift */,
+				E498C5551C4810B800D26FF6 /* DataViewController.swift */,
+				E498C5561C4810B800D26FF6 /* MapViewController.swift */,
 				E45F84D61C46BBD40012CC57 /* Main.storyboard */,
 				E45F84D91C46BBD40012CC57 /* Assets.xcassets */,
 				E45F84DB1C46BBD40012CC57 /* LaunchScreen.storyboard */,
@@ -200,10 +200,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E45F84D51C46BBD40012CC57 /* SecondViewController.swift in Sources */,
 				E45F84D11C46BBD40012CC57 /* AppDelegate.swift in Sources */,
-				E45F84D31C46BBD40012CC57 /* FirstViewController.swift in Sources */,
+				E498C5571C4810B800D26FF6 /* DataViewController.swift in Sources */,
 				E45F84FB1C46C1900012CC57 /* CommunicationProtocol.pbobjc.m in Sources */,
+				E498C5581C4810B800D26FF6 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
