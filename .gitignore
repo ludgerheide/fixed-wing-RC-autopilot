@@ -24,7 +24,7 @@ CommunicationProtocol.pbobjc.*
 *.idea/tasks.xml
 *.class
 
-TelemetryViewer/out/artifacts/TelemetryViewer_jar/TelemetryViewer.jar
+DroneComms/out/artifacts/DroneComms_jar/DroneComms.jar
 
 *.dat
 
