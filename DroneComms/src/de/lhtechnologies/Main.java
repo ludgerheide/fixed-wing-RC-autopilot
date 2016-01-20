@@ -1,7 +1,6 @@
 package de.lhtechnologies;
 
 import de.lhtechnologies.flightComputer.SerialPortManager;
-import de.lhtechnologies.flightComputer.SerialReceiver;
 
 public class Main {
 

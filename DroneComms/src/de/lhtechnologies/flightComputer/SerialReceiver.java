@@ -1,5 +1,6 @@
 package de.lhtechnologies.flightComputer;
 
+import com.google.protobuf.InvalidProtocolBufferException;
 import gnu.io.*;
 
 import java.io.IOException;
@@ -58,9 +59,14 @@ public class SerialReceiver extends Observable implements SerialPortEventListene
                     int calculatedChecksum = calculateChecksum();
                     if (receivedChecksum == calculatedChecksum) {
                         byte[] rawMessage = Arrays.copyOfRange(inputBuffer, 0, payloadLength);
-                        DroneMessage msg = DroneMessage.parseFrom(rawMessage);
-                        setChanged();
-                        notifyObservers(msg);
+                        try {
+                            DroneMessage msg = DroneMessage.parseFrom(rawMessage);
+                            setChanged();
+                            notifyObservers(msg);
+                        } catch (InvalidProtocolBufferException e) {
+                            System.out.println("WARNING: Invalid protobuf received!");
+                            e.printStackTrace();
+                        }
                     }
                     break;
                 }

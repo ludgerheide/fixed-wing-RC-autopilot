@@ -13,6 +13,6 @@ public class DataPrinter implements Observer {
     public void update(Observable o, Object arg) {
         assert(arg instanceof DroneMessage);
         DroneMessage msg = (DroneMessage) arg;
-        System.out.println(msg);
+        System.out.println("Message received!");
     }
 }
