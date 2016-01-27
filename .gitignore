@@ -29,3 +29,5 @@ DroneComms/out/artifacts/DroneComms_jar/DroneComms.jar
 *.dat
 
 *.protobuf
+
+*.pem

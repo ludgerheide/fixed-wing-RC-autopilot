@@ -13,6 +13,10 @@
 		E45F84DD1C46BBD40012CC57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E45F84DB1C46BBD40012CC57 /* LaunchScreen.storyboard */; };
 		E45F84F71C46C0D50012CC57 /* libProtocolBuffers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E45F84ED1C46BF440012CC57 /* libProtocolBuffers.a */; };
 		E45F84FB1C46C1900012CC57 /* CommunicationProtocol.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = E45F84FA1C46C1900012CC57 /* CommunicationProtocol.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E47927541C57DA93000AC599 /* SignVerify.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47927521C57DA93000AC599 /* SignVerify.swift */; };
+		E47927551C57DA93000AC599 /* SwiftyRSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47927531C57DA93000AC599 /* SwiftyRSA.swift */; };
+		E47927581C57E056000AC599 /* controller.priv.pem in Resources */ = {isa = PBXBuildFile; fileRef = E47927561C57E056000AC599 /* controller.priv.pem */; };
+		E47927591C57E056000AC599 /* drone.pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = E47927571C57E056000AC599 /* drone.pub.pem */; };
 		E498C5571C4810B800D26FF6 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E498C5551C4810B800D26FF6 /* DataViewController.swift */; };
 		E498C5581C4810B800D26FF6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E498C5561C4810B800D26FF6 /* MapViewController.swift */; };
 		E49F955F1C4A727900E977C3 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49F955E1C4A727900E977C3 /* MapKit.framework */; };
@@ -46,6 +50,10 @@
 		E45F84F81C46C18F0012CC57 /* Drone Viewer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Drone Viewer-Bridging-Header.h"; path = "Drone Viewer/Drone Viewer-Bridging-Header.h"; sourceTree = "<group>"; };
 		E45F84F91C46C1900012CC57 /* CommunicationProtocol.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommunicationProtocol.pbobjc.h; path = "Drone Viewer/CommunicationProtocol.pbobjc.h"; sourceTree = "<group>"; };
 		E45F84FA1C46C1900012CC57 /* CommunicationProtocol.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommunicationProtocol.pbobjc.m; path = "Drone Viewer/CommunicationProtocol.pbobjc.m"; sourceTree = "<group>"; };
+		E47927521C57DA93000AC599 /* SignVerify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignVerify.swift; sourceTree = "<group>"; };
+		E47927531C57DA93000AC599 /* SwiftyRSA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyRSA.swift; sourceTree = "<group>"; };
+		E47927561C57E056000AC599 /* controller.priv.pem */ = {isa = PBXFileReference; lastKnownFileType = text; path = controller.priv.pem; sourceTree = "<group>"; };
+		E47927571C57E056000AC599 /* drone.pub.pem */ = {isa = PBXFileReference; lastKnownFileType = text; path = drone.pub.pem; sourceTree = "<group>"; };
 		E498C5551C4810B800D26FF6 /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		E498C5561C4810B800D26FF6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		E49F955E1C4A727900E977C3 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -88,6 +96,8 @@
 				E45F84D01C46BBD40012CC57 /* AppDelegate.swift */,
 				E498C5551C4810B800D26FF6 /* DataViewController.swift */,
 				E498C5561C4810B800D26FF6 /* MapViewController.swift */,
+				E47927521C57DA93000AC599 /* SignVerify.swift */,
+				E47927531C57DA93000AC599 /* SwiftyRSA.swift */,
 				E45F84D61C46BBD40012CC57 /* Main.storyboard */,
 				E45F84D91C46BBD40012CC57 /* Assets.xcassets */,
 				E45F84DB1C46BBD40012CC57 /* LaunchScreen.storyboard */,
@@ -107,6 +117,8 @@
 		E45F84FC1C46C1970012CC57 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E47927561C57E056000AC599 /* controller.priv.pem */,
+				E47927571C57E056000AC599 /* drone.pub.pem */,
 				E49F955E1C4A727900E977C3 /* MapKit.framework */,
 				E45F84F91C46C1900012CC57 /* CommunicationProtocol.pbobjc.h */,
 				E45F84FA1C46C1900012CC57 /* CommunicationProtocol.pbobjc.m */,
@@ -193,6 +205,8 @@
 			files = (
 				E45F84DD1C46BBD40012CC57 /* LaunchScreen.storyboard in Resources */,
 				E45F84DA1C46BBD40012CC57 /* Assets.xcassets in Resources */,
+				E47927581C57E056000AC599 /* controller.priv.pem in Resources */,
+				E47927591C57E056000AC599 /* drone.pub.pem in Resources */,
 				E45F84D81C46BBD40012CC57 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,6 +220,8 @@
 			files = (
 				E45F84D11C46BBD40012CC57 /* AppDelegate.swift in Sources */,
 				E498C5571C4810B800D26FF6 /* DataViewController.swift in Sources */,
+				E47927551C57DA93000AC599 /* SwiftyRSA.swift in Sources */,
+				E47927541C57DA93000AC599 /* SignVerify.swift in Sources */,
 				E45F84FB1C46C1900012CC57 /* CommunicationProtocol.pbobjc.m in Sources */,
 				E498C5581C4810B800D26FF6 /* MapViewController.swift in Sources */,
 			);

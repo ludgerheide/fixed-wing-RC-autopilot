@@ -1,3 +1,4 @@
 Manifest-Version: 1.0
-Main-Class: de.lhtechnologies.ircComms.MyListener
+Class-Path: ./bcprov-jdk15on-154.jar ./bcpkix-jdk15on-154.jar
+Main-Class: de.lhtechnologies.Main
 

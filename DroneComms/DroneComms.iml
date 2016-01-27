@@ -13,5 +13,7 @@
     <orderEntry type="library" name="pircbotx-2.0.1-2" level="project" />
     <orderEntry type="library" name="slf4j-simple-1.7.13" level="project" />
     <orderEntry type="library" name="slf4j-api-1.7.13" level="project" />
+    <orderEntry type="library" name="bcpkix-jdk15on-154" level="project" />
+    <orderEntry type="library" name="bcprov-jdk15on-154" level="project" />
   </component>
 </module>

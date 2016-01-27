@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="DroneComms:jar">
+  <artifact type="jar" build-on-make="true" name="DroneComms:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/DroneComms_jar</output-path>
     <root id="archive" name="DroneComms.jar">
       <element id="module-output" name="DroneComms" />
@@ -9,6 +9,8 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/pircbotx-2.0.1-2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/RXTXcomm.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/slf4j-api-1.7.13.jar" path-in-jar="/" />
+      <element id="file-copy" path="$PROJECT_DIR$/controller.pub.pem" />
+      <element id="file-copy" path="$PROJECT_DIR$/drone.priv.pem" />
     </root>
   </artifact>
 </component>

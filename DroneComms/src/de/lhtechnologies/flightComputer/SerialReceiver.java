@@ -16,11 +16,6 @@ import static de.lhtechnologies.CommunicationProtocol.*;
 public class SerialReceiver extends Observable implements SerialPortEventListener {
     private static byte[] startMarker = "start".getBytes();
 
-    public static int baudRate = 115200;
-    public static int dataBits = SerialPort.DATABITS_8;
-    public static int stopBits = SerialPort.STOPBITS_1;
-    public static int parity = SerialPort.PARITY_NONE;
-
     private InputStream in;
 
     private byte[] inputBuffer = new byte[256];
@@ -77,11 +72,8 @@ public class SerialReceiver extends Observable implements SerialPortEventListene
             System.exit(-1);
         }
     }
+
     public int calculateChecksum() {
-        long checksum = 0;
-        for(int i = 0; i < payloadLength; i++) {
-            checksum += inputBuffer[i] & 0xFF; //To see the unsigned value
-        }
-        return (int) (checksum & 0xFF);
+        return SerialPortManager.calculateChecksum(payloadLength, inputBuffer);
     }
 }
