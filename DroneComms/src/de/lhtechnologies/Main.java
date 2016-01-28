@@ -1,25 +1,25 @@
 package de.lhtechnologies;
 
 import de.lhtechnologies.flightComputer.SerialPortManager;
-import de.lhtechnologies.ircComms.IrcManager;
+import de.lhtechnologies.inetComms.InetManager;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         //Initialize the IRC bot
-        IrcManager irc = new IrcManager();
+        InetManager inet = new InetManager();
 
         //Initialize the serial port
         SerialPortManager serial = new SerialPortManager();
 
         //Initialize the glue class
-        IrcSerialConnection connection = new IrcSerialConnection(serial.serialTransmitter, irc.transmitter);
-        irc.receiver.addObserver(connection);
+        InetSerialConnection connection = new InetSerialConnection(serial.serialTransmitter, inet.transmitter);
+        inet.receiver.addObserver(connection);
         serial.serialReceiver.addObserver(connection);
 
         System.out.println("Initialization complete…");
 
         //Start the IRC thread
-        new Thread(irc).start();
+        new Thread(inet).start();
     }
 }

@@ -79,7 +79,7 @@ public class SignVerify {
         String encodedMessage = Base64.toBase64String(message);
         String encodedSignature = Base64.toBase64String(signature);
 
-        return msgStart + newline + encodedMessage + newline + msgEnd + newline + sigStart + newline + encodedSignature + newline + sigEnd;
+        return msgStart + newline + encodedMessage + newline + msgEnd + newline + sigStart + newline + encodedSignature + newline + sigEnd + newline;
     }
 
     public boolean verifyMessage(String message) {
