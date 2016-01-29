@@ -12,6 +12,10 @@ public class Main {
         //Initialize the serial port
         SerialPortManager serial = new SerialPortManager();
 
+        //Initialize the writer
+        FileWriter fw = new FileWriter();
+        serial.serialReceiver.addObserver(fw);
+
         //Initialize the glue class
         InetSerialConnection connection = new InetSerialConnection(serial.serialTransmitter, inet.transmitter);
         inet.receiver.addObserver(connection);
@@ -21,5 +25,15 @@ public class Main {
 
         //Start the IRC thread
         new Thread(inet).start();
+
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                try {
+                    fw.cleanup();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

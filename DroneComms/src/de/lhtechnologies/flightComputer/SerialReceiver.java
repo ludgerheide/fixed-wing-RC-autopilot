@@ -14,7 +14,7 @@ import static de.lhtechnologies.CommunicationProtocol.*;
  * Created by ludger on 18.01.16.
  */
 public class SerialReceiver extends Observable implements SerialPortEventListener {
-    private static byte[] startMarker = "start".getBytes();
+    public static byte[] startMarker = "start".getBytes();
 
     private InputStream in;
 
