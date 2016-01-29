@@ -1,8 +1,8 @@
 #!/bin/sh
-openssl genrsa -out controller.priv.pem 2048
+openssl genrsa -out controller.priv.pem 1024
 openssl rsa -pubout -in controller.priv.pem -out controller.pub.pem
 
-openssl genrsa -out drone.priv.pem 2048
+openssl genrsa -out drone.priv.pem 1024
 openssl rsa -pubout -in drone.priv.pem -out drone.pub.pem
 
 mv drone.pub.pem Drone\ Viewer\ \(iOS\)/drone.pub.pem

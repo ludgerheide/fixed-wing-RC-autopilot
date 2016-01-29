@@ -20,7 +20,10 @@ public class SignVerify {
     private String sigEnd = "-----END SIGNATURE-----";
     public static String newline = System.getProperty("line.separator");
 
+    private Signature signingRsa;
     private PrivateKey privateSigningKey;
+
+    private Signature verifyingRsa;
     private PublicKey publicVerificationKey;
 
     public SignVerify() throws Exception {
@@ -43,6 +46,7 @@ public class SignVerify {
             PEMKeyPair pemKeyPair = (PEMKeyPair) pp.readObject();
             KeyPair kp = new JcaPEMKeyConverter().getKeyPair(pemKeyPair);
             privateSigningKey = kp.getPrivate();
+            signingRsa = Signature.getInstance("SHA256withRSA", "SunRsaSign");
             pp.close();
             br.close();
         }
@@ -67,14 +71,14 @@ public class SignVerify {
             Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
             KeyFactory factory = KeyFactory.getInstance("RSA", "BC");
             publicVerificationKey = factory.generatePublic(pubKeySpec);
+            verifyingRsa = Signature.getInstance("SHA256withRSA", "SunRsaSign");
         }
     }
 
     public String createSignedMessage(byte[] message) throws Exception {
-        Signature rsa = Signature.getInstance("SHA256withRSA", "SunRsaSign");
-        rsa.initSign(privateSigningKey);
-        rsa.update(message);
-        byte[] signature = rsa.sign();
+        signingRsa.initSign(privateSigningKey);
+        signingRsa.update(message);
+        byte[] signature = signingRsa.sign();
 
         String encodedMessage = Base64.toBase64String(message);
         String encodedSignature = Base64.toBase64String(signature);
@@ -122,11 +126,10 @@ public class SignVerify {
             byte[] msg = Base64.decode(msgBuilder.toString());
             byte[] sig = Base64.decode(sigBuilder.toString());
 
-            Signature rsa = Signature.getInstance("SHA256withRSA", "SunRsaSign");
-            rsa.initVerify(publicVerificationKey);
-            rsa.update(msg);
+            verifyingRsa.initVerify(publicVerificationKey);
+            verifyingRsa.update(msg);
 
-            return rsa.verify(sig);
+            return verifyingRsa.verify(sig);
         } catch (Exception e) {
             e.printStackTrace();
             return false;

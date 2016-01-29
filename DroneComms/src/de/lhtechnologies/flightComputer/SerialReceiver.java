@@ -60,7 +60,6 @@ public class SerialReceiver extends Observable implements SerialPortEventListene
                             notifyObservers(msg);
                         } catch (InvalidProtocolBufferException e) {
                             System.out.println("WARNING: Invalid protobuf received!");
-                            e.printStackTrace();
                         }
                     }
                     break;

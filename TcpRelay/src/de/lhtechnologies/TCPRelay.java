@@ -1,5 +1,6 @@
 package de.lhtechnologies;
 
+import com.sun.xml.internal.fastinfoset.sax.SystemIdResolver;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
 import java.io.*;
@@ -24,7 +25,7 @@ public class TCPRelay implements Runnable {
     private BufferedReader br;
 
     public TCPRelay(int port) throws IOException {
-        server = new ServerSocket(port);
+        server = new ServerSocket(port, 1);
     }
 
     public void setCounterpart(TCPRelay counterpart) {
@@ -50,8 +51,8 @@ public class TCPRelay implements Runnable {
         while(true) {
             try {
                 String startLine = br.readLine();
-                if (startLine != null && startLine.equals(msgStart)) {
-                    final Duration timeout = Duration.ofSeconds(500);
+                if (startLine.equals(msgStart)) {
+                    final Duration timeout = Duration.ofSeconds(5);
                     ExecutorService executor = Executors.newSingleThreadExecutor();
 
                     final Future<String> handler = executor.submit(new Callable() {
@@ -64,6 +65,8 @@ public class TCPRelay implements Runnable {
                     try {
                         String rest = handler.get(timeout.toMillis(), TimeUnit.MILLISECONDS);
                         String message = startLine + newline + rest;
+                        System.out.format("Message received at %d %n", System.currentTimeMillis());
+                        System.out.println(message);
                         counterpart.send(message.getBytes());
                     } catch (TimeoutException e) {
                         e.printStackTrace();
