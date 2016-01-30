@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d5c08b7-eeae-496e-a3aa-75202522aa23" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../DroneComms/src/de/lhtechnologies/FileWriter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DroneComms/.idea/artifacts/DroneComms_jar.xml" afterPath="$PROJECT_DIR$/../DroneComms/.idea/artifacts/DroneComms_jar.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DroneComms/lib/RXTXcomm.jar" afterPath="$PROJECT_DIR$/../DroneComms/lib/RXTXcomm.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DroneComms/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../DroneComms/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DroneComms/src/de/lhtechnologies/Main.java" afterPath="$PROJECT_DIR$/../DroneComms/src/de/lhtechnologies/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DroneComms/src/de/lhtechnologies/flightComputer/SerialPortManager.java" afterPath="$PROJECT_DIR$/../DroneComms/src/de/lhtechnologies/flightComputer/SerialPortManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DroneComms/src/de/lhtechnologies/flightComputer/SerialReceiver.java" afterPath="$PROJECT_DIR$/../DroneComms/src/de/lhtechnologies/flightComputer/SerialReceiver.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../autopilot (AVR code)/autopilot/Makefile" afterPath="$PROJECT_DIR$/../autopilot (AVR code)/autopilot/Makefile" />
     </list>
     <ignored path="TcpRelay.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,8 +30,8 @@
       <file leaf-file-name="TCPRelay.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/de/lhtechnologies/TCPRelay.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.5007194">
-              <caret line="128" column="37" selection-start-line="128" selection-start-column="37" selection-end-line="128" selection-end-column="37" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -103,8 +100,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -143,7 +141,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -340,36 +337,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="435" column="0" selection-start-line="435" selection-start-column="0" selection-end-line="435" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#84031#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <element signature="e#10144#10145#0" expanded="false" />
-            <element signature="e#10181#10182#0" expanded="false" />
-            <element signature="e#11991#11992#0" expanded="false" />
-            <element signature="e#12045#12046#0" expanded="false" />
-            <element signature="e#12720#12721#0" expanded="false" />
-            <element signature="e#12790#12791#0" expanded="false" />
-            <element signature="e#37613#37614#0" expanded="false" />
-            <element signature="e#37645#37646#0" expanded="false" />
-            <element signature="e#40522#40523#0" expanded="false" />
-            <element signature="e#40559#40560#0" expanded="false" />
-            <element signature="e#44333#44334#0" expanded="false" />
-            <element signature="e#44360#44361#0" expanded="false" />
-            <element signature="e#48242#48243#0" expanded="false" />
-            <element signature="e#48305#48306#0" expanded="false" />
-            <element signature="e#48352#48353#0" expanded="false" />
-            <element signature="e#48410#48411#0" expanded="false" />
-            <element signature="e#48553#48554#0" expanded="false" />
-            <element signature="e#48617#48618#0" expanded="false" />
-            <element signature="e#63089#63090#0" expanded="false" />
-            <element signature="e#63116#63117#0" expanded="false" />
-            <element signature="e#65863#65864#0" expanded="false" />
-            <element signature="e#65943#65944#0" expanded="false" />
-            <element signature="e#70343#70344#0" expanded="false" />
-            <element signature="e#70433#70434#0" expanded="false" />
-            <element signature="e#83489#83490#0" expanded="false" />
-            <element signature="e#83525#83526#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -516,36 +483,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="435" column="0" selection-start-line="435" selection-start-column="0" selection-end-line="435" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#84031#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <element signature="e#10144#10145#0" expanded="false" />
-            <element signature="e#10181#10182#0" expanded="false" />
-            <element signature="e#11991#11992#0" expanded="false" />
-            <element signature="e#12045#12046#0" expanded="false" />
-            <element signature="e#12720#12721#0" expanded="false" />
-            <element signature="e#12790#12791#0" expanded="false" />
-            <element signature="e#37613#37614#0" expanded="false" />
-            <element signature="e#37645#37646#0" expanded="false" />
-            <element signature="e#40522#40523#0" expanded="false" />
-            <element signature="e#40559#40560#0" expanded="false" />
-            <element signature="e#44333#44334#0" expanded="false" />
-            <element signature="e#44360#44361#0" expanded="false" />
-            <element signature="e#48242#48243#0" expanded="false" />
-            <element signature="e#48305#48306#0" expanded="false" />
-            <element signature="e#48352#48353#0" expanded="false" />
-            <element signature="e#48410#48411#0" expanded="false" />
-            <element signature="e#48553#48554#0" expanded="false" />
-            <element signature="e#48617#48618#0" expanded="false" />
-            <element signature="e#63089#63090#0" expanded="false" />
-            <element signature="e#63116#63117#0" expanded="false" />
-            <element signature="e#65863#65864#0" expanded="false" />
-            <element signature="e#65943#65944#0" expanded="false" />
-            <element signature="e#70343#70344#0" expanded="false" />
-            <element signature="e#70433#70434#0" expanded="false" />
-            <element signature="e#83489#83490#0" expanded="false" />
-            <element signature="e#83525#83526#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -631,8 +568,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/de/lhtechnologies/TCPRelay.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.5007194">
-          <caret line="128" column="37" selection-start-line="128" selection-start-column="37" selection-end-line="128" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
