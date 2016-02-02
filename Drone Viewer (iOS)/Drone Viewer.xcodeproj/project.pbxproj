@@ -20,6 +20,8 @@
 		E498C5571C4810B800D26FF6 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E498C5551C4810B800D26FF6 /* DataViewController.swift */; };
 		E498C5581C4810B800D26FF6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E498C5561C4810B800D26FF6 /* MapViewController.swift */; };
 		E49F955F1C4A727900E977C3 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49F955E1C4A727900E977C3 /* MapKit.framework */; };
+		E4ED67431C5E8C1900BE7F45 /* InetInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4ED67421C5E8C1900BE7F45 /* InetInterface.swift */; };
+		E4ED67451C5E972D00BE7F45 /* MapSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4ED67441C5E972D00BE7F45 /* MapSettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		E498C5551C4810B800D26FF6 /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		E498C5561C4810B800D26FF6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		E49F955E1C4A727900E977C3 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		E4ED67421C5E8C1900BE7F45 /* InetInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InetInterface.swift; sourceTree = "<group>"; };
+		E4ED67441C5E972D00BE7F45 /* MapSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapSettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +100,8 @@
 				E45F84D01C46BBD40012CC57 /* AppDelegate.swift */,
 				E498C5551C4810B800D26FF6 /* DataViewController.swift */,
 				E498C5561C4810B800D26FF6 /* MapViewController.swift */,
+				E4ED67441C5E972D00BE7F45 /* MapSettingsViewController.swift */,
+				E4ED67421C5E8C1900BE7F45 /* InetInterface.swift */,
 				E47927521C57DA93000AC599 /* SignVerify.swift */,
 				E47927531C57DA93000AC599 /* SwiftyRSA.swift */,
 				E45F84D61C46BBD40012CC57 /* Main.storyboard */,
@@ -218,12 +224,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4ED67451C5E972D00BE7F45 /* MapSettingsViewController.swift in Sources */,
 				E45F84D11C46BBD40012CC57 /* AppDelegate.swift in Sources */,
 				E498C5571C4810B800D26FF6 /* DataViewController.swift in Sources */,
 				E47927551C57DA93000AC599 /* SwiftyRSA.swift in Sources */,
 				E47927541C57DA93000AC599 /* SignVerify.swift in Sources */,
 				E45F84FB1C46C1900012CC57 /* CommunicationProtocol.pbobjc.m in Sources */,
 				E498C5581C4810B800D26FF6 /* MapViewController.swift in Sources */,
+				E4ED67431C5E8C1900BE7F45 /* InetInterface.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +353,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Drone Viewer/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.lhtechnologies.Drone-Viewer";
@@ -360,6 +369,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Drone Viewer/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.lhtechnologies.Drone-Viewer";

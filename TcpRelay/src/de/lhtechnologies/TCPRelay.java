@@ -7,6 +7,7 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.time.Duration;
+import java.util.Date;
 import java.util.concurrent.*;
 
 /**
@@ -65,7 +66,7 @@ public class TCPRelay implements Runnable {
                     try {
                         String rest = handler.get(timeout.toMillis(), TimeUnit.MILLISECONDS);
                         String message = startLine + newline + rest;
-                        System.out.format("Message received at %d %n", System.currentTimeMillis());
+                        System.out.format("Message received at %s from %s port %d %n", new Date().toString(), socket.getInetAddress().getCanonicalHostName(), socket.getPort());
                         System.out.println(message);
                         counterpart.send(message.getBytes());
                     } catch (TimeoutException e) {
@@ -127,6 +128,7 @@ public class TCPRelay implements Runnable {
 
         try {
             socket = server.accept();
+            System.out.format("Connection at %s from %s port %d %n", new Date().toString(), socket.getInetAddress().getCanonicalHostName(), socket.getPort());
             InputStream in = socket.getInputStream();
             br = new BufferedReader(new InputStreamReader(in));
             out = socket.getOutputStream();

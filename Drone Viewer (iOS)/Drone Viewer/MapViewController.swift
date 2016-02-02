@@ -7,32 +7,58 @@
 //
 
 import UIKit
+import MapKit
 
-class MapViewController: UIViewController {
-    @IBAction func showMapSettingsPopover(sender: AnyObject) {
-//        MyViewController* content = [[MyViewController alloc] init];
-//        UIPopoverController* aPopover = [[UIPopoverController alloc]
-//        initWithContentViewController:content];
-//        aPopover.delegate = self;
-//        
-//        // Store the popover in a custom property for later use.
-//        self.popoverController = aPopover;
-//        
-//        [self.popoverController presentPopoverFromBarButtonItem:sender
-//        permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    }
-
+class MapViewController: UIViewController, UIPopoverPresentationControllerDelegate {
+    @IBOutlet var mapView: MKMapView!
+    
+    @IBOutlet var laConnection: UILabel!
+    @IBOutlet var laAltitude: UILabel!
+    @IBOutlet var laBattery: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        NSNotificationCenter.defaultCenter().addObserver(
+            self,
+            selector: "newDroneMessageReceived:",
+            name: InetInterface.notificationName,
+            object: nil)
     }
-
+    
+    @objc func newDroneMessageReceived(notification: NSNotification){
+        if let theMessage: DroneMessage = notification.object as? DroneMessage {
+            print(round(Double(theMessage.timestamp) / 1000))
+        } else {
+            print("Received a message that is not a DroneMessage!");
+        }
+    }
+    
+    func changeToMap() {
+        mapView.mapType = MKMapType.Standard
+        
+    }
+    
+    func changeToSatellite() {
+        mapView.mapType = MKMapType.HybridFlyover
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        //segue for the popover configuration window
+        if segue.identifier == "MapSettingsPopoverSegue" {
+            if let controller = segue.destinationViewController as? MapSettingsViewController {
+                controller.popoverPresentationController!.delegate = self
+                controller.preferredContentSize = controller.view.systemLayoutSizeFittingSize(CGSizeMake(0, 0))
+                controller.mapViewController = self
+            }
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation

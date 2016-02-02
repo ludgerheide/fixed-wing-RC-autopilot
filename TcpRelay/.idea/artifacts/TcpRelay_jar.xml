@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="TcpRelay:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/TcpRelay_jar</output-path>
+    <root id="archive" name="TcpRelay.jar">
+      <element id="module-output" name="TcpRelay" />
+    </root>
+  </artifact>
+</component>
