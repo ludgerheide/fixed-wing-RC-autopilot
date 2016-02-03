@@ -17,6 +17,7 @@
 		E47927551C57DA93000AC599 /* SwiftyRSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47927531C57DA93000AC599 /* SwiftyRSA.swift */; };
 		E47927581C57E056000AC599 /* controller.priv.pem in Resources */ = {isa = PBXBuildFile; fileRef = E47927561C57E056000AC599 /* controller.priv.pem */; };
 		E47927591C57E056000AC599 /* drone.pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = E47927571C57E056000AC599 /* drone.pub.pem */; };
+		E47E09001C614E3E00675BD5 /* TrackCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47E08FF1C614E3E00675BD5 /* TrackCreator.swift */; };
 		E498C5571C4810B800D26FF6 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E498C5551C4810B800D26FF6 /* DataViewController.swift */; };
 		E498C5581C4810B800D26FF6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E498C5561C4810B800D26FF6 /* MapViewController.swift */; };
 		E49F955F1C4A727900E977C3 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49F955E1C4A727900E977C3 /* MapKit.framework */; };
@@ -56,6 +57,7 @@
 		E47927531C57DA93000AC599 /* SwiftyRSA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyRSA.swift; sourceTree = "<group>"; };
 		E47927561C57E056000AC599 /* controller.priv.pem */ = {isa = PBXFileReference; lastKnownFileType = text; path = controller.priv.pem; sourceTree = "<group>"; };
 		E47927571C57E056000AC599 /* drone.pub.pem */ = {isa = PBXFileReference; lastKnownFileType = text; path = drone.pub.pem; sourceTree = "<group>"; };
+		E47E08FF1C614E3E00675BD5 /* TrackCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackCreator.swift; sourceTree = "<group>"; };
 		E498C5551C4810B800D26FF6 /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		E498C5561C4810B800D26FF6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		E49F955E1C4A727900E977C3 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -98,10 +100,11 @@
 			isa = PBXGroup;
 			children = (
 				E45F84D01C46BBD40012CC57 /* AppDelegate.swift */,
-				E498C5551C4810B800D26FF6 /* DataViewController.swift */,
+				E47E08FF1C614E3E00675BD5 /* TrackCreator.swift */,
 				E498C5561C4810B800D26FF6 /* MapViewController.swift */,
 				E4ED67441C5E972D00BE7F45 /* MapSettingsViewController.swift */,
 				E4ED67421C5E8C1900BE7F45 /* InetInterface.swift */,
+				E498C5551C4810B800D26FF6 /* DataViewController.swift */,
 				E47927521C57DA93000AC599 /* SignVerify.swift */,
 				E47927531C57DA93000AC599 /* SwiftyRSA.swift */,
 				E45F84D61C46BBD40012CC57 /* Main.storyboard */,
@@ -226,6 +229,7 @@
 			files = (
 				E4ED67451C5E972D00BE7F45 /* MapSettingsViewController.swift in Sources */,
 				E45F84D11C46BBD40012CC57 /* AppDelegate.swift in Sources */,
+				E47E09001C614E3E00675BD5 /* TrackCreator.swift in Sources */,
 				E498C5571C4810B800D26FF6 /* DataViewController.swift in Sources */,
 				E47927551C57DA93000AC599 /* SwiftyRSA.swift in Sources */,
 				E47927541C57DA93000AC599 /* SignVerify.swift in Sources */,

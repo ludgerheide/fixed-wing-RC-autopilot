@@ -27,7 +27,7 @@ class InetInterface : NSObject, NSStreamDelegate {
     private var outStream: NSOutputStream?
     
     override init() {
-        print("new interface")
+        print(" interface")
         sv = SignVerify.init()!
         super.init()
     }
