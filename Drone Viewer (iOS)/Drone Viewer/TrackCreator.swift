@@ -32,7 +32,7 @@ class TrackCreator: NSObject, NSCoding {
     }
     
     required convenience init(coder aDecoder: NSCoder) {
-        self.init()       
+        self.init()
         
         let nbCounter = aDecoder.decodeIntegerForKey(countKey)
         
@@ -52,20 +52,37 @@ class TrackCreator: NSObject, NSCoding {
         }
     }
     
-    func getPolyLine() -> MKPolyline {
-        return MKPolyline(coordinates: &coordinates, count: coordinates.count)
+    func getPolyLine() -> MKPolyline? {
+        if(coordinates.count > 0) {
+            return MKPolyline(coordinates: &coordinates, count: coordinates.count)
+        } else {
+            return nil
+        }
+    }
+    
+    func getLatestCoordinates() -> CLLocationCoordinate2D? {
+        return coordinates.last
+    }
+    
+    func postNotification() {
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        let theNotification: NSNotification = NSNotification.init(name: TrackCreator.notificationName, object: nil)
+        notificationCenter.postNotification(theNotification)
+    }
+    
+    func clearTrack() {
+        coordinates.removeAll(keepCapacity: true)
+        postNotification()
     }
     
     @objc func newDroneMessageReceived(notification: NSNotification){
         if let theMessage: DroneMessage = notification.object as? DroneMessage {
             if(theMessage.hasCurrentPosition) {
                 let newCoord = CLLocationCoordinate2D.init(latitude: CLLocationDegrees(theMessage.currentPosition.latitude), longitude: CLLocationDegrees(theMessage.currentPosition.longitude))
-                if(coordinates.last != nil && (newCoord.latitude != coordinates.last!.latitude || newCoord.longitude != coordinates.last?.longitude)) {
+                if(coordinates.last == nil || (newCoord.latitude != coordinates.last!.latitude || newCoord.longitude != coordinates.last?.longitude)) {
                     coordinates.append(newCoord)
                     
-                    let notificationCenter = NSNotificationCenter.defaultCenter()
-                    let theNotification: NSNotification = NSNotification.init(name: TrackCreator.notificationName, object: nil)
-                    notificationCenter.postNotification(theNotification)
+                    postNotification()
                 }
                 
             } else {

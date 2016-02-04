@@ -43,6 +43,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(trackCreator!, toFile: AppDelegate.tracksURL.path!)
             if !isSuccessfulSave {
                 print("Failed to save tracks…")
+            } else {
+                print("Saved track!")
             }
         }
     }

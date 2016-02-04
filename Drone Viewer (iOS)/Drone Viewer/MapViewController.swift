@@ -11,6 +11,7 @@ import MapKit
 
 class MapViewController: UIViewController, UIPopoverPresentationControllerDelegate {
     @IBOutlet var mapView: MKMapView!
+    var overlayController: MapOverlayController!
     
     @IBOutlet var laConnection: UILabel!
     @IBOutlet var laAltitude: UILabel!
@@ -27,15 +28,14 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
             selector: "newDroneMessageReceived:",
             name: InetInterface.notificationName,
             object: nil)
-        
-        
-        NSNotificationCenter.defaultCenter().addObserver(
-            self,
-            selector: "newMapUpdateReady:",
-            name: TrackCreator.notificationName,
-            object: nil)
-        
         updateLabels(nil)
+        
+        //Initialize the overlay handler
+        overlayController = MapOverlayController.init(mv: mapView)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        overlayController.newMapUpdateReady(NSNotification(name: "dummy", object: nil))
     }
     
     @objc func newDroneMessageReceived(notification: NSNotification){
@@ -44,18 +44,6 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
             updateLabels(theMessage)
         } else {
             print("Received a message that is not a DroneMessage!");
-        }
-    }
-    
-    @objc func newMapUpdateReady(notification: NSNotification) {
-        assert(notification.object == nil)
-        
-        if let tc = (UIApplication.sharedApplication().delegate as? AppDelegate)?.trackCreator {
-            let pl = tc.getPolyLine()
-            
-            
-        } else {
-            print("getting the track creatoir failed!")
         }
     }
     
@@ -113,6 +101,7 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
                 controller.preferredContentSize = controller.view.systemLayoutSizeFittingSize(CGSizeMake(0, 0))
                 controller.mapViewController = self
                 controller.selectedMapType = mapView.mapType
+                controller.overlayController = self.overlayController
             }
         }
     }
@@ -121,15 +110,4 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
-    
 }

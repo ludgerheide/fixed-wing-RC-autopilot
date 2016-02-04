@@ -128,6 +128,7 @@ public class TCPRelay implements Runnable {
 
         try {
             socket = server.accept();
+            socket.setKeepAlive(true);
             System.out.format("Connection at %s from %s port %d %n", new Date().toString(), socket.getInetAddress().getCanonicalHostName(), socket.getPort());
             InputStream in = socket.getInputStream();
             br = new BufferedReader(new InputStreamReader(in));

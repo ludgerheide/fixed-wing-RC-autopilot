@@ -2,17 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d5c08b7-eeae-496e-a3aa-75202522aa23" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Drone Viewer (iOS)/Drone Viewer/InetInterface.swift" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Drone Viewer (iOS)/Drone Viewer/MapSettingsViewController.swift" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Drone Viewer (iOS)/Drone Viewer/MapOverlayController.swift" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Drone Viewer (iOS)/Drone Viewer.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/../Drone Viewer (iOS)/Drone Viewer.xcodeproj/project.pbxproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Drone Viewer (iOS)/Drone Viewer.xcodeproj/xcuserdata/ludger.xcuserdatad/xcschemes/Drone Viewer.xcscheme" afterPath="$PROJECT_DIR$/../Drone Viewer (iOS)/Drone Viewer.xcodeproj/xcuserdata/ludger.xcuserdatad/xcschemes/Drone Viewer.xcscheme" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Drone Viewer (iOS)/Drone Viewer/AppDelegate.swift" afterPath="$PROJECT_DIR$/../Drone Viewer (iOS)/Drone Viewer/AppDelegate.swift" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Drone Viewer (iOS)/Drone Viewer/Base.lproj/LaunchScreen.storyboard" afterPath="$PROJECT_DIR$/../Drone Viewer (iOS)/Drone Viewer/Base.lproj/LaunchScreen.storyboard" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Drone Viewer (iOS)/Drone Viewer/Base.lproj/Main.storyboard" afterPath="$PROJECT_DIR$/../Drone Viewer (iOS)/Drone Viewer/Base.lproj/Main.storyboard" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Drone Viewer (iOS)/Drone Viewer/Drone Viewer-Bridging-Header.h" afterPath="$PROJECT_DIR$/../Drone Viewer (iOS)/Drone Viewer/Drone Viewer-Bridging-Header.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Drone Viewer (iOS)/Drone Viewer/MapViewController.swift" afterPath="$PROJECT_DIR$/../Drone Viewer (iOS)/Drone Viewer/MapViewController.swift" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DroneComms/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../DroneComms/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Drone Viewer (iOS)/Drone Viewer/TrackCreator.swift" afterPath="$PROJECT_DIR$/../Drone Viewer (iOS)/Drone Viewer/TrackCreator.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DroneComms/src/de/lhtechnologies/InetSerialConnection.java" afterPath="$PROJECT_DIR$/../DroneComms/src/de/lhtechnologies/InetSerialConnection.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DroneComms/src/de/lhtechnologies/inetComms/InetManager.java" afterPath="$PROJECT_DIR$/../DroneComms/src/de/lhtechnologies/inetComms/InetManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DroneComms/src/de/lhtechnologies/inetComms/InetReceiver.java" afterPath="$PROJECT_DIR$/../DroneComms/src/de/lhtechnologies/inetComms/InetReceiver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DroneComms/src/de/lhtechnologies/inetComms/InetTransmitter.java" afterPath="$PROJECT_DIR$/../DroneComms/src/de/lhtechnologies/inetComms/InetTransmitter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/lhtechnologies/TCPRelay.java" afterPath="$PROJECT_DIR$/src/de/lhtechnologies/TCPRelay.java" />
     </list>
     <ignored path="TcpRelay.iws" />
@@ -38,8 +35,8 @@
       <file leaf-file-name="TCPRelay.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/de/lhtechnologies/TCPRelay.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.36190477">
-              <caret line="61" column="17" selection-start-line="61" selection-start-column="17" selection-end-line="61" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.23597123">
+              <caret line="108" column="18" selection-start-line="108" selection-start-column="18" selection-end-line="108" selection-end-column="18" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -108,9 +105,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -257,7 +254,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32931355" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24973376" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24973376" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -310,6 +307,16 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/de/lhtechnologies/TCPRelay.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/de/lhtechnologies/TCPRelay.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -519,8 +526,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/de/lhtechnologies/TCPRelay.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36190477">
-          <caret line="61" column="17" selection-start-line="61" selection-start-column="17" selection-end-line="61" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.23597123">
+          <caret line="108" column="18" selection-start-line="108" selection-start-column="18" selection-end-line="108" selection-end-column="18" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

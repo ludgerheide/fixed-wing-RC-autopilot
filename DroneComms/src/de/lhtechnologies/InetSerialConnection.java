@@ -8,6 +8,7 @@ import de.lhtechnologies.inetComms.InetTransmitter;
 import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 
 import static de.lhtechnologies.CommunicationProtocol.*;
 
@@ -103,6 +104,11 @@ public class InetSerialConnection implements Observer {
 
         try {
             if(millis() - lastMessageSent > messageInterval) {
+                //FIXME: Remove after testiung
+                storedMessage.setCurrentPosition(DroneMessage.Position.newBuilder()
+                        .setLatitude(randInt(0, 900) / (float)10)
+                        .setLongitude(randInt(-1800, 1800) / (float)10)
+                        .build());
                 inetTransmitter.transmit(storedMessage.build().toByteArray());
                 storedMessage = DroneMessage.newBuilder();
                 lastMessageSent = millis();
@@ -114,5 +120,22 @@ public class InetSerialConnection implements Observer {
 
     private long millis() {
         return  System.currentTimeMillis();
+    }
+
+    public static int randInt(int min, int max) {
+
+        // NOTE: This will (intentionally) not run as written so that folks
+        // copy-pasting have to think about how to initialize their
+        // Random instance.  Initialization of the Random instance is outside
+        // the main scope of the question, but some decent options are to have
+        // a field that is initialized once and then re-used as needed or to
+        // use ThreadLocalRandom (if using at least Java 1.7).
+        Random rand = new Random();
+
+        // nextInt is normally exclusive of the top value,
+        // so add 1 to make it inclusive
+        int randomNum = rand.nextInt((max - min) + 1) + min;
+
+        return randomNum;
     }
 }

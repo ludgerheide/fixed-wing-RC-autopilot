@@ -11,8 +11,12 @@ import MapKit
 
 class MapSettingsViewController: UIViewController {
     @IBOutlet var mapSatelliteControl: UISegmentedControl!
-    var mapViewController: MapViewController!
     var selectedMapType: MKMapType?
+    
+    var mapViewController: MapViewController!
+    
+    var overlayController: MapOverlayController!
+    @IBOutlet var swCenteringMode: UISwitch!
     
     override func viewWillAppear(animated: Bool) {
         if(selectedMapType == MKMapType.HybridFlyover) {
@@ -20,6 +24,8 @@ class MapSettingsViewController: UIViewController {
         } else {
             mapSatelliteControl.selectedSegmentIndex = 0
         }
+        
+        swCenteringMode.setOn(overlayController.centerOnCurrentPosition, animated: false)
     }
     
     @IBAction func segmentedControlChanged(sender: AnyObject) {
@@ -32,5 +38,21 @@ class MapSettingsViewController: UIViewController {
             print("Invalid status for degmented control!")
         }
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    
+    @IBAction func centeringModeSwitchChanged(sender: AnyObject) {
+        overlayController.centerOnCurrentPosition = swCenteringMode.on
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func clearTrack(sender: AnyObject) {
+        if let tc = (UIApplication.sharedApplication().delegate as? AppDelegate)?.trackCreator {
+            tc.clearTrack()
+            self.dismissViewControllerAnimated(true, completion: nil)
+        } else {
+            print("getting the track creator failed!")
+        }
+        
     }
 }

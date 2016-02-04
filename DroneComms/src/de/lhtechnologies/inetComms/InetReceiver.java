@@ -21,6 +21,10 @@ public class InetReceiver extends Observable implements Runnable {
     private BufferedReader br;
     private SignVerify sv;
 
+    public void newInputStream(InputStream in) {
+        br = new BufferedReader(new InputStreamReader(in));
+    }
+
     public InetReceiver(InputStream in, SignVerify sv) {
         br = new BufferedReader(new InputStreamReader(in));
         this.sv = sv;

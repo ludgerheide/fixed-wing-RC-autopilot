@@ -20,6 +20,8 @@ public class InetManager implements Runnable {
 
     private static String address = "192.168.15.10";
     private static int port = 5050;
+    private static int maxRetryCount = 10;
+    private static int sleepDuration = 1000;
 
     public InetManager() throws Exception {
         sv = new SignVerify();
@@ -36,9 +38,27 @@ public class InetManager implements Runnable {
     }
 
     public void resetConnection() {
-        receiver = null;
-        transmitter = null;
+        for(int i = 0; i < maxRetryCount; i++) {
+            try {
+                connect();
+                return;
+            } catch (IOException e) {
+                e.printStackTrace();
+                i++;
+                try {
+                    Thread.sleep(sleepDuration);
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
 
+        //If we came here, connecting failed 10 times
+        System.out.println("Tried resetting for 10 times, giving up!");
+        System.exit(-1);
+    }
+
+    private void connect() throws IOException {
         if(sock != null) {
             try {
                 sock.close();
@@ -48,14 +68,18 @@ public class InetManager implements Runnable {
         }
         sock = null;
 
-        try {
-            sock = new Socket(address, port);
+        sock = new Socket(address, port);
+
+        if(receiver == null) {
             receiver = new InetReceiver(sock.getInputStream(), sv);
-            transmitter = new InetTransmitter(sock.getOutputStream(), sv);
-        } catch (IOException e) {
-            System.out.println("Resetting connection failed!");
-            e.printStackTrace();
-            System.exit(-1);
+        } else {
+            receiver.newInputStream(sock.getInputStream());
+        }
+
+        if(transmitter == null) {
+            transmitter = new InetTransmitter(sock.getOutputStream(), sv, this);
+        } else {
+            transmitter.newOutputStream(sock.getOutputStream());
         }
     }
 }
