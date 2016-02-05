@@ -8,6 +8,14 @@
 
 class Logger {
     static func log(content: String, functionName: String = __FUNCTION__, fileName: String = __FILE__, lineNumber: Int = __LINE__) {
-        print(fileName + ":" + String(lineNumber) + "(" + functionName + ") " + content)
+        print(String(fileName) + ":" + String(lineNumber) + "(" + functionName + ") " + content)
+    }
+    
+    static func log(content: Int) {
+        Logger.log(String(content))
+    }
+    
+    static func log(content: Double) {
+        Logger.log(String(content))
     }
 }

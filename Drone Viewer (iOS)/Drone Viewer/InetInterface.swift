@@ -27,7 +27,7 @@ class InetInterface : NSObject, NSStreamDelegate {
     private var outStream: NSOutputStream?
     
     override init() {
-        print(" interface")
+        Logger.log(" interface")
         sv = SignVerify.init()!
         super.init()
     }
@@ -60,14 +60,14 @@ class InetInterface : NSObject, NSStreamDelegate {
         if let localInStream = inStream {
             localInStream.close()
             localInStream.delegate = nil
-            print("Closing inStream")
+            Logger.log("Closing inStream")
         }
         inStream = nil
         
         if let localOutStream = outStream {
             localOutStream.close()
             localOutStream.delegate = nil
-            print("Closing outStream")
+            Logger.log("Closing outStream")
         }
         outStream = nil
         incompleteMessage.removeAll(keepCapacity: true)
@@ -76,23 +76,23 @@ class InetInterface : NSObject, NSStreamDelegate {
     @objc internal func stream(aStream: NSStream, handleEvent eventCode: NSStreamEvent) {
         switch eventCode {
         case NSStreamEvent.OpenCompleted:
-            print("Stream opened!")
+            Logger.log("Stream opened!")
         case NSStreamEvent.HasBytesAvailable:
-            print("Stream has bytes available!")
+            Logger.log("Stream has bytes available!")
             assert(aStream == inStream)
             inStreamHasBytesAvaliableHandler()
         case NSStreamEvent.HasSpaceAvailable:
-            print("Stream has space available!")
+            Logger.log("Stream has space available!")
             assert(aStream == outStream)
             outStreamHandler(eventCode)
         case NSStreamEvent.ErrorOccurred, NSStreamEvent.EndEncountered:
-            print("Error or end ocurred")
+            Logger.log("Error or end ocurred")
             //Do this stuff in the main thread only
             reconnectTimer?.invalidate()
             reconnectTimer = nil
             reconnectTimer = NSTimer.scheduledTimerWithTimeInterval(reconnecTimeout, target: self, selector: "startNetworkCommunication", userInfo: nil, repeats: false)
         default:
-            print("Unexpected stuff happened!")
+            Logger.log("Unexpected stuff happened!")
             startNetworkCommunication()
         }
     }
@@ -117,10 +117,10 @@ class InetInterface : NSObject, NSStreamDelegate {
                     let theNotification: NSNotification = NSNotification.init(name: InetInterface.notificationName, object: droneMessage)
                     notificationCenter.postNotification(theNotification)
                 } else {
-                    print("Error decoding DroneMessage!")
+                    Logger.log("Error decoding DroneMessage!")
                 }
             } else {
-                print("Error validating signature!")
+                Logger.log("Error validating signature!")
             }
             
             

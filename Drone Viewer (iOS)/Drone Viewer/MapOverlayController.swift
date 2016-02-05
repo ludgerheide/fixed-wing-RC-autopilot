@@ -55,7 +55,7 @@ class MapOverlayController: NSObject, MKMapViewDelegate {
                 }
             }
         } else {
-            print("getting the track creator failed!")
+            Logger.log("getting the track creator failed!")
         }
     }
     

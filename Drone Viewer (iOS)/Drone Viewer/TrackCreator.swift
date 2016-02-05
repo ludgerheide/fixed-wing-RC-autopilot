@@ -86,10 +86,10 @@ class TrackCreator: NSObject, NSCoding {
                 }
                 
             } else {
-                print("Received a message without position")
+                Logger.log("Received a message without position")
             }
         } else {
-            print("Received a message that is not a DroneMessage!")
+            Logger.log("Received a message that is not a DroneMessage!")
         }
     }
 }

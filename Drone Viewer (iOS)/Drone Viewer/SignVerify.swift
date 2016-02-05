@@ -40,7 +40,7 @@ class SignVerify {
             &signatureLength)
         
         if(err != errSecSuccess) {
-            print("Error during signing!")
+            Logger.log("Error during signing!")
             throw SignVerifyError.SigningFailed
         }
         
@@ -122,7 +122,7 @@ class SignVerify {
         } catch {
             privateSigningKey = nil
             publicVerificationKey = nil
-            print("Error creating public key ref!")
+            Logger.log("Error creating public key ref!")
             return nil
         }
         
@@ -133,7 +133,7 @@ class SignVerify {
             privateSigningKey = try rsa.privateKeyFromPEMString(privKeyString)
         } catch {
             privateSigningKey = nil
-            print("Error creating private key ref!")
+            Logger.log("Error creating private key ref!")
             return nil
         }
     }

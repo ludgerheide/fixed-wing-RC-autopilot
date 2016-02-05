@@ -40,10 +40,10 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
     
     @objc func newDroneMessageReceived(notification: NSNotification){
         if let theMessage: DroneMessage = notification.object as? DroneMessage {
-            print(Double(theMessage.timestamp) / 1000)
+            Logger.log(Double(theMessage.timestamp) / 1000)
             updateLabels(theMessage)
         } else {
-            print("Received a message that is not a DroneMessage!");
+            Logger.log("Received a message that is not a DroneMessage!");
         }
     }
     

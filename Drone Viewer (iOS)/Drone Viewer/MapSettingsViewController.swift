@@ -35,7 +35,7 @@ class MapSettingsViewController: UIViewController {
         case 1:
             mapViewController.changeToSatellite()
         default:
-            print("Invalid status for degmented control!")
+            Logger.log("Invalid status for degmented control!")
         }
         self.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -51,7 +51,7 @@ class MapSettingsViewController: UIViewController {
             tc.clearTrack()
             self.dismissViewControllerAnimated(true, completion: nil)
         } else {
-            print("getting the track creator failed!")
+            Logger.log("getting the track creator failed!")
         }
         
     }
