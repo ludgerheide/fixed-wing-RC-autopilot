@@ -71,7 +71,11 @@ message DroneMessage {
 	
 		required float latitude = 91;
 		required float longitude = 92;
-		optional int32 altitude = 93;
+		required int32 altitude = 93;
+
+		optional uint32 orbitRadius = 94;
+		optional bool orbitUntilTargetAltitude = 95;
+		optional bool orbitClockwise = 96;
 	}
 	
 	//A timestamp

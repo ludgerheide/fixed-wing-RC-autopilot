@@ -22,6 +22,7 @@
 		E498C5571C4810B800D26FF6 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E498C5551C4810B800D26FF6 /* DataViewController.swift */; };
 		E498C5581C4810B800D26FF6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E498C5561C4810B800D26FF6 /* MapViewController.swift */; };
 		E49F955F1C4A727900E977C3 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49F955E1C4A727900E977C3 /* MapKit.framework */; };
+		E4C8FD511C664169006BB509 /* Waypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C8FD501C664169006BB509 /* Waypoint.swift */; };
 		E4ED67431C5E8C1900BE7F45 /* InetInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4ED67421C5E8C1900BE7F45 /* InetInterface.swift */; };
 		E4ED67451C5E972D00BE7F45 /* MapSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4ED67441C5E972D00BE7F45 /* MapSettingsViewController.swift */; };
 		E4F765131C6251B600825BCA /* MapOverlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F765121C6251B600825BCA /* MapOverlayController.swift */; };
@@ -64,6 +65,7 @@
 		E498C5551C4810B800D26FF6 /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		E498C5561C4810B800D26FF6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MapViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E49F955E1C4A727900E977C3 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		E4C8FD501C664169006BB509 /* Waypoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Waypoint.swift; sourceTree = "<group>"; };
 		E4ED67421C5E8C1900BE7F45 /* InetInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = InetInterface.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E4ED67441C5E972D00BE7F45 /* MapSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MapSettingsViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E4F765121C6251B600825BCA /* MapOverlayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MapOverlayController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -125,6 +127,7 @@
 		E45F84CF1C46BBD40012CC57 /* Drone Viewer */ = {
 			isa = PBXGroup;
 			children = (
+				E4C8FD4F1C664146006BB509 /* RouteManager */,
 				E440E5A61C63A248006FEC06 /* Map Display */,
 				E440E5A51C63A239006FEC06 /* Internet Communications */,
 				E498C5551C4810B800D26FF6 /* DataViewController.swift */,
@@ -156,6 +159,14 @@
 				E45F84F81C46C18F0012CC57 /* Drone Viewer-Bridging-Header.h */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E4C8FD4F1C664146006BB509 /* RouteManager */ = {
+			isa = PBXGroup;
+			children = (
+				E4C8FD501C664169006BB509 /* Waypoint.swift */,
+			);
+			name = RouteManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,6 +268,7 @@
 				E47927551C57DA93000AC599 /* SwiftyRSA.swift in Sources */,
 				E4F765131C6251B600825BCA /* MapOverlayController.swift in Sources */,
 				E47927541C57DA93000AC599 /* SignVerify.swift in Sources */,
+				E4C8FD511C664169006BB509 /* Waypoint.swift in Sources */,
 				E45F84FB1C46C1900012CC57 /* CommunicationProtocol.pbobjc.m in Sources */,
 				E498C5581C4810B800D26FF6 /* MapViewController.swift in Sources */,
 				E4ED67431C5E8C1900BE7F45 /* InetInterface.swift in Sources */,
