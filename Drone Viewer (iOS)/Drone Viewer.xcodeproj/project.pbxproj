@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E440E5A41C63A223006FEC06 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E440E5A31C63A223006FEC06 /* Logger.swift */; };
+		E44E16901C70C5960034715B /* RouteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44E168F1C70C5960034715B /* RouteManager.swift */; };
 		E45F84D11C46BBD40012CC57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45F84D01C46BBD40012CC57 /* AppDelegate.swift */; };
 		E45F84D81C46BBD40012CC57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E45F84D61C46BBD40012CC57 /* Main.storyboard */; };
 		E45F84DA1C46BBD40012CC57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E45F84D91C46BBD40012CC57 /* Assets.xcassets */; };
@@ -47,6 +48,7 @@
 
 /* Begin PBXFileReference section */
 		E440E5A31C63A223006FEC06 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Logger.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		E44E168F1C70C5960034715B /* RouteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManager.swift; sourceTree = "<group>"; };
 		E45F84CD1C46BBD40012CC57 /* Drone Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Drone Viewer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E45F84D01C46BBD40012CC57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AppDelegate.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E45F84D71C46BBD40012CC57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -97,7 +99,6 @@
 		E440E5A61C63A248006FEC06 /* Map Display */ = {
 			isa = PBXGroup;
 			children = (
-				E45F84D01C46BBD40012CC57 /* AppDelegate.swift */,
 				E47E08FF1C614E3E00675BD5 /* TrackCreator.swift */,
 				E4F765121C6251B600825BCA /* MapOverlayController.swift */,
 				E498C5561C4810B800D26FF6 /* MapViewController.swift */,
@@ -130,6 +131,7 @@
 				E4C8FD4F1C664146006BB509 /* RouteManager */,
 				E440E5A61C63A248006FEC06 /* Map Display */,
 				E440E5A51C63A239006FEC06 /* Internet Communications */,
+				E45F84D01C46BBD40012CC57 /* AppDelegate.swift */,
 				E498C5551C4810B800D26FF6 /* DataViewController.swift */,
 				E440E5A31C63A223006FEC06 /* Logger.swift */,
 				E45F84D61C46BBD40012CC57 /* Main.storyboard */,
@@ -165,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				E4C8FD501C664169006BB509 /* Waypoint.swift */,
+				E44E168F1C70C5960034715B /* RouteManager.swift */,
 			);
 			name = RouteManager;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				E47E09001C614E3E00675BD5 /* TrackCreator.swift in Sources */,
 				E498C5571C4810B800D26FF6 /* DataViewController.swift in Sources */,
 				E47927551C57DA93000AC599 /* SwiftyRSA.swift in Sources */,
+				E44E16901C70C5960034715B /* RouteManager.swift in Sources */,
 				E4F765131C6251B600825BCA /* MapOverlayController.swift in Sources */,
 				E47927541C57DA93000AC599 /* SignVerify.swift in Sources */,
 				E4C8FD511C664169006BB509 /* Waypoint.swift in Sources */,

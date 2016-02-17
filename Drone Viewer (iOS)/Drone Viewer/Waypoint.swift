@@ -10,6 +10,9 @@ import Foundation
 
 class Waypoint {
     private static let earthRadius: Double = 6371000 //Meters
+    private static let ε_angle: Double = 1 //Degrees
+    private static let ε_distance: Double = 5 //Meters
+    private static let ε_coordinate: Double = 0.00005 //5 Meters at the equator
     
     struct Point {
         let latitude: Double!
@@ -23,8 +26,8 @@ class Waypoint {
         let clockwise: Bool!
     }
     
-    private let point: Point!
-    private let orbit: Orbit?
+    var point: Point!
+    var orbit: Orbit?
     
     init?(thePoint: Point!, theOrbit: Orbit?) {
         self.point = thePoint
@@ -59,53 +62,101 @@ class Waypoint {
     }
     
     convenience init?(wp: DroneMessage_Waypoint) {
-        let thePoint = Point(latitude: Double(wp.latitude), longitude: Double(wp.longitude), altitude: Double(wp.altitude) / Double(100))
-        
-        let theOrbit: Orbit?
-        if(wp.hasOrbitRadius) {
-            theOrbit = Orbit(radius: Double(wp.orbitRadius), orbitUntilAltitude: wp.orbitUntilTargetAltitude, clockwise: wp.orbitClockwise)
-        } else {
-            theOrbit = nil
-        }
-        
-        self.init(thePoint: thePoint, theOrbit: theOrbit)
+    let thePoint = Point(latitude: Double(wp.latitude), longitude: Double(wp.longitude), altitude: Double(wp.altitude) / Double(100))
+    
+    let theOrbit: Orbit?
+    if(wp.hasOrbitRadius) {
+    theOrbit = Orbit(radius: Double(wp.orbitRadius), orbitUntilAltitude: wp.orbitUntilTargetAltitude, clockwise: wp.orbitClockwise)
+    } else {
+    theOrbit = nil
+    }
+    
+    self.init(thePoint: thePoint, theOrbit: theOrbit)
     }
     
     func toProtobuf() -> DroneMessage_Waypoint! {
-        let wp: DroneMessage_Waypoint = DroneMessage_Waypoint();
-        wp.latitude = Float(point.latitude)
-        wp.longitude = Float(point.longitude)
-        wp.altitude = Int32(round(point.altitude * 100))
+    let wp: DroneMessage_Waypoint = DroneMessage_Waypoint();
+    wp.latitude = Float(point.latitude)
+    wp.longitude = Float(point.longitude)
+    wp.altitude = Int32(round(point.altitude * 100))
+    
+    if(orbit != nil) {
+    wp.orbitRadius = UInt32(round(orbit!.radius))
+    wp.orbitUntilTargetAltitude = orbit!.orbitUntilAltitude
+    wp.orbitClockwise = orbit!.clockwise
+    }
+    
+    return wp
+    }
+    
+    /**
+    Returns an array of waypoints to draw this waypoint as polyline
+    
+    Parameters:
+    - maxNumberOfPoints: The maximum number of points for a whole circle (scaled accordingly)
+    - fromBearing: The bearing from the orbit waypoint to the first section waypoint
+    - toBearing: The bearing to the last section waypoint
+    
+    - Returns: an array of waypoints to draw this waypoint as polyline or nil, if this was requested for a non-orbit waypoint
+    */
+    func descriptionLineForOrbitSegment(maxNumberOfPoints: UInt!, var fromBearing: Double!, var toBearing: Double!) -> Array<Point!>? {
         
-        if(orbit != nil) {
-            wp.orbitRadius = UInt32(round(orbit!.radius))
-            wp.orbitUntilTargetAltitude = orbit!.orbitUntilAltitude
-            wp.orbitClockwise = orbit!.clockwise
+        if(self.orbit == nil) {
+            return nil
         }
         
-        return wp
+        let difference = toBearing - fromBearing
+        if(abs(difference) > 180) {
+            if(toBearing - fromBearing < 0) {
+                toBearing = toBearing + 360
+            } else {
+                fromBearing = fromBearing + 360
+            }
+        }
+        
+        let degreesPerPoint = 360 / Double(maxNumberOfPoints*10)
+        let increment = (toBearing - fromBearing)
+        var returnArray = Array<Point!>()
+        
+        if(increment > 0) {
+            for(var i = fromBearing; i < toBearing; i = i + degreesPerPoint) {
+                let wp = self.waypointWithDistanceAndBearing(self.orbit!.radius, bearing: i)
+                returnArray.append(wp)
+            }
+        } else if(increment < 0) {
+            for(var i = fromBearing; i > toBearing; i = i - degreesPerPoint) {
+                let wp = self.waypointWithDistanceAndBearing(self.orbit!.radius, bearing: i)
+                returnArray.append(wp)
+            }
+        } else {
+            //If there are no points, the empty array is still a valid response
+        }
+        return returnArray
     }
     
     /**
      Returns an array of waypoints to draw this waypoint as polyline
      
      Parameters:
-     - maxNumberOfPoints: The m
+     - maxNumberOfPoints: The maximum number of points for a whole circle (scaled accordingly)
      
      - Returns: an array of waypoints to draw this waypoint as polyline or nil, if this was requested for a non-orbit waypoint
      */
-    func descriptionLine(maxNumberOfPoints: Int) -> Array<Point!>? {
-        
+    func descriptionLineForOrbit(maxNumberOfPoints: UInt) -> Array<Point!>? {
         if(self.orbit == nil) {
             return nil
         }
         
         let degreesPerPoint = 360 / Double(maxNumberOfPoints)
-        var returnArray = Array<Point!>(count: maxNumberOfPoints, repeatedValue: nil)
+        var returnArray = Array<Point!>(count: Int(maxNumberOfPoints), repeatedValue: nil)
         
-        for(var i = 0; i < maxNumberOfPoints; i++) {
+        for(var i = 0; i < Int(maxNumberOfPoints); i++) {
             returnArray[i] = self.waypointWithDistanceAndBearing(self.orbit!.radius, bearing: degreesPerPoint * Double(i))
         }
+        
+        //Close the circle
+        returnArray.append(returnArray[0])
+        
         return returnArray
     }
     
@@ -117,7 +168,7 @@ class Waypoint {
      
      - Returns: an array of waypoints to draw this waypoint as polyline or nil, if this was requested for a orbit waypoint
      */
-    func descriptionLine(other: Waypoint) -> Array<Point!>? {
+    func descriptionLineForPoint(other: Waypoint) -> Array<Point!>? {
         
         if(self.orbit != nil) {
             return nil
@@ -154,13 +205,13 @@ class Waypoint {
     
     
     /**
-    Calculates the bearing to another waypoint from this one
-    
-    Parameters:
-    - other: The other waypoint
-    
-    - Returns: A Double indicating the bearing in degrees.
-    */
+     Calculates the bearing to another waypoint from this one
+     
+     Parameters:
+     - other: The other waypoint
+     
+     - Returns: A Double indicating the bearing in degrees.
+     */
     func bearingTo(other: Waypoint) -> Double! {
         let φ1 = point.latitude.toRadians
         let φ2 = other.point.latitude.toRadians
@@ -170,7 +221,13 @@ class Waypoint {
         
         let y = sin(λ2-λ1) * cos(φ2)
         let x = cos(φ1) * sin(φ2) - sin(φ1) * cos(φ2) * cos(λ2-λ1);
-        return atan2(y, x).toDegrees
+        
+        var bearing = (atan2(y, x).toDegrees) % 360
+        if(bearing < 0) {
+            bearing += 360
+        }
+        
+        return bearing
     }
     
     
@@ -190,7 +247,7 @@ class Waypoint {
         let φ2 = asin(sin(φ1) * cos(distance/Waypoint.earthRadius) + cos(φ1) * sin(distance/Waypoint.earthRadius) * cos(bearing.toRadians))
         let λ2 = λ1 + atan2(sin(bearing.toRadians) * sin(distance/Waypoint.earthRadius) * cos(φ1), cos(distance/Waypoint.earthRadius) - sin(φ1) * sin(φ2))
         
-        return Point(latitude: φ2, longitude: λ2, altitude: self.point.altitude)
+        return Point(latitude: φ2.toDegrees, longitude: λ2.toDegrees, altitude: self.point.altitude)
     }
     
     
@@ -200,48 +257,120 @@ class Waypoint {
      Parameters:
      - pointA: The first line waypoint
      - pointC: The second line waypoint
-     - radius:
+     - radius: the radius of the tangential circle in meters
      
      - Returns: An orbit waypoint that fulfills the conditions or nil if no such waypoint exists.
      */
     func orbitWaypointBetween(pointA: Waypoint, pointC: Waypoint, radius: Double) -> Waypoint! {
-        let firstBearing = pointA.bearingTo(self)
-        let secondBearing = pointC.bearingTo(self)
-        let difference = (firstBearing - secondBearing) % 360
+        let x: Waypoint?
+        (_, x, _) = tangentialSegment(pointA, pointC: pointC, radius: radius)
+        return x
+    }
+    
+    /**
+     Calculates a tangential segment, consisting of a start point, an orbit waypoint and an end point
+     
+     Parameters:
+     - pointA: The first line waypoint
+     - pointC: The second line waypoint
+     - radius: the radius of the tangential circle in meters
+     
+     - Returns: A tuple of the first (non-orbit), the second (orbit) and third (non-orbit) waypoints
+     */
+    func tangentialSegment(pointA: Waypoint, pointC: Waypoint, radius: Double) -> (Waypoint?, Waypoint?, Waypoint?) {
+        let firstBearing = self.bearingTo(pointA)
+        let secondBearing = self.bearingTo(pointC)
+        
+        //Get the inner angle
+        var difference = firstBearing - secondBearing
+        if(difference > 180) {
+            difference -= 360
+        } else if(difference < -180) {
+            difference += 360
+        }
         
         let clockwise: Bool
         if(difference > 0) {
-            clockwise = false
-        } else {
             clockwise = true
+        } else {
+            clockwise = false
         }
         
-        let middleBearing = (firstBearing + difference/2) % 360
-        let distance = radius + Waypoint.earthRadius * tan(difference.toRadians)
+        let middleBearing = secondBearing + difference/2
+        let distance = abs(radius * 1/sin((difference/2).toRadians))
         
         let orbitPoint = waypointWithDistanceAndBearing(distance, bearing: middleBearing)
         let desiredOrbit = Orbit(radius: radius, orbitUntilAltitude: false, clockwise: clockwise)
         
-        return Waypoint(thePoint: orbitPoint, theOrbit: desiredOrbit)
+        let centerWaypoint = Waypoint(thePoint: orbitPoint, theOrbit: desiredOrbit)!
+        
+        //Create the first intersect
+        let intersectDistance = distance * cos((difference/2).toRadians)
+        let firstIntersectPoint = self.waypointWithDistanceAndBearing(intersectDistance, bearing: firstBearing)
+        let firstIntersect = Waypoint(thePoint: firstIntersectPoint, theOrbit: nil)!
+        
+        //Check if it is valid (e.g. not behind point A)
+        if((firstIntersect.distanceTo(self) > Waypoint.ε_distance) && (abs(self.bearingTo(firstIntersect) - firstBearing) > Waypoint.ε_angle)) {
+            return(nil, nil, nil)
+        }
+        
+        
+        let secondIntersectPoint = self.waypointWithDistanceAndBearing(intersectDistance, bearing: secondBearing)
+        let secondIntersect = Waypoint(thePoint: secondIntersectPoint, theOrbit: nil)!
+        
+        //Check if it is valid (e.g. not behind point C)
+        if((secondIntersect.distanceTo(self) > Waypoint.ε_distance) && (abs(self.bearingTo(secondIntersect) - secondBearing) > Waypoint.ε_angle)) {
+            return(nil, nil, nil)
+        }
+        
+        return (firstIntersect, centerWaypoint, secondIntersect)
     }
     
-    
     /**
-    Calculates the cross track error between a line between two points and a third point
-    
-    Parameters:
-    - position: The other waypoint
-    - linePointA: The first line waypoint
-    - linePointB: The second line waypoint
-    
-    - Returns: A Double indicatingthe cross-track error in meters. The sign indicates the side we are on. HOW?
-    */
+     Calculates the cross track error between a line between two points and a third point
+     
+     Parameters:
+     - position: The other waypoint
+     - linePointA: The first line waypoint
+     - linePointB: The second line waypoint
+     
+     - Returns: A Double indicatingthe cross-track error in meters. The sign indicates the side we are on. HOW?
+     */
     static func lineCrossTrackError(position: Waypoint, linePointA: Waypoint, linePointB: Waypoint) -> Double! {
         let d13 = linePointA.distanceTo(position)
         let θ13 = linePointA.bearingTo(position).toRadians
         let θ12 = linePointA.bearingTo(linePointB).toRadians
         return asin(sin(d13 / Waypoint.earthRadius) * sin(θ13 - θ12)) * Waypoint.earthRadius;
     }
+}
+
+extension Waypoint: Equatable {}
+
+@warn_unused_result func ==(lhs: Waypoint, rhs: Waypoint) -> Bool {
+    if((lhs.orbit != nil && rhs.orbit == nil) || (lhs.orbit == nil && rhs.orbit != nil)) {
+        return false
+    } else if(lhs.orbit != nil) {
+        if(abs(lhs.orbit!.radius - rhs.orbit!.radius) > Waypoint.ε_distance) {
+            return false
+        }
+        if(lhs.orbit!.clockwise != rhs.orbit!.clockwise) {
+            return false
+        }
+        if(lhs.orbit!.orbitUntilAltitude != rhs.orbit!.orbitUntilAltitude) {
+            return false
+        }
+    }
+    
+    if(abs(lhs.point.altitude - rhs.point.altitude) > Waypoint.ε_distance) {
+        return false
+    }
+    if(abs(lhs.point.latitude - rhs.point.latitude) > Waypoint.ε_coordinate) {
+        return false
+    }
+    if(abs(lhs.point.latitude - rhs.point.latitude) > Waypoint.ε_coordinate) {
+        return false
+    }
+    return true
 }
 
 //Utility fuctions

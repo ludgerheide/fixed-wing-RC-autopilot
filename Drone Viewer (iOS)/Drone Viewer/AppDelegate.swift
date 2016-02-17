@@ -11,7 +11,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     private static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
-    private static let tracksURL = DocumentsDirectory.URLByAppendingPathComponent("tracks")
+    private static let tracksURL = DocumentsDirectory.URLByAppendingPathComponent("track")
     
     var window: UIWindow?
     private var inetComms: InetInterface?
@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        //TODO: load from file
         if let tc = NSKeyedUnarchiver.unarchiveObjectWithFile(AppDelegate.tracksURL.path!) as? TrackCreator {
             trackCreator = tc
         } else {

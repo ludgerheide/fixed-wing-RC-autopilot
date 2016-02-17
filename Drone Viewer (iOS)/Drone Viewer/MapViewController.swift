@@ -35,7 +35,9 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
     }
     
     override func viewWillAppear(animated: Bool) {
+        //Make the overly controller plot the route and track
         overlayController.newMapUpdateReady(NSNotification(name: "dummy", object: nil))
+        overlayController.redrawRouteComplete()
     }
     
     @objc func newDroneMessageReceived(notification: NSNotification){
