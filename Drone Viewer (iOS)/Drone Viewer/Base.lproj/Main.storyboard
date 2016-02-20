@@ -171,11 +171,11 @@
                         <viewControllerLayoutGuide type="bottom" id="tXx-tO-Nhv"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" id="wvc-tU-6PA">
-                        <rect key="frame" x="0.0" y="0.0" width="270" height="240"/>
+                        <rect key="frame" x="0.0" y="0.0" width="270" height="310"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="VV5-11-aOl">
-                                <rect key="frame" x="20" y="40" width="230" height="180"/>
+                                <rect key="frame" x="20" y="40" width="230" height="250"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="WyO-Tx-uGe">
                                         <rect key="frame" x="0.0" y="0.0" width="230" height="30"/>
@@ -206,7 +206,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="t5h-KO-Ecq">
-                                        <rect key="frame" x="0.0" y="41" width="230" height="30"/>
+                                        <rect key="frame" x="0.0" y="38" width="230" height="30"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Radius" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OhX-Ev-Nah">
                                                 <rect key="frame" x="0.0" y="0.0" width="64" height="30"/>
@@ -233,8 +233,25 @@
                                             </label>
                                         </subviews>
                                     </stackView>
+                                    <stackView opaque="NO" contentMode="scaleAspectFit" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="vKk-T8-VhB">
+                                        <rect key="frame" x="0.0" y="77" width="230" height="31"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Orbit until altitude" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aWN-KK-Z9n">
+                                                <rect key="frame" x="0.0" y="0.0" width="165" height="31"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ftW-EQ-7ZS">
+                                                <rect key="frame" x="181" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="swOrbitUntilAltitudeChanged:" destination="yrk-Xq-vqd" eventType="valueChanged" id="0b0-Oh-56M"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                    </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nDG-AD-D75">
-                                        <rect key="frame" x="0.0" y="82" width="230" height="57"/>
+                                        <rect key="frame" x="0.0" y="116" width="230" height="57"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Circle direction" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="elW-Js-4At">
                                                 <rect key="frame" x="57" y="0.0" width="116" height="21"/>
@@ -256,7 +273,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="25J-sH-BLu">
-                                        <rect key="frame" x="0.0" y="150" width="230" height="30"/>
+                                        <rect key="frame" x="0.0" y="182" width="230" height="30"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Initial Bearing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="deV-r7-rja">
                                                 <rect key="frame" x="0.0" y="0.0" width="103" height="30"/>
@@ -280,16 +297,41 @@
                                             </label>
                                         </subviews>
                                     </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="rOO-KH-tb7">
+                                        <rect key="frame" x="0.0" y="220" width="230" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gUv-n5-gA3">
+                                                <rect key="frame" x="0.0" y="0.0" width="107" height="30"/>
+                                                <state key="normal" title="Delete">
+                                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="buDeletePressed:" destination="yrk-Xq-vqd" eventType="touchUpInside" id="qhm-dl-yqJ"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ra3-zY-DAk">
+                                                <rect key="frame" x="123" y="0.0" width="107" height="30"/>
+                                                <state key="normal" title="Dismiss"/>
+                                                <connections>
+                                                    <action selector="buDismissPressed:" destination="yrk-Xq-vqd" eventType="touchUpInside" id="ZAX-PI-eHB"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="25J-sH-BLu" secondAttribute="trailing" id="0fU-fy-OY2"/>
+                                    <constraint firstAttribute="trailing" secondItem="rOO-KH-tb7" secondAttribute="trailing" id="3Nu-pV-ADm"/>
                                     <constraint firstItem="nDG-AD-D75" firstAttribute="leading" secondItem="VV5-11-aOl" secondAttribute="leading" id="4qq-Pi-YAs"/>
+                                    <constraint firstItem="rOO-KH-tb7" firstAttribute="leading" secondItem="VV5-11-aOl" secondAttribute="leading" id="NgP-cJ-5WR"/>
                                     <constraint firstAttribute="trailing" secondItem="nDG-AD-D75" secondAttribute="trailing" id="Ou7-ta-1f2"/>
                                     <constraint firstItem="WyO-Tx-uGe" firstAttribute="leading" secondItem="VV5-11-aOl" secondAttribute="leading" id="PHT-GO-0Zr"/>
+                                    <constraint firstItem="vKk-T8-VhB" firstAttribute="leading" secondItem="VV5-11-aOl" secondAttribute="leading" id="exY-g4-coT"/>
                                     <constraint firstAttribute="trailing" secondItem="t5h-KO-Ecq" secondAttribute="trailing" id="qiQ-3c-TEP"/>
                                     <constraint firstAttribute="trailing" secondItem="WyO-Tx-uGe" secondAttribute="trailing" id="te9-kd-CVb"/>
                                     <constraint firstItem="25J-sH-BLu" firstAttribute="leading" secondItem="VV5-11-aOl" secondAttribute="leading" id="uVT-Uj-d1b"/>
                                     <constraint firstItem="t5h-KO-Ecq" firstAttribute="leading" secondItem="VV5-11-aOl" secondAttribute="leading" id="xm6-Lo-2ej"/>
+                                    <constraint firstAttribute="trailing" secondItem="vKk-T8-VhB" secondAttribute="trailing" id="z6H-TQ-hnU"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -303,7 +345,7 @@
                     </view>
                     <value key="contentSizeForViewInPopover" type="size" width="100" height="100"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="270" height="240"/>
+                    <size key="freeformSize" width="270" height="310"/>
                     <connections>
                         <outlet property="buClockwise" destination="j6H-Vc-P5N" id="X3W-ki-Pcb"/>
                         <outlet property="laClockwise" destination="elW-Js-4At" id="z3B-1D-u2h"/>
@@ -311,6 +353,7 @@
                         <outlet property="laInitialBearing2" destination="12R-3N-aqH" id="SHF-Za-15E"/>
                         <outlet property="svClockwise" destination="nDG-AD-D75" id="uZw-WU-aOR"/>
                         <outlet property="svInitialBearing" destination="25J-sH-BLu" id="5lT-1Q-yqg"/>
+                        <outlet property="swOrbitUntilAltitude" destination="ftW-EQ-7ZS" id="soc-Bx-ga9"/>
                         <outlet property="tfAltitude" destination="Ufw-Cg-XLU" id="g7g-vt-YIO"/>
                         <outlet property="tfInitialBearing" destination="v2e-PU-vZE" id="BZS-By-Kai"/>
                         <outlet property="tfRadius" destination="lJW-fO-c74" id="0jQ-1v-jCf"/>
@@ -318,7 +361,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QhQ-Lt-xeM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1487" y="360"/>
+            <point key="canvasLocation" x="1510" y="394"/>
         </scene>
         <!--Data-->
         <scene sceneID="wg7-f3-ORb">

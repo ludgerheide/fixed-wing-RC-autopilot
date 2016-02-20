@@ -5,6 +5,7 @@ class WaypointPopOverController: UIViewController {
 
     @IBOutlet var tfAltitude: UITextField!
     @IBOutlet var tfRadius: UITextField!
+    @IBOutlet var swOrbitUntilAltitude: UISwitch!
     @IBOutlet var svInitialBearing: UIStackView!
     @IBOutlet var tfInitialBearing: UITextField!
     @IBOutlet var laInitialBearing1: UILabel!
@@ -19,6 +20,7 @@ class WaypointPopOverController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         tfAltitude.text = NSString(format: "%.0f", waypoint!.waypoint.point.altitude) as String
         tfRadius.text = NSString(format: "%.0f", waypoint!.radius!) as String
+        swOrbitUntilAltitude.setOn(waypoint!.orbitUntilAltitude!, animated: false)
 
         if let clockwise = waypoint!.clockwise {
             if(clockwise == true) {
@@ -75,6 +77,10 @@ class WaypointPopOverController: UIViewController {
         }
     }
     
+    @IBAction func swOrbitUntilAltitudeChanged(sender: AnyObject) {
+        waypoint!.orbitUntilAltitude = swOrbitUntilAltitude.on
+    }
+    
     @IBAction func buClockwiseChanged(sender: AnyObject) {
         switch buClockwise.selectedSegmentIndex {
         case 0:
@@ -96,6 +102,15 @@ class WaypointPopOverController: UIViewController {
             tfInitialBearing.text = NSString(format: "%.0f", waypoint!.initialBearing!) as String
         }
     }
+    
+    @IBAction func buDeletePressed(sender: AnyObject) {
+        Logger.log("Delete not implemented!")
+    }
+    
+    @IBAction func buDismissPressed(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     
     func showInvalidNumberAlert() {
         let alert = UIAlertController(title: "Invalid radius!", message: "Please enter valid value!", preferredStyle: UIAlertControllerStyle.Alert)

@@ -183,9 +183,9 @@ class MapOverlayController: NSObject, MKMapViewDelegate {
         popoverController.modalPresentationStyle = UIModalPresentationStyle.Popover
         popoverController.popoverPresentationController?.sourceView = mapView
         popoverController.popoverPresentationController?.sourceRect = view.frame
-        popoverController.preferredContentSize = CGSize(width: 270, height: 240)
+        popoverController.preferredContentSize = CGSize(width: 270, height: 310)
         
-        popoverController.waypoint = view.annotation as! RouteManager.WaypointWithAnnotations
+        popoverController.waypoint = (view.annotation as! RouteManager.WaypointWithAnnotations)
         popoverController.controller = self
         
         parentViewController.presentViewController(popoverController, animated: true, completion: nil)
