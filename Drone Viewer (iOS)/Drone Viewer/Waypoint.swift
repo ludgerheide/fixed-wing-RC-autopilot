@@ -15,9 +15,9 @@ class Waypoint {
     private static let ε_coordinate: Double = 0.00005 //5 Meters at the equator
     
     struct Point {
-        let latitude: Double!
-        let longitude: Double!
-        let altitude: Double!
+        var latitude: Double!
+        var longitude: Double!
+        var altitude: Double!
     }
     
     struct Orbit {
@@ -310,7 +310,7 @@ class Waypoint {
         let firstIntersect = Waypoint(thePoint: firstIntersectPoint, theOrbit: nil)!
         
         //Check if it is valid (e.g. not behind point A)
-        if((firstIntersect.distanceTo(self) > Waypoint.ε_distance) && (abs(self.bearingTo(firstIntersect) - firstBearing) > Waypoint.ε_angle)) {
+        if((firstIntersect.distanceTo(self) > Waypoint.ε_distance) && (abs(firstIntersect.bearingTo(pointA) - firstBearing) > Waypoint.ε_angle)) {
             return(nil, nil, nil)
         }
         
@@ -319,7 +319,7 @@ class Waypoint {
         let secondIntersect = Waypoint(thePoint: secondIntersectPoint, theOrbit: nil)!
         
         //Check if it is valid (e.g. not behind point C)
-        if((secondIntersect.distanceTo(self) > Waypoint.ε_distance) && (abs(self.bearingTo(secondIntersect) - secondBearing) > Waypoint.ε_angle)) {
+        if((secondIntersect.distanceTo(self) > Waypoint.ε_distance) && (abs(secondIntersect.bearingTo(pointC) - secondBearing) > Waypoint.ε_angle)) {
             return(nil, nil, nil)
         }
         

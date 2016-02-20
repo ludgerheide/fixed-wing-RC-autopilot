@@ -31,7 +31,7 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
         updateLabels(nil)
         
         //Initialize the overlay handler
-        overlayController = MapOverlayController.init(mv: mapView)
+        overlayController = MapOverlayController.init(mv: mapView, vc: self)
     }
     
     override func viewWillAppear(animated: Bool) {

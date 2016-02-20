@@ -23,8 +23,14 @@ class RouteManager: NSObject, NSCoding {
             }
         }
         
+        @objc var subtitle: String? {
+            get {
+                let newSubtitle = NSString(format: "Altitude: %.0fm", waypoint.point.altitude)
+                return newSubtitle as String
+            }
+        }
+        
         @objc var title: String?
-        @objc var subtitle: String?
         
         override func isEqual(object: AnyObject?) -> Bool {
             if let rhs = object as? WaypointWithAnnotations {
@@ -136,21 +142,11 @@ class RouteManager: NSObject, NSCoding {
         } else {
             for(var i = 0; i < rawRoute.count; i++) {
                 let currentWp = rawRoute[i]
+                
                 if(i == (rawRoute.count - 1)) {
                     currentWp.title = "Last Waypoint"
-                    
-                    let clockwiseString: String
-                    if(currentWp.clockwise! == true) {
-                        clockwiseString = "clockwise"
-                    } else {
-                        clockwiseString = "counter-clockwise"
-                    }
-                    let newSubtitle = NSString(format: "Altitude %.2f m\nBearing: %.0f° Direction: %s", currentWp.waypoint.point.altitude, currentWp.initialBearing!, clockwiseString)
-                    currentWp.subtitle = newSubtitle as String
                 } else {
                     currentWp.title = "Waypoint " + String(i+1)
-                    let newSubtitle = NSString(format: "Altitude %.2f m", currentWp.waypoint.point.altitude)
-                    currentWp.subtitle = newSubtitle as String
                 }
             }
             return rawRoute
@@ -174,24 +170,25 @@ class RouteManager: NSObject, NSCoding {
                     let wpC = rawRoute[i+1].waypoint
                     
                     let (firstPoint, orbitPoint, lastPoint) = wpB.tangentialSegment(wpA, pointC: wpC, radius: annotatedWp.radius!)
-                    let curvePoints: Array<Waypoint.Point!>?
-                    if(annotatedWp.orbitUntilAltitude == false) {
-                        let fromBearing = orbitPoint!.bearingTo(firstPoint!)
-                        let toBearing = orbitPoint!.bearingTo(lastPoint!)
-                        curvePoints = orbitPoint!.descriptionLineForOrbitSegment(RouteManager.defaultNumberOfPoints, fromBearing: fromBearing, toBearing: toBearing)
+                    if(firstPoint != nil && orbitPoint != nil && lastPoint != nil) {
+                        let curvePoints: Array<Waypoint.Point!>?
+                        if(annotatedWp.orbitUntilAltitude == false) {
+                            let fromBearing = orbitPoint!.bearingTo(firstPoint!)
+                            let toBearing = orbitPoint!.bearingTo(lastPoint!)
+                            curvePoints = orbitPoint!.descriptionLineForOrbitSegment(RouteManager.defaultNumberOfPoints, fromBearing: fromBearing, toBearing: toBearing)
+                            
+                            curvePoints!.append(lastPoint!.point)
+                            curvePoints!.append(orbitPoint!.point)
+                            curvePoints!.append(firstPoint!.point)
+                        } else {
+                            curvePoints = orbitPoint!.descriptionLineForOrbit(RouteManager.defaultNumberOfPoints)
+                        }
                         
-                        curvePoints!.append(firstPoint!.point)
-                        curvePoints!.append(orbitPoint!.point)
-                        curvePoints!.append(lastPoint!.point)
-                    } else {
-                        curvePoints = orbitPoint!.descriptionLineForOrbit(RouteManager.defaultNumberOfPoints)
+                        let polyline = createCirclePolyline(curvePoints)
+                        
+                        returnArray.append(polyline)
                     }
-                    
-                    let polyline = createCirclePolyline(curvePoints)
-                    
-                    returnArray.append(polyline)
                 }
-                
             }
             
             //Add the last point (the standalone orbit point)

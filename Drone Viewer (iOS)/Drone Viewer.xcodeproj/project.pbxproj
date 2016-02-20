@@ -15,6 +15,7 @@
 		E45F84DD1C46BBD40012CC57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E45F84DB1C46BBD40012CC57 /* LaunchScreen.storyboard */; };
 		E45F84F71C46C0D50012CC57 /* libProtocolBuffers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E45F84ED1C46BF440012CC57 /* libProtocolBuffers.a */; };
 		E45F84FB1C46C1900012CC57 /* CommunicationProtocol.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = E45F84FA1C46C1900012CC57 /* CommunicationProtocol.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E4718CBB1C77A35C005C53F3 /* WaypointPopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4718CBA1C77A35C005C53F3 /* WaypointPopoverController.swift */; };
 		E47927541C57DA93000AC599 /* SignVerify.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47927521C57DA93000AC599 /* SignVerify.swift */; };
 		E47927551C57DA93000AC599 /* SwiftyRSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47927531C57DA93000AC599 /* SwiftyRSA.swift */; };
 		E47927581C57E056000AC599 /* controller.priv.pem in Resources */ = {isa = PBXBuildFile; fileRef = E47927561C57E056000AC599 /* controller.priv.pem */; };
@@ -59,6 +60,7 @@
 		E45F84F81C46C18F0012CC57 /* Drone Viewer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Drone Viewer-Bridging-Header.h"; path = "Drone Viewer/Drone Viewer-Bridging-Header.h"; sourceTree = "<group>"; };
 		E45F84F91C46C1900012CC57 /* CommunicationProtocol.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommunicationProtocol.pbobjc.h; path = "Drone Viewer/CommunicationProtocol.pbobjc.h"; sourceTree = "<group>"; };
 		E45F84FA1C46C1900012CC57 /* CommunicationProtocol.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommunicationProtocol.pbobjc.m; path = "Drone Viewer/CommunicationProtocol.pbobjc.m"; sourceTree = "<group>"; };
+		E4718CBA1C77A35C005C53F3 /* WaypointPopoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointPopoverController.swift; sourceTree = "<group>"; };
 		E47927521C57DA93000AC599 /* SignVerify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SignVerify.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E47927531C57DA93000AC599 /* SwiftyRSA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyRSA.swift; sourceTree = "<group>"; };
 		E47927561C57E056000AC599 /* controller.priv.pem */ = {isa = PBXFileReference; lastKnownFileType = text; path = controller.priv.pem; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 		E440E5A61C63A248006FEC06 /* Map Display */ = {
 			isa = PBXGroup;
 			children = (
+				E4718CBA1C77A35C005C53F3 /* WaypointPopoverController.swift */,
 				E47E08FF1C614E3E00675BD5 /* TrackCreator.swift */,
 				E4F765121C6251B600825BCA /* MapOverlayController.swift */,
 				E498C5561C4810B800D26FF6 /* MapViewController.swift */,
@@ -275,6 +278,7 @@
 				E4C8FD511C664169006BB509 /* Waypoint.swift in Sources */,
 				E45F84FB1C46C1900012CC57 /* CommunicationProtocol.pbobjc.m in Sources */,
 				E498C5581C4810B800D26FF6 /* MapViewController.swift in Sources */,
+				E4718CBB1C77A35C005C53F3 /* WaypointPopoverController.swift in Sources */,
 				E4ED67431C5E8C1900BE7F45 /* InetInterface.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

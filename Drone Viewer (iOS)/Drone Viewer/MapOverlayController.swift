@@ -13,6 +13,8 @@ class MapOverlayController: NSObject, MKMapViewDelegate {
     private static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
     private static let routeURL = DocumentsDirectory.URLByAppendingPathComponent("route")
     
+    private var parentViewController: UIViewController!
+    
     private var mapView: MKMapView!
     
     private var trackPolyLine: MKPolyline?
@@ -45,10 +47,12 @@ class MapOverlayController: NSObject, MKMapViewDelegate {
             object: nil)
     }
     
-    convenience init(mv: MKMapView) {
+    convenience init(mv: MKMapView, vc: UIViewController) {
         self.init()
         mapView = mv
         mapView.delegate = self
+        
+        parentViewController = vc
         
         addTestPoints()
     }
@@ -96,7 +100,7 @@ class MapOverlayController: NSObject, MKMapViewDelegate {
             mapView.addOverlays(routePolylines!)
         }
     }
-
+    
     @objc func newMapUpdateReady(notification: NSNotification) {
         assert(notification.object == nil)
         
@@ -139,6 +143,69 @@ class MapOverlayController: NSObject, MKMapViewDelegate {
         return plRenderer
     }
     
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        // If the annotation is the user location, just return nil.
+        if (annotation.isKindOfClass(MKUserLocation)) {
+            return nil;
+        }
+        
+        //Check if the annotation is part of the route (only kind for now, but maybe we get a plane icon later ;)
+        if let _ = annotation as? RouteManager.WaypointWithAnnotations {
+            //Define an identifier fir this kind of annotation
+            let identifier = "route point"
+            
+            //Try to dequeue an existing view
+            var view: MKPinAnnotationView
+            if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
+                as? MKPinAnnotationView {
+                    dequeuedView.annotation = annotation
+                    view = dequeuedView
+            } else {
+                view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                
+                view.animatesDrop = false
+                view.canShowCallout = true
+                view.draggable = true
+                
+                //Add a button on the rightt that goes to the "edit" screen
+                let rightButton = UIButton(type: UIButtonType.DetailDisclosure)
+                rightButton.addTarget(nil, action: nil, forControlEvents: UIControlEvents.TouchUpInside)
+                view.rightCalloutAccessoryView = rightButton
+            }
+            return view
+        }
+        return nil
+    }
+    
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let popoverController = storyboard.instantiateViewControllerWithIdentifier("WaypointPopover") as! WaypointPopOverController
+        popoverController.modalPresentationStyle = UIModalPresentationStyle.Popover
+        popoverController.popoverPresentationController?.sourceView = mapView
+        popoverController.popoverPresentationController?.sourceRect = view.frame
+        popoverController.preferredContentSize = CGSize(width: 270, height: 240)
+        
+        popoverController.waypoint = view.annotation as! RouteManager.WaypointWithAnnotations
+        popoverController.controller = self
+        
+        parentViewController.presentViewController(popoverController, animated: true, completion: nil)
+    }
+    
+    func popoverCompleted(wp: RouteManager.WaypointWithAnnotations!) {
+        //Update the UI after the popover is done
+        redrawRoutePolylines()
+        
+        mapView.removeAnnotation(wp as MKAnnotation)
+        mapView.addAnnotation(wp as MKAnnotation)
+    }
+    
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
+        if(oldState == MKAnnotationViewDragState.Dragging && newState == MKAnnotationViewDragState.Ending) {
+            //Redraw the polyline, the annotation coordinate is synced automatically 
+            redrawRoutePolylines()
+        }
+    }
+    
     //TODO: Remove
     func addTestPoints() {
         routeManager = RouteManager() //Clears old points
@@ -156,7 +223,7 @@ class MapOverlayController: NSObject, MKMapViewDelegate {
         rm!.addPoint(aWp)
         
         var last = wp1
-        let max = 10
+        let max = 2
         for(var j = 1; j < max; j++) {
             let wp2Point = last!.waypointWithDistanceAndBearing(100000, bearing: i*Double(j) % 150)
             last = Waypoint(thePoint: wp2Point, theOrbit: nil)
