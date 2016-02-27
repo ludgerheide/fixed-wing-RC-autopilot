@@ -24,7 +24,7 @@ class UploadViewController: UIViewController{
             //Create the description
             if(routeToUpload == nil) {
                 buUpload.enabled = false
-                buUpload.highlighted = true
+                buUpload.alpha = 0.3
                 tfRouteDescription.text = "Could not create route. Please verify this route does not contain any bends without corresponding circle segements in the map view"
             } else {
                 var message: String = NSString(format: "Route contains %i waypoints.\n", routeToUpload!.count) as String
@@ -55,16 +55,41 @@ class UploadViewController: UIViewController{
             
         } else {
             buUpload.enabled = false
-            buUpload.highlighted = true
+            buUpload.alpha = 0.3
             tfRouteDescription.text = "Soething went wrong (routeManager nil)"
         }
     }
     
     @IBAction func buUploadPressed(sender: AnyObject) {
+        //Register for status update notifications
+        NSNotificationCenter.defaultCenter().addObserver(
+            self,
+            selector: "statusUpdateReceived:",
+            name: InetInterface.statusNotificationName,
+            object: nil)
+        
         //Get teh Inet Manager
         if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
             let inetComms = appDelegate.inetComms
             inetComms!.sendMessage(messageToSend!)
+        }
+    }
+    
+    func statusUpdateReceived(notification: NSNotification) {
+        if let statusCode = notification.object as? UInt {
+            let event = NSStreamEvent(rawValue: statusCode)
+            
+            let alert: UIAlertController
+            if(event == NSStreamEvent.HasSpaceAvailable) {
+                alert = UIAlertController(title: "Success!", message: "Message sent successfully", preferredStyle: UIAlertControllerStyle.Alert)
+            } else {
+                alert = UIAlertController(title: "Failure!", message: "Sending message failed!", preferredStyle: UIAlertControllerStyle.Alert)
+            }
+            let button = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
+            alert.addAction(button)
+            self.presentViewController(alert, animated: true, completion: nil)
+            
+            NSNotificationCenter.defaultCenter().removeObserver(self)
         }
     }
     

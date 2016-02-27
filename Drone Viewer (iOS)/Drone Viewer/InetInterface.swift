@@ -22,6 +22,7 @@ class InetInterface : NSObject, NSStreamDelegate {
     
     private let sv: SignVerify
     internal static let notificationName = "NewDroneMessageNotification"
+    internal static let statusNotificationName = "statusNotification"
     
     private var inStream: NSInputStream?
     private var outStream: NSOutputStream?
@@ -87,10 +88,19 @@ class InetInterface : NSObject, NSStreamDelegate {
             outStreamHasSpaceHandler(eventCode)
         case NSStreamEvent.ErrorOccurred, NSStreamEvent.EndEncountered:
             Logger.log("Error or end ocurred")
+            closeNetwork()
             //Do this stuff in the main thread only
             reconnectTimer?.invalidate()
             reconnectTimer = nil
             reconnectTimer = NSTimer.scheduledTimerWithTimeInterval(reconnecTimeout, target: self, selector: "startNetworkCommunication", userInfo: nil, repeats: false)
+            
+            //If this strem is the output stream, send an error notification
+            if(aStream == outStream) {
+                let notificationCenter = NSNotificationCenter.defaultCenter()
+                let theNotification: NSNotification = NSNotification.init(name: InetInterface.statusNotificationName, object: eventCode.rawValue)
+                notificationCenter.postNotification(theNotification)
+            }
+            
         default:
             Logger.log("Unexpected stuff happened!")
             startNetworkCommunication()
@@ -128,20 +138,26 @@ class InetInterface : NSObject, NSStreamDelegate {
     }
     
     func sendMessage(message: DroneMessage!) {
-        //Create a signed message
-        let payload = message.data()
-        if(payload != nil) {
-            do {
-                let signedMessage = try sv.createSignedMessage(payload!)
-                let buf = [UInt8](signedMessage.utf8)
-                outStream?.write(buf, maxLength: buf.count)
-            } catch {
-                Logger.log("Error signing message!")
-            }
+        if(outStream == nil) {
+            let notificationCenter = NSNotificationCenter.defaultCenter()
+            let theNotification: NSNotification = NSNotification.init(name: InetInterface.statusNotificationName, object: NSStreamEvent.ErrorOccurred.rawValue)
+            notificationCenter.postNotification(theNotification)
         } else {
-            Logger.log("Error creating payload!")
+            
+            //Create a signed message
+            let payload = message.data()
+            if(payload != nil) {
+                do {
+                    let signedMessage = try sv.createSignedMessage(payload!)
+                    let buf = [UInt8](signedMessage.utf8)
+                    outStream!.write(buf, maxLength: buf.count)
+                } catch {
+                    Logger.log("Error signing message!")
+                }
+            } else {
+                Logger.log("Error creating payload!")
+            }
         }
-        
     }
     
     private func handleMessage() -> String? {
@@ -173,6 +189,10 @@ class InetInterface : NSObject, NSStreamDelegate {
     }
     
     private func outStreamHasSpaceHandler(eventCode: NSStreamEvent) {
-        Logger.log("Outstream has space")
+        Logger.log("Outstream has space available!")
+        
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        let theNotification: NSNotification = NSNotification.init(name: InetInterface.statusNotificationName, object: eventCode.rawValue)
+        notificationCenter.postNotification(theNotification)
     }
 }
