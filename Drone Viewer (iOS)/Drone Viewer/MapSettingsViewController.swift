@@ -28,6 +28,15 @@ class MapSettingsViewController: UIViewController {
         swCenteringMode.setOn(overlayController.centerOnCurrentPosition, animated: false)
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        //segue for the popover configuration window
+        if segue.identifier == "UploadControllerSegue" {
+            if let controller = segue.destinationViewController as? UploadViewController {
+                controller.routeManager = overlayController.routeManager!
+            }
+        }
+    }
+    
     @IBAction func segmentedControlChanged(sender: AnyObject) {
         switch mapSatelliteControl.selectedSegmentIndex {
         case 0:
@@ -46,6 +55,11 @@ class MapSettingsViewController: UIViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    @IBAction func buClearRotePressed(sender: AnyObject) {
+        mapViewController.clearRoute()
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     @IBAction func clearTrack(sender: AnyObject) {
         if let tc = (UIApplication.sharedApplication().delegate as? AppDelegate)?.trackCreator {
             tc.clearTrack()
@@ -53,6 +67,5 @@ class MapSettingsViewController: UIViewController {
         } else {
             Logger.log("getting the track creator failed!")
         }
-        
     }
 }

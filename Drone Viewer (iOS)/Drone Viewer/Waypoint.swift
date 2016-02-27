@@ -14,6 +14,9 @@ class Waypoint {
     private static let ε_distance: Double = 5 //Meters
     private static let ε_coordinate: Double = 0.00005 //5 Meters at the equator
     
+    static let defaultAltitude: Double = 100
+    static let defaultRadius: Double = 50
+    
     struct Point {
         var latitude: Double!
         var longitude: Double!
@@ -22,8 +25,8 @@ class Waypoint {
     
     struct Orbit {
         let radius: Double!
-        let orbitUntilAltitude: Bool!
-        let clockwise: Bool!
+        let orbitUntilAltitude: Bool?
+        let clockwise: Bool?
     }
     
     var point: Point!
@@ -62,43 +65,48 @@ class Waypoint {
     }
     
     convenience init?(wp: DroneMessage_Waypoint) {
-    let thePoint = Point(latitude: Double(wp.latitude), longitude: Double(wp.longitude), altitude: Double(wp.altitude) / Double(100))
-    
-    let theOrbit: Orbit?
-    if(wp.hasOrbitRadius) {
-    theOrbit = Orbit(radius: Double(wp.orbitRadius), orbitUntilAltitude: wp.orbitUntilTargetAltitude, clockwise: wp.orbitClockwise)
-    } else {
-    theOrbit = nil
-    }
-    
-    self.init(thePoint: thePoint, theOrbit: theOrbit)
+        let thePoint = Point(latitude: Double(wp.latitude), longitude: Double(wp.longitude), altitude: Double(wp.altitude) / Double(100))
+        
+        let theOrbit: Orbit?
+        if(wp.hasOrbitRadius) {
+            theOrbit = Orbit(radius: Double(wp.orbitRadius), orbitUntilAltitude: wp.orbitUntilTargetAltitude, clockwise: wp.orbitClockwise)
+        } else {
+            theOrbit = nil
+        }
+        
+        self.init(thePoint: thePoint, theOrbit: theOrbit)
     }
     
     func toProtobuf() -> DroneMessage_Waypoint! {
-    let wp: DroneMessage_Waypoint = DroneMessage_Waypoint();
-    wp.latitude = Float(point.latitude)
-    wp.longitude = Float(point.longitude)
-    wp.altitude = Int32(round(point.altitude * 100))
-    
-    if(orbit != nil) {
-    wp.orbitRadius = UInt32(round(orbit!.radius))
-    wp.orbitUntilTargetAltitude = orbit!.orbitUntilAltitude
-    wp.orbitClockwise = orbit!.clockwise
-    }
-    
-    return wp
+        let wp: DroneMessage_Waypoint = DroneMessage_Waypoint();
+        wp.latitude = Float(point.latitude)
+        wp.longitude = Float(point.longitude)
+        wp.altitude = Int32(round(point.altitude * 100))
+        
+        if(orbit != nil) {
+            wp.orbitRadius = UInt32(round(orbit!.radius))
+            if(orbit!.orbitUntilAltitude != nil) {
+                wp.orbitUntilTargetAltitude = orbit!.orbitUntilAltitude!
+            }
+            
+            if(orbit!.clockwise != nil) {
+                wp.orbitClockwise = orbit!.clockwise!
+            }
+        }
+        
+        return wp
     }
     
     /**
-    Returns an array of waypoints to draw this waypoint as polyline
-    
-    Parameters:
-    - maxNumberOfPoints: The maximum number of points for a whole circle (scaled accordingly)
-    - fromBearing: The bearing from the orbit waypoint to the first section waypoint
-    - toBearing: The bearing to the last section waypoint
-    
-    - Returns: an array of waypoints to draw this waypoint as polyline or nil, if this was requested for a non-orbit waypoint
-    */
+     Returns an array of waypoints to draw this waypoint as polyline
+     
+     Parameters:
+     - maxNumberOfPoints: The maximum number of points for a whole circle (scaled accordingly)
+     - fromBearing: The bearing from the orbit waypoint to the first section waypoint
+     - toBearing: The bearing to the last section waypoint
+     
+     - Returns: an array of waypoints to draw this waypoint as polyline or nil, if this was requested for a non-orbit waypoint
+     */
     func descriptionLineForOrbitSegment(maxNumberOfPoints: UInt!, var fromBearing: Double!, var toBearing: Double!) -> Array<Point!>? {
         
         if(self.orbit == nil) {

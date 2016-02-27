@@ -20,7 +20,7 @@ class MapOverlayController: NSObject, MKMapViewDelegate {
     private var trackPolyLine: MKPolyline?
     internal var centerOnCurrentPosition: Bool! = false
     
-    private var routeManager: RouteManager!
+    var routeManager: RouteManager!
     private var routePolylines: [MKOverlay]?
     private var routePins: [MKAnnotation]?
     
@@ -53,8 +53,6 @@ class MapOverlayController: NSObject, MKMapViewDelegate {
         mapView.delegate = self
         
         parentViewController = vc
-        
-        addTestPoints()
     }
     
     func saveRoute() {
@@ -187,63 +185,25 @@ class MapOverlayController: NSObject, MKMapViewDelegate {
         
         popoverController.waypoint = (view.annotation as! RouteManager.WaypointWithAnnotations)
         popoverController.controller = self
+        popoverController.routeManager = routeManager
         
         parentViewController.presentViewController(popoverController, animated: true, completion: nil)
     }
     
-    func popoverCompleted(wp: RouteManager.WaypointWithAnnotations!) {
+    func popoverCompleted(wp: RouteManager.WaypointWithAnnotations?) {
         //Update the UI after the popover is done
         redrawRoutePolylines()
         
-        mapView.removeAnnotation(wp as MKAnnotation)
-        mapView.addAnnotation(wp as MKAnnotation)
+        if let waypoint = wp {
+            mapView.removeAnnotation(waypoint as MKAnnotation)
+            mapView.addAnnotation(waypoint as MKAnnotation)
+        }
     }
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
         if(oldState == MKAnnotationViewDragState.Dragging && newState == MKAnnotationViewDragState.Ending) {
-            //Redraw the polyline, the annotation coordinate is synced automatically 
+            //Redraw the polyline, the annotation coordinate is synced automatically
             redrawRoutePolylines()
         }
-    }
-    
-    //TODO: Remove
-    func addTestPoints() {
-        routeManager = RouteManager() //Clears old points
-        let rm = routeManager
-        
-        let i: Double = 50
-        
-        let wp1 = Waypoint(latitude: 0, longitude: 0, altitude: 100)
-        var aWp = RouteManager.WaypointWithAnnotations()
-        aWp.waypoint = wp1
-        aWp.radius = 50000
-        aWp.orbitUntilAltitude = nil
-        aWp.initialBearing = nil
-        aWp.clockwise = true
-        rm!.addPoint(aWp)
-        
-        var last = wp1
-        let max = 2
-        for(var j = 1; j < max; j++) {
-            let wp2Point = last!.waypointWithDistanceAndBearing(100000, bearing: i*Double(j) % 150)
-            last = Waypoint(thePoint: wp2Point, theOrbit: nil)
-            var bWp = RouteManager.WaypointWithAnnotations()
-            bWp.waypoint = last
-            bWp.radius = 50000
-            bWp.orbitUntilAltitude = false
-            bWp.initialBearing = nil
-            bWp.clockwise = nil
-            rm!.addPoint(bWp)
-        }
-        
-        let wp4Point = last!.waypointWithDistanceAndBearing(100000, bearing: i*Double(max) % 150)
-        let wp4 = Waypoint(thePoint: wp4Point, theOrbit: nil)
-        var bWp = RouteManager.WaypointWithAnnotations()
-        bWp.waypoint = wp4
-        bWp.radius = 50000
-        bWp.orbitUntilAltitude = true
-        bWp.initialBearing = i
-        bWp.clockwise = false
-        rm!.addPoint(bWp)
     }
 }

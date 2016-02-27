@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Map-->
@@ -32,26 +33,41 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Altitude" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OZZ-3L-fgC">
-                                                <rect key="frame" x="205" y="0.0" width="60" height="44"/>
+                                                <rect key="frame" x="191" y="0.0" width="60" height="44"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Battery" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="54R-v0-GYH">
-                                                <rect key="frame" x="383" y="0.0" width="56" height="44"/>
+                                                <rect key="frame" x="353" y="0.0" width="56" height="44"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ecK-6R-qR2">
-                                                <rect key="frame" x="556" y="0.0" width="44" height="44"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="44" id="M4E-Mv-AJK"/>
-                                                </constraints>
-                                                <connections>
-                                                    <segue destination="5TG-oY-UCw" kind="popoverPresentation" identifier="MapSettingsPopoverSegue" popoverAnchorView="ecK-6R-qR2" id="68w-Wr-bj1">
-                                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                                    </segue>
-                                                </connections>
-                                            </button>
+                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3fg-rH-4LZ">
+                                                <rect key="frame" x="512" y="0.0" width="88" height="44"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pnf-R6-vly">
+                                                        <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="44" id="oYB-t2-q8v"/>
+                                                            <constraint firstAttribute="height" constant="44" id="t9B-2t-Mnv"/>
+                                                        </constraints>
+                                                        <connections>
+                                                            <action selector="buAddWaypointPressed:" destination="9pv-A4-QxB" eventType="touchUpInside" id="5sT-yh-Yrp"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ecK-6R-qR2">
+                                                        <rect key="frame" x="44" y="0.0" width="44" height="44"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="44" id="M4E-Mv-AJK"/>
+                                                        </constraints>
+                                                        <connections>
+                                                            <segue destination="5TG-oY-UCw" kind="popoverPresentation" identifier="MapSettingsPopoverSegue" popoverAnchorView="ecK-6R-qR2" id="68w-Wr-bj1">
+                                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                            </segue>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="JeN-kR-n7H"/>
@@ -114,7 +130,7 @@
                                         </connections>
                                     </segmentedControl>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="yWn-6e-CGO">
-                                        <rect key="frame" x="0.0" y="254" width="560" height="31"/>
+                                        <rect key="frame" x="0.0" y="126" width="560" height="31"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Center on  position" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GiF-yf-a8W">
                                                 <rect key="frame" x="0.0" y="0.0" width="491" height="31"/>
@@ -130,6 +146,22 @@
                                             </switch>
                                         </subviews>
                                     </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="how-vz-grX">
+                                        <rect key="frame" x="0.0" y="255" width="560" height="30"/>
+                                        <state key="normal" title="Upload Route"/>
+                                        <connections>
+                                            <segue destination="324-Mu-Ulv" kind="presentation" identifier="UploadControllerSegue" id="DIk-QN-Ia7"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ccc-Ip-WJ3">
+                                        <rect key="frame" x="0.0" y="382" width="560" height="30"/>
+                                        <state key="normal" title="Clear Route">
+                                            <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="buClearRotePressed:" destination="5TG-oY-UCw" eventType="touchUpInside" id="Rlx-d7-15B"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AKL-bC-ce0">
                                         <rect key="frame" x="0.0" y="510" width="560" height="30"/>
                                         <state key="normal" title="Clear track">
@@ -162,6 +194,80 @@
             </objects>
             <point key="canvasLocation" x="1487" y="-320"/>
         </scene>
+        <!--Upload View Controller-->
+        <scene sceneID="vUh-nv-p7d">
+            <objects>
+                <viewController id="324-Mu-Ulv" customClass="UploadViewController" customModule="Drone_Viewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ev1-Pk-eN2"/>
+                        <viewControllerLayoutGuide type="bottom" id="hZJ-mw-uAi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="YuD-jr-v2c">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="vQl-xu-Q0F">
+                                <rect key="frame" x="20" y="40" width="560" height="540"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="hjfdgjkfasdgfjkhasdgfjkhsdgafjkhsdafgjkhdas" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8yW-vb-Fdt">
+                                        <rect key="frame" x="0.0" y="0.0" width="560" height="496"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="vmH-EK-kqI">
+                                        <rect key="frame" x="0.0" y="496" width="560" height="44"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bz7-mO-q1r">
+                                                <rect key="frame" x="0.0" y="0.0" width="255" height="44"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="Lid-LN-L0m"/>
+                                                </constraints>
+                                                <state key="normal" title="Upload">
+                                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="buUploadPressed:" destination="324-Mu-Ulv" eventType="touchUpInside" id="yPw-Ka-gLh"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sbl-HQ-s3Y">
+                                                <rect key="frame" x="305" y="0.0" width="255" height="44"/>
+                                                <state key="normal" title="Cancel"/>
+                                                <connections>
+                                                    <action selector="buCancelPressed:" destination="324-Mu-Ulv" eventType="touchUpInside" id="ssv-JJ-vvw"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="vmH-EK-kqI" firstAttribute="leading" secondItem="vQl-xu-Q0F" secondAttribute="leading" id="6GP-7E-Go7"/>
+                                    <constraint firstAttribute="bottom" secondItem="vmH-EK-kqI" secondAttribute="bottom" id="77J-jL-sb4"/>
+                                    <constraint firstItem="8yW-vb-Fdt" firstAttribute="leading" secondItem="vQl-xu-Q0F" secondAttribute="leading" id="Mzk-pV-O5g"/>
+                                    <constraint firstAttribute="trailing" secondItem="vmH-EK-kqI" secondAttribute="trailing" id="WD1-WK-ggc"/>
+                                    <constraint firstAttribute="trailing" secondItem="8yW-vb-Fdt" secondAttribute="trailing" id="cdw-en-NMP"/>
+                                    <constraint firstItem="vmH-EK-kqI" firstAttribute="top" secondItem="8yW-vb-Fdt" secondAttribute="bottom" id="dkF-K7-Gxj"/>
+                                    <constraint firstItem="8yW-vb-Fdt" firstAttribute="top" secondItem="vQl-xu-Q0F" secondAttribute="top" id="nWp-fD-AtA"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="vQl-xu-Q0F" firstAttribute="leading" secondItem="YuD-jr-v2c" secondAttribute="leadingMargin" id="L6h-MI-9Ue"/>
+                            <constraint firstItem="vQl-xu-Q0F" firstAttribute="top" secondItem="ev1-Pk-eN2" secondAttribute="bottom" constant="20" id="NRD-sg-xBz"/>
+                            <constraint firstItem="hZJ-mw-uAi" firstAttribute="top" secondItem="vQl-xu-Q0F" secondAttribute="bottom" constant="20" id="bxM-ux-qx9"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="vQl-xu-Q0F" secondAttribute="trailing" id="wSP-xm-clq"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="buUpload" destination="bz7-mO-q1r" id="TDI-aQ-TTY"/>
+                        <outlet property="tfRouteDescription" destination="8yW-vb-Fdt" id="3dg-Cm-2CT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hq9-89-6PH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2216" y="-320"/>
+        </scene>
         <!--WaypointPopover-->
         <scene sceneID="SM3-lc-URc">
             <objects>
@@ -192,7 +298,7 @@
                                                     <constraint firstAttribute="width" constant="80" id="j2A-Ju-AhE"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                 <connections>
                                                     <action selector="tfAltitudeChanged:" destination="yrk-Xq-vqd" eventType="editingDidEnd" id="NZl-Ar-Rw9"/>
                                                 </connections>
@@ -220,7 +326,7 @@
                                                     <constraint firstAttribute="width" constant="80" id="vpk-QW-ksP"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                 <connections>
                                                     <action selector="tfRadiusChanged:" destination="yrk-Xq-vqd" eventType="editingDidEnd" id="Qit-IR-zeq"/>
                                                 </connections>

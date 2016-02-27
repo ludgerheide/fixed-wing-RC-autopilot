@@ -23,6 +23,7 @@
 		E47E09001C614E3E00675BD5 /* TrackCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47E08FF1C614E3E00675BD5 /* TrackCreator.swift */; };
 		E498C5571C4810B800D26FF6 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E498C5551C4810B800D26FF6 /* DataViewController.swift */; };
 		E498C5581C4810B800D26FF6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E498C5561C4810B800D26FF6 /* MapViewController.swift */; };
+		E498F2F61C81F74C00FD24E8 /* UploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E498F2F51C81F74C00FD24E8 /* UploadViewController.swift */; };
 		E49F955F1C4A727900E977C3 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49F955E1C4A727900E977C3 /* MapKit.framework */; };
 		E4C8FD511C664169006BB509 /* Waypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C8FD501C664169006BB509 /* Waypoint.swift */; };
 		E4ED67431C5E8C1900BE7F45 /* InetInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4ED67421C5E8C1900BE7F45 /* InetInterface.swift */; };
@@ -68,6 +69,7 @@
 		E47E08FF1C614E3E00675BD5 /* TrackCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TrackCreator.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E498C5551C4810B800D26FF6 /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		E498C5561C4810B800D26FF6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MapViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		E498F2F51C81F74C00FD24E8 /* UploadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadViewController.swift; sourceTree = "<group>"; };
 		E49F955E1C4A727900E977C3 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E4C8FD501C664169006BB509 /* Waypoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Waypoint.swift; sourceTree = "<group>"; };
 		E4ED67421C5E8C1900BE7F45 /* InetInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = InetInterface.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -106,6 +108,7 @@
 				E4F765121C6251B600825BCA /* MapOverlayController.swift */,
 				E498C5561C4810B800D26FF6 /* MapViewController.swift */,
 				E4ED67441C5E972D00BE7F45 /* MapSettingsViewController.swift */,
+				E498F2F51C81F74C00FD24E8 /* UploadViewController.swift */,
 			);
 			name = "Map Display";
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4ED67451C5E972D00BE7F45 /* MapSettingsViewController.swift in Sources */,
+				E498F2F61C81F74C00FD24E8 /* UploadViewController.swift in Sources */,
 				E440E5A41C63A223006FEC06 /* Logger.swift in Sources */,
 				E45F84D11C46BBD40012CC57 /* AppDelegate.swift in Sources */,
 				E47E09001C614E3E00675BD5 /* TrackCreator.swift in Sources */,

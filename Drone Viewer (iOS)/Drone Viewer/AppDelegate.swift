@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private static let tracksURL = DocumentsDirectory.URLByAppendingPathComponent("track")
     
     var window: UIWindow?
-    private var inetComms: InetInterface?
+    var inetComms: InetInterface?
     var trackCreator: TrackCreator?
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {

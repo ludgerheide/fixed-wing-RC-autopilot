@@ -2,7 +2,7 @@ import UIKit
 import MapKit
 
 class WaypointPopOverController: UIViewController {
-
+    
     @IBOutlet var tfAltitude: UITextField!
     @IBOutlet var tfRadius: UITextField!
     @IBOutlet var swOrbitUntilAltitude: UISwitch!
@@ -16,12 +16,18 @@ class WaypointPopOverController: UIViewController {
     
     var waypoint: RouteManager.WaypointWithAnnotations?
     var controller: MapOverlayController?
+    var routeManager: RouteManager?
     
     override func viewWillAppear(animated: Bool) {
         tfAltitude.text = NSString(format: "%.0f", waypoint!.waypoint.point.altitude) as String
         tfRadius.text = NSString(format: "%.0f", waypoint!.radius!) as String
-        swOrbitUntilAltitude.setOn(waypoint!.orbitUntilAltitude!, animated: false)
-
+        
+        if let orbitUntilAltitude = waypoint!.orbitUntilAltitude {
+            swOrbitUntilAltitude.setOn(orbitUntilAltitude, animated: false)
+        } else {
+            swOrbitUntilAltitude.enabled = false
+        }
+        
         if let clockwise = waypoint!.clockwise {
             if(clockwise == true) {
                 buClockwise.selectedSegmentIndex = 0
@@ -43,23 +49,25 @@ class WaypointPopOverController: UIViewController {
     }
     
     override func viewWillDisappear(animated: Bool) {
-        tfAltitudeChanged(self)
-        tfRadiusChanged(self)
-        
-        if(waypoint!.initialBearing != nil) {
-            tfInitialBearingChanged(self)
+        if(waypoint != nil) {
+            tfAltitudeChanged(self)
+            tfRadiusChanged(self)
+            
+            if(waypoint!.initialBearing != nil) {
+                tfInitialBearingChanged(self)
+            }
         }
     }
     
     override func viewDidDisappear(animated: Bool) {
-        controller!.popoverCompleted(self.waypoint!)
+        controller!.popoverCompleted(self.waypoint)
     }
     
     @IBAction func tfAltitudeChanged(sender: AnyObject) {
         let newAltitude = Double(tfAltitude.text!)
         
         if(newAltitude != nil) {
-        waypoint!.waypoint.point.altitude = newAltitude
+            waypoint!.waypoint.point.altitude = newAltitude
         } else {
             showInvalidNumberAlert()
             tfAltitude.text = NSString(format: "%.0f", waypoint!.waypoint.point.altitude) as String
@@ -104,7 +112,10 @@ class WaypointPopOverController: UIViewController {
     }
     
     @IBAction func buDeletePressed(sender: AnyObject) {
-        Logger.log("Delete not implemented!")
+        routeManager!.removePoint(waypoint)
+        waypoint = nil
+        controller!.redrawRouteAnnotations()
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func buDismissPressed(sender: AnyObject) {

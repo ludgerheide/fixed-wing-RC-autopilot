@@ -44,7 +44,7 @@ class SignVerify {
             throw SignVerifyError.SigningFailed
         }
         
-        return msgStart + "\n" + message.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0)) + "\n" + msgEnd + "\n" + sigStart + "\n" + signature.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0)) + "\n" + sigEnd;
+        return msgStart + "\n" + message.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0)) + "\n" + msgEnd + "\n" + sigStart + "\n" + signature.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0)) + "\n" + sigEnd + "\n"
     }
     
     func verifyMessage(message: String) -> (verified: Bool!, content: NSData?) {

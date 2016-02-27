@@ -11,7 +11,7 @@ import UIKit //TODO: REMOVE
 
 class InetInterface : NSObject, NSStreamDelegate {
     private let host = "192.168.15.10"
-    private let port = UInt32(5051)
+    private let port: UInt32 = 5051
     private var reconnectTimer: NSTimer?
     private let reconnecTimeout: NSTimeInterval = 1
     
@@ -84,7 +84,7 @@ class InetInterface : NSObject, NSStreamDelegate {
         case NSStreamEvent.HasSpaceAvailable:
             Logger.log("Stream has space available!")
             assert(aStream == outStream)
-            outStreamHandler(eventCode)
+            outStreamHasSpaceHandler(eventCode)
         case NSStreamEvent.ErrorOccurred, NSStreamEvent.EndEncountered:
             Logger.log("Error or end ocurred")
             //Do this stuff in the main thread only
@@ -127,6 +127,23 @@ class InetInterface : NSObject, NSStreamDelegate {
         }
     }
     
+    func sendMessage(message: DroneMessage!) {
+        //Create a signed message
+        let payload = message.data()
+        if(payload != nil) {
+            do {
+                let signedMessage = try sv.createSignedMessage(payload!)
+                let buf = [UInt8](signedMessage.utf8)
+                outStream?.write(buf, maxLength: buf.count)
+            } catch {
+                Logger.log("Error signing message!")
+            }
+        } else {
+            Logger.log("Error creating payload!")
+        }
+        
+    }
+    
     private func handleMessage() -> String? {
         if let startRange = incompleteMessage.rangeOfString(msgStart) {
             let startMark = startRange.startIndex
@@ -155,7 +172,7 @@ class InetInterface : NSObject, NSStreamDelegate {
         return nil
     }
     
-    private func outStreamHandler(eventCode: NSStreamEvent) {
-        
+    private func outStreamHasSpaceHandler(eventCode: NSStreamEvent) {
+        Logger.log("Outstream has space")
     }
 }

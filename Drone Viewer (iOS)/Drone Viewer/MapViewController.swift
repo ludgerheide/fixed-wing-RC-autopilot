@@ -82,6 +82,24 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
         }
     }
     
+    @IBAction func buAddWaypointPressed(sender: AnyObject) {
+        //Find the center of the map window
+        let centerOfScreen = mapView.centerCoordinate
+        let newWaypoint = Waypoint(latitude: centerOfScreen.latitude, longitude: centerOfScreen.longitude, altitude: Waypoint.defaultAltitude)
+        let newAnnotatedWaypoint = RouteManager.WaypointWithAnnotations()
+        newAnnotatedWaypoint.waypoint = newWaypoint
+        newAnnotatedWaypoint.radius = Waypoint.defaultRadius
+        newAnnotatedWaypoint.clockwise = true
+        
+        overlayController.routeManager.addPoint(newAnnotatedWaypoint)
+        overlayController.redrawRouteComplete()
+    }
+    
+    func clearRoute() {
+        overlayController.routeManager.clearRoute()
+        overlayController.redrawRouteComplete()
+    }
+    
     func clearLabels() {
         updateLabels(nil)
     }

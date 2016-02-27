@@ -97,6 +97,7 @@ message DroneMessage {
 	//Now the "input" messages
 	optional Waypoint waypoint = 12;
 	optional Waypoint home_base = 13;
+	repeated Waypoint route = 19;
 	optional float sea_level_pressure = 14;
 	optional CommandSet input_command_set = 15;
 	optional FlightMode new_mode = 16;
