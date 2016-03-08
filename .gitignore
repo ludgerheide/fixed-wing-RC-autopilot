@@ -31,3 +31,4 @@ DroneComms/out/artifacts/DroneComms_jar/DroneComms.jar
 *.protobuf
 
 *.pem
+*.autosave
