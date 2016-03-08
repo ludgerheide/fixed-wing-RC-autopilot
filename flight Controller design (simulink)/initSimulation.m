@@ -1,3 +1,4 @@
+maxRateOfTurn = 10 / 180; % 10 deg/sec in rad/s
 maxPitch = 20; % The maximum pitch angle while climbing/descending
 
 load('busDefinitions.mat')
@@ -11,13 +12,13 @@ P.Jy   = 1.135;
 P.Jz   = 1.759;
 P.Jxz  = .1204;
 P.gravity = 9.81;
-P.Ts = 0.01;
+P.Ts = 0.05;
 
 % initial conditions
 P.pn0    = 0;   % initial North position
 P.pe0    = 0;  % initial East position
 P.pd0    = -100;  % initial Down position (negative altitude)
-P.u0     = 10;  % initial velocity along body x-axis
+P.u0     = 50;  % initial velocity along body x-axis
 P.v0     = 0;  % initial velocity along body y-axis
 P.w0     = 0;  % initial velocity along body z-axis
 P.phi0   = 0;  % initial roll angle
@@ -34,7 +35,7 @@ P.wind_d = 0;
 P.sigma_v = 1.06;
 P.sigma_u = 1.06;
 P.sigma_w = 0.7;
-P.Va0 = 40;
+P.Va0 = 80;
 P.L_v = 200;
 P.L_u = 200;
 P.L_w = 50;
