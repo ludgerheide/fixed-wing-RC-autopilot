@@ -1,4 +1,4 @@
-maxRateOfTurn = 10 / 180; % 10 deg/sec in rad/s
+maxRateOfTurn = 10; % 10 deg/sec
 maxPitch = 20; % The maximum pitch angle while climbing/descending
 
 load('busDefinitions.mat')
