@@ -256,7 +256,6 @@ static u08 createProtobuf(messagePurpose thePurpose, u08* messageLength) {
         outgoingMsg.waypoint.latitude = currentTarget.latitude;
         outgoingMsg.waypoint.longitude = currentTarget.latitude;
         
-        outgoingMsg.waypoint.has_altitude = true;
         outgoingMsg.waypoint.altitude = currentTarget.altitude * 100;
         
         //Time update
@@ -273,7 +272,6 @@ static u08 createProtobuf(messagePurpose thePurpose, u08* messageLength) {
         outgoingMsg.home_base.latitude = homeBase.latitude;
         outgoingMsg.home_base.longitude = homeBase.longitude;
         
-        outgoingMsg.home_base.has_altitude = true;
         outgoingMsg.home_base.altitude = homeBase.altitude * 100;
         
         //Time update
@@ -422,11 +420,7 @@ void commsProcessMessage(char* message, u08 size) {
         
         currentTarget.latitude = incomingMsg.waypoint.latitude;
         currentTarget.longitude = incomingMsg.waypoint.longitude;
-        if(incomingMsg.waypoint.has_altitude) {
-            currentTarget.altitude = incomingMsg.waypoint.altitude / 100.0;
-        } else {
-            currentTarget.altitude = NAN;
-        }
+        currentTarget.altitude = incomingMsg.waypoint.altitude / 100.0;
     }
     
     if(incomingMsg.has_home_base) {
@@ -438,11 +432,7 @@ void commsProcessMessage(char* message, u08 size) {
         
         homeBase.latitude = incomingMsg.home_base.latitude;
         homeBase.longitude = incomingMsg.home_base.longitude;
-        if(incomingMsg.home_base.has_altitude) {
-            homeBase.altitude = incomingMsg.home_base.altitude / 100.0;
-        } else {
-            homeBase.altitude = NAN;
-        }
+        homeBase.altitude = incomingMsg.home_base.altitude / 100.0;
     }
     
     if(incomingMsg.has_new_mode) {

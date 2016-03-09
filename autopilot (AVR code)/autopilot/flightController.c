@@ -10,8 +10,7 @@
 #include "timer.h"
 #include "global.h"
 #include "utils.h"
-#include "altitudePitchController.h"
-#include "yawController.h"
+#include "Flugregler.h"
 
 #include <math.h>
 
@@ -24,8 +23,12 @@
 //Static variables
 static u08 maxThrust = 255;
 
+static u32 lastFlyByWireUpdate = 0;
+static const u32 flyByWireupdateInterval = 20; //milliseconds between fly by wire updates
+
 //Static method declarations
 static void degradedUpdate(void);
+static void passthroughUpdate(void);
 static void flyByWireUpdate(void);
 static BOOL flyByWireSensorsGood(void);
 static BOOL commandSetGood(void);
@@ -45,6 +48,10 @@ void updateFlightControls(void) {
         currentFlightMode = m_degraded;
         degradedUpdate();
     }
+}
+
+void flightControllerInit(void) {
+    Flugregler_initialize();
 }
 
 static void degradedUpdate(void) {
@@ -74,7 +81,7 @@ static void degradedUpdate(void) {
 }
 
 
-static void flyByWireUpdate(void) {
+static void passthroughUpdate(void) {
     outputCommandSet.timestamp = millis();
     
     //Decrease thrust limit if battery voltage is below minimum, increase otherwise
@@ -86,12 +93,52 @@ static void flyByWireUpdate(void) {
     outputCommandSet.thrust = MIN(inputCommandSet.thrust, maxThrust);
     
     //Send the pitch stock to the pitch controller
-    s08 pitchStickSigned = mapfloat(inputCommandSet.pitch, 0, UINT8_MAX, INT8_MIN, INT8_MAX);
-    outputCommandSet.pitch = calculateElevatorValue(pitchStickSigned);
+    outputCommandSet.pitch = inputCommandSet.pitch;
     
     //Interpret the stick values as rotation requests (negate because stick is wrong way
-    s08 yawStickSigned = mapfloat(inputCommandSet.yaw, UINT8_MAX, 0, INT8_MIN, INT8_MAX);
-    outputCommandSet.yaw = calculateRudderValue(yawStickSigned);
+    outputCommandSet.yaw = inputCommandSet.yaw;
+}
+
+static void flyByWireUpdate() {
+    u32 currentTime = millis();
+    if(currentTime - lastFlyByWireUpdate >= flyByWireupdateInterval) {
+        //Update the time now because we are using the VALUES of now for the update, not of after it's done
+        lastFlyByWireUpdate = currentTime;
+        
+        //Setup the inputs of the flight controller
+        Flugregler_U.currentAttitude.courseMagnetic = currentAttitude.courseMagnetic;
+        Flugregler_U.currentAttitude.pitch = currentAttitude.pitch;
+        Flugregler_U.currentAttitude.roll = currentAttitude.roll;
+        
+        Flugregler_U.barometricAltitude_m.altitude = pressureToAltitude(curPressure.pressure, seaLevelPressure) * 100;
+        
+        Flugregler_U.targetHeading_g.justRateOfTurnEnabled = true;
+        Flugregler_U.targetHeading_g.targetRateOfTurn = (s16) inputCommandSet.yaw - 128;
+        Flugregler_U.targetHeading_g.targetHeading = 0;
+        
+        Flugregler_U.targetPitch_f.justPitchEnabled = true;
+        Flugregler_U.targetPitch_f.targetPitch = maps16(inputCommandSet.pitch, 0, UINT8_MAX, -20, 20);
+        Flugregler_U.targetPitch_f.targetAltitude = 10000;
+        
+        Flugregler_U.gyro.x = curGyro.x;
+        Flugregler_U.gyro.y = curGyro.y;
+        Flugregler_U.gyro.z = curGyro.z;
+        
+        Flugregler_step();
+        
+        //Put the outputs of the flight controller into the output command set
+        outputCommandSet.timestamp = millis();
+        outputCommandSet.yaw = Flugregler_Y.outputCommandSet.rudder;
+        outputCommandSet.pitch = Flugregler_Y.outputCommandSet.elevator;
+        
+        //Decrease thrust limit if battery voltage is below minimum, increase otherwise
+        if(curBattery.voltage < THRESHOLD_VOLTAGE) {
+            maxThrust--;
+        } else if (maxThrust < UINT8_MAX) {
+            maxThrust++;
+        }
+        outputCommandSet.thrust = MIN(inputCommandSet.thrust, maxThrust);
+    }
 }
 
 static BOOL flyByWireSensorsGood(void) {
