@@ -12,7 +12,7 @@ P.Jy   = 1.135;
 P.Jz   = 1.759;
 P.Jxz  = .1204;
 P.gravity = 9.81;
-P.Ts = 0.05;
+P.Ts = 0.02;
 
 % initial conditions
 P.pn0    = 0;   % initial North position
