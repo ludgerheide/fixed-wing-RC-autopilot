@@ -1,14 +1,17 @@
 package de.lhtechnologies;
 
+import com.google.protobuf.Internal;
+import com.google.protobuf.InvalidProtocolBufferException;
+import de.lhtechnologies.RouteManager.RouteManager;
+import de.lhtechnologies.RouteManager.Waypoint;
+import de.lhtechnologies.RouteManager.WaypointFromProtobuf;
 import de.lhtechnologies.flightComputer.SerialReceiver;
 import de.lhtechnologies.flightComputer.SerialTransmitter;
 import de.lhtechnologies.inetComms.InetReceiver;
 import de.lhtechnologies.inetComms.InetTransmitter;
 
-import java.util.Date;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.Random;
+import java.io.IOException;
+import java.util.*;
 
 import static de.lhtechnologies.CommunicationProtocol.*;
 
@@ -19,6 +22,8 @@ public class InetSerialConnection implements Observer {
     public SerialTransmitter serialTransmitter;
     public InetTransmitter inetTransmitter;
 
+    private RouteManager routeManager;
+
     DroneMessage.Builder storedMessage;
     long lastMessageSent; //In seconds
     public static long messageInterval = 1000; //In milliseconds
@@ -26,6 +31,8 @@ public class InetSerialConnection implements Observer {
     public InetSerialConnection(SerialTransmitter serialTransmitter, InetTransmitter inetTransmitter) {
         this.inetTransmitter = inetTransmitter;
         this.serialTransmitter = serialTransmitter;
+
+        this.routeManager = new RouteManager();
 
         storedMessage = DroneMessage.newBuilder();
         lastMessageSent = millis();
@@ -44,13 +51,57 @@ public class InetSerialConnection implements Observer {
     }
 
     public void handleInetMessage(byte[] message) {
+        //Decode the message
+        try {
+            DroneMessage msg = DroneMessage.parseFrom(message);
+
+            //If the message has a sea level pressure or flight mode, forward it directly
+            if(msg.hasSeaLevelPressure() || msg.hasNewMode()) {
+                DroneMessage.Builder toFlightControl = DroneMessage.newBuilder();
+                if(msg.hasSeaLevelPressure()) {
+                    toFlightControl.setSeaLevelPressure(msg.getSeaLevelPressure());
+                }
+                if(msg.hasNewMode()) {
+                    toFlightControl.setNewMode(msg.getNewMode());
+                }
+                DroneMessage outMsg = toFlightControl.build();
+                try {
+                    serialTransmitter.transmit(outMsg);
+                } catch (IOException e) {
+                    System.out.println("Sending flightmode/SLP update failed!");
+                }
+            }
+
+            //If not, the message should contain a route
+            if(msg.getRouteCount() > 0) {
+                List<DroneMessage.Waypoint> dmRoute = msg.getRouteList();
+                Waypoint[] realRoute = new Waypoint[msg.getRouteCount()];
+
+                for(int i = 0; i < msg.getRouteCount(); i++) {
+                    WaypointFromProtobuf wp = new WaypointFromProtobuf(dmRoute.get(i));
+                    realRoute[i] = wp;
+                }
+                routeManager.replaceRoute(realRoute);
+
+            } else {
+                System.out.println("Message without route received!");
+            }
+
+        } catch (InvalidProtocolBufferException e) {
+            System.out.println("Failed to parse protobuf from network!");
+        }
         String msgString = new String(message);
         System.out.println(msgString);
     }
 
     public void handleDroneMessage(DroneMessage receivedMessage) {
-        //Update the stored message with any new content
+        updateStoredMessageAndSend(receivedMessage);
 
+        //If the message contains a position, update the heading, switch waypoints if applicable and send it to the device
+    }
+
+    public void updateStoredMessageAndSend(DroneMessage receivedMessage) {
+        //Update the stored message with any new content
         //Content that depends on the timestamp of the main message
         if(!storedMessage.hasTimestamp() || storedMessage.getTimestamp() < receivedMessage.getTimestamp()) {
             storedMessage.setTimestamp(receivedMessage.getTimestamp());
@@ -104,11 +155,6 @@ public class InetSerialConnection implements Observer {
 
         try {
             if(millis() - lastMessageSent > messageInterval) {
-                //FIXME: Remove after testiung
-                storedMessage.setCurrentPosition(DroneMessage.Position.newBuilder()
-                        .setLatitude(randInt(0, 900) / (float)10)
-                        .setLongitude(randInt(-1800, 1800) / (float)10)
-                        .build());
                 inetTransmitter.transmit(storedMessage.build().toByteArray());
                 storedMessage = DroneMessage.newBuilder();
                 lastMessageSent = millis();
