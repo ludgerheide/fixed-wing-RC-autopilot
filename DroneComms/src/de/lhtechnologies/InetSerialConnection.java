@@ -27,6 +27,7 @@ public class InetSerialConnection implements Observer {
     DroneMessage.Builder storedMessage;
     long lastMessageSent; //In seconds
     public static long messageInterval = 1000; //In milliseconds
+    public static long maxAltitudeAgeDifference = 100; // In Millisencods
 
     public InetSerialConnection(SerialTransmitter serialTransmitter, InetTransmitter inetTransmitter) {
         this.inetTransmitter = inetTransmitter;
@@ -98,6 +99,30 @@ public class InetSerialConnection implements Observer {
         updateStoredMessageAndSend(receivedMessage);
 
         //If the message contains a position, update the heading, switch waypoints if applicable and send it to the device
+        if(receivedMessage.hasCurrentPosition() && (!storedMessage.hasCurrentPosition() || storedMessage.getCurrentPosition().getTimestamp() < receivedMessage.getCurrentPosition().getTimestamp())) {
+            double lat = receivedMessage.getCurrentPosition().getLatitude();
+            double lon = receivedMessage.getCurrentPosition().getLongitude();
+
+            //There should always be a new sped when there is a new position
+            assert(receivedMessage.hasCurrentSpeed() && (!storedMessage.hasCurrentSpeed() || storedMessage.getCurrentSpeed().getTimestamp() < receivedMessage.getCurrentSpeed().getTimestamp()));
+            double hdg = receivedMessage.getCurrentSpeed().getCourseOverGround() / (double)64; //Return to float from fixed-point
+
+            //A recent altitude should always be present, but we check anyway
+            Double alt;
+            if((storedMessage.getTimestamp() - receivedMessage.getCurrentPosition().getTimestamp()) < maxAltitudeAgeDifference) {
+                alt = storedMessage.getCurrentAltitude() / (double)100; //Convert cm to m
+            } else {
+                alt = null;
+            }
+
+            DroneMessage update = routeManager.getAutonomousUpdate(lat, lon, hdg, alt);
+            try {
+                serialTransmitter.transmit(update);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     public void updateStoredMessageAndSend(DroneMessage receivedMessage) {
@@ -145,10 +170,6 @@ public class InetSerialConnection implements Observer {
         }
 
         //Get waypoint and home base changes
-        if(receivedMessage.hasWaypoint() && (!storedMessage.hasWaypoint() || storedMessage.getWaypoint().getTimestamp() < receivedMessage.getWaypoint().getTimestamp())) {
-            storedMessage.setWaypoint(receivedMessage.getWaypoint());
-        }
-
         if(receivedMessage.hasHomeBase() && (!storedMessage.hasHomeBase() || storedMessage.getHomeBase().getTimestamp() < receivedMessage.getHomeBase().getTimestamp())) {
             storedMessage.setHomeBase(receivedMessage.getHomeBase());
         }

@@ -112,4 +112,38 @@ public class Waypoint {
         }
         return null;
     }
+
+    /**
+     * Clalculates the bearing towards another waypoint in degrees
+     */
+    public double bearingTo(Waypoint other) {
+        double phi1 = Math.toRadians(this.latitude);
+        double phi2 = Math.toRadians(other.latitude);
+
+        double lambda1 = Math.toRadians(this.longitude);
+        double lambda2 = Math.toRadians(other.longitude);
+
+        double y = Math.sin(lambda2 - lambda1) * Math.cos(phi2);
+        double x = Math.cos(phi1) * Math.sin(phi2) - Math.sin(phi1) * Math.cos(phi2) * Math.cos(lambda2 - lambda1);
+
+        double bearing = Math.toDegrees(Math.atan2(y,x)) % 360;
+        if(bearing < 0) {
+            bearing += 360;
+        }
+
+        return bearing;
+    }
+
+    /**
+     * Calculates the cross-track error for a (directional) line between points A and B and a third point
+     * Signed value: negative if we should turn left, positive if we should turn right
+     */
+    public static double crossTrackError(Waypoint lineStart, Waypoint lineEnd, Waypoint pointC) {
+        double distanceAC = lineStart.distance(lineEnd);
+        double bearingAC = Math.toRadians(lineStart.bearingTo(pointC));
+        double bearingBC = Math.toRadians(lineEnd.bearingTo(pointC));
+
+        double crossTrackError = Math.asin(Math.sin(distanceAC / earthRadius) * Math.sin(bearingAC - bearingBC));
+        return crossTrackError;
+    }
 }
