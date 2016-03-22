@@ -336,9 +336,9 @@ class RouteManager: NSObject {
                         returnArray.append(firstPoint!)
                         
                         if(annotatedWp.orbitUntilAltitude == false) {
-                            orbitPoint!.orbit = Waypoint.Orbit(radius: orbitPoint!.orbit!.radius!, orbitUntilAltitude: false, clockwise: nil)
+                            orbitPoint!.orbit = Waypoint.Orbit(radius: orbitPoint!.orbit!.radius!, orbitUntilAltitude: false, clockwise: orbitPoint!.orbit!.clockwise)
                         } else {
-                            orbitPoint!.orbit = Waypoint.Orbit(radius: orbitPoint!.orbit!.radius!, orbitUntilAltitude: true, clockwise: nil)
+                            orbitPoint!.orbit = Waypoint.Orbit(radius: orbitPoint!.orbit!.radius!, orbitUntilAltitude: true, clockwise: orbitPoint!.orbit!.clockwise)
                         }
                         returnArray.append(orbitPoint!)
                         
@@ -372,6 +372,11 @@ class RouteManager: NSObject {
             //Turn it into an orbit Waypoint
             let theOrbit = Waypoint.Orbit(radius: standalonePoint.radius, orbitUntilAltitude: nil, clockwise: standalonePoint.clockwise!)
             let orbitPoint = Waypoint(thePoint: thePoint, theOrbit: theOrbit)
+            
+            //If the route has more than one point, we need to append the "start" point of the final orbit as well so we don't go straight into orbit
+            if(rawRoute.count > 1) {
+                returnArray.append(standalonePoint.waypoint)
+            }
             
             //Append it
             returnArray.append(orbitPoint!)

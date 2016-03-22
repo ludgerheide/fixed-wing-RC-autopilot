@@ -1,5 +1,6 @@
 package de.lhtechnologies;
 
+import de.lhtechnologies.flightComputer.MockSerialPortManager;
 import de.lhtechnologies.flightComputer.SerialPortManager;
 import de.lhtechnologies.inetComms.InetManager;
 
@@ -10,7 +11,7 @@ public class Main {
         InetManager inet = new InetManager();
 
         //Initialize the serial port
-        SerialPortManager serial = new SerialPortManager();
+        SerialPortManager serial = new MockSerialPortManager(); //FIXME: not mock
 
         //Initialize the writer
         FileWriter fw = new FileWriter();

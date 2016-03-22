@@ -21,8 +21,10 @@ public class SerialTransmitter {
     public void transmit(DroneMessage msg) throws IOException {
         //TODO: Validate message before sending it out
         byte[] compiledMessageAndChecksum = Arrays.copyOf(msg.toByteArray() , msg.toByteArray().length + 1);
-        compiledMessageAndChecksum[compiledMessageAndChecksum.length] = (byte) SerialPortManager.calculateChecksum(msg.toByteArray().length, compiledMessageAndChecksum);
+        compiledMessageAndChecksum[compiledMessageAndChecksum.length - 1] = (byte) SerialPortManager.calculateChecksum(msg.toByteArray().length, compiledMessageAndChecksum);
 
+        out.write(SerialReceiver.startMarker);
+        out.write((byte) msg.toByteArray().length);
         out.write(compiledMessageAndChecksum);
     }
 }

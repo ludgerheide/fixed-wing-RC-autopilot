@@ -16,10 +16,10 @@ import static de.lhtechnologies.CommunicationProtocol.*;
 public class SerialReceiver extends Observable implements SerialPortEventListener {
     public static byte[] startMarker = "start".getBytes();
 
-    private InputStream in;
+    InputStream in;
 
-    private byte[] inputBuffer = new byte[256];
-    private int payloadLength = 0;
+    byte[] inputBuffer = new byte[256];
+    int payloadLength = 0;
 
     public SerialReceiver(InputStream in) {
         this.in = in;

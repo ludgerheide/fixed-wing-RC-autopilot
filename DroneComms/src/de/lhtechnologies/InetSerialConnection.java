@@ -91,8 +91,6 @@ public class InetSerialConnection implements Observer {
         } catch (InvalidProtocolBufferException e) {
             System.out.println("Failed to parse protobuf from network!");
         }
-        String msgString = new String(message);
-        System.out.println(msgString);
     }
 
     public void handleDroneMessage(DroneMessage receivedMessage) {
@@ -116,10 +114,12 @@ public class InetSerialConnection implements Observer {
             }
 
             DroneMessage update = routeManager.getAutonomousUpdate(lat, lon, hdg, alt);
-            try {
-                serialTransmitter.transmit(update);
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(update != null) {
+                try {
+                    serialTransmitter.transmit(update);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
 

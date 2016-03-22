@@ -41,6 +41,11 @@ public class RouteManager {
     }
 
     public DroneMessage getAutonomousUpdate(double lat, double lon, double heading, Double altitude) {
+        //If we do not have a route, return nil
+        if(smoothRoute.size() == 0) {
+            return null;
+        }
+
         //If we do not know which waypoint is the current target, find the next waypoint and set its index
         if(currentTargetIndex == -1) {
             //TODO: Resume route?
@@ -62,11 +67,17 @@ public class RouteManager {
             if(currentTarget.hasOrbit()) {
                 Waypoint endOfOrbit = smoothRoute.get(currentTargetIndex + 1);
                 double distanceToEnd = ownPosition.distance(endOfOrbit);
-                if(distanceToEnd < switchToNextWaypointRange && Math.abs(altitude - currentTarget.altitude) < epsilonAltitude) {
-                    currentTargetIndex = currentTargetIndex + 2;
+                if(distanceToEnd < switchToNextWaypointRange) {
+                    if(currentTarget.orbitUntilTargetAltitude == true) {
+                        if (Math.abs(altitude - currentTarget.altitude) < epsilonAltitude) {
+                            currentTargetIndex = currentTargetIndex + 2;
+                        }
+                    } else {
+                        currentTargetIndex = currentTargetIndex + 2;
+                    }
                 }
             } else {
-                Waypoint nextOrbitStart = smoothRoute.get(currentTargetIndex + 1);
+                Waypoint nextOrbitStart = smoothRoute.get(currentTargetIndex);
                 double distanceToNext = ownPosition.distance(nextOrbitStart);
                 if(distanceToNext < switchToNextWaypointRange) {
                     currentTargetIndex = currentTargetIndex + 1;
@@ -99,13 +110,18 @@ public class RouteManager {
                 desiredHeading = tangentialHeading - courseCorrection;
             }
         } else {
-            Waypoint lineStart = smoothRoute.get(currentTargetIndex - 1);
+            if(currentTargetIndex > 1) {
+                Waypoint lineStart = smoothRoute.get(currentTargetIndex - 1);
 
-            double error = Waypoint.crossTrackError(lineStart, currentTarget, ownPosition);
-            double courseCorrection = bearingCorrectionForError(error);
+                double error = Waypoint.crossTrackError(lineStart, currentTarget, ownPosition);
+                double courseCorrection = bearingCorrectionForError(error);
 
-            double targetHeading = lineStart.bearingTo(currentTarget);
-            desiredHeading = targetHeading + courseCorrection;
+                double targetHeading = lineStart.bearingTo(currentTarget);
+                desiredHeading = targetHeading + courseCorrection;
+            } else {
+                //We are still approaching the start waypoint
+                desiredHeading = ownPosition.bearingTo(currentTarget);
+            }
         }
 
         //Create the update message

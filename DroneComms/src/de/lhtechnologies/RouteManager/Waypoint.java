@@ -8,9 +8,9 @@ public class Waypoint {
     private static double earthRadius = 6371000; //Unit: meters
 
     //Position of the waypoitn
-    protected double latitude; //Degrees with fractions
-    protected double longitude; //Degrees with fractions
-    protected double altitude; //Meters ASL
+    public double latitude; //Degrees with fractions
+    public double longitude; //Degrees with fractions
+    public double altitude; //Meters ASL
 
     //Orbit parameters
     protected Double orbitRadius; //Meters
@@ -145,5 +145,24 @@ public class Waypoint {
 
         double crossTrackError = Math.asin(Math.sin(distanceAC / earthRadius) * Math.sin(bearingAC - bearingBC));
         return crossTrackError;
+    }
+
+    /**
+     Calculates an waypoint given another waypoint and distance+bearing
+
+     Parameters:
+     - distance: The distance from this point in meters
+     - bearing: The direction in whioch we go away from the start point in degrees
+
+     - Returns: An waypoint with a given distance and bearing to another point
+     */
+    public Waypoint waypointWithDistanceAndBearing(double distance, double bearing) {
+        double phi1 = Math.toRadians(latitude);
+        double lambda1 = Math.toRadians(longitude);
+
+        double phi2 = Math.asin(Math.sin(phi1) * Math.cos(distance/earthRadius) + Math.cos(phi1) * Math.sin(distance/earthRadius) * Math.cos(Math.toRadians(bearing)));
+        double lambda2 = lambda1 + Math.atan2(Math.sin(Math.toRadians(bearing)) * Math.sin(distance/earthRadius) * Math.cos(phi1), Math.cos(distance/earthRadius) - Math.sin(phi1) * Math.sin(phi2));
+
+        return new Waypoint(Math.toDegrees(phi2), Math.toDegrees(lambda2), altitude);
     }
 }

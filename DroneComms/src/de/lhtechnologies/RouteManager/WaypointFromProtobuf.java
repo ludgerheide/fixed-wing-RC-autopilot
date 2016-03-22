@@ -10,10 +10,9 @@ public class WaypointFromProtobuf extends Waypoint {
         super(wp.getLatitude(), wp.getLongitude(), (double) wp.getAltitude()/(double) 100);
         if(wp.hasOrbitRadius()) {
             this.orbitRadius = Double.valueOf(wp.getOrbitRadius());
-            if(!wp.hasOrbitUntilTargetAltitude()) {
-                throw new IllegalArgumentException("Invalid Protobuf!");
+            if(wp.hasOrbitUntilTargetAltitude()) {
+                this.orbitUntilTargetAltitude = wp.getOrbitUntilTargetAltitude();
             }
-            this.orbitUntilTargetAltitude = wp.getOrbitUntilTargetAltitude();
 
             if(!wp.hasOrbitClockwise()) {
                 throw new IllegalArgumentException("Invalid Protobuf!");
