@@ -47,7 +47,7 @@ static const u16 telemetryDelay = 250; //The delay between each telemetry messag
 // a) transmitted over the telemetry
 // b) send thtough the serial (logging port)
 static u32 telPosTime, telVelTime, telAttitudeTime, telAltitudeTime, telBatteryTime;
-static u32 logPosTime, logVelTime, logAttitudeTime, logAltitudeTime, logBaroDataTime, logRawGyroTime, logRawAccelTime, logRawMagTime, logHomeBaseTime, logWaypointTime, logInCommandSetTime, logOutCommandSetTime, logBatteryTime;
+static u32 logPosTime, logVelTime, logAttitudeTime, logAltitudeTime, logBaroDataTime, logRawGyroTime, logRawAccelTime, logRawMagTime, logHomeBaseTime, logInCommandSetTime, logOutCommandSetTime, logBatteryTime;
 
 //Function to convert degrees to a fixed-point 16 byte integer
 s16 degreesToInt(float degrees) {
@@ -246,21 +246,6 @@ static u08 createProtobuf(messagePurpose thePurpose, u08* messageLength) {
     }
     
     //In logging mode, also log inputs
-    //waypoint
-    if(thePurpose == logging && currentTarget.timestamp - logWaypointTime) {
-        outgoingMsg.has_waypoint = true;
-        
-        outgoingMsg.waypoint.has_timestamp = true;
-        outgoingMsg.waypoint.timestamp = currentTarget.timestamp;
-        
-        outgoingMsg.waypoint.latitude = currentTarget.latitude;
-        outgoingMsg.waypoint.longitude = currentTarget.latitude;
-        
-        outgoingMsg.waypoint.altitude = currentTarget.altitude * 100;
-        
-        //Time update
-        logWaypointTime = currentTarget.timestamp;
-    }
     
     //home base
     if(thePurpose == logging && homeBase.timestamp - logHomeBaseTime) {
@@ -409,18 +394,6 @@ void commsProcessMessage(char* message, u08 size) {
             eeprom_update_float(EEPROM_SLP_ADDRESS, seaLevelPressure);
         }
         
-    }
-    
-    if(incomingMsg.has_waypoint) {
-#ifdef COMMS_DEBUG
-        printf("Protobuf: Have waypoint!\r\n");
-#endif
-        
-        currentTarget.timestamp = now;
-        
-        currentTarget.latitude = incomingMsg.waypoint.latitude;
-        currentTarget.longitude = incomingMsg.waypoint.longitude;
-        currentTarget.altitude = incomingMsg.waypoint.altitude / 100.0;
     }
     
     if(incomingMsg.has_home_base) {
