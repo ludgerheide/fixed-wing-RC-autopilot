@@ -19,7 +19,7 @@ public class MockSerialReceiver extends SerialReceiver implements Runnable {
     private int timestamp = 0;
 
     private final double climbRate = 2; //m/s
-    private final double speed = 150; // m/s
+    private final double speed = 250; // m/s
     private final double interval = 0.1; //seconds
 
     public MockSerialReceiver(InputStream in) {

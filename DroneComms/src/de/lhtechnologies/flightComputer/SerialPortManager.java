@@ -17,26 +17,25 @@ public class SerialPortManager {
     public SerialTransmitter serialTransmitter;
 
     public SerialPortManager() {
-//        try {
-//            CommPortIdentifier portId = CommPortIdentifier.getPortIdentifier(SerialPortManager.deviceFile);
-//            if (portId.isCurrentlyOwned()) {
-//                System.out.println("Error: Port is currently in use");
-//                System.exit(-1);
-//            }
-//            SerialPort thePort = (SerialPort) portId.open("TelemetryReceiver", 5000);
-//            thePort.setSerialPortParams(baudRate, dataBits, stopBits, parity);
-//            thePort.setFlowControlMode(SerialPort.FLOWCONTROL_NONE);
-//
-//            serialReceiver = new SerialReceiver(thePort.getInputStream());
-//            thePort.addEventListener(serialReceiver);
-//            thePort.notifyOnDataAvailable(true);
-//
-//            serialTransmitter = new SerialTransmitter(thePort.getOutputStream());
-//        } catch (Exception e) {
-//            System.out.println("Error encountered. Exiting…");
-//            e.printStackTrace();
-//            System.exit(-1);
-//        }
+        try {
+            CommPortIdentifier portId = CommPortIdentifier.getPortIdentifier(SerialPortManager.deviceFile);
+            if (portId.isCurrentlyOwned()) {
+                System.out.println("Error: Port is currently in use");
+                System.exit(-1);
+            }
+            SerialPort thePort = (SerialPort) portId.open("TelemetryReceiver", 5000);
+            thePort.setSerialPortParams(baudRate, dataBits, stopBits, parity);
+            thePort.setFlowControlMode(SerialPort.FLOWCONTROL_NONE);
+            serialReceiver = new SerialReceiver(thePort.getInputStream());
+            thePort.addEventListener(serialReceiver);
+            thePort.notifyOnDataAvailable(true);
+
+            serialTransmitter = new SerialTransmitter(thePort.getOutputStream());
+        } catch (Exception e) {
+            System.out.println("Error encountered. Exiting…");
+            e.printStackTrace();
+            System.exit(-1);
+        }
     }
 
     public static int calculateChecksum(int payloadLength, byte[] buffer) {

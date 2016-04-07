@@ -11,7 +11,7 @@ public class Main {
         InetManager inet = new InetManager();
 
         //Initialize the serial port
-        SerialPortManager serial = new MockSerialPortManager(); //FIXME: not mock
+        SerialPortManager serial = new SerialPortManager();
 
         //Initialize the writer
         FileWriter fw = new FileWriter();

@@ -77,10 +77,38 @@ public class RouteManager {
                     }
                 }
             } else {
-                Waypoint nextOrbitStart = smoothRoute.get(currentTargetIndex);
-                double distanceToNext = ownPosition.distance(nextOrbitStart);
-                if(distanceToNext < switchToNextWaypointRange) {
+                //If we are approaching anything beyond the second WP, Check if we have overshot the target,
+                // e.g the difference in bearing start - end and pos - end is greater than 90°
+                double difference;
+                if(currentTargetIndex > 0) {
+                    Waypoint start = smoothRoute.get(currentTargetIndex - 1);
+                    double startEnd = start.bearingTo(currentTarget);
+                    double posEnd = ownPosition.bearingTo(currentTarget);
+
+                    //Wonky angle subtraction
+                    difference = startEnd - posEnd;
+                    if (Math.abs(difference) > 180) {
+                        if (startEnd - posEnd < 0) {
+                            startEnd += 360;
+                        } else {
+                            posEnd += 360;
+                        }
+                    }
+                    difference = startEnd - posEnd;
+                } else {
+                    //Difference is irrelevant otherwise, set it to 0
+                    difference = 0;
+                }
+
+                if(Math.abs(difference) > 90) {
+                    System.out.println("Warning: overshot!");
                     currentTargetIndex = currentTargetIndex + 1;
+                } else {
+                    Waypoint nextOrbitStart = smoothRoute.get(currentTargetIndex);
+                    double distanceToNext = ownPosition.distance(nextOrbitStart);
+                    if (distanceToNext < switchToNextWaypointRange) {
+                        currentTargetIndex = currentTargetIndex + 1;
+                    }
                 }
             }
         }
@@ -110,7 +138,7 @@ public class RouteManager {
                 desiredHeading = tangentialHeading - courseCorrection;
             }
         } else {
-            if(currentTargetIndex > 1) {
+            if(currentTargetIndex > 0) {
                 Waypoint lineStart = smoothRoute.get(currentTargetIndex - 1);
 
                 double error = Waypoint.crossTrackError(lineStart, currentTarget, ownPosition);
@@ -138,14 +166,11 @@ public class RouteManager {
     /**
      * Calculates the bearing correction for a given error in meters
      */
-    public static double minimalError = 5; //If the error is smaller than this, we don't correct
-    public static double maximalError = 50; //If the error is bigger than this, we just give max correction
-    public static double maximalCorrection = 90; //The maximal correction angle we fly. Must be < 90
+    private static double maximalError = 50; //If the error is bigger than this, we just give max correction
+    private static double maximalCorrection = 90; //The maximal correction angle we fly. Must be < 90
 
     double bearingCorrectionForError(double error) {
-        if(error < minimalError) {
-            return 0;
-        } else if(error < maximalError) {
+        if(error < maximalError) {
             return maximalCorrection * (error/maximalError);
         } else {
             if(error < 0) {
