@@ -30,7 +30,6 @@ void initIO(void) {
     gpsInit();
     commsInit();
     batteryInit();
-    flightControllerInit();
     
     //Initialize the input and output command set
     outputCommandSet.timestamp = 0;

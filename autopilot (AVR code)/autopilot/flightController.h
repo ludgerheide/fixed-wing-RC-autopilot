@@ -15,6 +15,4 @@ void checkSensorsAndSetFlightMode(void);
 
 void updateFlightControls(void);
 
-void flightControllerInit(void);
-
 #endif /* flightController_h */

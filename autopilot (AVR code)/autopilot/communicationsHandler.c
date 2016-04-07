@@ -257,6 +257,7 @@ static u08 createProtobuf(messagePurpose thePurpose, u08* messageLength) {
         outgoingMsg.home_base.latitude = homeBase.latitude;
         outgoingMsg.home_base.longitude = homeBase.longitude;
         
+        outgoingMsg.home_base.has_altitude = true;
         outgoingMsg.home_base.altitude = homeBase.altitude * 100;
         
         //Time update
@@ -405,7 +406,11 @@ void commsProcessMessage(char* message, u08 size) {
         
         homeBase.latitude = incomingMsg.home_base.latitude;
         homeBase.longitude = incomingMsg.home_base.longitude;
-        homeBase.altitude = incomingMsg.home_base.altitude / 100.0;
+        if(incomingMsg.home_base.has_altitude) {
+            homeBase.altitude = incomingMsg.home_base.altitude / 100.0;
+        } else {
+            homeBase.altitude = NAN;
+        }
     }
     
     if(incomingMsg.has_new_mode) {
