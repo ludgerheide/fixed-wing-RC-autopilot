@@ -227,7 +227,7 @@ class RouteManager: NSObject {
         if(rawRoute.count == 0) {
             return nil
         } else {
-            for(var i = 0; i < rawRoute.count; i++) {
+            for i in 0 ..< rawRoute.count {
                 let currentWp = rawRoute[i]
                 
                 if(i == (rawRoute.count - 1)) {
@@ -250,7 +250,7 @@ class RouteManager: NSObject {
             //Now create a circle for each bend and one after the last point
             //Create a circle section for "orbit until alt = false" and a circle for "orbit until alt = true"
             if(rawRoute.count >= 3) {
-                for(var i = 1; i < (rawRoute.count - 1); i++) {
+                for i in 1 ..< (rawRoute.count - 1) {
                     let annotatedWp = rawRoute[i]
                     let wpA = rawRoute[i-1].waypoint
                     let wpB = rawRoute[i].waypoint
@@ -324,7 +324,7 @@ class RouteManager: NSObject {
             
             if(rawRoute.count >= 3) {
                 
-                for(var i = 1; i < (rawRoute.count - 1); i++) {
+                for i in 1 ..< (rawRoute.count - 1) {
                     let annotatedWp = rawRoute[i]
                     let wpA = returnArray[returnArray.count - 1]
                     let wpB = rawRoute[i].waypoint

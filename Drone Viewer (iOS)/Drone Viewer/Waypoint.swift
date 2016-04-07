@@ -107,34 +107,40 @@ class Waypoint {
      
      - Returns: an array of waypoints to draw this waypoint as polyline or nil, if this was requested for a non-orbit waypoint
      */
-    func descriptionLineForOrbitSegment(maxNumberOfPoints: UInt!, var fromBearing: Double!, var toBearing: Double!) -> Array<Point!>? {
-        
+    func descriptionLineForOrbitSegment(maxNumberOfPoints: UInt!, fromBearing: Double!, toBearing: Double!) -> Array<Point!>? {
         if(self.orbit == nil) {
             return nil
         }
         
-        let difference = toBearing - fromBearing
+        var fromBearingVar = fromBearing
+        var toBearingVar = toBearing
+        
+        let difference = toBearingVar - fromBearingVar
         if(abs(difference) > 180) {
-            if(toBearing - fromBearing < 0) {
-                toBearing = toBearing + 360
+            if(toBearingVar - fromBearingVar < 0) {
+                toBearingVar = toBearingVar + 360
             } else {
-                fromBearing = fromBearing + 360
+                fromBearingVar = fromBearingVar + 360
             }
         }
         
-        let degreesPerPoint = 360 / Double(maxNumberOfPoints*10)
-        let increment = (toBearing - fromBearing)
+        let degreesPerPoint = 360 / Double(maxNumberOfPoints)
+        let direction = (toBearingVar - fromBearingVar)
         var returnArray = Array<Point!>()
         
-        if(increment > 0) {
-            for(var i = fromBearing; i < toBearing; i = i + degreesPerPoint) {
+        if(direction > 0) {
+            var i = fromBearingVar
+            while i < toBearingVar {
                 let wp = self.waypointWithDistanceAndBearing(self.orbit!.radius, bearing: i)
                 returnArray.append(wp)
+                i = i + degreesPerPoint
             }
-        } else if(increment < 0) {
-            for(var i = fromBearing; i > toBearing; i = i - degreesPerPoint) {
+        } else if(direction < 0) {
+            var i = fromBearingVar
+            while i > toBearingVar {
                 let wp = self.waypointWithDistanceAndBearing(self.orbit!.radius, bearing: i)
                 returnArray.append(wp)
+                i = i - degreesPerPoint
             }
         } else {
             //If there are no points, the empty array is still a valid response
@@ -158,7 +164,7 @@ class Waypoint {
         let degreesPerPoint = 360 / Double(maxNumberOfPoints)
         var returnArray = Array<Point!>(count: Int(maxNumberOfPoints), repeatedValue: nil)
         
-        for(var i = 0; i < Int(maxNumberOfPoints); i++) {
+        for i in 0 ..< Int(maxNumberOfPoints) {
             returnArray[i] = self.waypointWithDistanceAndBearing(self.orbit!.radius, bearing: degreesPerPoint * Double(i))
         }
         

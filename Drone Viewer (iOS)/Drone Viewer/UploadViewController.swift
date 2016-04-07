@@ -28,7 +28,7 @@ class UploadViewController: UIViewController{
                 tfRouteDescription.text = "Could not create route. Please verify this route does not contain any bends without corresponding circle segements in the map view"
             } else {
                 var message: String = NSString(format: "Route contains %i waypoints.\n", routeToUpload!.count) as String
-                for (var i = 0; i < routeToUpload!.count; i++) {
+                for i in 0  ..< routeToUpload!.count {
                     let appendString = NSString(format: "Waypoint %i: Altitude %.0f", i+1, routeToUpload![i].point.altitude) as String
                     message.appendContentsOf(appendString)
                     
@@ -64,7 +64,7 @@ class UploadViewController: UIViewController{
         //Register for status update notifications
         NSNotificationCenter.defaultCenter().addObserver(
             self,
-            selector: "statusUpdateReceived:",
+            selector: #selector(UploadViewController.statusUpdateReceived),
             name: InetInterface.statusNotificationName,
             object: nil)
         

@@ -61,7 +61,7 @@ public class SwiftyRSA {
         removeKeyWithTagData(tagData)
         
         // Add persistent version of the key to system keychain
-        let persistKey = UnsafeMutablePointer<AnyObject?>()
+        let persistKey = UnsafeMutablePointer<AnyObject?>(nil)
         let keyClass   = isPublic ? kSecAttrKeyClassPublic : kSecAttrKeyClassPrivate
         
         // Add persistent version of the key to system keychain
@@ -132,37 +132,40 @@ public class SwiftyRSA {
         keyData.getBytes(&byteArray, length: keyData.length)
         
         var index = 0
-        if byteArray[index++] != 0x30 {
+        if byteArray[index] != 0x30 {
             throw SwiftyRSAError(message: "Invalid byte at index 0 (\(byteArray[0])) for public key header")
         }
+        index += 1
         
         if byteArray[index] > 0x80 {
             index += Int(byteArray[index]) - 0x80 + 1
         }
         else {
-            index++
+            index += 1
         }
         
         let seqiod: [CUnsignedChar] = [0x30, 0x0d, 0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01,
             0x01, 0x05, 0x00]
-        byteArray.replaceRange(Range<Int>(start: index, end: index + seqiod.count), with: seqiod)
+        byteArray.replaceRange(Range<Int>(index ..< index + seqiod.count), with: seqiod)
         
         index += 15
         
-        if byteArray[index++] != 0x03 {
+        if byteArray[index] != 0x03 {
             throw SwiftyRSAError(message: "Invalid byte at index \(index - 1) (\(byteArray[index - 1])) for public key header")
         }
+        index += 1
         
         if byteArray[index] > 0x80 {
             index += Int(byteArray[index]) - 0x80 + 1
         }
         else {
-            index++
+            index += 1
         }
         
-        if byteArray[index++] != 0 {
+        if byteArray[index] != 0 {
             throw SwiftyRSAError(message: "Invalid byte at index \(index - 1) (\(byteArray[index - 1])) for public key header")
         }
+        index += 1
         
         let test = [CUnsignedChar](byteArray[index...keyData.length - 1])
         

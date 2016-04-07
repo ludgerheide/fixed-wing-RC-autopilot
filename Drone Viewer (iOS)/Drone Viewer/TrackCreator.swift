@@ -20,7 +20,7 @@ class TrackCreator: NSObject, NSCoding {
         super.init()
         NSNotificationCenter.defaultCenter().addObserver(
             self,
-            selector: "newDroneMessageReceived:",
+            selector: #selector(TrackCreator.newDroneMessageReceived(_:)),
             name: InetInterface.notificationName,
             object: nil)
     }
