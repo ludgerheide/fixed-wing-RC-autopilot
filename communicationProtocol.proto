@@ -67,8 +67,17 @@ message DroneMessage {
 	}
 	
 	message AutonomousUpdate {
-		required int32 altitude = 90;
-		required sint32 heading = 91;
+		oneof altitude_pitch {
+			int32 altitude = 90;
+			sint32 pitchAngle = 91;
+		}
+
+
+		oneof heading_rate_of_turn {
+			int32 heading = 92;
+			sint32 rateOfTurn = 93;
+		}
+
 	}
 	
 	message Waypoint {	

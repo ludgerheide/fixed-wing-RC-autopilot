@@ -21,6 +21,9 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
 
+//Booleans
+#include <stdbool.h>
+
 // global AVRLIB defines
 #include "avrlibdefs.h"
 // global AVRLIB types definitions
@@ -55,14 +58,21 @@ typedef struct {
 commandSet_struct inputCommandSet;
 commandSet_struct outputCommandSet;
 
+typedef struct {
+    bool altitudeInUse;
+    s32 altitude; //Centimeters
+    s08 pitchAngle; //Degrees
+    
+    bool headingInUse;
+    u16 heading; //Degrees
+    s08 rateOfTurn; //Relative value
+} autonomousUpdate;
+
 typedef enum {
     m_degraded = 0,
     m_passThrough = 1,
     m_flybywire = 2,
-    m_autonomou = 3,
-    m_landed = 4,
-    mx_autonomous_ai = 5,
-    mx_unavailable = 6
+    m_autonomous = 3
 } flightMode;
 flightMode currentFlightMode;
 
@@ -82,7 +92,6 @@ typedef struct {
     float longitude;
     float altitude; //Meters ASL
 } waypoint;
-waypoint currentTarget;
 waypoint homeBase;
 
 pressureEvent curPressure;

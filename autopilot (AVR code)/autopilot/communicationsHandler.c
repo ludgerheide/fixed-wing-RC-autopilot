@@ -117,7 +117,7 @@ static u08 createProtobuf(messagePurpose thePurpose, u08* messageLength) {
     }
     
     //Velocity for both, as above
-    if((thePurpose == logging && GpsInfo.VelHS.timestamp - logVelTime) || (thePurpose == telemetry && GpsInfo.PosLLA.timestamp - telVelTime)) {
+    if((thePurpose == logging && GpsInfo.VelHS.timestamp - logVelTime) || (thePurpose == telemetry && GpsInfo.VelHS.timestamp - telVelTime)) {
         outgoingMsg.has_current_speed = true;
         
         //For logging, with timestamp
@@ -256,8 +256,6 @@ static u08 createProtobuf(messagePurpose thePurpose, u08* messageLength) {
         
         outgoingMsg.home_base.latitude = homeBase.latitude;
         outgoingMsg.home_base.longitude = homeBase.longitude;
-        
-        outgoingMsg.home_base.has_altitude = true;
         outgoingMsg.home_base.altitude = homeBase.altitude * 100;
         
         //Time update
@@ -406,11 +404,7 @@ void commsProcessMessage(char* message, u08 size) {
         
         homeBase.latitude = incomingMsg.home_base.latitude;
         homeBase.longitude = incomingMsg.home_base.longitude;
-        if(incomingMsg.home_base.has_altitude) {
-            homeBase.altitude = incomingMsg.home_base.altitude / 100.0;
-        } else {
-            homeBase.altitude = NAN;
-        }
+        homeBase.altitude = incomingMsg.home_base.altitude / 100.0;
     }
     
     if(incomingMsg.has_new_mode) {
