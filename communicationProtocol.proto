@@ -7,9 +7,7 @@ message DroneMessage {
 		m_passThrough = 1;
 		m_flybywire = 2;
 		m_autonomous = 3;
-		m_landed = 4;
-		mx_autonomous_ai = 5;
-		mx_unavailable = 6;
+		m_autonomous_return_to_base = 4;
 	}
 
 	message Position {
@@ -68,14 +66,14 @@ message DroneMessage {
 	
 	message AutonomousUpdate {
 		oneof altitude_pitch {
-			int32 altitude = 90;
-			sint32 pitchAngle = 91;
+			int32 altitude = 90; //Centimeters
+			sint32 pitchAngle = 91; //Relative value, signed 8-bit integer
 		}
 
 
 		oneof heading_rate_of_turn {
-			int32 heading = 92;
-			sint32 rateOfTurn = 93;
+			int32 heading = 92; //64*degrees
+			sint32 rateOfTurn = 93; //Relative value, signed 8-bit integer
 		}
 
 	}
@@ -116,7 +114,6 @@ message DroneMessage {
 	
 	//Configureation updates
 	optional float sea_level_pressure = 15;
-	optional FlightMode new_mode = 16;
 	optional Waypoint home_base = 17;
 	
 	//The route

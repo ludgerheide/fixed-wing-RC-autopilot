@@ -105,7 +105,7 @@ CSTANDARD = -std=gnu99
 
 # Place -D or -U options here
 CDEFS = -DF_CPU=$(F_CPU)UL
-CDEFS += -DNDEBUG
+#CDEFS += -DNDEBUG
 #CDEFS += -D__ASSERT_USE_STDERR
 #CDEFS += -DI2C_DEBUG
 #CDEFS += -DIMU_DEBUG

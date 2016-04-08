@@ -33,4 +33,7 @@ s32 maps32(s32 x, s32 in_min, s32 in_max, s32 out_min, s32 out_max);
 //Same for s16
 s16 maps16(s16 x, s16 in_min, s16 in_max, s16 out_min, s16 out_max);
 
+//Bearning between to coordinate sets
+u16 bearingToCoordinates(float fromPhi, float fromLambda, float toPhi, float toLambda);
+
 #endif /* utils_h */

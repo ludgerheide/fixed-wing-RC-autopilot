@@ -89,7 +89,7 @@ s08 calculatePitchAngle(s08 targetRateOfClimb) {
     return maps16(proportional_integral, INT16_MIN/2, INT16_MAX/2, INT8_MIN, INT8_MAX);
 }
 
-//Calculate the rudder for a given pitch angle using a PID controller
+//Calculate the elevator for a given pitch angle using a PID controller
 //INPUT: signed 8-bit value indicating the desired pitch angle
 //OUTPUR: *unsigned* 8-bit value to go to the servo
 u08 calculateElevatorValue(s08 targetPitchAngle) {

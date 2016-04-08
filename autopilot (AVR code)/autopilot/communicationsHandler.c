@@ -17,6 +17,8 @@
 #include "nmea.h"
 #include "bmp.h"
 
+#include "flightControllerTypes.h"
+
 #include "pinSetup.h"
 #include "uart4.h"
 #include "timer.h"
@@ -171,7 +173,7 @@ static u08 createProtobuf(messagePurpose thePurpose, u08* messageLength) {
             telAltitudeTime = curPressure.timestamp;
         }
     }
-
+    
     
     //Battery for both, as above
     if ((thePurpose == logging && curBattery.timestamp - logBatteryTime) || (thePurpose == telemetry && curBattery.timestamp - telBatteryTime)) {
@@ -357,6 +359,7 @@ void commsProcessMessage(char* message, u08 size) {
         }
 #ifdef COMMS_DEBUG
         else {
+            inputCommandSet.timestamp = 0;
             printf("Yaw out of bounds! %i", __LINE__);
         }
 #endif
@@ -367,6 +370,7 @@ void commsProcessMessage(char* message, u08 size) {
         }
 #ifdef COMMS_DEBUG
         else {
+            inputCommandSet.timestamp = 0;
             printf("Pitch out of bounds! %i", __LINE__);
         }
 #endif
@@ -377,6 +381,7 @@ void commsProcessMessage(char* message, u08 size) {
         }
 #ifdef COMMS_DEBUG
         else {
+            inputCommandSet.timestamp = 0;
             printf("Roll out of bounds! %i", __LINE__);
         }
 #endif
@@ -407,12 +412,39 @@ void commsProcessMessage(char* message, u08 size) {
         homeBase.altitude = incomingMsg.home_base.altitude / 100.0;
     }
     
-    if(incomingMsg.has_new_mode) {
+    if(incomingMsg.has_autonomous_update) {
 #ifdef COMMS_DEBUG
-        printf("Protobuf: Have new mode!\r\n");
+        printf("Protobuf: Have Autonomous update!\r\n");
 #endif
+        autonomousUpdate.timestamp = now;
         
-        currentFlightMode = incomingMsg.new_mode;
+        if(incomingMsg.autonomous_update.which_altitude_pitch == DroneMessage_AutonomousUpdate_altitude_tag) {
+            autonomousUpdate.altitudeInUse = TRUE;
+            autonomousUpdate.altitude = incomingMsg.autonomous_update.altitude_pitch.altitude;
+        } else {
+            assert(incomingMsg.autonomous_update.which_altitude_pitch == DroneMessage_AutonomousUpdate_pitchAngle_tag);
+            
+            autonomousUpdate.altitudeInUse = FALSE;
+            if(incomingMsg.autonomous_update.altitude_pitch.pitchAngle <= INT8_MAX && incomingMsg.autonomous_update.altitude_pitch.pitchAngle >= INT8_MIN) {
+                autonomousUpdate.pitchAngle = incomingMsg.autonomous_update.altitude_pitch.pitchAngle;
+            } else {
+                autonomousUpdate.timestamp = 0;
+            }
+        }
+        
+        if(incomingMsg.autonomous_update.which_heading_rate_of_turn == DroneMessage_AutonomousUpdate_heading_tag) {
+            autonomousUpdate.headingInUse = TRUE;
+            autonomousUpdate.heading = intToDegrees(incomingMsg.autonomous_update.heading_rate_of_turn.heading);
+        } else {
+            assert(incomingMsg.autonomous_update.which_heading_rate_of_turn == DroneMessage_AutonomousUpdate_rateOfTurn_tag);
+            
+            autonomousUpdate.headingInUse = FALSE;
+            if(incomingMsg.autonomous_update.heading_rate_of_turn.rateOfTurn <= INT8_MAX && incomingMsg.autonomous_update.heading_rate_of_turn.rateOfTurn >= INT8_MIN) {
+                autonomousUpdate.rateOfTurn = incomingMsg.autonomous_update.heading_rate_of_turn.rateOfTurn;
+            } else {
+                autonomousUpdate.timestamp = 0;
+            }
+        }
     }
 }
 

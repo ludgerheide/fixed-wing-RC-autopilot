@@ -158,7 +158,6 @@ public class RouteManager {
                     .setAltitude((int)Math.round(currentTarget.altitude * 100))
                     .setHeading((int)Math.round(desiredHeading * 64))
                     .build())
-                .setNewMode(DroneMessage.FlightMode.m_autonomous)
                 .build();
         return update;
     }

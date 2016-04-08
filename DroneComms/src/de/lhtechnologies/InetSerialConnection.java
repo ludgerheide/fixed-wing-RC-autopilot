@@ -57,13 +57,10 @@ public class InetSerialConnection implements Observer {
             DroneMessage msg = DroneMessage.parseFrom(message);
 
             //If the message has a sea level pressure or flight mode, forward it directly
-            if(msg.hasSeaLevelPressure() || msg.hasNewMode()) {
+            if(msg.hasSeaLevelPressure()) {
                 DroneMessage.Builder toFlightControl = DroneMessage.newBuilder();
                 if(msg.hasSeaLevelPressure()) {
                     toFlightControl.setSeaLevelPressure(msg.getSeaLevelPressure());
-                }
-                if(msg.hasNewMode()) {
-                    toFlightControl.setNewMode(msg.getNewMode());
                 }
                 DroneMessage outMsg = toFlightControl.build();
                 try {
@@ -143,10 +140,6 @@ public class InetSerialConnection implements Observer {
 
             if(receivedMessage.hasInputCommandSet()) {
                 storedMessage.setInputCommandSet(receivedMessage.getInputCommandSet());
-            }
-
-            if(receivedMessage.hasNewMode()) {
-                storedMessage.setNewMode(receivedMessage.getNewMode());
             }
         }
 

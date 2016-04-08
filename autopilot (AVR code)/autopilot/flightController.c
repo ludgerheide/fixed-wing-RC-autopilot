@@ -6,6 +6,9 @@
 //  Copyright © 2015 Ludger Heide. All rights reserved.
 //
 
+#include "avrlibtypes.h"
+
+#include "flightControllerTypes.h"
 #include "flightController.h"
 #include "timer.h"
 #include "global.h"
@@ -13,10 +16,14 @@
 #include "altitudePitchController.h"
 #include "yawController.h"
 
+#include "nmea.h"
+#include "bmp.h"
+
 #include <math.h>
 
 #define INPUT_TIMEOUT 250 //Maximum age of input command set in milliseconds
-#define SENSOR_TIMEOUT 100 //Maximum age of sensor data to be considered valid
+#define SENSOR_TIMEOUT 100 //Maximum age of sensor data to be considered valid. In milliseconds
+#define GPS_TIMEOUT 1100 //Maximum age of a GPS dataset. In milliseconds
 #define MAX_ROTATION (M_PI/4.0) //The rotation a full stick correspinds to (in rad/s)
 
 #define THRESHOLD_VOLTAGE 6.75
@@ -27,23 +34,75 @@ static u08 maxThrust = 255;
 //Static method declarations
 static void degradedUpdate(void);
 static void flyByWireUpdate(void);
+static void autonomousControlUpdate(void);
+static void autonomousReturnToBaseUpdate(void);
 static BOOL flyByWireSensorsGood(void);
+static BOOL autonomousSensorsGood(void);
 static BOOL commandSetGood(void);
+static BOOL autonomousUpdateGood(void);
 
-void checkSensorsAndSetFlightMode(void) {
-    if(flyByWireSensorsGood() && commandSetGood()) {
-        currentFlightMode = m_flybywire;
+void flightControllerInit(void) {
+    //Initialize the input and output command set
+    outputCommandSet.timestamp = 0;
+    outputCommandSet.yaw = 127;
+    outputCommandSet.pitch = 127;
+    outputCommandSet.thrust = 0;
+    
+    inputCommandSet.timestamp = 0;
+    inputCommandSet.yaw = 127;
+    inputCommandSet.pitch = 127;
+    inputCommandSet.thrust = 0;
+    
+    //Initialize the flight mode
+    currentFlightMode = m_degraded;
+    
+    //Initiate the autonomous update to sane values
+    autonomousUpdate.altitudeInUse = FALSE;
+    autonomousUpdate.pitchAngle = 0;
+    
+    autonomousUpdate.headingInUse = FALSE;
+    autonomousUpdate.rateOfTurn = 0;
+}
+
+flightMode checkSensorsAndSetFlightMode(void) {
+    //Precedence of FLightmodes:
+    //1. Fly by wire – if sensors permit
+    //2. Autonomous path following – if sensors permit
+    //3. Autonomous return to Base – if sensors permit
+    //4. Degraded
+    
+    if(commandSetGood() && flyByWireSensorsGood()) {
+        return m_flybywire;
+    } else if(autonomousUpdateGood() && autonomousSensorsGood()) {
+        return m_autonomous;
+    } else if (autonomousSensorsGood()) {
+        return m_autonomousReturnToBase;
     } else {
-        currentFlightMode = m_degraded;
+        return m_degraded;
     }
 }
 
 void updateFlightControls(void) {
-    if(currentFlightMode == m_flybywire) {
-        flyByWireUpdate();
-    } else {
-        currentFlightMode = m_degraded;
-        degradedUpdate();
+    switch (currentFlightMode) {
+        case m_degraded:
+            degradedUpdate();
+            break;
+        
+        case m_flybywire:
+            flyByWireUpdate();
+            break;
+            
+        case m_autonomous:
+            autonomousControlUpdate();
+            break;
+            
+        case m_autonomousReturnToBase:
+            autonomousReturnToBaseUpdate();
+            break;
+            
+        default:
+            currentFlightMode = m_degraded;
+            degradedUpdate();
     }
 }
 
@@ -94,6 +153,52 @@ static void flyByWireUpdate(void) {
     outputCommandSet.yaw = calculateRudderValue(yawStickSigned);
 }
 
+
+static void autonomousControlUpdate(void) {
+    outputCommandSet.timestamp = millis();
+    
+    //First, altitude/pitch
+    //Check if we are maintaining pitch angle or altitude
+    s08 pitchAngle;
+    if(autonomousUpdate.altitudeInUse) {
+        //Turn altitude into pitch angle
+        s08 rateOfClimb = calculateRateOfClimb(autonomousUpdate.altitude);
+        pitchAngle = calculatePitchAngle(rateOfClimb);
+    } else {
+        pitchAngle = autonomousUpdate.pitchAngle;
+    }
+    outputCommandSet.pitch = calculateElevatorValue(pitchAngle);
+    
+    //Calculate thrust according to 75% of max ± 25% for climb descent
+    outputCommandSet.thrust = 191 + pitchAngle/2;
+    
+    //Last, yaw
+    s08 targetRateOfTurn;
+    if(autonomousUpdate.headingInUse) {
+        targetRateOfTurn = calculateRateOfTurn(autonomousUpdate.heading);
+    } else {
+        targetRateOfTurn = autonomousUpdate.rateOfTurn;
+    }
+    
+    outputCommandSet.yaw = calculateRudderValue(targetRateOfTurn);
+}
+
+static void autonomousReturnToBaseUpdate(void) {
+    //Set autonomous update to "now"
+    autonomousUpdate.timestamp = millis();
+    
+    //Calculate course to home base
+    autonomousUpdate.headingInUse = TRUE;
+    autonomousUpdate.heading = bearingToCoordinates(GpsInfo.PosLLA.lat, GpsInfo.PosLLA.lon, homeBase.latitude, homeBase.longitude);
+    
+    //Update altitude to home base alt
+    autonomousUpdate.altitudeInUse = TRUE;
+    autonomousUpdate.altitude = homeBase.altitude * 100;
+    
+    //Now, do a "regular" autonomous control update
+    autonomousControlUpdate();
+}
+
 static BOOL flyByWireSensorsGood(void) {
     u32 now = micros();
     
@@ -113,11 +218,43 @@ static BOOL flyByWireSensorsGood(void) {
     return TRUE;
 }
 
+static BOOL autonomousSensorsGood(void) {
+    //First, check if the attitude (i.e flybywire) sensors are good
+    if(flyByWireSensorsGood() == FALSE) {
+        return FALSE;
+    }
+    
+    //Then check the GPS
+    u32 nowMillis = millis();
+    if(nowMillis - GpsInfo.PosLLA.timestamp > GPS_TIMEOUT) {
+        return FALSE;
+    }
+    
+    //Check the altimeter
+    u32 nowMicros = micros();
+    if(nowMicros - curPressure.timestamp > (u32)1000 * SENSOR_TIMEOUT) {
+        return FALSE;
+    }
+    
+    return TRUE;
+}
+
 static BOOL commandSetGood(void) {
     u32 now = millis();
     
     //Chek timing of input command set
     if(now - inputCommandSet.timestamp > INPUT_TIMEOUT) {
+        return FALSE;
+    }
+    return TRUE;
+}
+
+
+static BOOL autonomousUpdateGood(void) {
+    u32 now = millis();
+    
+    //Check age of autonomousUpdate
+    if(now - autonomousUpdate.timestamp > INPUT_TIMEOUT) {
         return FALSE;
     }
     return TRUE;

@@ -57,6 +57,7 @@
 		E4C6CE8D1BF66E7300545241 /* flightController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = flightController.h; sourceTree = "<group>"; };
 		E4D9F9281CB6C2AD00947F28 /* communicationProtocol.pb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = communicationProtocol.pb.c; sourceTree = "<group>"; };
 		E4D9F9291CB6C2AD00947F28 /* communicationProtocol.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = communicationProtocol.pb.h; sourceTree = "<group>"; };
+		E4F3A6141CB81E2A00EDA25A /* flightControllerTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = flightControllerTypes.h; sourceTree = "<group>"; };
 		E4FBB4B01BC31BFC00D6A64F /* Index */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Index; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4FBB4B61BC31BFC00D6A64F /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		E4FBB4C91BC31C3200D6A64F /* accelMag.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = accelMag.c; sourceTree = "<group>"; };
@@ -99,6 +100,7 @@
 		E4074C471C1E2BCC006BCED4 /* Flight Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E4F3A6141CB81E2A00EDA25A /* flightControllerTypes.h */,
 				E4C6CE8D1BF66E7300545241 /* flightController.h */,
 				E4C6CE8C1BF66E7300545241 /* flightController.c */,
 				E4074C491C1E2C7D006BCED4 /* altitudePitchController.h */,

@@ -10,10 +10,15 @@
 #include "uart4.h"
 #include <assert.h>
 #include <avr/eeprom.h>
+#include <math.h>
 
 #include "pinSetup.h"
 
 static FILE mystdout = FDEV_SETUP_STREAM(raspiPutChar, NULL, _FDEV_SETUP_WRITE);
+
+//Static function definitions
+static float toRadians(float degrees);
+static float toDegrees(float radians);
 
 void printfAttachToUart(void) {
     //Initialize UART 3 and make it stderr and stdout
@@ -79,4 +84,33 @@ s16 maps16(s16 x, s16 in_min, s16 in_max, s16 out_min, s16 out_max) {
         out = out_max;
     }
     return out;
+}
+
+u16 bearingToCoordinates(float fromPhi, float fromLambda, float toPhi, float toLambda) {
+    assert(fromPhi <= 90 && fromPhi >= -90 && fromLambda <= 180 && fromLambda >= -180);
+    assert(toPhi <= 90 && toPhi >= -90 && toLambda <= 180 && toLambda >= -180);
+    
+    float phi1 = toRadians(fromPhi);
+    float phi2 = toRadians(toPhi);
+    
+    float lambda1 = toRadians(fromLambda);
+    float lambda2 = toRadians(toLambda);
+    
+    float y = sin(lambda2 - lambda1) * cos(phi2);
+    float x = cos(phi1) * sin(phi2) - sin(phi1) * cos(phi2) * cos(lambda2 - lambda1);
+    
+    s16 bearing = (s16)roundf(toDegrees(atan2(y,x))) % 360;
+    if(bearing < 0) {
+        bearing += 360;
+    }
+    
+    return (u16)bearing;
+}
+
+static float toRadians(float degrees) {
+    return degrees / 180.0 * M_PI;
+}
+
+static float toDegrees(float radians) {
+    return radians * 180.0 / M_PI;
 }

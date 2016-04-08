@@ -11,7 +11,9 @@
 
 #include <stdio.h>
 
-void checkSensorsAndSetFlightMode(void);
+void flightControllerInit(void);
+
+flightMode checkSensorsAndSetFlightMode(void);
 
 void updateFlightControls(void);
 
