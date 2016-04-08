@@ -47,6 +47,7 @@
 		E40EAC961BC3CA9600657063 /* communicationProtocol.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = communicationProtocol.pb.h; sourceTree = "<group>"; };
 		E40EAC981BC3CB1000657063 /* communicationsHandler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = communicationsHandler.c; sourceTree = "<group>"; };
 		E40EAC991BC3CB1000657063 /* communicationsHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = communicationsHandler.h; sourceTree = "<group>"; };
+		E41D1EAC1CB7F62600B8EBF3 /* pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pb.h; sourceTree = "<group>"; };
 		E442391B1C22F42D00FD3D2B /* yawController.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yawController.c; sourceTree = "<group>"; };
 		E442391C1C22F42D00FD3D2B /* yawController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yawController.h; sourceTree = "<group>"; };
 		E4A0E7F51BC9189100168960 /* servo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = servo.c; sourceTree = "<group>"; };
@@ -54,6 +55,8 @@
 		E4A0E7F81BC9192900168960 /* servoconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = servoconf.h; sourceTree = "<group>"; };
 		E4C6CE8C1BF66E7300545241 /* flightController.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = flightController.c; sourceTree = "<group>"; };
 		E4C6CE8D1BF66E7300545241 /* flightController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = flightController.h; sourceTree = "<group>"; };
+		E4D9F9281CB6C2AD00947F28 /* communicationProtocol.pb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = communicationProtocol.pb.c; sourceTree = "<group>"; };
+		E4D9F9291CB6C2AD00947F28 /* communicationProtocol.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = communicationProtocol.pb.h; sourceTree = "<group>"; };
 		E4FBB4B01BC31BFC00D6A64F /* Index */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Index; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4FBB4B61BC31BFC00D6A64F /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		E4FBB4C91BC31C3200D6A64F /* accelMag.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = accelMag.c; sourceTree = "<group>"; };
@@ -109,6 +112,9 @@
 		E4089A671BC47A5100A7D508 /* protobuf */ = {
 			isa = PBXGroup;
 			children = (
+				E41D1EAC1CB7F62600B8EBF3 /* pb.h */,
+				E4D9F9281CB6C2AD00947F28 /* communicationProtocol.pb.c */,
+				E4D9F9291CB6C2AD00947F28 /* communicationProtocol.pb.h */,
 				E4089A681BC47A5B00A7D508 /* pb_common.c */,
 				E4089A691BC47A5B00A7D508 /* pb_common.h */,
 				E4089A6A1BC47A5B00A7D508 /* pb_decode.c */,
@@ -305,7 +311,7 @@
 		E4FBB4A61BC31BFC00D6A64F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Ludger Heide";
 				TargetAttributes = {
 					E4FBB4AA1BC31BFC00D6A64F = {
