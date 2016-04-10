@@ -145,8 +145,8 @@ s16 maps16(s16 x, s16 in_min, s16 in_max, s16 out_min, s16 out_max) {
 }
 
 u16 bearingToCoordinates(float fromPhi, float fromLambda, float toPhi, float toLambda) {
-    assert(fromPhi <= 90 && fromPhi >= -90 && fromLambda <= 180 && fromLambda >= -180);
-    assert(toPhi <= 90 && toPhi >= -90 && toLambda <= 180 && toLambda >= -180);
+    assert(!isnan(fromPhi) && fromPhi <= 90 && fromPhi >= -90 && !isnan(fromLambda) && fromLambda <= 180 && fromLambda >= -180);
+    assert(!isnan(toPhi) && toPhi <= 90 && toPhi >= -90 && !isnan(toLambda) && toLambda <= 180 && toLambda >= -180);
     
     float phi1 = toRadians(fromPhi);
     float phi2 = toRadians(toPhi);
