@@ -65,17 +65,11 @@ message DroneMessage {
 	}
 	
 	message AutonomousUpdate {
-		oneof altitude_pitch {
-			int32 altitude = 90; //Centimeters
-			sint32 pitchAngle = 91; //Relative value, signed 8-bit integer
-		}
+		optional int32 altitude = 90; //Centimeters
+		optional sint32 pitchAngle = 91; //Relative value, signed 8-bit integer
 
-
-		oneof heading_rate_of_turn {
-			int32 heading = 92; //64*degrees
-			sint32 rateOfTurn = 93; //Relative value, signed 8-bit integer
-		}
-
+		optional int32 heading = 92; //64*degrees
+		optional sint32 rateOfTurn = 93; //Relative value, signed 8-bit integer
 	}
 	
 	message Waypoint {	

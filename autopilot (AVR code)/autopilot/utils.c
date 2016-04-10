@@ -36,8 +36,9 @@ static float toDegrees(float radians);
 
 void printfAttachToUart(void) {
     //Initialize UART 3 and make it stderr and stdout
-    uartInit(RASPI_UART);
-    uartSetBaudRate(RASPI_UART, 115200);
+    //Init unnecessary, since raspiComms handles it now
+    //uartInit(RASPI_UART);
+    //uartSetBaudRate(RASPI_UART, 115200);
     stderr = &mystdout;
     stdout = &mystdout;
 }

@@ -22,6 +22,7 @@
 #include <math.h>
 
 #define INPUT_TIMEOUT 250 //Maximum age of input command set in milliseconds
+#define AUTONOMOUS_INPUT_TIMEOUT 1100 //Maximum age of the autonoous update to be considered valis. Milliseconds
 #define SENSOR_TIMEOUT 100 //Maximum age of sensor data to be considered valid. In milliseconds
 #define GPS_TIMEOUT 1100 //Maximum age of a GPS dataset. In milliseconds
 #define MAX_ROTATION (M_PI/4.0) //The rotation a full stick correspinds to (in rad/s)
@@ -257,7 +258,7 @@ static BOOL autonomousUpdateGood(void) {
     u32 now = millis();
     
     //Check age of autonomousUpdate
-    if(autonomousUpdate.timestamp == 0 || now - autonomousUpdate.timestamp > INPUT_TIMEOUT) {
+    if(autonomousUpdate.timestamp == 0 || now - autonomousUpdate.timestamp > AUTONOMOUS_INPUT_TIMEOUT) {
         return FALSE;
     }
     return TRUE;

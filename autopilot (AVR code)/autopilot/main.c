@@ -15,6 +15,7 @@
 #include "pinSetup.h"
 #include "MadgwickAHRS.h"
 #include "communicationsHandler.h"
+#include "raspiComms.h"
 #include "servo.h"
 #include "battery.h"
 
@@ -27,6 +28,7 @@ void initIO(void) {
     readSlpFromEEPROM();
     readHomeBaseFromEEPROM();
     servoInit();
+    raspiInit();
     printfAttachToUart();
     timerInit();
     IMUinit();
@@ -55,6 +57,9 @@ int main(void) {
         //Check if we have a new GPS and xbee available
         if(xBeeNewMessageReady) {
             xBeeHandleMessage();
+        }
+        if(raspiNewMessageReady) {
+            raspiHandleMessage();
         }
         if(gpsCheck()) {
             gpsUpdate();

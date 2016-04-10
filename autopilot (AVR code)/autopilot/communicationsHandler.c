@@ -422,29 +422,31 @@ void commsProcessMessage(char* message, u08 size) {
 #endif
         autonomousUpdate.timestamp = now;
         
-        if(incomingMsg.autonomous_update.which_altitude_pitch == DroneMessage_AutonomousUpdate_altitude_tag) {
+        if(incomingMsg.autonomous_update.has_altitude) {
+            assert(!incomingMsg.autonomous_update.has_pitchAngle);
             autonomousUpdate.altitudeInUse = TRUE;
-            autonomousUpdate.altitude = incomingMsg.autonomous_update.altitude_pitch.altitude;
+            autonomousUpdate.altitude = incomingMsg.autonomous_update.altitude;
         } else {
-            assert(incomingMsg.autonomous_update.which_altitude_pitch == DroneMessage_AutonomousUpdate_pitchAngle_tag);
+            assert(incomingMsg.autonomous_update.has_pitchAngle && !incomingMsg.autonomous_update.has_altitude);
             
             autonomousUpdate.altitudeInUse = FALSE;
-            if(incomingMsg.autonomous_update.altitude_pitch.pitchAngle <= INT8_MAX && incomingMsg.autonomous_update.altitude_pitch.pitchAngle >= INT8_MIN) {
-                autonomousUpdate.pitchAngle = incomingMsg.autonomous_update.altitude_pitch.pitchAngle;
+            if(incomingMsg.autonomous_update.pitchAngle <= INT8_MAX && incomingMsg.autonomous_update.pitchAngle >= INT8_MIN) {
+                autonomousUpdate.pitchAngle = incomingMsg.autonomous_update.pitchAngle;
             } else {
                 autonomousUpdate.timestamp = 0;
             }
         }
         
-        if(incomingMsg.autonomous_update.which_heading_rate_of_turn == DroneMessage_AutonomousUpdate_heading_tag) {
+        if(incomingMsg.autonomous_update.has_heading) {
+            assert(!incomingMsg.autonomous_update.has_rateOfTurn);
             autonomousUpdate.headingInUse = TRUE;
-            autonomousUpdate.heading = intToDegrees(incomingMsg.autonomous_update.heading_rate_of_turn.heading);
+            autonomousUpdate.heading = intToDegrees(incomingMsg.autonomous_update.heading);
         } else {
-            assert(incomingMsg.autonomous_update.which_heading_rate_of_turn == DroneMessage_AutonomousUpdate_rateOfTurn_tag);
+            assert(incomingMsg.autonomous_update.has_rateOfTurn && !incomingMsg.autonomous_update.has_heading);
             
             autonomousUpdate.headingInUse = FALSE;
-            if(incomingMsg.autonomous_update.heading_rate_of_turn.rateOfTurn <= INT8_MAX && incomingMsg.autonomous_update.heading_rate_of_turn.rateOfTurn >= INT8_MIN) {
-                autonomousUpdate.rateOfTurn = incomingMsg.autonomous_update.heading_rate_of_turn.rateOfTurn;
+            if(incomingMsg.autonomous_update.rateOfTurn <= INT8_MAX && incomingMsg.autonomous_update.rateOfTurn >= INT8_MIN) {
+                autonomousUpdate.rateOfTurn = incomingMsg.autonomous_update.rateOfTurn;
             } else {
                 autonomousUpdate.timestamp = 0;
             }

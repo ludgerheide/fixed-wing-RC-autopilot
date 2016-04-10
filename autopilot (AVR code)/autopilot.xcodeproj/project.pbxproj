@@ -16,6 +16,7 @@
 		E442391D1C22F42D00FD3D2B /* yawController.c in Sources */ = {isa = PBXBuildFile; fileRef = E442391B1C22F42D00FD3D2B /* yawController.c */; };
 		E4A0E7F71BC9189100168960 /* servo.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A0E7F51BC9189100168960 /* servo.c */; };
 		E4C6CE8E1BF66E7300545241 /* flightController.c in Sources */ = {isa = PBXBuildFile; fileRef = E4C6CE8C1BF66E7300545241 /* flightController.c */; };
+		E4D257DF1CBABFC100EF732C /* raspiComms.c in Sources */ = {isa = PBXBuildFile; fileRef = E4D257DD1CBABFC100EF732C /* raspiComms.c */; };
 		E4FBB4B71BC31BFC00D6A64F /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4B61BC31BFC00D6A64F /* Makefile */; };
 		E4FBB4E91BC31C3200D6A64F /* accelMag.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4C91BC31C3200D6A64F /* accelMag.c */; };
 		E4FBB4EA1BC31C3200D6A64F /* bmp.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4CD1BC31C3200D6A64F /* bmp.c */; };
@@ -55,6 +56,8 @@
 		E4A0E7F81BC9192900168960 /* servoconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = servoconf.h; sourceTree = "<group>"; };
 		E4C6CE8C1BF66E7300545241 /* flightController.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = flightController.c; sourceTree = "<group>"; };
 		E4C6CE8D1BF66E7300545241 /* flightController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = flightController.h; sourceTree = "<group>"; };
+		E4D257DD1CBABFC100EF732C /* raspiComms.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = raspiComms.c; sourceTree = "<group>"; };
+		E4D257DE1CBABFC100EF732C /* raspiComms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = raspiComms.h; sourceTree = "<group>"; };
 		E4F3A6141CB81E2A00EDA25A /* flightControllerTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = flightControllerTypes.h; sourceTree = "<group>"; };
 		E4FBB4B01BC31BFC00D6A64F /* Index */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Index; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4FBB4B61BC31BFC00D6A64F /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
@@ -215,6 +218,8 @@
 				E40EAC951BC3CA9600657063 /* communicationProtocol.pb.c */,
 				E40EAC991BC3CB1000657063 /* communicationsHandler.h */,
 				E40EAC981BC3CB1000657063 /* communicationsHandler.c */,
+				E4D257DD1CBABFC100EF732C /* raspiComms.c */,
+				E4D257DE1CBABFC100EF732C /* raspiComms.h */,
 			);
 			name = comms;
 			sourceTree = "<group>";
@@ -362,6 +367,7 @@
 				E40EAC971BC3CA9600657063 /* communicationProtocol.pb.c in Sources */,
 				E4089A6E1BC47A5B00A7D508 /* pb_common.c in Sources */,
 				E4FBB4ED1BC31C3200D6A64F /* gyro.c in Sources */,
+				E4D257DF1CBABFC100EF732C /* raspiComms.c in Sources */,
 				E4FC11F41BEEA9BA0040534F /* battery.c in Sources */,
 				E4FBB4EC1BC31C3200D6A64F /* gps.c in Sources */,
 				E4FBB4F31BC31C3200D6A64F /* timer.c in Sources */,
