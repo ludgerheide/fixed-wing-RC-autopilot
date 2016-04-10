@@ -11,16 +11,11 @@
 
 #include "avrlibtypes.h"
 
-//Calculates the rate of climb for a given target altitude
-//INPUT: Altitude in centimeters
-//OUTPUT: Value between -127 and 127 indicating climb(positive) or descend(negative)
-s08 calculateRateOfClimb(s32 targetAltitude);
-
-//Calculate the pitch angle for a given rate of climb
+//Calculate the pitch angle for a given target altitude
 //Using a PI controller
-//INPUT: signed 8-Bit value indicating the rate of climb
+//INPUT: signed 32-Bit value indicating the target altitude in centimeters
 //OUTPUT: signed 8-Bit value indicating the desired pitch angle
-s08 calculatePitchAngle(s08 targetRateOfClimb);
+s08 calculatePitchAngle(s32 targetAltitude);
 
 //Calculate the rudder for a given pitch angle using a PID controller
 //INPUT: signed 8-bit value indicating the desired pitch angle

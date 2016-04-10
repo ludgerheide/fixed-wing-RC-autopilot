@@ -162,8 +162,7 @@ static void autonomousControlUpdate(void) {
     s08 pitchAngle;
     if(autonomousUpdate.altitudeInUse) {
         //Turn altitude into pitch angle
-        s08 rateOfClimb = calculateRateOfClimb(autonomousUpdate.altitude);
-        pitchAngle = calculatePitchAngle(rateOfClimb);
+        pitchAngle = calculatePitchAngle(autonomousUpdate.altitude);
     } else {
         pitchAngle = autonomousUpdate.pitchAngle;
     }
