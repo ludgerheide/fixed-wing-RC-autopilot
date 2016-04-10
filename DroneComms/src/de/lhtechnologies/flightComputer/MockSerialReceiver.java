@@ -82,7 +82,6 @@ public class MockSerialReceiver extends SerialReceiver implements Runnable {
     }
 
     private void processMessage(DroneMessage msg) {
-        assert(msg.getNewMode() == DroneMessage.FlightMode.m_autonomous);
         double targetHeading = msg.getAutonomousUpdate().getHeading() / (double)64;
         double targetAltitude = msg.getAutonomousUpdate().getAltitude() / (double)100;
 

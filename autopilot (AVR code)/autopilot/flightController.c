@@ -189,6 +189,10 @@ static void autonomousReturnToBaseUpdate(void) {
     
     //Calculate course to home base
     autonomousUpdate.headingInUse = TRUE;
+#ifdef FLIGHT_CONTROLLER_DEBUG
+    printf("Home base: lat %f, lon %f, alt %f\r\n", homeBase.latitude, homeBase.longitude, homeBase.altitude);
+#endif
+    
     autonomousUpdate.heading = bearingToCoordinates(GpsInfo.PosLLA.lat, GpsInfo.PosLLA.lon, homeBase.latitude, homeBase.longitude);
     
     //Update altitude to home base alt
@@ -203,15 +207,15 @@ static BOOL flyByWireSensorsGood(void) {
     u32 now = micros();
     
     //Check timing of accelerometer and gyro
-    if(now - curGyro.timestamp > (u32)1000 * SENSOR_TIMEOUT) {
+    if(curGyro.timestamp == 0 || now - curGyro.timestamp > (u32)1000 * SENSOR_TIMEOUT) {
         return FALSE;
     }
     
-    if(now - curAccel.timestamp > (u32)1000 * SENSOR_TIMEOUT) {
+    if(curAccel.timestamp == 0 || now - curAccel.timestamp > (u32)1000 * SENSOR_TIMEOUT) {
         return FALSE;
     }
     
-    if(millis() - currentAttitude.timestamp > SENSOR_TIMEOUT) {
+    if(currentAttitude.timestamp == 0 || millis() - currentAttitude.timestamp > SENSOR_TIMEOUT) {
         return FALSE;
     }
     
@@ -226,13 +230,13 @@ static BOOL autonomousSensorsGood(void) {
     
     //Then check the GPS
     u32 nowMillis = millis();
-    if(nowMillis - GpsInfo.PosLLA.timestamp > GPS_TIMEOUT) {
+    if(GpsInfo.PosLLA.timestamp == 0 || nowMillis - GpsInfo.PosLLA.timestamp > GPS_TIMEOUT) {
         return FALSE;
     }
     
     //Check the altimeter
     u32 nowMicros = micros();
-    if(nowMicros - curPressure.timestamp > (u32)1000 * SENSOR_TIMEOUT) {
+    if(curPressure.timestamp == 0 || nowMicros - curPressure.timestamp > (u32)1000 * SENSOR_TIMEOUT) {
         return FALSE;
     }
     
@@ -243,7 +247,7 @@ static BOOL commandSetGood(void) {
     u32 now = millis();
     
     //Chek timing of input command set
-    if(now - inputCommandSet.timestamp > INPUT_TIMEOUT) {
+    if(inputCommandSet.timestamp == 0 || now - inputCommandSet.timestamp > INPUT_TIMEOUT) {
         return FALSE;
     }
     return TRUE;
@@ -254,7 +258,7 @@ static BOOL autonomousUpdateGood(void) {
     u32 now = millis();
     
     //Check age of autonomousUpdate
-    if(now - autonomousUpdate.timestamp > INPUT_TIMEOUT) {
+    if(autonomousUpdate.timestamp == 0 || now - autonomousUpdate.timestamp > INPUT_TIMEOUT) {
         return FALSE;
     }
     return TRUE;

@@ -25,6 +25,7 @@
 
 void initIO(void) {
     readSlpFromEEPROM();
+    readHomeBaseFromEEPROM();
     servoInit();
     printfAttachToUart();
     timerInit();

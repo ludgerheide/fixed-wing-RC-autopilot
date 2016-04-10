@@ -42,9 +42,6 @@
 //#define F_CPU        3686400               		// 3.69MHz processor
 #define CYCLES_PER_US ((F_CPU+500000)/1000000) 	// cpu cycles per microsecond
 
-//EEPROM layout
-#define EEPROM_SLP_ADDRESS 0x00 //Size 4 bytes, next address 0x04
-
 typedef struct {
     u32 timestamp;
     

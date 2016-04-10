@@ -17,6 +17,10 @@ public class Main {
         FileWriter fw = new FileWriter();
         serial.serialReceiver.addObserver(fw);
 
+        //Initialize the UDP broadcaster
+        UDPBroadcaster udp = new UDPBroadcaster();
+        serial.serialReceiver.addObserver(udp);
+
         //Initialize the glue class
         InetSerialConnection connection = new InetSerialConnection(serial.serialTransmitter, inet.transmitter);
         inet.receiver.addObserver(connection);
@@ -24,7 +28,7 @@ public class Main {
 
         System.out.println("Initialization complete…");
 
-        //Start the IRC thread
+        //Start the Inet thread
         new Thread(inet).start();
 
         Runtime.getRuntime().addShutdownHook(new Thread() {

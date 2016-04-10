@@ -18,6 +18,7 @@
 #include "bmp.h"
 
 #include "flightControllerTypes.h"
+#include "utils.h"
 
 #include "pinSetup.h"
 #include "uart4.h"
@@ -394,8 +395,7 @@ void commsProcessMessage(char* message, u08 size) {
         //Check if value is sane and update ram and eeprom
         if(incomingMsg.sea_level_pressure <= 1100 && incomingMsg.sea_level_pressure >= 850) {
             seaLevelPressure = incomingMsg.sea_level_pressure;
-            
-            eeprom_update_float(EEPROM_SLP_ADDRESS, seaLevelPressure);
+            writeSlpToEEPROM();
         }
         
     }
@@ -405,11 +405,15 @@ void commsProcessMessage(char* message, u08 size) {
         printf("Protobuf: Have home base!\r\n");
 #endif
         
-        homeBase.timestamp = now;
-        
-        homeBase.latitude = incomingMsg.home_base.latitude;
-        homeBase.longitude = incomingMsg.home_base.longitude;
-        homeBase.altitude = incomingMsg.home_base.altitude / 100.0;
+        if(incomingMsg.home_base.latitude <= 90 && incomingMsg.home_base.latitude >= -90 && incomingMsg.home_base.longitude <= 180 && incomingMsg.home_base.longitude >= -180 && incomingMsg.home_base.altitude <= (s32)10000 * (s32)100 && incomingMsg.home_base.altitude >= (s32)-418 * (s32)100) {
+            
+            homeBase.timestamp = now;
+            homeBase.latitude = incomingMsg.home_base.latitude;
+            homeBase.longitude = incomingMsg.home_base.longitude;
+            homeBase.altitude = incomingMsg.home_base.altitude / 100.0;
+            
+            writeHomeBaseToEEPROM();
+        }
     }
     
     if(incomingMsg.has_autonomous_update) {
@@ -502,6 +506,8 @@ void commsCheckAndSendLogging(void) {
         }
         printf("\r\n");
 #endif
+        //Uncomment this for "dummy mode" (nothing actually gets sent
+        //bufferFlush(uartGetTxBuffer(RASPI_UART));
         uartSendTxBuffer(RASPI_UART);
     }
 }
