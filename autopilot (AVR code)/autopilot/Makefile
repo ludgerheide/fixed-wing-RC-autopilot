@@ -55,6 +55,7 @@ FORMAT = ihex
 
 # IP for the uploader
 SSH_IP = 192.168.15.14
+#SSH_IP = 192.168.43.244
 
 # Target file name (without extension).
 TARGET = main
