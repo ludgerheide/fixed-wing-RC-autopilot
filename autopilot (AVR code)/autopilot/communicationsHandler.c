@@ -456,7 +456,7 @@ void commsProcessMessage(char* message, u08 size) {
 
 void commsCheckAndSendTelemetry(void) {
     u32 now = millis();
-    u08 telemetryLength;
+    u08 telemetryLength = 0;
     
     //Check if the serial buffer is empty, we should sens a new msg
     //and the last transmission has been acked (disreagars the ack check if more than one second has passed since the last transmission
@@ -508,8 +508,6 @@ void commsCheckAndSendLogging(void) {
         }
         printf("\r\n");
 #endif
-        //Uncomment this for "dummy mode" (nothing actually gets sent
-        //bufferFlush(uartGetTxBuffer(RASPI_UART));
         uartSendTxBuffer(RASPI_UART);
     }
 }

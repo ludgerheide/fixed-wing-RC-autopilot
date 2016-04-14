@@ -25,11 +25,11 @@
 #include "uart4.h"
 
 void initIO(void) {
+    raspiInit();
+    printfAttachToUart();
     readSlpFromEEPROM();
     readHomeBaseFromEEPROM();
     servoInit();
-    raspiInit();
-    printfAttachToUart();
     timerInit();
     IMUinit();
     gpsInit();

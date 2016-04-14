@@ -338,10 +338,10 @@ gccversion :
 # Program the device.  
 program: $(OBJDIR)/$(TARGET).hex $(OBJDIR)/$(TARGET).eep
 #	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
-	scp "$(OBJDIR)/$(TARGET).hex" pi@$(SSH_IP):/tmp/
+	scp "$(OBJDIR)/$(TARGET).hex" $(SSH_IP):/tmp/
 #   Execute the upload
 #   Remove the file
-	ssh pi@$(SSH_IP) "sudo avrdude -q -p atmega2560 -P /dev/spidev0.1 -c linuxspi -Uflash:w:/tmp/$(TARGET).hex:i; rm -v /tmp/$(TARGET).hex"
+	ssh $(SSH_IP) "sudo avrdude -q -p atmega2560 -P /dev/spidev0.1 -c linuxspi -Uflash:w:/tmp/$(TARGET).hex:i; rm -v /tmp/$(TARGET).hex"
 
 
 # Generate avr-gdb config/init file which does the following:

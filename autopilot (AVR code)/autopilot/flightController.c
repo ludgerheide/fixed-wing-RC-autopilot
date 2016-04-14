@@ -77,7 +77,8 @@ flightMode checkSensorsAndSetFlightMode(void) {
     } else if(autonomousUpdateGood() && autonomousSensorsGood()) {
         return m_autonomous;
     } else if (autonomousSensorsGood()) {
-        return m_autonomousReturnToBase;
+        return m_degraded; //Since autonomousRTB is not yet validated, go to degraded
+        //return m_autonomousReturnToBase;
     } else {
         return m_degraded;
     }
@@ -228,14 +229,20 @@ static BOOL autonomousSensorsGood(void) {
         return FALSE;
     }
     
-    //Then check the GPS
     u32 nowMillis = millis();
+    u32 nowMicros = micros();
+    
+    //Then the compass
+    if(curMag.timestamp == 0 || nowMicros - curMag.timestamp > (u32)1000 * SENSOR_TIMEOUT) {
+        return FALSE;
+    }
+    
+    //Then check the GPS
     if(GpsInfo.PosLLA.timestamp == 0 || nowMillis - GpsInfo.PosLLA.timestamp > GPS_TIMEOUT) {
         return FALSE;
     }
     
     //Check the altimeter
-    u32 nowMicros = micros();
     if(curPressure.timestamp == 0 || nowMicros - curPressure.timestamp > (u32)1000 * SENSOR_TIMEOUT) {
         return FALSE;
     }

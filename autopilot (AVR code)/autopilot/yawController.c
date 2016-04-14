@@ -15,11 +15,8 @@
 #define DEVIATION_FOR_MAXIMUM_RATE_OF_TURN 45
 #define COMPASS_DECLINATION 0 //add this to magentic north to get true north (Basically 0 in western europe)
 #define MAX_YAW_ROTATION (M_PI/8.0) //The maximum rate of turn we want to allow (in rad/s)
-#define MAX_ROLL_ROTATION (M_PI/8.0) //The roll rate that is opposed by a maximum deflection
-#define MAX_BANK_ANGLE 30.0 //The bank angle that correspons to our maximum turning speed
 
-#define BANK_ANGLE_GAIN 0.66
-#define YAW_RATE_GAIN 0.33
+#define YAW_RATE_GAIN 1.0
 
 //Calculates the turning speed for a given target course
 //INPUT: Magnetic course in degrees (0-360)
@@ -43,24 +40,19 @@ s08 calculateRateOfTurn(s16 wantedCourse) {
     return rateOfTurn;
 }
 
-//Calculate the rudder for a given pitch angle using a PID controller
+//Calculate the rudder for a given yaw rate using a P controller
 //INPUT: signed 8-bit value indicating the desired rate of turn (positive means right)
 //OUTPUT: *unsigned* 8-bit value to go to the servo
 u08 calculateRudderValue(s08 targetRateOfTurn) {
     float yawRate = curGyro.z; //Positive value means turning to the right (clockwise), negative left (counteclockwise)
-    s08 bankAngle = currentAttitude.roll; //Positive value means dipping the right wing (clockwise viewed from behind the aircraft), negative means dipping left wing
     
-    //Interpret the input value as rotation
+    //Interpret the input value as rotation and invert
     float wantedYawRate = mapfloat(targetRateOfTurn, INT8_MIN, INT8_MAX, -MAX_YAW_ROTATION, MAX_YAW_ROTATION);
+    wantedYawRate = wantedYawRate * -1;
     float yawDifference = wantedYawRate - yawRate;
-    float normalizedYawDifference = mapfloat(yawDifference, -MAX_YAW_ROTATION, MAX_YAW_ROTATION, -1, 1);
-    
-    //Calculate the bank angle difference
-    float wantedBankAngle = mapfloat(targetRateOfTurn, INT8_MIN, INT8_MAX, -MAX_BANK_ANGLE, MAX_BANK_ANGLE);
-    float bankAngleDifference = wantedBankAngle - bankAngle;
-    float normalizedBankAngleDifference = mapfloat(bankAngleDifference, -MAX_BANK_ANGLE, MAX_BANK_ANGLE, -1, 1);
+    float normalizedYawDifference = mapfloat(yawDifference, +MAX_YAW_ROTATION, -MAX_YAW_ROTATION, -1, 1);
     
     //Add the two together with respective coeffiecents
-    float normalizedRudder = YAW_RATE_GAIN * normalizedYawDifference + BANK_ANGLE_GAIN * normalizedBankAngleDifference;
+    float normalizedRudder = YAW_RATE_GAIN * normalizedYawDifference;
     return mapfloat(normalizedRudder, 1, -1, 0, UINT8_MAX);
 }
