@@ -13,56 +13,76 @@ import static de.lhtechnologies.CommunicationProtocol.*;
 /**
  * Created by ludger on 18.01.16.
  */
-public class SerialReceiver extends Observable implements SerialPortEventListener {
+public class SerialReceiver extends Observable implements Runnable {
     public static byte[] startMarker = "start".getBytes();
 
     InputStream in;
 
-    byte[] inputBuffer = new byte[256];
-    int payloadLength = 0;
+    protected byte[] inputBuffer = new byte[257];
+    protected int payloadLength = 0;
+    private int inByte = 0;
+    private int index = 0;
+
+    private int receivedMsg = 0;
+    long millis = 0;
 
     public SerialReceiver(InputStream in) {
         this.in = in;
     }
 
     @Override
-    public void serialEvent(SerialPortEvent theEvent) {
-        assert(theEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE);
-        int inByte, checksum;
-        int index = 0;
+    public void run() {
         try {
-            while ((inByte = in.read()) > -1) {
-                //First, synchronize on the start marker
-                if (index < 5) {
+            while (true) {
+                //if the index is 0, read byte-by-byte until we have index and length
+                if(index < 5) {
+                    inByte = in.read();
                     if (inByte == startMarker[index]) {
                         index++;
                     } else {
                         index = 0;
                     }
-                } else if (index == 5) {
-                    //If we reached this part, we have received a valid start marker.
-                    //The next byte is the length, add 5 + 1 + 1 to it to get the index of the final byte
-                    payloadLength = inByte;
-                    index++;
-                } else if (index >= startMarker.length && index < (payloadLength + startMarker.length + 1)) {
-                    //Now we are receiving the payload
-                    inputBuffer[index - (startMarker.length + 1)] = (byte) inByte;
-                    index++;
-                } else {
-                    //Reception complete. Verify checksum, create Protobuf object and notify the observers
-                    int receivedChecksum = inByte;
-                    int calculatedChecksum = calculateChecksum();
-                    if (receivedChecksum == calculatedChecksum) {
-                        byte[] rawMessage = Arrays.copyOfRange(inputBuffer, 0, payloadLength);
+                }
+                if(index == 5) {
+                    inByte = in.read();
+                    if(inByte == -1) {
+                        index = 0;
+                    } else {
+                        payloadLength = inByte;
+                        index++;
+                    }
+                }
+                if(index >= (startMarker.length + 1)) {
+                    //We are in the message body, wait for the avalable size to be correct
+                    if(in.available() >= payloadLength + 1) {
+                        index = 0;
+
+                        int read = in.read(inputBuffer, 0, payloadLength + 1);
+                        assert(read == payloadLength + 1);
+
+                        int receivedChecksum = inputBuffer[payloadLength];
+                        int calculatedChecksum = calculateChecksum();
+
+                        //Reception complete. Verify checksum, create Protobuf object and notify the observers
+                        if (receivedChecksum == calculatedChecksum) {
+                            byte[] rawMessage = Arrays.copyOfRange(inputBuffer, 0, payloadLength);
+                            try {
+                                System.out.format("complete msg %d, Backlog %d, time since last %d %n", receivedMsg++, in.available(), System.currentTimeMillis() - millis);
+                                millis = System.currentTimeMillis();
+                                DroneMessage msg = DroneMessage.parseFrom(rawMessage);
+                                setChanged();
+                                notifyObservers(msg);
+                            } catch (InvalidProtocolBufferException e) {
+                                System.out.println("WARNING: Invalid protobuf received!");
+                            }
+                        }
+                    } else {
                         try {
-                            DroneMessage msg = DroneMessage.parseFrom(rawMessage);
-                            setChanged();
-                            notifyObservers(msg);
-                        } catch (InvalidProtocolBufferException e) {
-                            System.out.println("WARNING: Invalid protobuf received!");
+                            Thread.sleep(1);
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
-                    break;
                 }
             }
         } catch (IOException e) {

@@ -94,12 +94,12 @@ public class InetSerialConnection implements Observer {
         updateStoredMessageAndSend(receivedMessage);
 
         //If the message contains a position, update the heading, switch waypoints if applicable and send it to the device
-        if(receivedMessage.hasCurrentPosition() && (!storedMessage.hasCurrentPosition() || storedMessage.getCurrentPosition().getTimestamp() < receivedMessage.getCurrentPosition().getTimestamp())) {
+        if(receivedMessage.hasCurrentPosition()) {
             double lat = receivedMessage.getCurrentPosition().getLatitude();
             double lon = receivedMessage.getCurrentPosition().getLongitude();
 
             //There should always be a new sped when there is a new position
-            assert(receivedMessage.hasCurrentSpeed() && (!storedMessage.hasCurrentSpeed() || storedMessage.getCurrentSpeed().getTimestamp() < receivedMessage.getCurrentSpeed().getTimestamp()));
+            assert(receivedMessage.hasCurrentSpeed());
             double hdg = receivedMessage.getCurrentSpeed().getCourseOverGround() / (double)64; //Return to float from fixed-point
 
             //A recent altitude should always be present, but we check anyway
@@ -144,28 +144,28 @@ public class InetSerialConnection implements Observer {
         }
 
         //Contant that has its own timestamp
-        if(receivedMessage.hasCurrentSpeed() && (!storedMessage.hasCurrentSpeed() || storedMessage.getCurrentSpeed().getTimestamp() < receivedMessage.getCurrentSpeed().getTimestamp())) {
+        if((receivedMessage.hasCurrentSpeed() && (!storedMessage.hasCurrentSpeed()) || storedMessage.getCurrentSpeed().getTimestamp() < receivedMessage.getCurrentSpeed().getTimestamp())) {
             storedMessage.setCurrentSpeed(receivedMessage.getCurrentSpeed());
         }
 
-        if(receivedMessage.hasCurrentPosition() && (!storedMessage.hasCurrentPosition() || storedMessage.getCurrentPosition().getTimestamp() < receivedMessage.getCurrentPosition().getTimestamp())) {
+        if((receivedMessage.hasCurrentPosition() && (!storedMessage.hasCurrentPosition()) || storedMessage.getCurrentPosition().getTimestamp() < receivedMessage.getCurrentPosition().getTimestamp())) {
             storedMessage.setCurrentPosition(receivedMessage.getCurrentPosition());
         }
 
-        if(receivedMessage.hasCurrentAttitude() && (!storedMessage.hasCurrentAttitude() || storedMessage.getCurrentAttitude().getTimestamp() < receivedMessage.getCurrentAttitude().getTimestamp())) {
+        if((receivedMessage.hasCurrentAttitude() && (!storedMessage.hasCurrentAttitude()) || storedMessage.getCurrentAttitude().getTimestamp() < receivedMessage.getCurrentAttitude().getTimestamp())) {
             storedMessage.setCurrentAttitude(receivedMessage.getCurrentAttitude());
         }
 
         //Do not care about raw sensor data (that would come here) but continue with battery data
 
-        if (receivedMessage.hasCurrentBatteryData() && (!storedMessage.hasCurrentBatteryData() || storedMessage.getCurrentBatteryData().getTimestamp() < receivedMessage.getCurrentBatteryData().getTimestamp())) {
+        if ((receivedMessage.hasCurrentBatteryData() && (!storedMessage.hasCurrentBatteryData()) || storedMessage.getCurrentBatteryData().getTimestamp() < receivedMessage.getCurrentBatteryData().getTimestamp())) {
             storedMessage.setCurrentBatteryData(receivedMessage.getCurrentBatteryData());
         }
 
-        //Get waypoint and home base changes
-        if(receivedMessage.hasHomeBase() && (!storedMessage.hasHomeBase() || storedMessage.getHomeBase().getTimestamp() < receivedMessage.getHomeBase().getTimestamp())) {
-            storedMessage.setHomeBase(receivedMessage.getHomeBase());
-        }
+        //Ignore waypoint and home base changes
+        //if((receivedMessage.hasHomeBase() && (!storedMessage.hasHomeBase()) || storedMessage.getHomeBase().getTimestamp() < receivedMessage.getHomeBase().getTimestamp())) {
+        //    storedMessage.setHomeBase(receivedMessage.getHomeBase());
+        //}
 
         try {
             if(millis() - lastMessageSent > messageInterval) {

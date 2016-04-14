@@ -152,6 +152,8 @@ public class RouteManager {
             }
         }
 
+        System.out.format("Lat: %f, Lon: %f, Alt: %.1f, new Course %.0f, new Alt %.0f %n", lat, lon, altitude, desiredHeading, currentTarget.altitude);
+
         //Create the update message
         DroneMessage update = DroneMessage.newBuilder()
                 .setAutonomousUpdate(DroneMessage.AutonomousUpdate.newBuilder()
