@@ -17,6 +17,9 @@
 #include "nmea.h"
 #include "bmp.h"
 
+#include "flightControllerTypes.h"
+#include "utils.h"
+
 #include "pinSetup.h"
 #include "uart4.h"
 #include "timer.h"
@@ -47,7 +50,7 @@ static const u16 telemetryDelay = 250; //The delay between each telemetry messag
 // a) transmitted over the telemetry
 // b) send thtough the serial (logging port)
 static u32 telPosTime, telVelTime, telAttitudeTime, telAltitudeTime, telBatteryTime;
-static u32 logPosTime, logVelTime, logAttitudeTime, logAltitudeTime, logBaroDataTime, logRawGyroTime, logRawAccelTime, logRawMagTime, logHomeBaseTime, logWaypointTime, logInCommandSetTime, logOutCommandSetTime, logBatteryTime;
+static u32 logPosTime, logVelTime, logAttitudeTime, logAltitudeTime, logBaroDataTime, logRawGyroTime, logRawAccelTime, logRawMagTime, logHomeBaseTime, logInCommandSetTime, logOutCommandSetTime, logBatteryTime;
 
 //Function to convert degrees to a fixed-point 16 byte integer
 s16 degreesToInt(float degrees) {
@@ -117,7 +120,7 @@ static u08 createProtobuf(messagePurpose thePurpose, u08* messageLength) {
     }
     
     //Velocity for both, as above
-    if((thePurpose == logging && GpsInfo.VelHS.timestamp - logVelTime) || (thePurpose == telemetry && GpsInfo.PosLLA.timestamp - telVelTime)) {
+    if((thePurpose == logging && GpsInfo.VelHS.timestamp - logVelTime) || (thePurpose == telemetry && GpsInfo.VelHS.timestamp - telVelTime)) {
         outgoingMsg.has_current_speed = true;
         
         //For logging, with timestamp
@@ -171,7 +174,7 @@ static u08 createProtobuf(messagePurpose thePurpose, u08* messageLength) {
             telAltitudeTime = curPressure.timestamp;
         }
     }
-
+    
     
     //Battery for both, as above
     if ((thePurpose == logging && curBattery.timestamp - logBatteryTime) || (thePurpose == telemetry && curBattery.timestamp - telBatteryTime)) {
@@ -246,21 +249,6 @@ static u08 createProtobuf(messagePurpose thePurpose, u08* messageLength) {
     }
     
     //In logging mode, also log inputs
-    //waypoint
-    if(thePurpose == logging && currentTarget.timestamp - logWaypointTime) {
-        outgoingMsg.has_waypoint = true;
-        
-        outgoingMsg.waypoint.has_timestamp = true;
-        outgoingMsg.waypoint.timestamp = currentTarget.timestamp;
-        
-        outgoingMsg.waypoint.latitude = currentTarget.latitude;
-        outgoingMsg.waypoint.longitude = currentTarget.latitude;
-        
-        outgoingMsg.waypoint.altitude = currentTarget.altitude * 100;
-        
-        //Time update
-        logWaypointTime = currentTarget.timestamp;
-    }
     
     //home base
     if(thePurpose == logging && homeBase.timestamp - logHomeBaseTime) {
@@ -271,7 +259,6 @@ static u08 createProtobuf(messagePurpose thePurpose, u08* messageLength) {
         
         outgoingMsg.home_base.latitude = homeBase.latitude;
         outgoingMsg.home_base.longitude = homeBase.longitude;
-        
         outgoingMsg.home_base.altitude = homeBase.altitude * 100;
         
         //Time update
@@ -373,6 +360,7 @@ void commsProcessMessage(char* message, u08 size) {
         }
 #ifdef COMMS_DEBUG
         else {
+            inputCommandSet.timestamp = 0;
             printf("Yaw out of bounds! %i", __LINE__);
         }
 #endif
@@ -383,6 +371,7 @@ void commsProcessMessage(char* message, u08 size) {
         }
 #ifdef COMMS_DEBUG
         else {
+            inputCommandSet.timestamp = 0;
             printf("Pitch out of bounds! %i", __LINE__);
         }
 #endif
@@ -393,6 +382,7 @@ void commsProcessMessage(char* message, u08 size) {
         }
 #ifdef COMMS_DEBUG
         else {
+            inputCommandSet.timestamp = 0;
             printf("Roll out of bounds! %i", __LINE__);
         }
 #endif
@@ -405,22 +395,9 @@ void commsProcessMessage(char* message, u08 size) {
         //Check if value is sane and update ram and eeprom
         if(incomingMsg.sea_level_pressure <= 1100 && incomingMsg.sea_level_pressure >= 850) {
             seaLevelPressure = incomingMsg.sea_level_pressure;
-            
-            eeprom_update_float(EEPROM_SLP_ADDRESS, seaLevelPressure);
+            writeSlpToEEPROM();
         }
         
-    }
-    
-    if(incomingMsg.has_waypoint) {
-#ifdef COMMS_DEBUG
-        printf("Protobuf: Have waypoint!\r\n");
-#endif
-        
-        currentTarget.timestamp = now;
-        
-        currentTarget.latitude = incomingMsg.waypoint.latitude;
-        currentTarget.longitude = incomingMsg.waypoint.longitude;
-        currentTarget.altitude = incomingMsg.waypoint.altitude / 100.0;
     }
     
     if(incomingMsg.has_home_base) {
@@ -428,25 +405,58 @@ void commsProcessMessage(char* message, u08 size) {
         printf("Protobuf: Have home base!\r\n");
 #endif
         
-        homeBase.timestamp = now;
-        
-        homeBase.latitude = incomingMsg.home_base.latitude;
-        homeBase.longitude = incomingMsg.home_base.longitude;
-        homeBase.altitude = incomingMsg.home_base.altitude / 100.0;
+        if(incomingMsg.home_base.latitude <= 90 && incomingMsg.home_base.latitude >= -90 && incomingMsg.home_base.longitude <= 180 && incomingMsg.home_base.longitude >= -180 && incomingMsg.home_base.altitude <= (s32)10000 * (s32)100 && incomingMsg.home_base.altitude >= (s32)-418 * (s32)100) {
+            
+            homeBase.timestamp = now;
+            homeBase.latitude = incomingMsg.home_base.latitude;
+            homeBase.longitude = incomingMsg.home_base.longitude;
+            homeBase.altitude = incomingMsg.home_base.altitude / 100.0;
+            
+            writeHomeBaseToEEPROM();
+        }
     }
     
-    if(incomingMsg.has_new_mode) {
+    if(incomingMsg.has_autonomous_update) {
 #ifdef COMMS_DEBUG
-        printf("Protobuf: Have new mode!\r\n");
+        printf("Protobuf: Have Autonomous update!\r\n");
 #endif
+        autonomousUpdate.timestamp = now;
         
-        currentFlightMode = incomingMsg.new_mode;
+        if(incomingMsg.autonomous_update.has_altitude) {
+            assert(!incomingMsg.autonomous_update.has_pitchAngle);
+            autonomousUpdate.altitudeInUse = TRUE;
+            autonomousUpdate.altitude = incomingMsg.autonomous_update.altitude;
+        } else {
+            assert(incomingMsg.autonomous_update.has_pitchAngle && !incomingMsg.autonomous_update.has_altitude);
+            
+            autonomousUpdate.altitudeInUse = FALSE;
+            if(incomingMsg.autonomous_update.pitchAngle <= INT8_MAX && incomingMsg.autonomous_update.pitchAngle >= INT8_MIN) {
+                autonomousUpdate.pitchAngle = incomingMsg.autonomous_update.pitchAngle;
+            } else {
+                autonomousUpdate.timestamp = 0;
+            }
+        }
+        
+        if(incomingMsg.autonomous_update.has_heading) {
+            assert(!incomingMsg.autonomous_update.has_rateOfTurn);
+            autonomousUpdate.headingInUse = TRUE;
+            autonomousUpdate.heading = intToDegrees(incomingMsg.autonomous_update.heading);
+        } else {
+            assert(incomingMsg.autonomous_update.has_rateOfTurn && !incomingMsg.autonomous_update.has_heading);
+            
+            autonomousUpdate.headingInUse = FALSE;
+            if(incomingMsg.autonomous_update.rateOfTurn <= INT8_MAX && incomingMsg.autonomous_update.rateOfTurn >= INT8_MIN) {
+                autonomousUpdate.rateOfTurn = incomingMsg.autonomous_update.rateOfTurn;
+            } else {
+                autonomousUpdate.timestamp = 0;
+            }
+        }
     }
 }
 
 void commsCheckAndSendTelemetry(void) {
     u32 now = millis();
-    u08 telemetryLength;
+    u08 telemetryLength = 0;
     
     //Check if the serial buffer is empty, we should sens a new msg
     //and the last transmission has been acked (disreagars the ack check if more than one second has passed since the last transmission

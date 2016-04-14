@@ -42,30 +42,6 @@
 //#define F_CPU        3686400               		// 3.69MHz processor
 #define CYCLES_PER_US ((F_CPU+500000)/1000000) 	// cpu cycles per microsecond
 
-//EEPROM layout
-#define EEPROM_SLP_ADDRESS 0x00 //Size 4 bytes, next address 0x04
-
-typedef struct {
-    u32 timestamp;
-    
-    u08 yaw;
-    u08 pitch;
-    u08 thrust;
-} commandSet_struct;
-commandSet_struct inputCommandSet;
-commandSet_struct outputCommandSet;
-
-typedef enum {
-    m_degraded = 0,
-    m_passThrough = 1,
-    m_flybywire = 2,
-    m_autonomou = 3,
-    m_landed = 4,
-    mx_autonomous_ai = 5,
-    mx_unavailable = 6
-} flightMode;
-flightMode currentFlightMode;
-
 typedef struct {
     u32 timestamp;
     
@@ -74,16 +50,6 @@ typedef struct {
     float roll;
 } attitude_struct;
 attitude_struct currentAttitude;
-
-typedef struct {
-    u32 timestamp;
-    
-    float latitude;
-    float longitude;
-    float altitude; //Meters ASL
-} waypoint;
-waypoint currentTarget;
-waypoint homeBase;
 
 pressureEvent curPressure;
 magEvent curMag;

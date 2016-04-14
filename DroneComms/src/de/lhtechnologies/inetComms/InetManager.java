@@ -18,14 +18,13 @@ public class InetManager implements Runnable {
     private Socket sock;
     private SignVerify sv;
 
-    private static String address = "192.168.15.10";
+    private static String address = "lht.no-ip.biz";
     private static int port = 5050;
     private static int maxRetryCount = 10;
     private static int sleepDuration = 1000;
 
     public InetManager() throws Exception {
         sv = new SignVerify();
-
         resetConnection();
     }
 

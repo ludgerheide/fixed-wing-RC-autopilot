@@ -10,7 +10,7 @@ import Foundation
 import UIKit //TODO: REMOVE
 
 class InetInterface : NSObject, NSStreamDelegate {
-    private let host = "192.168.15.10"
+    private let host = "lht.no-ip.biz"
     private let port: UInt32 = 5051
     private var reconnectTimer: NSTimer?
     private let reconnecTimeout: NSTimeInterval = 1
@@ -92,7 +92,7 @@ class InetInterface : NSObject, NSStreamDelegate {
             //Do this stuff in the main thread only
             reconnectTimer?.invalidate()
             reconnectTimer = nil
-            reconnectTimer = NSTimer.scheduledTimerWithTimeInterval(reconnecTimeout, target: self, selector: "startNetworkCommunication", userInfo: nil, repeats: false)
+            reconnectTimer = NSTimer.scheduledTimerWithTimeInterval(reconnecTimeout, target: self, selector: #selector(InetInterface.startNetworkCommunication), userInfo: nil, repeats: false)
             
             //If this strem is the output stream, send an error notification
             if(aStream == outStream) {
@@ -167,10 +167,10 @@ class InetInterface : NSObject, NSStreamDelegate {
             if let endRange = incompleteMessage.rangeOfString(sigEnd) {
                 let endMark = endRange.endIndex
                 
-                let completeRange = Range(start: startMark, end: endMark)
+                let completeRange = Range(startMark ..< endMark)
                 let outString = incompleteMessage.substringWithRange(completeRange)
                 
-                let rangeToRemove = Range(start: startMark, end: endMark)
+                let rangeToRemove = Range(startMark ..< endMark)
                 incompleteMessage.removeRange(rangeToRemove)
                 
                 let messageFromRecursion: String? = handleMessage()

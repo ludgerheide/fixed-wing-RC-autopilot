@@ -11,10 +11,10 @@
 
 #include <stdio.h>
 
-void checkSensorsAndSetFlightMode(void);
+void flightControllerInit(void);
+
+flightMode checkSensorsAndSetFlightMode(void);
 
 void updateFlightControls(void);
-
-void flightControllerInit(void);
 
 #endif /* flightController_h */

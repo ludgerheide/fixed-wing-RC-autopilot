@@ -7,7 +7,7 @@
 //
 
 class Logger {
-    static func log(content: String, functionName: String = __FUNCTION__, fileName: String = __FILE__, lineNumber: Int = __LINE__) {
+    static func log(content: String, functionName: String = #function, fileName: String = #file, lineNumber: Int = #line) {
         print(String(fileName) + ":" + String(lineNumber) + "(" + functionName + ") " + content)
     }
     

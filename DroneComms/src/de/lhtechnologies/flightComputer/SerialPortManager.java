@@ -26,10 +26,10 @@ public class SerialPortManager {
             SerialPort thePort = (SerialPort) portId.open("TelemetryReceiver", 5000);
             thePort.setSerialPortParams(baudRate, dataBits, stopBits, parity);
             thePort.setFlowControlMode(SerialPort.FLOWCONTROL_NONE);
-
             serialReceiver = new SerialReceiver(thePort.getInputStream());
-            thePort.addEventListener(serialReceiver);
-            thePort.notifyOnDataAvailable(true);
+            new Thread(serialReceiver).start();
+            //thePort.addEventListener(serialReceiver);
+            //thePort.notifyOnDataAvailable(true);
 
             serialTransmitter = new SerialTransmitter(thePort.getOutputStream());
         } catch (Exception e) {

@@ -8,9 +8,9 @@ public class Waypoint {
     private static double earthRadius = 6371000; //Unit: meters
 
     //Position of the waypoitn
-    protected double latitude; //Degrees with fractions
-    protected double longitude; //Degrees with fractions
-    protected double altitude; //Meters ASL
+    public double latitude; //Degrees with fractions
+    public double longitude; //Degrees with fractions
+    public double altitude; //Meters ASL
 
     //Orbit parameters
     protected Double orbitRadius; //Meters
@@ -111,5 +111,58 @@ public class Waypoint {
             throw new IllegalArgumentException("A waypoint has an orbit that it shouldn't have (or the other way round)");
         }
         return null;
+    }
+
+    /**
+     * Clalculates the bearing towards another waypoint in degrees
+     */
+    public double bearingTo(Waypoint other) {
+        double phi1 = Math.toRadians(this.latitude);
+        double phi2 = Math.toRadians(other.latitude);
+
+        double lambda1 = Math.toRadians(this.longitude);
+        double lambda2 = Math.toRadians(other.longitude);
+
+        double y = Math.sin(lambda2 - lambda1) * Math.cos(phi2);
+        double x = Math.cos(phi1) * Math.sin(phi2) - Math.sin(phi1) * Math.cos(phi2) * Math.cos(lambda2 - lambda1);
+
+        double bearing = Math.toDegrees(Math.atan2(y,x)) % 360;
+        if(bearing < 0) {
+            bearing += 360;
+        }
+
+        return bearing;
+    }
+
+    /**
+     * Calculates the cross-track error for a (directional) line between points A and B and a third point
+     * Signed value: negative if we should turn left, positive if we should turn right
+     */
+    public static double crossTrackError(Waypoint lineStart, Waypoint lineEnd, Waypoint pointC) {
+        double distanceAC = lineStart.distance(lineEnd);
+        double bearingAC = Math.toRadians(lineStart.bearingTo(pointC));
+        double bearingBC = Math.toRadians(lineEnd.bearingTo(pointC));
+
+        double crossTrackError = Math.asin(Math.sin(distanceAC / earthRadius) * Math.sin(bearingAC - bearingBC));
+        return crossTrackError;
+    }
+
+    /**
+     Calculates an waypoint given another waypoint and distance+bearing
+
+     Parameters:
+     - distance: The distance from this point in meters
+     - bearing: The direction in whioch we go away from the start point in degrees
+
+     - Returns: An waypoint with a given distance and bearing to another point
+     */
+    public Waypoint waypointWithDistanceAndBearing(double distance, double bearing) {
+        double phi1 = Math.toRadians(latitude);
+        double lambda1 = Math.toRadians(longitude);
+
+        double phi2 = Math.asin(Math.sin(phi1) * Math.cos(distance/earthRadius) + Math.cos(phi1) * Math.sin(distance/earthRadius) * Math.cos(Math.toRadians(bearing)));
+        double lambda2 = lambda1 + Math.atan2(Math.sin(Math.toRadians(bearing)) * Math.sin(distance/earthRadius) * Math.cos(phi1), Math.cos(distance/earthRadius) - Math.sin(phi1) * Math.sin(phi2));
+
+        return new Waypoint(Math.toDegrees(phi2), Math.toDegrees(lambda2), altitude);
     }
 }

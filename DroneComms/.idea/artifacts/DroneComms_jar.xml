@@ -3,9 +3,9 @@
     <output-path>$PROJECT_DIR$/out/artifacts/DroneComms_jar</output-path>
     <root id="archive" name="DroneComms.jar">
       <element id="module-output" name="DroneComms" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/lib/RXTXcomm.jar" path-in-jar="/" />
       <element id="file-copy" path="$PROJECT_DIR$/controller.pub.pem" />
       <element id="file-copy" path="$PROJECT_DIR$/drone.priv.pem" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/nrjavaserial-3.11.0.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

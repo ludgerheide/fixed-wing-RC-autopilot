@@ -7,15 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E4074C4A1C1E2C7D006BCED4 /* altitudePitchController.c in Sources */ = {isa = PBXBuildFile; fileRef = E4074C481C1E2C7D006BCED4 /* altitudePitchController.c */; };
 		E4089A6E1BC47A5B00A7D508 /* pb_common.c in Sources */ = {isa = PBXBuildFile; fileRef = E4089A681BC47A5B00A7D508 /* pb_common.c */; };
 		E4089A6F1BC47A5B00A7D508 /* pb_decode.c in Sources */ = {isa = PBXBuildFile; fileRef = E4089A6A1BC47A5B00A7D508 /* pb_decode.c */; };
 		E4089A701BC47A5B00A7D508 /* pb_encode.c in Sources */ = {isa = PBXBuildFile; fileRef = E4089A6C1BC47A5B00A7D508 /* pb_encode.c */; };
 		E40EAC971BC3CA9600657063 /* communicationProtocol.pb.c in Sources */ = {isa = PBXBuildFile; fileRef = E40EAC951BC3CA9600657063 /* communicationProtocol.pb.c */; };
 		E40EAC9A1BC3CB1000657063 /* communicationsHandler.c in Sources */ = {isa = PBXBuildFile; fileRef = E40EAC981BC3CB1000657063 /* communicationsHandler.c */; };
-		E459354B1C90580500A17EE9 /* Flugregler_data.c in Sources */ = {isa = PBXBuildFile; fileRef = E45935421C90580500A17EE9 /* Flugregler_data.c */; };
-		E459354C1C90580500A17EE9 /* Flugregler.c in Sources */ = {isa = PBXBuildFile; fileRef = E45935451C90580500A17EE9 /* Flugregler.c */; };
+		E442391D1C22F42D00FD3D2B /* yawController.c in Sources */ = {isa = PBXBuildFile; fileRef = E442391B1C22F42D00FD3D2B /* yawController.c */; };
 		E4A0E7F71BC9189100168960 /* servo.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A0E7F51BC9189100168960 /* servo.c */; };
 		E4C6CE8E1BF66E7300545241 /* flightController.c in Sources */ = {isa = PBXBuildFile; fileRef = E4C6CE8C1BF66E7300545241 /* flightController.c */; };
+		E4D257DF1CBABFC100EF732C /* raspiComms.c in Sources */ = {isa = PBXBuildFile; fileRef = E4D257DD1CBABFC100EF732C /* raspiComms.c */; };
 		E4FBB4B71BC31BFC00D6A64F /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4B61BC31BFC00D6A64F /* Makefile */; };
 		E4FBB4E91BC31C3200D6A64F /* accelMag.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4C91BC31C3200D6A64F /* accelMag.c */; };
 		E4FBB4EA1BC31C3200D6A64F /* bmp.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4CD1BC31C3200D6A64F /* bmp.c */; };
@@ -35,6 +36,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E4074C481C1E2C7D006BCED4 /* altitudePitchController.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = altitudePitchController.c; sourceTree = "<group>"; };
+		E4074C491C1E2C7D006BCED4 /* altitudePitchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = altitudePitchController.h; sourceTree = "<group>"; };
 		E4089A681BC47A5B00A7D508 /* pb_common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pb_common.c; sourceTree = "<group>"; };
 		E4089A691BC47A5B00A7D508 /* pb_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pb_common.h; sourceTree = "<group>"; };
 		E4089A6A1BC47A5B00A7D508 /* pb_decode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pb_decode.c; sourceTree = "<group>"; };
@@ -45,18 +48,17 @@
 		E40EAC961BC3CA9600657063 /* communicationProtocol.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = communicationProtocol.pb.h; sourceTree = "<group>"; };
 		E40EAC981BC3CB1000657063 /* communicationsHandler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = communicationsHandler.c; sourceTree = "<group>"; };
 		E40EAC991BC3CB1000657063 /* communicationsHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = communicationsHandler.h; sourceTree = "<group>"; };
-		E45935421C90580500A17EE9 /* Flugregler_data.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Flugregler_data.c; sourceTree = "<group>"; };
-		E45935431C90580500A17EE9 /* Flugregler_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flugregler_private.h; sourceTree = "<group>"; };
-		E45935441C90580500A17EE9 /* Flugregler_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flugregler_types.h; sourceTree = "<group>"; };
-		E45935451C90580500A17EE9 /* Flugregler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Flugregler.c; sourceTree = "<group>"; };
-		E45935461C90580500A17EE9 /* Flugregler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flugregler.h; sourceTree = "<group>"; };
-		E45935471C90580500A17EE9 /* multiword_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = multiword_types.h; sourceTree = "<group>"; };
-		E45935481C90580500A17EE9 /* rtwtypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rtwtypes.h; sourceTree = "<group>"; };
+		E41D1EAC1CB7F62600B8EBF3 /* pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pb.h; sourceTree = "<group>"; };
+		E442391B1C22F42D00FD3D2B /* yawController.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yawController.c; sourceTree = "<group>"; };
+		E442391C1C22F42D00FD3D2B /* yawController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yawController.h; sourceTree = "<group>"; };
 		E4A0E7F51BC9189100168960 /* servo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = servo.c; sourceTree = "<group>"; };
 		E4A0E7F61BC9189100168960 /* servo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = servo.h; sourceTree = "<group>"; };
 		E4A0E7F81BC9192900168960 /* servoconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = servoconf.h; sourceTree = "<group>"; };
 		E4C6CE8C1BF66E7300545241 /* flightController.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = flightController.c; sourceTree = "<group>"; };
 		E4C6CE8D1BF66E7300545241 /* flightController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = flightController.h; sourceTree = "<group>"; };
+		E4D257DD1CBABFC100EF732C /* raspiComms.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = raspiComms.c; sourceTree = "<group>"; };
+		E4D257DE1CBABFC100EF732C /* raspiComms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = raspiComms.h; sourceTree = "<group>"; };
+		E4F3A6141CB81E2A00EDA25A /* flightControllerTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = flightControllerTypes.h; sourceTree = "<group>"; };
 		E4FBB4B01BC31BFC00D6A64F /* Index */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Index; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4FBB4B61BC31BFC00D6A64F /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		E4FBB4C91BC31C3200D6A64F /* accelMag.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = accelMag.c; sourceTree = "<group>"; };
@@ -99,9 +101,13 @@
 		E4074C471C1E2BCC006BCED4 /* Flight Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				E459353E1C9057DE00A17EE9 /* simulink-generatedCode */,
+				E4F3A6141CB81E2A00EDA25A /* flightControllerTypes.h */,
 				E4C6CE8D1BF66E7300545241 /* flightController.h */,
 				E4C6CE8C1BF66E7300545241 /* flightController.c */,
+				E4074C491C1E2C7D006BCED4 /* altitudePitchController.h */,
+				E4074C481C1E2C7D006BCED4 /* altitudePitchController.c */,
+				E442391C1C22F42D00FD3D2B /* yawController.h */,
+				E442391B1C22F42D00FD3D2B /* yawController.c */,
 			);
 			name = "Flight Controllers";
 			sourceTree = "<group>";
@@ -109,6 +115,7 @@
 		E4089A671BC47A5100A7D508 /* protobuf */ = {
 			isa = PBXGroup;
 			children = (
+				E41D1EAC1CB7F62600B8EBF3 /* pb.h */,
 				E4089A681BC47A5B00A7D508 /* pb_common.c */,
 				E4089A691BC47A5B00A7D508 /* pb_common.h */,
 				E4089A6A1BC47A5B00A7D508 /* pb_decode.c */,
@@ -117,20 +124,6 @@
 				E4089A6D1BC47A5B00A7D508 /* pb_encode.h */,
 			);
 			name = protobuf;
-			sourceTree = "<group>";
-		};
-		E459353E1C9057DE00A17EE9 /* simulink-generatedCode */ = {
-			isa = PBXGroup;
-			children = (
-				E45935421C90580500A17EE9 /* Flugregler_data.c */,
-				E45935431C90580500A17EE9 /* Flugregler_private.h */,
-				E45935441C90580500A17EE9 /* Flugregler_types.h */,
-				E45935451C90580500A17EE9 /* Flugregler.c */,
-				E45935461C90580500A17EE9 /* Flugregler.h */,
-				E45935471C90580500A17EE9 /* multiword_types.h */,
-				E45935481C90580500A17EE9 /* rtwtypes.h */,
-			);
-			name = "simulink-generatedCode";
 			sourceTree = "<group>";
 		};
 		E4FBB4A51BC31BFC00D6A64F = {
@@ -225,6 +218,8 @@
 				E40EAC951BC3CA9600657063 /* communicationProtocol.pb.c */,
 				E40EAC991BC3CB1000657063 /* communicationsHandler.h */,
 				E40EAC981BC3CB1000657063 /* communicationsHandler.c */,
+				E4D257DD1CBABFC100EF732C /* raspiComms.c */,
+				E4D257DE1CBABFC100EF732C /* raspiComms.h */,
 			);
 			name = comms;
 			sourceTree = "<group>";
@@ -319,7 +314,7 @@
 		E4FBB4A61BC31BFC00D6A64F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Ludger Heide";
 				TargetAttributes = {
 					E4FBB4AA1BC31BFC00D6A64F = {
@@ -365,7 +360,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E459354B1C90580500A17EE9 /* Flugregler_data.c in Sources */,
 				E4089A6F1BC47A5B00A7D508 /* pb_decode.c in Sources */,
 				E4FBB4F51BC31C3200D6A64F /* utils.c in Sources */,
 				E4FBB4F41BC31C3200D6A64F /* uart4.c in Sources */,
@@ -373,10 +367,11 @@
 				E40EAC971BC3CA9600657063 /* communicationProtocol.pb.c in Sources */,
 				E4089A6E1BC47A5B00A7D508 /* pb_common.c in Sources */,
 				E4FBB4ED1BC31C3200D6A64F /* gyro.c in Sources */,
+				E4D257DF1CBABFC100EF732C /* raspiComms.c in Sources */,
 				E4FC11F41BEEA9BA0040534F /* battery.c in Sources */,
-				E459354C1C90580500A17EE9 /* Flugregler.c in Sources */,
 				E4FBB4EC1BC31C3200D6A64F /* gps.c in Sources */,
 				E4FBB4F31BC31C3200D6A64F /* timer.c in Sources */,
+				E4074C4A1C1E2C7D006BCED4 /* altitudePitchController.c in Sources */,
 				E4FBB4F01BC31C3200D6A64F /* MadgwickAHRS.c in Sources */,
 				E4C6CE8E1BF66E7300545241 /* flightController.c in Sources */,
 				E4FBB4B71BC31BFC00D6A64F /* Makefile in Sources */,
@@ -389,6 +384,7 @@
 				E4FBB4F11BC31C3200D6A64F /* main.c in Sources */,
 				E4A0E7F71BC9189100168960 /* servo.c in Sources */,
 				E4FBB4E91BC31C3200D6A64F /* accelMag.c in Sources */,
+				E442391D1C22F42D00FD3D2B /* yawController.c in Sources */,
 				E4FBB4EF1BC31C3200D6A64F /* imuBoard.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -205,4 +205,7 @@ const float magn_ellipsoid_transform[3][3] = {{0.982285, -0.00897246, 0.0191484}
     output->x = output->x * magn_ellipsoid_transform[0][0] + output->y * magn_ellipsoid_transform[0][1] + output->z * magn_ellipsoid_transform[0][2];
     output->y = output->x * magn_ellipsoid_transform[1][0] + output->y * magn_ellipsoid_transform[1][1] + output->z * magn_ellipsoid_transform[1][2];
     output->z = output->x * magn_ellipsoid_transform[2][0] + output->y * magn_ellipsoid_transform[2][1] + output->z * magn_ellipsoid_transform[2][2];
+    
+    //Carry over the timestamp
+    output->timestamp = input->timestamp;
 }

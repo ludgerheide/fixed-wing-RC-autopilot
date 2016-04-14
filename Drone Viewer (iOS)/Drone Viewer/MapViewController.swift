@@ -25,7 +25,7 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
         // Do any additional setup after loading the view.
         NSNotificationCenter.defaultCenter().addObserver(
             self,
-            selector: "newDroneMessageReceived:",
+            selector: #selector(MapViewController.newDroneMessageReceived(_:)),
             name: InetInterface.notificationName,
             object: nil)
         updateLabels(nil)
@@ -69,7 +69,7 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
             laBattery.textColor = UIColor.blackColor()
             
             labelTimeoutTimer?.invalidate()
-            labelTimeoutTimer = NSTimer.scheduledTimerWithTimeInterval(labelTimeOut, target: self, selector: "clearLabels", userInfo: nil, repeats: false)
+            labelTimeoutTimer = NSTimer.scheduledTimerWithTimeInterval(labelTimeOut, target: self, selector: #selector(MapViewController.clearLabels), userInfo: nil, repeats: false)
         } else {
             laConnection.text = "No Data!"
             laConnection.textColor = UIColor.redColor()

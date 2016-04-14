@@ -35,14 +35,14 @@ class MapOverlayController: NSObject, MKMapViewDelegate {
         
         NSNotificationCenter.defaultCenter().addObserver(
             self,
-            selector: "newMapUpdateReady:",
+            selector: #selector(MapOverlayController.newMapUpdateReady(_:)),
             name: TrackCreator.notificationName,
             object: nil)
         
         //Register entering backgroudn to save track
         NSNotificationCenter.defaultCenter().addObserver(
             self,
-            selector: "saveRoute",
+            selector: #selector(MapOverlayController.saveRoute),
             name: UIApplicationDidEnterBackgroundNotification,
             object: nil)
     }

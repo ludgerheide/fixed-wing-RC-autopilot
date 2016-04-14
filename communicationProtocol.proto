@@ -7,9 +7,7 @@ message DroneMessage {
 		m_passThrough = 1;
 		m_flybywire = 2;
 		m_autonomous = 3;
-		m_landed = 4;
-		mx_autonomous_ai = 5;
-		mx_unavailable = 6;
+		m_autonomous_return_to_base = 4;
 	}
 
 	message Position {
@@ -66,39 +64,52 @@ message DroneMessage {
 		required int32 thrust = 82;
 	}
 	
-	message Waypoint {	
-		optional int32 timestamp = 90;
-	
-		required float latitude = 91;
-		required float longitude = 92;
-		required int32 altitude = 93;
+	message AutonomousUpdate {
+		optional int32 altitude = 90; //Centimeters
+		optional sint32 pitchAngle = 91; //Relative value, signed 8-bit integer
 
-		optional uint32 orbitRadius = 94;
-		optional bool orbitUntilTargetAltitude = 95;
-		optional bool orbitClockwise = 96;
+		optional int32 heading = 92; //64*degrees
+		optional sint32 rateOfTurn = 93; //Relative value, signed 8-bit integer
+	}
+	
+	message Waypoint {	
+		optional int32 timestamp = 100;
+	
+		required float latitude = 101;
+		required float longitude = 102;
+		required int32 altitude = 103;
+
+		optional uint32 orbitRadius = 104;
+		optional bool orbitUntilTargetAltitude = 105;
+		optional bool orbitClockwise = 106;
 	}
 	
 	//A timestamp
-	optional int32 timestamp = 17;
+	optional int32 timestamp = 1;
 	
-	optional FlightMode current_mode = 1;
-	optional Velocity current_speed = 2;
-	optional Position current_position = 3;
-	optional Attitude current_attitude = 4;
-	optional int32 current_altitude = 18;
+	optional FlightMode current_mode = 2;
+	optional Velocity current_speed = 3;
+	optional Position current_position = 4;
+	optional Attitude current_attitude = 5;
+	optional int32 current_altitude = 6;
 	
-	optional BaroData bmp_raw = 5;
-	optional ThreeDimensionalData gyro_raw = 6;
-	optional ThreeDimensionalData mag_raw = 7;
-	optional ThreeDimensionalData accel_raw = 8;
-	optional BatteryData current_battery_data = 9;
-	optional CommandSet output_command_set = 10;
+	optional BaroData bmp_raw = 7;
+	optional ThreeDimensionalData gyro_raw = 8;
+	optional ThreeDimensionalData mag_raw = 9;
+	optional ThreeDimensionalData accel_raw = 10;
+	optional BatteryData current_battery_data = 11;
+	optional CommandSet output_command_set = 12;
 	
 	//Now the "input" messages
-	optional Waypoint waypoint = 12;
-	optional Waypoint home_base = 13;
-	repeated Waypoint route = 19;
-	optional float sea_level_pressure = 14;
-	optional CommandSet input_command_set = 15;
-	optional FlightMode new_mode = 16;
+	
+	//Control messages
+	optional CommandSet input_command_set = 13;
+	optional AutonomousUpdate autonomous_update = 14;
+	
+	//Configureation updates
+	optional float sea_level_pressure = 15;
+	optional Waypoint home_base = 17;
+	
+	//The route
+	repeated Waypoint route = 18;
 }

@@ -27,6 +27,7 @@ public class InetSerialConnection implements Observer {
     DroneMessage.Builder storedMessage;
     long lastMessageSent; //In seconds
     public static long messageInterval = 1000; //In milliseconds
+    public static long maxAltitudeAgeDifference = 100; // In Millisencods
 
     public InetSerialConnection(SerialTransmitter serialTransmitter, InetTransmitter inetTransmitter) {
         this.inetTransmitter = inetTransmitter;
@@ -56,13 +57,10 @@ public class InetSerialConnection implements Observer {
             DroneMessage msg = DroneMessage.parseFrom(message);
 
             //If the message has a sea level pressure or flight mode, forward it directly
-            if(msg.hasSeaLevelPressure() || msg.hasNewMode()) {
+            if(msg.hasSeaLevelPressure()) {
                 DroneMessage.Builder toFlightControl = DroneMessage.newBuilder();
                 if(msg.hasSeaLevelPressure()) {
                     toFlightControl.setSeaLevelPressure(msg.getSeaLevelPressure());
-                }
-                if(msg.hasNewMode()) {
-                    toFlightControl.setNewMode(msg.getNewMode());
                 }
                 DroneMessage outMsg = toFlightControl.build();
                 try {
@@ -90,14 +88,38 @@ public class InetSerialConnection implements Observer {
         } catch (InvalidProtocolBufferException e) {
             System.out.println("Failed to parse protobuf from network!");
         }
-        String msgString = new String(message);
-        System.out.println(msgString);
     }
 
     public void handleDroneMessage(DroneMessage receivedMessage) {
         updateStoredMessageAndSend(receivedMessage);
 
         //If the message contains a position, update the heading, switch waypoints if applicable and send it to the device
+        if(receivedMessage.hasCurrentPosition()) {
+            double lat = receivedMessage.getCurrentPosition().getLatitude();
+            double lon = receivedMessage.getCurrentPosition().getLongitude();
+
+            //There should always be a new sped when there is a new position
+            assert(receivedMessage.hasCurrentSpeed());
+            double hdg = receivedMessage.getCurrentSpeed().getCourseOverGround() / (double)64; //Return to float from fixed-point
+
+            //A recent altitude should always be present, but we check anyway
+            Double alt;
+            if((storedMessage.getTimestamp() - receivedMessage.getCurrentPosition().getTimestamp()) < maxAltitudeAgeDifference) {
+                alt = storedMessage.getCurrentAltitude() / (double)100; //Convert cm to m
+            } else {
+                alt = null;
+            }
+
+            DroneMessage update = routeManager.getAutonomousUpdate(lat, lon, hdg, alt);
+            if(update != null) {
+                try {
+                    serialTransmitter.transmit(update);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
     }
 
     public void updateStoredMessageAndSend(DroneMessage receivedMessage) {
@@ -119,39 +141,31 @@ public class InetSerialConnection implements Observer {
             if(receivedMessage.hasInputCommandSet()) {
                 storedMessage.setInputCommandSet(receivedMessage.getInputCommandSet());
             }
-
-            if(receivedMessage.hasNewMode()) {
-                storedMessage.setNewMode(receivedMessage.getNewMode());
-            }
         }
 
         //Contant that has its own timestamp
-        if(receivedMessage.hasCurrentSpeed() && (!storedMessage.hasCurrentSpeed() || storedMessage.getCurrentSpeed().getTimestamp() < receivedMessage.getCurrentSpeed().getTimestamp())) {
+        if((receivedMessage.hasCurrentSpeed() && (!storedMessage.hasCurrentSpeed()) || storedMessage.getCurrentSpeed().getTimestamp() < receivedMessage.getCurrentSpeed().getTimestamp())) {
             storedMessage.setCurrentSpeed(receivedMessage.getCurrentSpeed());
         }
 
-        if(receivedMessage.hasCurrentPosition() && (!storedMessage.hasCurrentPosition() || storedMessage.getCurrentPosition().getTimestamp() < receivedMessage.getCurrentPosition().getTimestamp())) {
+        if((receivedMessage.hasCurrentPosition() && (!storedMessage.hasCurrentPosition()) || storedMessage.getCurrentPosition().getTimestamp() < receivedMessage.getCurrentPosition().getTimestamp())) {
             storedMessage.setCurrentPosition(receivedMessage.getCurrentPosition());
         }
 
-        if(receivedMessage.hasCurrentAttitude() && (!storedMessage.hasCurrentAttitude() || storedMessage.getCurrentAttitude().getTimestamp() < receivedMessage.getCurrentAttitude().getTimestamp())) {
+        if((receivedMessage.hasCurrentAttitude() && (!storedMessage.hasCurrentAttitude()) || storedMessage.getCurrentAttitude().getTimestamp() < receivedMessage.getCurrentAttitude().getTimestamp())) {
             storedMessage.setCurrentAttitude(receivedMessage.getCurrentAttitude());
         }
 
         //Do not care about raw sensor data (that would come here) but continue with battery data
 
-        if (receivedMessage.hasCurrentBatteryData() && (!storedMessage.hasCurrentBatteryData() || storedMessage.getCurrentBatteryData().getTimestamp() < receivedMessage.getCurrentBatteryData().getTimestamp())) {
+        if ((receivedMessage.hasCurrentBatteryData() && (!storedMessage.hasCurrentBatteryData()) || storedMessage.getCurrentBatteryData().getTimestamp() < receivedMessage.getCurrentBatteryData().getTimestamp())) {
             storedMessage.setCurrentBatteryData(receivedMessage.getCurrentBatteryData());
         }
 
-        //Get waypoint and home base changes
-        if(receivedMessage.hasWaypoint() && (!storedMessage.hasWaypoint() || storedMessage.getWaypoint().getTimestamp() < receivedMessage.getWaypoint().getTimestamp())) {
-            storedMessage.setWaypoint(receivedMessage.getWaypoint());
-        }
-
-        if(receivedMessage.hasHomeBase() && (!storedMessage.hasHomeBase() || storedMessage.getHomeBase().getTimestamp() < receivedMessage.getHomeBase().getTimestamp())) {
-            storedMessage.setHomeBase(receivedMessage.getHomeBase());
-        }
+        //Ignore waypoint and home base changes
+        //if((receivedMessage.hasHomeBase() && (!storedMessage.hasHomeBase()) || storedMessage.getHomeBase().getTimestamp() < receivedMessage.getHomeBase().getTimestamp())) {
+        //    storedMessage.setHomeBase(receivedMessage.getHomeBase());
+        //}
 
         try {
             if(millis() - lastMessageSent > messageInterval) {
@@ -169,13 +183,6 @@ public class InetSerialConnection implements Observer {
     }
 
     public static int randInt(int min, int max) {
-
-        // NOTE: This will (intentionally) not run as written so that folks
-        // copy-pasting have to think about how to initialize their
-        // Random instance.  Initialization of the Random instance is outside
-        // the main scope of the question, but some decent options are to have
-        // a field that is initialized once and then re-used as needed or to
-        // use ThreadLocalRandom (if using at least Java 1.7).
         Random rand = new Random();
 
         // nextInt is normally exclusive of the top value,

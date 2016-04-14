@@ -21,7 +21,7 @@ public class FileWriter implements Observer {
 
     public FileWriter() throws FileNotFoundException {
         TimeZone tz = TimeZone.getTimeZone("UTC");
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mmZ");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HHmm'Z'");
         df.setTimeZone(tz);
         String nowAsISO = df.format(new Date());
 
@@ -39,6 +39,7 @@ public class FileWriter implements Observer {
 
         try {
             fos.write(SerialReceiver.startMarker);
+            fos.write((byte) messageBytes.length);
             fos.write(messageBytes);
             fos.write(checksum);
         } catch (IOException e) {
