@@ -53,6 +53,9 @@
     //Get the value from the correct sticks and triggers in a normalized format (-1.0 to 1.0)
     commandSet cs;
     
+    //Check if the x button is pressed
+    cs.x_pressed = theController.x;
+    
     //First, Pitch from the right y-axis
     double pitch = theController.leftStickY;
     if(fabs(pitch) <= DEADZONE_SIZE) {

@@ -11,6 +11,7 @@
 
 //The struct that contains elevator, rudder and thrust
 typedef struct {
+    BOOL x_pressed;
     double elevator;
     double rudder;
     double thrust;

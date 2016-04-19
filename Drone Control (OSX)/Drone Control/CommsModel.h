@@ -47,4 +47,6 @@
 
 //This method sends the sea level pressure to the plane
 -(void) sendSeaLevelPressure: (NSNumber*) thePressure;
+
++(float) mapfloat: (float)x fromMin: (float)in_min fromMax:(float)in_max toMin:(float) out_min toMax:(float) out_max;
 @end

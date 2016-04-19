@@ -105,11 +105,30 @@
     //Create a protobuf with this stuff and send it
     DroneMessage* msg = [[DroneMessage alloc] init];
     
-    const uint8_t servo_max = 255;
+    const uint8_t servo_max = INT8_MAX;
     
-    msg.inputCommandSet.pitch = round((cs.elevator + 1.0) * (servo_max / 2.0));
-    msg.inputCommandSet.yaw = round((cs.rudder + 1.0) * (servo_max / 2.0));
-    msg.inputCommandSet.thrust = round(cs.thrust * servo_max);
+    if(!cs.x_pressed) {
+        msg.inputCommandSet.pitch = round((cs.elevator + 1.0) * (servo_max / 2.0));
+        msg.inputCommandSet.yaw = round((cs.rudder + 1.0) * (servo_max / 2.0));
+        msg.inputCommandSet.thrust = round(cs.thrust * servo_max);
+    } else {
+        BOOL altitudeInUse = false;
+        BOOL headingInUse = true;
+        
+        if(altitudeInUse) {
+            float altMeters = 50;
+            msg.autonomousUpdate.altitude = altMeters * 100; //to centimeters
+        } else {
+            msg.autonomousUpdate.pitchAngle = [CommsModel mapfloat: cs.elevator fromMin: -1 fromMax: 1 toMin: INT8_MIN toMax: INT8_MAX];
+        }
+        
+        if(headingInUse) {
+            float headingDegrees = 0;
+            msg.autonomousUpdate.heading = round(headingDegrees/64.0);
+        } else {
+            msg.autonomousUpdate.rateOfTurn = [CommsModel mapfloat: cs.rudder fromMin: -1 fromMax: 1 toMin: INT8_MIN toMax: INT8_MAX];
+        }
+    }
     
     XBeeMessage* xBeeMsg = [[XBeeMessage alloc] initWithPayload: msg.data];
     
@@ -222,6 +241,16 @@
             }
         }
     }
+}
+
++(float) mapfloat: (float)x fromMin: (float)in_min fromMax:(float)in_max toMin:(float) out_min toMax:(float) out_max {
+    float out = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    if(out < out_min) {
+        out = out_min;
+    } else if(out > out_max) {
+        out = out_max;
+    }
+    return out;
 }
 
 -(void) serialPortWasRemovedFromSystem:(ORSSerialPort *)serialPort {
