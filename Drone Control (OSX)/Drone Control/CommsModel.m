@@ -76,7 +76,6 @@
         xBeeMsg.frameID = 0xFE;
         
         [myPort sendData: xBeeMsg.encodeMessage];
-
     }
 }
 
@@ -172,7 +171,7 @@
         receivedData = newData;
         
         XBeeMessage* myMsg = [[XBeeMessage alloc] initWithRawMessage: packet];
-        if(myMsg != nil) {            
+        if(myMsg != nil) {
             NSError* myError;
             DroneMessage* myDecodedMsg = [DroneMessage parseFromData: myMsg.payloadData error: &myError];
             
