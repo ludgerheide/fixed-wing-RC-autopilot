@@ -104,7 +104,7 @@
     //Create a protobuf with this stuff and send it
     DroneMessage* msg = [[DroneMessage alloc] init];
     
-    const uint8_t servo_max = INT8_MAX;
+    const uint8_t servo_max = UINT8_MAX;
     
     if(!cs.x_pressed) {
         msg.inputCommandSet.pitch = round((cs.elevator + 1.0) * (servo_max / 2.0));
