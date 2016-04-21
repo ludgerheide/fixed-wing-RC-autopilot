@@ -21,7 +21,7 @@
 
 //Calculates the turning speed for a given target course
 //INPUT: Magnetic course in degrees (0-360)
-//OUTPUT: Value between -127 and 127 indicating rate of turn. Positive indicates a turn to the right (clockwise if viewed from top)
+//OUTPUT: Value between -127 and 127 indicating rate of turn. NEGATIVE indicates a turn to the right (clockwise if viewed from top)
 s08 calculateRateOfTurn(s16 wantedCourse) {
     s16 currentCourse = currentAttitude.courseMagnetic + COMPASS_DECLINATION;
     //Wonky angle subtraction
@@ -37,13 +37,21 @@ s08 calculateRateOfTurn(s16 wantedCourse) {
     
     assert(abs(difference) <= 180);
     
-    s08 rateOfTurn = maps16(difference, -DEVIATION_FOR_MAXIMUM_RATE_OF_TURN, DEVIATION_FOR_MAXIMUM_RATE_OF_TURN, INT8_MIN, INT8_MAX);
+    //Invert the difference
+    difference *= -1;
+    
+    s08 rateOfTurn = maps32(difference, -DEVIATION_FOR_MAXIMUM_RATE_OF_TURN, DEVIATION_FOR_MAXIMUM_RATE_OF_TURN, INT8_MIN, INT8_MAX);
+    
+#ifded FLIGHT_CONTROLLER_DEBUG
+    printf("Current: %i Wanted: %i Difference: %i rateOfTurn: %i\r\n", currentCourse, wantedCourse, difference, rateOfTurn);
+#endif
+    
     return rateOfTurn;
 }
 
 //Calculate the rudder for a given yaw rate using a P controller
 //INPUT: signed 8-bit value indicating the desired rate of turn (positive means right)
-//Positive value means turning right, negative value turning left
+//Positive value means turning LEFT, negative value turning RIGHT
 //OUTPUT: *unsigned* 8-bit value to go to the servo
 u08 calculateRudderValue(s08 targetRateOfTurn) {
     float yawRate = curGyro.z; //Positive value means turning to the right (clockwise), negative left (counteclockwise)
