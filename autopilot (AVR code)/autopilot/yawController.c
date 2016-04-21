@@ -42,7 +42,7 @@ s08 calculateRateOfTurn(s16 wantedCourse) {
     
     s08 rateOfTurn = maps32(difference, -DEVIATION_FOR_MAXIMUM_RATE_OF_TURN, DEVIATION_FOR_MAXIMUM_RATE_OF_TURN, INT8_MIN, INT8_MAX);
     
-#ifded FLIGHT_CONTROLLER_DEBUG
+#ifdef FLIGHT_CONTROLLER_DEBUG
     printf("Current: %i Wanted: %i Difference: %i rateOfTurn: %i\r\n", currentCourse, wantedCourse, difference, rateOfTurn);
 #endif
     

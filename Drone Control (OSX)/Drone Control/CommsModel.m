@@ -123,7 +123,7 @@
         
         if(headingInUse) {
             float headingDegrees = 0;
-            msg.autonomousUpdate.heading = round(headingDegrees/64.0);
+            msg.autonomousUpdate.heading = round(headingDegrees*64.0);
         } else {
             msg.autonomousUpdate.rateOfTurn = [CommsModel mapfloat: cs.rudder fromMin: -1 fromMax: 1 toMin: INT8_MIN toMax: INT8_MAX];
         }
