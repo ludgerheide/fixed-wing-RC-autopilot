@@ -93,11 +93,11 @@
 - (void) sendControllerSample: (NSTimer*) theTimer {
     commandSet cs = [controllerModel getValues];
     
-    NSNumber* pitch = [NSNumber numberWithDouble: cs.elevator];
-    NSNumber* yaw = [NSNumber numberWithDouble: cs.rudder];
-    NSNumber* thrust = [NSNumber numberWithDouble: cs.thrust];
-    
     if(controllerDelegate) {
+        NSNumber* pitch = [NSNumber numberWithDouble: cs.elevator];
+        NSNumber* yaw = [NSNumber numberWithDouble: cs.rudder];
+        NSNumber* thrust = [NSNumber numberWithDouble: cs.thrust];
+        
         [controllerDelegate controllerChangedWithPitch: pitch yaw: yaw thrust: thrust];
     }
     
