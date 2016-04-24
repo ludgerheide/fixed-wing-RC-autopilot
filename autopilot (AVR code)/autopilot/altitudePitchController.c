@@ -12,18 +12,22 @@
 #include "utils.h"
 #include <math.h>
 
-const float altitudeFilterCoefficient = 0.25; //Impact of the new value, for example .25 means 1/4 of the new value and 3/4 of the old
-
 const float maxAltitudeIntegral = 10.0 * 100.0 * 10.0; //The maximum value of the integral in centimeters * seconds
-const s32 maxAltitudeProportional = 25 * 100; //The maximum Proportinal error in centimeters
+const s32 maxAltitudeProportional = 10 * 100; //The maximum Proportinal error in centimeters
 
 //Do not change the "8192", but the factor after it
 const s16 maxNormalizedIntegral = 8192 * 1.0;
 const s16 maxNormalizedProportional = 8192 * 1.0;
 
 u32 lastAltitudeTime;
-float smoothedAltitude;
 float integratedAltitudeError;
+
+//The box size of the moving average filter
+#define BOX_SIZE 5
+
+//Method and variable of average filter
+static void updateMovingAverageFilter(float pressure);
+s32 smoothedAltitude;
 
 //Calculate the pitch angle for a given target altitude
 //Using a PI controller
@@ -34,11 +38,10 @@ s08 calculatePitchAngle(s32 targetAltitude) {
     s32 altitudeError;
     u32 altitudeAge = curPressure.timestamp - lastAltitudeTime;
     if(altitudeAge > 0) {
-        float currentAltitude = pressureToAltitude(curPressure.pressure, seaLevelPressure);
-        smoothedAltitude = altitudeFilterCoefficient * currentAltitude + (1 - altitudeFilterCoefficient) * smoothedAltitude;
+        updateMovingAverageFilter(curPressure.pressure);
         
         //Update the time and the integral
-        altitudeError = targetAltitude - (smoothedAltitude * 100);
+        altitudeError = targetAltitude - smoothedAltitude;
         integratedAltitudeError += altitudeError * (altitudeAge / (float)1000000);
         
         lastAltitudeTime = curPressure.timestamp;
@@ -50,16 +53,20 @@ s08 calculatePitchAngle(s32 targetAltitude) {
             integratedAltitudeError = -maxAltitudeIntegral;
         }
     } else {
-        altitudeError = targetAltitude - (smoothedAltitude * 100);
+        altitudeError = targetAltitude - smoothedAltitude;
     }
     
-    s16 normalized_integral = mapfloat(integratedAltitudeError, -maxAltitudeIntegral, maxAltitudeIntegral, -maxNormalizedIntegral, maxNormalizedIntegral);
+    s16 normalized_integral = maps32(integratedAltitudeError, -maxAltitudeIntegral, maxAltitudeIntegral, -maxNormalizedIntegral, maxNormalizedIntegral);
     s16 normalized_proportional = maps32(altitudeError, -maxAltitudeProportional, maxAltitudeProportional, -maxNormalizedProportional, maxNormalizedProportional);
     
     //Add the integral and proportional together to a 16 bit value and map it to the output
     s16 proportional_integral = normalized_integral + normalized_proportional;
     
-    return maps16(proportional_integral, INT16_MIN/2, INT16_MAX/2, INT8_MIN, INT8_MAX);
+#ifdef FLIGHT_CONTROLLER_DEBUG
+    printf("current: %li, target: %li, error %li, integrated %li, normalized %i, output %i\r\n", smoothedAltitude, targetAltitude, altitudeError, (s32)integratedAltitudeError, proportional_integral, (s08)mapfloat(proportional_integral, -16384, 16384, INT8_MIN, INT8_MAX));
+#endif
+    
+    return mapfloat(proportional_integral, -16384, 16384, INT8_MIN, INT8_MAX);
 }
 
 #define MAX_PITCH_ANGLE 20 //The maximum up/down pitch
@@ -108,4 +115,38 @@ u08 calculateElevatorValue(s08 targetPitchAngle) {
     //Add the three together and map them correctly
     float normalizedOutput = pitchProportionalNormalized * ELEVATOR_PROPORTIONAL_GAIN + pitchIntegralNormalized * ELEVATOR_INTEGRAL_GAIN + pitchDerivNormalized * ELEVATOR_DIFFERENTIAL_GAIN;
     return mapfloat(normalizedOutput, -1, 1, 0, UINT8_MAX);
+}
+
+//Variables for moving average
+u08 boxIndex = 0;
+BOOL filterFull = FALSE;
+float pressureValues[BOX_SIZE];
+
+//Updates the moving average filter
+void updateMovingAverageFilter(float pressure) {
+    //Store the new value and increment the index
+    pressureValues[boxIndex] = pressure;
+    boxIndex++;
+    
+    //If we are at the end, start over
+    if(boxIndex >= BOX_SIZE) {
+        boxIndex = 0;
+        filterFull = TRUE;
+    }
+    
+    //Calculate the filtered altitude
+    u08 sampleCount;
+    if(filterFull) {
+        sampleCount = BOX_SIZE;
+    } else {
+        sampleCount = boxIndex + 1;
+    }
+    
+    float pressureSum = 0;
+    for(u08 i = 0; i < sampleCount; i++) {
+        pressureSum += pressureValues[i];
+    }
+    
+    float averagePressure = pressureSum / sampleCount;
+    smoothedAltitude = pressureToAltitude(averagePressure, seaLevelPressure) * 100;
 }
