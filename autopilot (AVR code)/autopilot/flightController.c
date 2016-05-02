@@ -89,7 +89,7 @@ void updateFlightControls(void) {
         case m_degraded:
             degradedUpdate();
             break;
-        
+            
         case m_flybywire:
             flyByWireUpdate();
             break;
@@ -155,33 +155,55 @@ static void flyByWireUpdate(void) {
     outputCommandSet.yaw = calculateRudderValue(yawStickSigned);
 }
 
+const float thrustAtZeroAttitude = 0.90;
+const float thrustSubtractionForDescent = 0.20;
 
 static void autonomousControlUpdate(void) {
     outputCommandSet.timestamp = millis();
     
     //First, altitude/pitch
     //Check if we are maintaining pitch angle or altitude
-    s08 pitchAngle;
-    if(autonomousUpdate.altitudeInUse) {
-        //Turn altitude into pitch angle
-        pitchAngle = calculatePitchAngle(autonomousUpdate.altitude);
-    } else {
-        pitchAngle = autonomousUpdate.pitchAngle;
+    {
+        s08 pitchAngle;
+        if(autonomousUpdate.altitudeInUse) {
+            //Turn altitude into pitch angle
+            pitchAngle = calculatePitchAngle(autonomousUpdate.altitude);
+        } else {
+            pitchAngle = autonomousUpdate.pitchAngle;
+        }
+        outputCommandSet.pitch = calculateElevatorValue(pitchAngle);
     }
-    outputCommandSet.pitch = calculateElevatorValue(pitchAngle);
     
-    //Calculate thrust according to 75% of max ± 25% for climb descent
-    outputCommandSet.thrust = 191 + pitchAngle/2;
+    //Calculate thrust based on real pitch
+    {
+        s16 realPitchAngle = currentAttitude.pitch;
+        if(realPitchAngle < -MAX_PITCH_ANGLE) {
+            realPitchAngle = -MAX_PITCH_ANGLE;
+        } else if(realPitchAngle > MAX_PITCH_ANGLE) {
+            realPitchAngle = MAX_PITCH_ANGLE;
+        }
+        
+        //Different Mapings for positive and negative pitchAngles
+        if(realPitchAngle > 0) {
+            //Calculate thrust according to 85% of max + 15% for climb descent
+            outputCommandSet.thrust = (thrustAtZeroAttitude*UINT8_MAX) + maps32(realPitchAngle, 0, MAX_PITCH_ANGLE, 0, ((1-thrustAtZeroAttitude)*UINT8_MAX));
+        } else {
+            //Thrust: 85% of max + 25% for climb/descent
+            outputCommandSet.thrust = (thrustAtZeroAttitude*UINT8_MAX) + maps32(realPitchAngle, -MAX_PITCH_ANGLE, 0, -(thrustSubtractionForDescent*UINT8_MAX), 0);
+        }
+    }
     
     //Last, yaw
-    s08 targetRateOfTurn;
-    if(autonomousUpdate.headingInUse) {
-        targetRateOfTurn = calculateRateOfTurn(autonomousUpdate.heading);
-    } else {
-        targetRateOfTurn = autonomousUpdate.rateOfTurn;
+    {
+        s08 targetRateOfTurn;
+        if(autonomousUpdate.headingInUse) {
+            targetRateOfTurn = calculateRateOfTurn(autonomousUpdate.heading);
+        } else {
+            targetRateOfTurn = autonomousUpdate.rateOfTurn;
+        }
+        
+        outputCommandSet.yaw = calculateRudderValue(targetRateOfTurn);
     }
-    
-    outputCommandSet.yaw = calculateRudderValue(targetRateOfTurn);
 }
 
 static void autonomousReturnToBaseUpdate(void) {

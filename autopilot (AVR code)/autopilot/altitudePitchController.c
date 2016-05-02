@@ -12,8 +12,8 @@
 #include "utils.h"
 #include <math.h>
 
-const float maxAltitudeIntegral = 10.0 * 100.0 * 10.0; //The maximum value of the integral in centimeters * seconds
-const s32 maxAltitudeProportional = 10 * 100; //The maximum Proportinal error in centimeters
+const float maxAltitudeIntegral = 10.0 * 100.0 * 5.0; //The maximum value of the integral in centimeters * seconds
+const s32 maxAltitudeProportional = 20 * 100; //The maximum Proportinal error in centimeters
 
 //Do not change the "8192", but the factor after it
 const s16 maxNormalizedIntegral = 8192 * 1.0;
@@ -69,8 +69,7 @@ s08 calculatePitchAngle(s32 targetAltitude) {
     return mapfloat(proportional_integral, -16384, 16384, INT8_MIN, INT8_MAX);
 }
 
-#define MAX_PITCH_ANGLE 20 //The maximum up/down pitch
-#define MAX_PITCH_INTEGRAL 20
+#define MAX_PITCH_INTEGRAL 10
 
 #define MAX_ROTATION M_PI //The rotation a full stick correspinds to (in rad/s)
 #define ELEVATOR_PROPORTIONAL_GAIN 0.66

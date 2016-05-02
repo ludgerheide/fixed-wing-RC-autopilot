@@ -11,6 +11,8 @@
 
 #include "avrlibtypes.h"
 
+#define MAX_PITCH_ANGLE 20 //The maximum up/down pitch
+
 //Calculate the pitch angle for a given target altitude
 //Using a PI controller
 //INPUT: signed 32-Bit value indicating the target altitude in centimeters
