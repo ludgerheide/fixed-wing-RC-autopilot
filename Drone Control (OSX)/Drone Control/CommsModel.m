@@ -111,11 +111,11 @@
         msg.inputCommandSet.yaw = round((cs.rudder + 1.0) * (servo_max / 2.0));
         msg.inputCommandSet.thrust = round(cs.thrust * servo_max);
     } else {
-        BOOL altitudeInUse = false;
-        BOOL headingInUse = true;
+        BOOL altitudeInUse = true;
+        BOOL headingInUse = false;
         
         if(altitudeInUse) {
-            float altMeters = 50;
+            float altMeters = 60;
             msg.autonomousUpdate.altitude = altMeters * 100; //to centimeters
         } else {
             msg.autonomousUpdate.pitchAngle = [CommsModel mapfloat: cs.elevator fromMin: -1 fromMax: 1 toMin: INT8_MIN toMax: INT8_MAX];
