@@ -55,6 +55,7 @@ FORMAT = ihex
 
 # IP for the uploader
 SSH_IP = 192.168.15.14
+#SSH_IP = 192.168.43.244
 
 # Target file name (without extension).
 TARGET = main
@@ -111,6 +112,7 @@ CDEFS += -DNDEBUG
 #CDEFS += -DIMU_DEBUG
 #CDEFS += -DGPS_DEBUG
 #CDEFS += -DCOMMS_DEBUG
+#CDEFS += -DFLIGHT_CONTROLLER_DEBUG
 
 
 # Place -I options here
@@ -160,7 +162,6 @@ PRINTF_LIB_FLOAT = -Wl,-u,vfprintf -lprintf_flt
 #PRINTF_LIB =
 #PRINTF_LIB = $(PRINTF_LIB_MIN)
 PRINTF_LIB = $(PRINTF_LIB_FLOAT)
-
 
 # Minimalistic scanf version
 SCANF_LIB_MIN = -Wl,-u,vfscanf -lscanf_min
@@ -337,10 +338,10 @@ gccversion :
 # Program the device.  
 program: $(OBJDIR)/$(TARGET).hex $(OBJDIR)/$(TARGET).eep
 #	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
-	scp "$(OBJDIR)/$(TARGET).hex" pi@$(SSH_IP):/tmp/
+	scp "$(OBJDIR)/$(TARGET).hex" $(SSH_IP):/tmp/
 #   Execute the upload
 #   Remove the file
-	ssh pi@$(SSH_IP) "avrdude -q -p atmega2560 -P /dev/spidev0.1 -c linuxspi -Uflash:w:/tmp/$(TARGET).hex:i; rm -v /tmp/$(TARGET).hex"
+	ssh $(SSH_IP) "sudo avrdude -q -p atmega2560 -P /dev/spidev0.1 -c linuxspi -Uflash:w:/tmp/$(TARGET).hex:i; rm -v /tmp/$(TARGET).hex"
 
 
 # Generate avr-gdb config/init file which does the following:
