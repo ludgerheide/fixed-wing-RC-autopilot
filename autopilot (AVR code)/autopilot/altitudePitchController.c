@@ -66,7 +66,11 @@ s08 calculatePitchAngle(s32 targetAltitude) {
     printf("current: %li, target: %li, error %li, integrated %li, normalized %i, output %i\r\n", smoothedAltitude, targetAltitude, altitudeError, (s32)integratedAltitudeError, proportional_integral, (s08)mapfloat(proportional_integral, -16384, 16384, INT8_MIN, INT8_MAX));
 #endif
     
-    return mapfloat(proportional_integral, -16384, 16384, INT8_MIN, INT8_MAX);
+    //Allwo half the pitch range for autonomous operation (the full range is available in fly-by-wire mode)
+    float desiredAngle = mapfloat(proportional_integral, -16384, 16384, -MAX_PITCH_ANGLE/2, MAX_PITCH_ANGLE/2);
+    
+    //Map to int8
+    return maps16(desiredAngle, -MAX_PITCH_ANGLE, MAX_PITCH_ANGLE, INT8_MIN, INT8_MAX);
 }
 
 #define MAX_PITCH_INTEGRAL 10
