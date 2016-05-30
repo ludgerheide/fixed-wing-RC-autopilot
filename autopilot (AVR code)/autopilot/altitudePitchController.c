@@ -67,7 +67,7 @@ s08 calculatePitchAngle(s32 targetAltitude) {
 #endif
     
     //Allwo half the pitch range for autonomous operation (the full range is available in fly-by-wire mode)
-    float desiredAngle = mapfloat(proportional_integral, -16384, 16384, -MAX_PITCH_ANGLE/2, MAX_PITCH_ANGLE/2);
+    float desiredAngle = mapfloat(proportional_integral, -16384, 16384, -MAX_AUTONOMOUS_PITCH_ANGLE, MAX_AUTONOMOUS_PITCH_ANGLE);
     
     //Map to int8
     return maps16(desiredAngle, -MAX_PITCH_ANGLE, MAX_PITCH_ANGLE, INT8_MIN, INT8_MAX);
