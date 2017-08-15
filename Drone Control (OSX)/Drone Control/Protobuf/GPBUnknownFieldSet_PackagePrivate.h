@@ -30,53 +30,32 @@
 
 #import <Foundation/Foundation.h>
 
-@class GPBUnknownField;
+#import "GPBUnknownFieldSet.h"
 
-NS_ASSUME_NONNULL_BEGIN
+@class GPBCodedOutputStream;
+@class GPBCodedInputStream;
 
-/**
- * A collection of unknown fields. Fields parsed from the binary representation
- * of a message that are unknown end up in an instance of this set. This only
- * applies for files declared with the "proto2" syntax. Files declared with the
- * "proto3" syntax discard the unknown values.
- **/
-@interface GPBUnknownFieldSet : NSObject<NSCopying>
+@interface GPBUnknownFieldSet ()
 
-/**
- * Tests to see if the given field number has a value.
- *
- * @param number The field number to check.
- *
- * @return YES if there is an unknown field for the given field number.
- **/
-- (BOOL)hasField:(int32_t)number;
++ (BOOL)isFieldTag:(int32_t)tag;
 
-/**
- * Fetches the GPBUnknownField for the given field number.
- *
- * @param number The field number to look up.
- *
- * @return The GPBUnknownField or nil if none found.
- **/
-- (nullable GPBUnknownField *)getField:(int32_t)number;
+- (NSData *)data;
 
-/**
- * @return The number of fields in this set.
- **/
-- (NSUInteger)countOfFields;
+- (size_t)serializedSize;
+- (size_t)serializedSizeAsMessageSet;
 
-/**
- * Adds the given field to the set.
- *
- * @param field The field to add to the set.
- **/
-- (void)addField:(GPBUnknownField *)field;
+- (void)writeToCodedOutputStream:(GPBCodedOutputStream *)output;
+- (void)writeAsMessageSetTo:(GPBCodedOutputStream *)output;
 
-/**
- * @return An array of the GPBUnknownFields sorted by the field numbers.
- **/
-- (NSArray<GPBUnknownField *> *)sortedFields;
+- (void)mergeUnknownFields:(GPBUnknownFieldSet *)other;
+
+- (void)mergeFromCodedInputStream:(GPBCodedInputStream *)input;
+- (void)mergeFromData:(NSData *)data;
+
+- (void)mergeVarintField:(int32_t)number value:(int32_t)value;
+- (BOOL)mergeFieldFrom:(int32_t)tag input:(GPBCodedInputStream *)input;
+- (void)mergeMessageSetMessage:(int32_t)number data:(NSData *)messageData;
+
+- (void)addUnknownMapEntry:(int32_t)fieldNum value:(NSData *)data;
 
 @end
-
-NS_ASSUME_NONNULL_END
