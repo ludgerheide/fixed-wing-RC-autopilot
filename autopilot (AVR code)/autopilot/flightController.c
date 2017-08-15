@@ -155,16 +155,16 @@ static void flyByWireUpdate(void) {
     outputCommandSet.yaw = calculateRudderValue(yawStickSigned);
 }
 
-const float thrustAtZeroAttitude = 0.85;
+const float thrustAtZeroAttitude = 0.75;
 const float thrustSubtractionForDescent = 0.30;
 
 static void autonomousControlUpdate(void) {
     outputCommandSet.timestamp = millis();
     
     //First, altitude/pitch
+    s08 pitchAngle;
     //Check if we are maintaining pitch angle or altitude
     {
-        s08 pitchAngle;
         if(autonomousUpdate.altitudeInUse) {
             //Turn altitude into pitch angle
             pitchAngle = calculatePitchAngle(autonomousUpdate.altitude);
@@ -174,9 +174,9 @@ static void autonomousControlUpdate(void) {
         outputCommandSet.pitch = calculateElevatorValue(pitchAngle);
     }
     
-    //Calculate thrust based on real pitch
+    //Calculate thrust based on wanted pitch
     {
-        s16 realPitchAngle = currentAttitude.pitch;
+        s16 realPitchAngle = mapfloat(pitchAngle, INT8_MIN, INT8_MAX, -MAX_PITCH_ANGLE, MAX_PITCH_ANGLE);
         if(realPitchAngle < -MAX_AUTONOMOUS_PITCH_ANGLE) {
             realPitchAngle = -MAX_AUTONOMOUS_PITCH_ANGLE;
         } else if(realPitchAngle > MAX_AUTONOMOUS_PITCH_ANGLE) {
