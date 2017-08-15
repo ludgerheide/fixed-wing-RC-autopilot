@@ -54,8 +54,7 @@ F_CPU = 16000000
 FORMAT = ihex
 
 # IP for the uploader
-SSH_IP = 192.168.15.14
-#SSH_IP = 192.168.43.244
+SSH_IP = planepi.local
 
 # Target file name (without extension).
 TARGET = main
@@ -239,11 +238,11 @@ DEBUG_HOST = localhost
 
 # Define programs and commands.
 SHELL = sh
-CC = /usr/local/CrossPack-AVR/bin/avr-gcc
-OBJCOPY = /usr/local/CrossPack-AVR/bin/avr-objcopy
-OBJDUMP = /usr/local/CrossPack-AVR/bin/avr-objdump
-SIZE = /usr/local/CrossPack-AVR/bin/avr-size
-NM = /usr/local/CrossPack-AVR/bin/avr-nm
+CC = /Users/ludger/Developer/avr8-gnu-toolchain-darwin_x86_64/bin/avr-gcc
+OBJCOPY = /Users/ludger/Developer/avr8-gnu-toolchain-darwin_x86_64/bin/avr-objcopy
+OBJDUMP = /Users/ludger/Developer/avr8-gnu-toolchain-darwin_x86_64/bin/avr-objdump
+SIZE = /Users/ludger/Developer/avr8-gnu-toolchain-darwin_x86_64/bin/avr-size
+NM = /Users/ludger/Developer/avr8-gnu-toolchain-darwin_x86_64/bin/avr-nm
 REMOVE = rm -f
 COPY = cp
 WINSHELL = cmd
