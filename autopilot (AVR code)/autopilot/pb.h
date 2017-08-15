@@ -46,7 +46,7 @@
 
 /* Version of the nanopb library. Just in case you want to check it in
  * your own program. */
-#define NANOPB_VERSION nanopb-0.3.5
+#define NANOPB_VERSION nanopb-0.3.8
 
 /* Include all the system headers needed by nanopb. You will need the
  * definitions of the following:
@@ -170,8 +170,14 @@ typedef uint_least8_t pb_type_t;
  * The field contains a pointer to pb_extension_t */
 #define PB_LTYPE_EXTENSION 0x08
 
+/* Byte array with inline, pre-allocated byffer.
+ * data_size is the length of the inline, allocated buffer.
+ * This differs from PB_LTYPE_BYTES by defining the element as
+ * pb_byte_t[data_size] rather than pb_bytes_array_t. */
+#define PB_LTYPE_FIXED_LENGTH_BYTES 0x09
+
 /* Number of declared LTYPES */
-#define PB_LTYPES_COUNT 9
+#define PB_LTYPES_COUNT 0x0A
 #define PB_LTYPE_MASK 0x0F
 
 /**** Field repetition rules ****/
@@ -387,6 +393,8 @@ struct pb_extension_s {
 #define PB_DATAOFFSET_FIRST(st, m1, m2) (offsetof(st, m1))
 /* data_offset for subsequent fields */
 #define PB_DATAOFFSET_OTHER(st, m1, m2) (offsetof(st, m1) - offsetof(st, m2) - pb_membersize(st, m2))
+/* data offset for subsequent fields inside an union (oneof) */
+#define PB_DATAOFFSET_UNION(st, m1, m2) (PB_SIZE_MAX)
 /* Choose first/other based on m1 == m2 (deprecated, remains for backwards compatibility) */
 #define PB_DATAOFFSET_CHOOSE(st, m1, m2) (int)(offsetof(st, m1) == offsetof(st, m2) \
                                   ? PB_DATAOFFSET_FIRST(st, m1, m2) \
@@ -407,6 +415,10 @@ struct pb_extension_s {
     pb_delta(st, has_ ## m, m), \
     pb_membersize(st, m), 0, ptr}
 
+#define PB_SINGULAR_STATIC(tag, st, m, fd, ltype, ptr) \
+    {tag, PB_ATYPE_STATIC | PB_HTYPE_OPTIONAL | ltype, \
+    fd, 0, pb_membersize(st, m), 0, ptr}
+
 /* Repeated fields have a _count field and also the maximum number of entries. */
 #define PB_REPEATED_STATIC(tag, st, m, fd, ltype, ptr) \
     {tag, PB_ATYPE_STATIC | PB_HTYPE_REPEATED | ltype, \
@@ -425,6 +437,11 @@ struct pb_extension_s {
     {tag, PB_ATYPE_POINTER | PB_HTYPE_OPTIONAL | ltype, \
     fd, 0, pb_membersize(st, m[0]), 0, ptr}
 
+/* Same as optional fields*/
+#define PB_SINGULAR_POINTER(tag, st, m, fd, ltype, ptr) \
+    {tag, PB_ATYPE_POINTER | PB_HTYPE_OPTIONAL | ltype, \
+    fd, 0, pb_membersize(st, m[0]), 0, ptr}
+
 /* Repeated fields have a _count field and a pointer to array of pointers */
 #define PB_REPEATED_POINTER(tag, st, m, fd, ltype, ptr) \
     {tag, PB_ATYPE_POINTER | PB_HTYPE_REPEATED | ltype, \
@@ -439,14 +456,23 @@ struct pb_extension_s {
 #define PB_OPTIONAL_CALLBACK(tag, st, m, fd, ltype, ptr) \
     {tag, PB_ATYPE_CALLBACK | PB_HTYPE_OPTIONAL | ltype, \
     fd, 0, pb_membersize(st, m), 0, ptr}
+
+#define PB_SINGULAR_CALLBACK(tag, st, m, fd, ltype, ptr) \
+    {tag, PB_ATYPE_CALLBACK | PB_HTYPE_OPTIONAL | ltype, \
+    fd, 0, pb_membersize(st, m), 0, ptr}
     
 #define PB_REPEATED_CALLBACK(tag, st, m, fd, ltype, ptr) \
     {tag, PB_ATYPE_CALLBACK | PB_HTYPE_REPEATED | ltype, \
     fd, 0, pb_membersize(st, m), 0, ptr}
 
-/* Optional extensions don't have the has_ field, as that would be redundant. */
+/* Optional extensions don't have the has_ field, as that would be redundant.
+ * Furthermore, the combination of OPTIONAL without has_ field is used
+ * for indicating proto3 style fields. Extensions exist in proto2 mode only,
+ * so they should be encoded according to proto2 rules. To avoid the conflict,
+ * extensions are marked as REQUIRED instead.
+ */
 #define PB_OPTEXT_STATIC(tag, st, m, fd, ltype, ptr) \
-    {tag, PB_ATYPE_STATIC | PB_HTYPE_OPTIONAL | ltype, \
+    {tag, PB_ATYPE_STATIC | PB_HTYPE_REQUIRED | ltype, \
     0, \
     0, \
     pb_membersize(st, m), 0, ptr}
@@ -458,25 +484,26 @@ struct pb_extension_s {
     PB_OPTIONAL_CALLBACK(tag, st, m, fd, ltype, ptr)
 
 /* The mapping from protobuf types to LTYPEs is done using these macros. */
-#define PB_LTYPE_MAP_BOOL       PB_LTYPE_VARINT
-#define PB_LTYPE_MAP_BYTES      PB_LTYPE_BYTES
-#define PB_LTYPE_MAP_DOUBLE     PB_LTYPE_FIXED64
-#define PB_LTYPE_MAP_ENUM       PB_LTYPE_VARINT
-#define PB_LTYPE_MAP_UENUM      PB_LTYPE_UVARINT
-#define PB_LTYPE_MAP_FIXED32    PB_LTYPE_FIXED32
-#define PB_LTYPE_MAP_FIXED64    PB_LTYPE_FIXED64
-#define PB_LTYPE_MAP_FLOAT      PB_LTYPE_FIXED32
-#define PB_LTYPE_MAP_INT32      PB_LTYPE_VARINT
-#define PB_LTYPE_MAP_INT64      PB_LTYPE_VARINT
-#define PB_LTYPE_MAP_MESSAGE    PB_LTYPE_SUBMESSAGE
-#define PB_LTYPE_MAP_SFIXED32   PB_LTYPE_FIXED32
-#define PB_LTYPE_MAP_SFIXED64   PB_LTYPE_FIXED64
-#define PB_LTYPE_MAP_SINT32     PB_LTYPE_SVARINT
-#define PB_LTYPE_MAP_SINT64     PB_LTYPE_SVARINT
-#define PB_LTYPE_MAP_STRING     PB_LTYPE_STRING
-#define PB_LTYPE_MAP_UINT32     PB_LTYPE_UVARINT
-#define PB_LTYPE_MAP_UINT64     PB_LTYPE_UVARINT
-#define PB_LTYPE_MAP_EXTENSION  PB_LTYPE_EXTENSION
+#define PB_LTYPE_MAP_BOOL               PB_LTYPE_VARINT
+#define PB_LTYPE_MAP_BYTES              PB_LTYPE_BYTES
+#define PB_LTYPE_MAP_DOUBLE             PB_LTYPE_FIXED64
+#define PB_LTYPE_MAP_ENUM               PB_LTYPE_VARINT
+#define PB_LTYPE_MAP_UENUM              PB_LTYPE_UVARINT
+#define PB_LTYPE_MAP_FIXED32            PB_LTYPE_FIXED32
+#define PB_LTYPE_MAP_FIXED64            PB_LTYPE_FIXED64
+#define PB_LTYPE_MAP_FLOAT              PB_LTYPE_FIXED32
+#define PB_LTYPE_MAP_INT32              PB_LTYPE_VARINT
+#define PB_LTYPE_MAP_INT64              PB_LTYPE_VARINT
+#define PB_LTYPE_MAP_MESSAGE            PB_LTYPE_SUBMESSAGE
+#define PB_LTYPE_MAP_SFIXED32           PB_LTYPE_FIXED32
+#define PB_LTYPE_MAP_SFIXED64           PB_LTYPE_FIXED64
+#define PB_LTYPE_MAP_SINT32             PB_LTYPE_SVARINT
+#define PB_LTYPE_MAP_SINT64             PB_LTYPE_SVARINT
+#define PB_LTYPE_MAP_STRING             PB_LTYPE_STRING
+#define PB_LTYPE_MAP_UINT32             PB_LTYPE_UVARINT
+#define PB_LTYPE_MAP_UINT64             PB_LTYPE_UVARINT
+#define PB_LTYPE_MAP_EXTENSION          PB_LTYPE_EXTENSION
+#define PB_LTYPE_MAP_FIXED_LENGTH_BYTES PB_LTYPE_FIXED_LENGTH_BYTES
 
 /* This is the actual macro used in field descriptions.
  * It takes these arguments:
@@ -485,7 +512,7 @@ struct pb_extension_s {
  *                 FLOAT, INT32, INT64, MESSAGE, SFIXED32, SFIXED64
  *                 SINT32, SINT64, STRING, UINT32, UINT64 or EXTENSION
  * - Field rules:  REQUIRED, OPTIONAL or REPEATED
- * - Allocation:   STATIC or CALLBACK
+ * - Allocation:   STATIC, CALLBACK or POINTER
  * - Placement: FIRST or OTHER, depending on if this is the first field in structure.
  * - Message name
  * - Field name

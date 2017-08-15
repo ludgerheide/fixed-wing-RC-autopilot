@@ -27,6 +27,7 @@ static bool checkreturn encode_array(pb_ostream_t *stream, const pb_field_t *fie
 static bool checkreturn encode_field(pb_ostream_t *stream, const pb_field_t *field, const void *pData);
 static bool checkreturn default_extension_encoder(pb_ostream_t *stream, const pb_extension_t *extension);
 static bool checkreturn encode_extension_field(pb_ostream_t *stream, const pb_field_t *field, const void *pData);
+static void *pb_const_cast(const void *p);
 static bool checkreturn pb_enc_varint(pb_ostream_t *stream, const pb_field_t *field, const void *src);
 static bool checkreturn pb_enc_uvarint(pb_ostream_t *stream, const pb_field_t *field, const void *src);
 static bool checkreturn pb_enc_svarint(pb_ostream_t *stream, const pb_field_t *field, const void *src);
@@ -35,6 +36,7 @@ static bool checkreturn pb_enc_fixed64(pb_ostream_t *stream, const pb_field_t *f
 static bool checkreturn pb_enc_bytes(pb_ostream_t *stream, const pb_field_t *field, const void *src);
 static bool checkreturn pb_enc_string(pb_ostream_t *stream, const pb_field_t *field, const void *src);
 static bool checkreturn pb_enc_submessage(pb_ostream_t *stream, const pb_field_t *field, const void *src);
+static bool checkreturn pb_enc_fixed_length_bytes(pb_ostream_t *stream, const pb_field_t *field, const void *src);
 
 /* --- Function pointers to field encoders ---
  * Order in the array must match pb_action_t LTYPE numbering.
@@ -49,7 +51,8 @@ static const pb_encoder_t PB_ENCODERS[PB_LTYPES_COUNT] = {
     &pb_enc_bytes,
     &pb_enc_string,
     &pb_enc_submessage,
-    NULL /* extensions */
+    NULL, /* extensions */
+    &pb_enc_fixed_length_bytes
 };
 
 /*******************************
@@ -58,11 +61,12 @@ static const pb_encoder_t PB_ENCODERS[PB_LTYPES_COUNT] = {
 
 static bool checkreturn buf_write(pb_ostream_t *stream, const pb_byte_t *buf, size_t count)
 {
+    size_t i;
     pb_byte_t *dest = (pb_byte_t*)stream->state;
     stream->state = dest + count;
     
-    while (count--)
-        *dest++ = *buf++;
+    for (i = 0; i < count; i++)
+        dest[i] = buf[i];
     
     return true;
 }
@@ -196,21 +200,98 @@ static bool checkreturn encode_array(pb_ostream_t *stream, const pb_field_t *fie
     return true;
 }
 
+/* In proto3, all fields are optional and are only encoded if their value is "non-zero".
+ * This function implements the check for the zero value. */
+static bool pb_check_proto3_default_value(const pb_field_t *field, const void *pData)
+{
+    if (PB_ATYPE(field->type) == PB_ATYPE_STATIC)
+    {
+        if (PB_LTYPE(field->type) == PB_LTYPE_BYTES)
+        {
+            const pb_bytes_array_t *bytes = (const pb_bytes_array_t*)pData;
+            return bytes->size == 0;
+        }
+        else if (PB_LTYPE(field->type) == PB_LTYPE_STRING)
+        {
+            return *(const char*)pData == '\0';
+        }
+        else if (PB_LTYPE(field->type) == PB_LTYPE_FIXED_LENGTH_BYTES)
+        {
+            /* Fixed length bytes is only empty if its length is fixed
+             * as 0. Which would be pretty strange, but we can check
+             * it anyway. */
+            return field->data_size == 0;
+        }
+        else if (PB_LTYPE(field->type) == PB_LTYPE_SUBMESSAGE)
+        {
+            /* Check all fields in the submessage to find if any of them
+             * are non-zero. The comparison cannot be done byte-per-byte
+             * because the C struct may contain padding bytes that must
+             * be skipped.
+             */
+            pb_field_iter_t iter;
+            if (pb_field_iter_begin(&iter, (const pb_field_t*)field->ptr, pb_const_cast(pData)))
+            {
+                do
+                {
+                    if (!pb_check_proto3_default_value(iter.pos, iter.pData))
+                    {
+                        return false;
+                    }
+                } while (pb_field_iter_next(&iter));
+            }
+            return true;
+        }
+    }
+    
+	{
+	    /* Catch-all branch that does byte-per-byte comparison for zero value.
+	     *
+	     * This is for all pointer fields, and for static PB_LTYPE_VARINT,
+	     * UVARINT, SVARINT, FIXED32, FIXED64, EXTENSION fields, and also
+	     * callback fields. These all have integer or pointer value which
+	     * can be compared with 0.
+	     */
+	    pb_size_t i;
+	    const char *p = (const char*)pData;
+	    for (i = 0; i < field->data_size; i++)
+	    {
+	        if (p[i] != 0)
+	        {
+	            return false;
+	        }
+	    }
+
+	    return true;
+	}
+}
+
 /* Encode a field with static or pointer allocation, i.e. one whose data
  * is available to the encoder directly. */
 static bool checkreturn encode_basic_field(pb_ostream_t *stream,
     const pb_field_t *field, const void *pData)
 {
     pb_encoder_t func;
-    const void *pSize;
-    bool implicit_has = true;
+    bool implicit_has;
+    const void *pSize = &implicit_has;
     
     func = PB_ENCODERS[PB_LTYPE(field->type)];
     
     if (field->size_offset)
+    {
+        /* Static optional, repeated or oneof field */
         pSize = (const char*)pData + field->size_offset;
+    }
+    else if (PB_HTYPE(field->type) == PB_HTYPE_OPTIONAL)
+    {
+        /* Proto3 style field, optional but without explicit has_ field. */
+        implicit_has = !pb_check_proto3_default_value(field, pData);
+    }
     else
-        pSize = &implicit_has;
+    {
+        /* Required field, always present */
+        implicit_has = true;
+    }
 
     if (PB_ATYPE(field->type) == PB_ATYPE_POINTER)
     {
@@ -218,7 +299,6 @@ static bool checkreturn encode_basic_field(pb_ostream_t *stream,
          * the data. If the 2nd pointer is NULL, it is interpreted as if
          * the has_field was false.
          */
-        
         pData = *(const void* const*)pData;
         implicit_has = (pData != NULL);
     }
@@ -356,7 +436,7 @@ static bool checkreturn encode_extension_field(pb_ostream_t *stream,
  * Encode all fields *
  *********************/
 
-static void *remove_const(const void *p)
+static void *pb_const_cast(const void *p)
 {
     /* Note: this casts away const, in order to use the common field iterator
      * logic for both encoding and decoding. */
@@ -371,7 +451,7 @@ static void *remove_const(const void *p)
 bool checkreturn pb_encode(pb_ostream_t *stream, const pb_field_t fields[], const void *src_struct)
 {
     pb_field_iter_t iter;
-    if (!pb_field_iter_begin(&iter, fields, remove_const(src_struct)))
+    if (!pb_field_iter_begin(&iter, fields, pb_const_cast(src_struct)))
         return true; /* Empty message type */
     
     do {
@@ -498,6 +578,7 @@ bool checkreturn pb_encode_tag_for_field(pb_ostream_t *stream, const pb_field_t 
         case PB_LTYPE_BYTES:
         case PB_LTYPE_STRING:
         case PB_LTYPE_SUBMESSAGE:
+        case PB_LTYPE_FIXED_LENGTH_BYTES:
             wiretype = PB_WT_STRING;
             break;
         
@@ -636,11 +717,13 @@ static bool checkreturn pb_enc_fixed32(pb_ostream_t *stream, const pb_field_t *f
 
 static bool checkreturn pb_enc_bytes(pb_ostream_t *stream, const pb_field_t *field, const void *src)
 {
-    const pb_bytes_array_t *bytes = (const pb_bytes_array_t*)src;
+    const pb_bytes_array_t *bytes = NULL;
+
+    bytes = (const pb_bytes_array_t*)src;
     
     if (src == NULL)
     {
-        /* Threat null pointer as an empty bytes field */
+        /* Treat null pointer as an empty bytes field */
         return pb_encode_string(stream, NULL, 0);
     }
     
@@ -664,7 +747,7 @@ static bool checkreturn pb_enc_string(pb_ostream_t *stream, const pb_field_t *fi
 
     if (src == NULL)
     {
-        size = 0; /* Threat null pointer as an empty string */
+        size = 0; /* Treat null pointer as an empty string */
     }
     else
     {
@@ -685,5 +768,10 @@ static bool checkreturn pb_enc_submessage(pb_ostream_t *stream, const pb_field_t
         PB_RETURN_ERROR(stream, "invalid field descriptor");
     
     return pb_encode_submessage(stream, (const pb_field_t*)field->ptr, src);
+}
+
+static bool checkreturn pb_enc_fixed_length_bytes(pb_ostream_t *stream, const pb_field_t *field, const void *src)
+{
+    return pb_encode_string(stream, (const pb_byte_t*)src, field->data_size);
 }
 
