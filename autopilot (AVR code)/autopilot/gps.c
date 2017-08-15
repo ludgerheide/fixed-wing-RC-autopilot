@@ -18,7 +18,9 @@
 #include <avr/io.h>
 
 
-static u08 newlineCount = 0;
+static volatile u08 newlineCount = 0;
+static volatile u08 gpsBufferIndex = 1;
+static volatile char gpsBuffer[255];
 static u08 lastMessageReceived;
 const u08 numberOfSentences = 2;
 
@@ -60,6 +62,13 @@ void gpsInit(void) {
 //Checks if the GPS_UART buffer is ready for an NMEA update
 BOOL gpsCheck(void) {
     if(newlineCount >= numberOfSentences) {
+        //Stupid hack beacause I don't want to rewrite the NMEA code, which expects a avrlib buffer to use my raw buffer
+        cBuffer* serialRxBuffer = uartGetRxBuffer(GPS_UART);
+        bufferFlush(serialRxBuffer);
+        for(u08 i = 0; i < gpsBufferIndex; i++) {
+            bufferAddToEnd(serialRxBuffer, gpsBuffer[i]);
+        }
+
         return TRUE;
     } else {
         return FALSE;
@@ -84,36 +93,19 @@ void gpsUpdate(void) {
 // It counts the '\r\n' combinations that mark the end of the packets.
 // When two packets (GGA + VTG) Are in the buffer, it sets a flag so that they are parsed in the next run
 void gpsRxHandler(unsigned char c) {
-    cBuffer* serialRxBuffer = uartGetRxBuffer(GPS_UART);
-
-    // put received char in buffer
-    // check if there's space
-    if( !bufferAddToEnd(serialRxBuffer, c) ) {
-        #ifdef GPS_DEBUG
-        printf("Buffer full!\r\n");
-        #endif
-        
-        //If the buffer is overflowing, clear it when we receive a new sentence (indicated by a '$' sign)
-        if(c == '$') {
-            bufferFlush(serialRxBuffer);
-            bufferAddToEnd(serialRxBuffer, c);
-        }
-    }
-    
-    //check if the character was a '\n'
-    else if(c == '\n') {
-        //If we have aprtial sentence in the buffer (we started receiving after the start, discard it
-        if(bufferGetAtIndex(serialRxBuffer, 0) != '$') {
-            newlineCount = 0;
-            bufferFlush(serialRxBuffer);
-        }
+    if(c == '$' && (newlineCount == 0 || newlineCount >= numberOfSentences)) {
+        newlineCount = 0;
+        gpsBufferIndex = 0;
+    } else if (c == '\n') {
         //If the last message received was a GGA, this is the end of the corresponding VTG.
         // Discard it to resynchronize
         if(lastMessageReceived == NMEA_GPGGA) {
             newlineCount = 0;
-            bufferFlush(serialRxBuffer);
+            gpsBufferIndex = 0;
         } else {
-            newlineCount++;
+            newlineCount += 1;
         }
     }
+    gpsBuffer[gpsBufferIndex] = c;
+    gpsBufferIndex ++;
 }
