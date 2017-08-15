@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0730"
+   LastUpgradeVersion = "0820"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E4FBB4AB1BC31BFC00D6A64F"
+               BlueprintIdentifier = "E4855B971F42A653007A8D3C"
                BuildableName = "Build"
                BlueprintName = "Build"
                ReferencedContainer = "container:autopilot.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E4FBB4AB1BC31BFC00D6A64F"
+            BlueprintIdentifier = "E4855B971F42A653007A8D3C"
             BuildableName = "Build"
             BlueprintName = "Build"
             ReferencedContainer = "container:autopilot.xcodeproj">
@@ -63,7 +63,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E4FBB4AB1BC31BFC00D6A64F"
+            BlueprintIdentifier = "E4855B971F42A653007A8D3C"
             BuildableName = "Build"
             BlueprintName = "Build"
             ReferencedContainer = "container:autopilot.xcodeproj">

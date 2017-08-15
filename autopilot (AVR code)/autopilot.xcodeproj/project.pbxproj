@@ -7,241 +7,241 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E4074C4A1C1E2C7D006BCED4 /* altitudePitchController.c in Sources */ = {isa = PBXBuildFile; fileRef = E4074C481C1E2C7D006BCED4 /* altitudePitchController.c */; };
-		E4089A6E1BC47A5B00A7D508 /* pb_common.c in Sources */ = {isa = PBXBuildFile; fileRef = E4089A681BC47A5B00A7D508 /* pb_common.c */; };
-		E4089A6F1BC47A5B00A7D508 /* pb_decode.c in Sources */ = {isa = PBXBuildFile; fileRef = E4089A6A1BC47A5B00A7D508 /* pb_decode.c */; };
-		E4089A701BC47A5B00A7D508 /* pb_encode.c in Sources */ = {isa = PBXBuildFile; fileRef = E4089A6C1BC47A5B00A7D508 /* pb_encode.c */; };
-		E40EAC971BC3CA9600657063 /* communicationProtocol.pb.c in Sources */ = {isa = PBXBuildFile; fileRef = E40EAC951BC3CA9600657063 /* communicationProtocol.pb.c */; };
-		E40EAC9A1BC3CB1000657063 /* communicationsHandler.c in Sources */ = {isa = PBXBuildFile; fileRef = E40EAC981BC3CB1000657063 /* communicationsHandler.c */; };
-		E442391D1C22F42D00FD3D2B /* yawController.c in Sources */ = {isa = PBXBuildFile; fileRef = E442391B1C22F42D00FD3D2B /* yawController.c */; };
-		E4A0E7F71BC9189100168960 /* servo.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A0E7F51BC9189100168960 /* servo.c */; };
-		E4C6CE8E1BF66E7300545241 /* flightController.c in Sources */ = {isa = PBXBuildFile; fileRef = E4C6CE8C1BF66E7300545241 /* flightController.c */; };
-		E4D257DF1CBABFC100EF732C /* raspiComms.c in Sources */ = {isa = PBXBuildFile; fileRef = E4D257DD1CBABFC100EF732C /* raspiComms.c */; };
-		E4FBB4B71BC31BFC00D6A64F /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4B61BC31BFC00D6A64F /* Makefile */; };
-		E4FBB4E91BC31C3200D6A64F /* accelMag.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4C91BC31C3200D6A64F /* accelMag.c */; };
-		E4FBB4EA1BC31C3200D6A64F /* bmp.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4CD1BC31C3200D6A64F /* bmp.c */; };
-		E4FBB4EB1BC31C3200D6A64F /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4CF1BC31C3200D6A64F /* buffer.c */; };
-		E4FBB4EC1BC31C3200D6A64F /* gps.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4D21BC31C3200D6A64F /* gps.c */; };
-		E4FBB4ED1BC31C3200D6A64F /* gyro.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4D41BC31C3200D6A64F /* gyro.c */; };
-		E4FBB4EE1BC31C3200D6A64F /* i2c.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4D61BC31C3200D6A64F /* i2c.c */; };
-		E4FBB4EF1BC31C3200D6A64F /* imuBoard.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4D91BC31C3200D6A64F /* imuBoard.c */; };
-		E4FBB4F01BC31C3200D6A64F /* MadgwickAHRS.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4DB1BC31C3200D6A64F /* MadgwickAHRS.c */; };
-		E4FBB4F11BC31C3200D6A64F /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4DD1BC31C3200D6A64F /* main.c */; };
-		E4FBB4F21BC31C3200D6A64F /* nmea.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4DE1BC31C3200D6A64F /* nmea.c */; };
-		E4FBB4F31BC31C3200D6A64F /* timer.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4E11BC31C3200D6A64F /* timer.c */; };
-		E4FBB4F41BC31C3200D6A64F /* uart4.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4E31BC31C3200D6A64F /* uart4.c */; };
-		E4FBB4F51BC31C3200D6A64F /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4E51BC31C3200D6A64F /* utils.c */; };
-		E4FBB4F61BC31C3200D6A64F /* xBee.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FBB4E71BC31C3200D6A64F /* xBee.c */; };
-		E4FC11F41BEEA9BA0040534F /* battery.c in Sources */ = {isa = PBXBuildFile; fileRef = E4FC11F21BEEA9BA0040534F /* battery.c */; };
+		E4855BA01F42A653007A8D3C /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = E4855B9F1F42A653007A8D3C /* main.c */; };
+		E4A1A2DA1F42A6BE00C5FD67 /* gps.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A1A2A41F42A6BE00C5FD67 /* gps.c */; };
+		E4A1A2DB1F42A6BE00C5FD67 /* communicationProtocol.pb.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A1A2A51F42A6BE00C5FD67 /* communicationProtocol.pb.c */; };
+		E4A1A2DC1F42A6BE00C5FD67 /* flightController.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A1A2A71F42A6BE00C5FD67 /* flightController.c */; };
+		E4A1A2DD1F42A6BE00C5FD67 /* altitudePitchController.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A1A2A91F42A6BE00C5FD67 /* altitudePitchController.c */; };
+		E4A1A2DE1F42A6BE00C5FD67 /* yawController.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A1A2AA1F42A6BE00C5FD67 /* yawController.c */; };
+		E4A1A2DF1F42A6BE00C5FD67 /* accelMag.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A1A2AB1F42A6BE00C5FD67 /* accelMag.c */; };
+		E4A1A2E01F42A6BE00C5FD67 /* communicationsHandler.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A1A2AC1F42A6BE00C5FD67 /* communicationsHandler.c */; };
+		E4A1A2E11F42A6BE00C5FD67 /* imuBoard.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A1A2AD1F42A6BE00C5FD67 /* imuBoard.c */; };
+		E4A1A2E21F42A6BE00C5FD67 /* raspiComms.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A1A2AE1F42A6BE00C5FD67 /* raspiComms.c */; };
+		E4A1A2E31F42A6BE00C5FD67 /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A1A2AF1F42A6BE00C5FD67 /* utils.c */; };
+		E4A1A2E41F42A6BE00C5FD67 /* xBee.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A1A2B01F42A6BE00C5FD67 /* xBee.c */; };
+		E4A1A2E51F42A6BE00C5FD67 /* pb_common.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A1A2B61F42A6BE00C5FD67 /* pb_common.c */; };
+		E4A1A2E61F42A6BE00C5FD67 /* pb_decode.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A1A2B81F42A6BE00C5FD67 /* pb_decode.c */; };
+		E4A1A2E71F42A6BE00C5FD67 /* pb_encode.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A1A2BA1F42A6BE00C5FD67 /* pb_encode.c */; };
+		E4A1A2E81F42A6BE00C5FD67 /* MadgwickAHRS.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A1A2BD1F42A6BE00C5FD67 /* MadgwickAHRS.c */; };
+		E4A1A2E91F42A6BE00C5FD67 /* uart4.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A1A2BF1F42A6BE00C5FD67 /* uart4.c */; };
+		E4A1A2EA1F42A6BE00C5FD67 /* gyro.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A1A2C01F42A6BE00C5FD67 /* gyro.c */; };
+		E4A1A2EB1F42A6BE00C5FD67 /* bmp.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A1A2C11F42A6BE00C5FD67 /* bmp.c */; };
+		E4A1A2EC1F42A6BE00C5FD67 /* battery.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A1A2C31F42A6BE00C5FD67 /* battery.c */; };
+		E4A1A2ED1F42A6BE00C5FD67 /* servo.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A1A2C51F42A6BE00C5FD67 /* servo.c */; };
+		E4A1A2EE1F42A6BE00C5FD67 /* nmea.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A1A2C71F42A6BE00C5FD67 /* nmea.c */; };
+		E4A1A2EF1F42A6BE00C5FD67 /* timer.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A1A2CD1F42A6BE00C5FD67 /* timer.c */; };
+		E4A1A2F01F42A6BE00C5FD67 /* i2c.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A1A2D31F42A6BE00C5FD67 /* i2c.c */; };
+		E4A1A2F11F42A6BE00C5FD67 /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = E4A1A2D81F42A6BE00C5FD67 /* buffer.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E4074C481C1E2C7D006BCED4 /* altitudePitchController.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = altitudePitchController.c; sourceTree = "<group>"; };
-		E4074C491C1E2C7D006BCED4 /* altitudePitchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = altitudePitchController.h; sourceTree = "<group>"; };
-		E4089A681BC47A5B00A7D508 /* pb_common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pb_common.c; sourceTree = "<group>"; };
-		E4089A691BC47A5B00A7D508 /* pb_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pb_common.h; sourceTree = "<group>"; };
-		E4089A6A1BC47A5B00A7D508 /* pb_decode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pb_decode.c; sourceTree = "<group>"; };
-		E4089A6B1BC47A5B00A7D508 /* pb_decode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pb_decode.h; sourceTree = "<group>"; };
-		E4089A6C1BC47A5B00A7D508 /* pb_encode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pb_encode.c; sourceTree = "<group>"; };
-		E4089A6D1BC47A5B00A7D508 /* pb_encode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pb_encode.h; sourceTree = "<group>"; };
-		E40EAC951BC3CA9600657063 /* communicationProtocol.pb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = communicationProtocol.pb.c; sourceTree = "<group>"; };
-		E40EAC961BC3CA9600657063 /* communicationProtocol.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = communicationProtocol.pb.h; sourceTree = "<group>"; };
-		E40EAC981BC3CB1000657063 /* communicationsHandler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = communicationsHandler.c; sourceTree = "<group>"; };
-		E40EAC991BC3CB1000657063 /* communicationsHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = communicationsHandler.h; sourceTree = "<group>"; };
-		E41D1EAC1CB7F62600B8EBF3 /* pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pb.h; sourceTree = "<group>"; };
-		E442391B1C22F42D00FD3D2B /* yawController.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yawController.c; sourceTree = "<group>"; };
-		E442391C1C22F42D00FD3D2B /* yawController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yawController.h; sourceTree = "<group>"; };
-		E4A0E7F51BC9189100168960 /* servo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = servo.c; sourceTree = "<group>"; };
-		E4A0E7F61BC9189100168960 /* servo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = servo.h; sourceTree = "<group>"; };
-		E4A0E7F81BC9192900168960 /* servoconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = servoconf.h; sourceTree = "<group>"; };
-		E4C6CE8C1BF66E7300545241 /* flightController.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = flightController.c; sourceTree = "<group>"; };
-		E4C6CE8D1BF66E7300545241 /* flightController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = flightController.h; sourceTree = "<group>"; };
-		E4D257DD1CBABFC100EF732C /* raspiComms.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = raspiComms.c; sourceTree = "<group>"; };
-		E4D257DE1CBABFC100EF732C /* raspiComms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = raspiComms.h; sourceTree = "<group>"; };
-		E4F3A6141CB81E2A00EDA25A /* flightControllerTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = flightControllerTypes.h; sourceTree = "<group>"; };
-		E4FBB4B01BC31BFC00D6A64F /* Index */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Index; sourceTree = BUILT_PRODUCTS_DIR; };
-		E4FBB4B61BC31BFC00D6A64F /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		E4FBB4C91BC31C3200D6A64F /* accelMag.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = accelMag.c; sourceTree = "<group>"; };
-		E4FBB4CA1BC31C3200D6A64F /* accelMag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = accelMag.h; sourceTree = "<group>"; };
-		E4FBB4CB1BC31C3200D6A64F /* avrlibdefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = avrlibdefs.h; sourceTree = "<group>"; };
-		E4FBB4CC1BC31C3200D6A64F /* avrlibtypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = avrlibtypes.h; sourceTree = "<group>"; };
-		E4FBB4CD1BC31C3200D6A64F /* bmp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bmp.c; sourceTree = "<group>"; };
-		E4FBB4CE1BC31C3200D6A64F /* bmp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bmp.h; sourceTree = "<group>"; };
-		E4FBB4CF1BC31C3200D6A64F /* buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = buffer.c; sourceTree = "<group>"; };
-		E4FBB4D01BC31C3200D6A64F /* buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buffer.h; sourceTree = "<group>"; };
-		E4FBB4D11BC31C3200D6A64F /* global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = global.h; sourceTree = "<group>"; };
-		E4FBB4D21BC31C3200D6A64F /* gps.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gps.c; sourceTree = "<group>"; };
-		E4FBB4D31BC31C3200D6A64F /* gps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gps.h; sourceTree = "<group>"; };
-		E4FBB4D41BC31C3200D6A64F /* gyro.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gyro.c; sourceTree = "<group>"; };
-		E4FBB4D51BC31C3200D6A64F /* gyro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gyro.h; sourceTree = "<group>"; };
-		E4FBB4D61BC31C3200D6A64F /* i2c.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = i2c.c; sourceTree = "<group>"; };
-		E4FBB4D71BC31C3200D6A64F /* i2c.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = i2c.h; sourceTree = "<group>"; };
-		E4FBB4D81BC31C3200D6A64F /* i2cconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = i2cconf.h; sourceTree = "<group>"; };
-		E4FBB4D91BC31C3200D6A64F /* imuBoard.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = imuBoard.c; sourceTree = "<group>"; };
-		E4FBB4DA1BC31C3200D6A64F /* imuBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imuBoard.h; sourceTree = "<group>"; };
-		E4FBB4DB1BC31C3200D6A64F /* MadgwickAHRS.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MadgwickAHRS.c; sourceTree = "<group>"; };
-		E4FBB4DC1BC31C3200D6A64F /* MadgwickAHRS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MadgwickAHRS.h; sourceTree = "<group>"; };
-		E4FBB4DD1BC31C3200D6A64F /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
-		E4FBB4DE1BC31C3200D6A64F /* nmea.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nmea.c; sourceTree = "<group>"; };
-		E4FBB4DF1BC31C3200D6A64F /* nmea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nmea.h; sourceTree = "<group>"; };
-		E4FBB4E01BC31C3200D6A64F /* pinSetup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pinSetup.h; sourceTree = "<group>"; };
-		E4FBB4E11BC31C3200D6A64F /* timer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = timer.c; sourceTree = "<group>"; };
-		E4FBB4E21BC31C3200D6A64F /* timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timer.h; sourceTree = "<group>"; };
-		E4FBB4E31BC31C3200D6A64F /* uart4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = uart4.c; sourceTree = "<group>"; };
-		E4FBB4E41BC31C3200D6A64F /* uart4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uart4.h; sourceTree = "<group>"; };
-		E4FBB4E51BC31C3200D6A64F /* utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; };
-		E4FBB4E61BC31C3200D6A64F /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
-		E4FBB4E71BC31C3200D6A64F /* xBee.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xBee.c; sourceTree = "<group>"; };
-		E4FBB4E81BC31C3200D6A64F /* xBee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xBee.h; sourceTree = "<group>"; };
-		E4FC11F21BEEA9BA0040534F /* battery.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = battery.c; sourceTree = "<group>"; };
-		E4FC11F31BEEA9BA0040534F /* battery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = battery.h; sourceTree = "<group>"; };
+		E4855B9C1F42A653007A8D3C /* Index */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Index; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4855B9F1F42A653007A8D3C /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		E4855BA21F42A653007A8D3C /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		E4A1A2A21F42A6BE00C5FD67 /* pinSetup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pinSetup.h; sourceTree = "<group>"; };
+		E4A1A2A31F42A6BE00C5FD67 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
+		E4A1A2A41F42A6BE00C5FD67 /* gps.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gps.c; sourceTree = "<group>"; };
+		E4A1A2A51F42A6BE00C5FD67 /* communicationProtocol.pb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = communicationProtocol.pb.c; sourceTree = "<group>"; };
+		E4A1A2A61F42A6BE00C5FD67 /* communicationProtocol.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = communicationProtocol.pb.h; sourceTree = "<group>"; };
+		E4A1A2A71F42A6BE00C5FD67 /* flightController.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = flightController.c; sourceTree = "<group>"; };
+		E4A1A2A81F42A6BE00C5FD67 /* altitudePitchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = altitudePitchController.h; sourceTree = "<group>"; };
+		E4A1A2A91F42A6BE00C5FD67 /* altitudePitchController.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = altitudePitchController.c; sourceTree = "<group>"; };
+		E4A1A2AA1F42A6BE00C5FD67 /* yawController.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yawController.c; sourceTree = "<group>"; };
+		E4A1A2AB1F42A6BE00C5FD67 /* accelMag.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = accelMag.c; sourceTree = "<group>"; };
+		E4A1A2AC1F42A6BE00C5FD67 /* communicationsHandler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = communicationsHandler.c; path = autopilot/communicationsHandler.c; sourceTree = "<group>"; };
+		E4A1A2AD1F42A6BE00C5FD67 /* imuBoard.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = imuBoard.c; sourceTree = "<group>"; };
+		E4A1A2AE1F42A6BE00C5FD67 /* raspiComms.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = raspiComms.c; path = autopilot/raspiComms.c; sourceTree = "<group>"; };
+		E4A1A2AF1F42A6BE00C5FD67 /* utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; };
+		E4A1A2B01F42A6BE00C5FD67 /* xBee.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xBee.c; path = autopilot/xBee.c; sourceTree = "<group>"; };
+		E4A1A2B11F42A6BE00C5FD67 /* raspiComms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = raspiComms.h; path = autopilot/raspiComms.h; sourceTree = "<group>"; };
+		E4A1A2B21F42A6BE00C5FD67 /* global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = global.h; sourceTree = "<group>"; };
+		E4A1A2B31F42A6BE00C5FD67 /* flightControllerTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = flightControllerTypes.h; sourceTree = "<group>"; };
+		E4A1A2B41F42A6BE00C5FD67 /* flightController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = flightController.h; sourceTree = "<group>"; };
+		E4A1A2B51F42A6BE00C5FD67 /* yawController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yawController.h; sourceTree = "<group>"; };
+		E4A1A2B61F42A6BE00C5FD67 /* pb_common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pb_common.c; sourceTree = "<group>"; };
+		E4A1A2B71F42A6BE00C5FD67 /* pb_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pb_common.h; sourceTree = "<group>"; };
+		E4A1A2B81F42A6BE00C5FD67 /* pb_decode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pb_decode.c; sourceTree = "<group>"; };
+		E4A1A2B91F42A6BE00C5FD67 /* pb_decode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pb_decode.h; sourceTree = "<group>"; };
+		E4A1A2BA1F42A6BE00C5FD67 /* pb_encode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pb_encode.c; sourceTree = "<group>"; };
+		E4A1A2BB1F42A6BE00C5FD67 /* pb_encode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pb_encode.h; sourceTree = "<group>"; };
+		E4A1A2BC1F42A6BE00C5FD67 /* pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pb.h; sourceTree = "<group>"; };
+		E4A1A2BD1F42A6BE00C5FD67 /* MadgwickAHRS.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MadgwickAHRS.c; sourceTree = "<group>"; };
+		E4A1A2BE1F42A6BE00C5FD67 /* communicationsHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = communicationsHandler.h; path = autopilot/communicationsHandler.h; sourceTree = "<group>"; };
+		E4A1A2BF1F42A6BE00C5FD67 /* uart4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = uart4.c; sourceTree = "<group>"; };
+		E4A1A2C01F42A6BE00C5FD67 /* gyro.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gyro.c; sourceTree = "<group>"; };
+		E4A1A2C11F42A6BE00C5FD67 /* bmp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bmp.c; sourceTree = "<group>"; };
+		E4A1A2C21F42A6BE00C5FD67 /* servoconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = servoconf.h; sourceTree = "<group>"; };
+		E4A1A2C31F42A6BE00C5FD67 /* battery.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = battery.c; sourceTree = "<group>"; };
+		E4A1A2C41F42A6BE00C5FD67 /* battery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = battery.h; sourceTree = "<group>"; };
+		E4A1A2C51F42A6BE00C5FD67 /* servo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = servo.c; sourceTree = "<group>"; };
+		E4A1A2C61F42A6BE00C5FD67 /* xBee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xBee.h; path = autopilot/xBee.h; sourceTree = "<group>"; };
+		E4A1A2C71F42A6BE00C5FD67 /* nmea.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nmea.c; sourceTree = "<group>"; };
+		E4A1A2C81F42A6BE00C5FD67 /* uart4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uart4.h; sourceTree = "<group>"; };
+		E4A1A2C91F42A6BE00C5FD67 /* servo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = servo.h; sourceTree = "<group>"; };
+		E4A1A2CA1F42A6BE00C5FD67 /* MadgwickAHRS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MadgwickAHRS.h; sourceTree = "<group>"; };
+		E4A1A2CB1F42A6BE00C5FD67 /* bmp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bmp.h; sourceTree = "<group>"; };
+		E4A1A2CC1F42A6BE00C5FD67 /* nmea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nmea.h; sourceTree = "<group>"; };
+		E4A1A2CD1F42A6BE00C5FD67 /* timer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = timer.c; sourceTree = "<group>"; };
+		E4A1A2CE1F42A6BE00C5FD67 /* gps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gps.h; sourceTree = "<group>"; };
+		E4A1A2CF1F42A6BE00C5FD67 /* accelMag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = accelMag.h; sourceTree = "<group>"; };
+		E4A1A2D01F42A6BE00C5FD67 /* timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timer.h; sourceTree = "<group>"; };
+		E4A1A2D11F42A6BE00C5FD67 /* imuBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imuBoard.h; sourceTree = "<group>"; };
+		E4A1A2D21F42A6BE00C5FD67 /* gyro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gyro.h; sourceTree = "<group>"; };
+		E4A1A2D31F42A6BE00C5FD67 /* i2c.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = i2c.c; sourceTree = "<group>"; };
+		E4A1A2D41F42A6BE00C5FD67 /* i2c.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = i2c.h; sourceTree = "<group>"; };
+		E4A1A2D51F42A6BE00C5FD67 /* i2cconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = i2cconf.h; sourceTree = "<group>"; };
+		E4A1A2D61F42A6BE00C5FD67 /* avrlibdefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = avrlibdefs.h; sourceTree = "<group>"; };
+		E4A1A2D71F42A6BE00C5FD67 /* avrlibtypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = avrlibtypes.h; sourceTree = "<group>"; };
+		E4A1A2D81F42A6BE00C5FD67 /* buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = buffer.c; sourceTree = "<group>"; };
+		E4A1A2D91F42A6BE00C5FD67 /* buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buffer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		E4074C471C1E2BCC006BCED4 /* Flight Controllers */ = {
+		E4855B911F42A653007A8D3C = {
 			isa = PBXGroup;
 			children = (
-				E4F3A6141CB81E2A00EDA25A /* flightControllerTypes.h */,
-				E4C6CE8D1BF66E7300545241 /* flightController.h */,
-				E4C6CE8C1BF66E7300545241 /* flightController.c */,
-				E4074C491C1E2C7D006BCED4 /* altitudePitchController.h */,
-				E4074C481C1E2C7D006BCED4 /* altitudePitchController.c */,
-				E442391C1C22F42D00FD3D2B /* yawController.h */,
-				E442391B1C22F42D00FD3D2B /* yawController.c */,
-			);
-			name = "Flight Controllers";
-			sourceTree = "<group>";
-		};
-		E4089A671BC47A5100A7D508 /* protobuf */ = {
-			isa = PBXGroup;
-			children = (
-				E41D1EAC1CB7F62600B8EBF3 /* pb.h */,
-				E4089A681BC47A5B00A7D508 /* pb_common.c */,
-				E4089A691BC47A5B00A7D508 /* pb_common.h */,
-				E4089A6A1BC47A5B00A7D508 /* pb_decode.c */,
-				E4089A6B1BC47A5B00A7D508 /* pb_decode.h */,
-				E4089A6C1BC47A5B00A7D508 /* pb_encode.c */,
-				E4089A6D1BC47A5B00A7D508 /* pb_encode.h */,
-			);
-			name = protobuf;
-			sourceTree = "<group>";
-		};
-		E4FBB4A51BC31BFC00D6A64F = {
-			isa = PBXGroup;
-			children = (
-				E4FBB4B21BC31BFC00D6A64F /* autopilot */,
-				E4FBB4B11BC31BFC00D6A64F /* Products */,
+				E4855B9E1F42A653007A8D3C /* autopilot */,
+				E4855B9D1F42A653007A8D3C /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		E4FBB4B11BC31BFC00D6A64F /* Products */ = {
+		E4855B9D1F42A653007A8D3C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E4FBB4B01BC31BFC00D6A64F /* Index */,
+				E4855B9C1F42A653007A8D3C /* Index */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E4FBB4B21BC31BFC00D6A64F /* autopilot */ = {
+		E4855B9E1F42A653007A8D3C /* autopilot */ = {
 			isa = PBXGroup;
 			children = (
-				E4089A671BC47A5100A7D508 /* protobuf */,
-				E4FBB4F81BC31C4000D6A64F /* avrlib */,
-				E4FBB4F71BC31C3700D6A64F /* sensors */,
-				E4FBB4F91BC31C4600D6A64F /* comms */,
-				E4FBB4DD1BC31C3200D6A64F /* main.c */,
-				E4074C471C1E2BCC006BCED4 /* Flight Controllers */,
-				E4FBB4E21BC31C3200D6A64F /* timer.h */,
-				E4FBB4E11BC31C3200D6A64F /* timer.c */,
-				E4FBB4E61BC31C3200D6A64F /* utils.h */,
-				E4FBB4E51BC31C3200D6A64F /* utils.c */,
-				E4FBB4B51BC31BFC00D6A64F /* Makefiles */,
+				E4A1A2F31F42A72400C5FD67 /* setup */,
+				E4A1A2A11F42A69C00C5FD67 /* protobuf */,
+				E4A1A2F61F42A79D00C5FD67 /* avrlib */,
+				E4A1A2F21F42A6CC00C5FD67 /* sensors */,
+				E4A1A2F51F42A75200C5FD67 /* comms */,
+				E4A1A2F41F42A72E00C5FD67 /* Flight Controllers */,
+				E4855B9F1F42A653007A8D3C /* main.c */,
+				E4A1A2A31F42A6BE00C5FD67 /* utils.h */,
+				E4A1A2AF1F42A6BE00C5FD67 /* utils.c */,
+				E4855BA11F42A653007A8D3C /* Makefiles */,
 			);
 			path = autopilot;
 			sourceTree = "<group>";
 		};
-		E4FBB4B51BC31BFC00D6A64F /* Makefiles */ = {
+		E4855BA11F42A653007A8D3C /* Makefiles */ = {
 			isa = PBXGroup;
 			children = (
-				E4FBB4B61BC31BFC00D6A64F /* Makefile */,
+				E4855BA21F42A653007A8D3C /* Makefile */,
 			);
 			name = Makefiles;
 			sourceTree = "<group>";
 		};
-		E4FBB4F71BC31C3700D6A64F /* sensors */ = {
+		E4A1A2A11F42A69C00C5FD67 /* protobuf */ = {
 			isa = PBXGroup;
 			children = (
-				E4FBB4DC1BC31C3200D6A64F /* MadgwickAHRS.h */,
-				E4FBB4DB1BC31C3200D6A64F /* MadgwickAHRS.c */,
-				E4FBB4CA1BC31C3200D6A64F /* accelMag.h */,
-				E4FBB4C91BC31C3200D6A64F /* accelMag.c */,
-				E4FBB4CE1BC31C3200D6A64F /* bmp.h */,
-				E4FBB4CD1BC31C3200D6A64F /* bmp.c */,
-				E4FBB4D31BC31C3200D6A64F /* gps.h */,
-				E4FBB4D21BC31C3200D6A64F /* gps.c */,
-				E4FBB4D51BC31C3200D6A64F /* gyro.h */,
-				E4FBB4D41BC31C3200D6A64F /* gyro.c */,
-				E4FBB4DA1BC31C3200D6A64F /* imuBoard.h */,
-				E4FBB4D91BC31C3200D6A64F /* imuBoard.c */,
-				E4FC11F31BEEA9BA0040534F /* battery.h */,
-				E4FC11F21BEEA9BA0040534F /* battery.c */,
+				E4A1A2A61F42A6BE00C5FD67 /* communicationProtocol.pb.h */,
+				E4A1A2A51F42A6BE00C5FD67 /* communicationProtocol.pb.c */,
+				E4A1A2B71F42A6BE00C5FD67 /* pb_common.h */,
+				E4A1A2B61F42A6BE00C5FD67 /* pb_common.c */,
+				E4A1A2B91F42A6BE00C5FD67 /* pb_decode.h */,
+				E4A1A2B81F42A6BE00C5FD67 /* pb_decode.c */,
+				E4A1A2BB1F42A6BE00C5FD67 /* pb_encode.h */,
+				E4A1A2BA1F42A6BE00C5FD67 /* pb_encode.c */,
+				E4A1A2BC1F42A6BE00C5FD67 /* pb.h */,
+			);
+			name = protobuf;
+			sourceTree = "<group>";
+		};
+		E4A1A2F21F42A6CC00C5FD67 /* sensors */ = {
+			isa = PBXGroup;
+			children = (
+				E4A1A2CA1F42A6BE00C5FD67 /* MadgwickAHRS.h */,
+				E4A1A2BD1F42A6BE00C5FD67 /* MadgwickAHRS.c */,
+				E4A1A2CF1F42A6BE00C5FD67 /* accelMag.h */,
+				E4A1A2AB1F42A6BE00C5FD67 /* accelMag.c */,
+				E4A1A2D11F42A6BE00C5FD67 /* imuBoard.h */,
+				E4A1A2AD1F42A6BE00C5FD67 /* imuBoard.c */,
+				E4A1A2D21F42A6BE00C5FD67 /* gyro.h */,
+				E4A1A2C01F42A6BE00C5FD67 /* gyro.c */,
+				E4A1A2CB1F42A6BE00C5FD67 /* bmp.h */,
+				E4A1A2C11F42A6BE00C5FD67 /* bmp.c */,
+				E4A1A2CE1F42A6BE00C5FD67 /* gps.h */,
+				E4A1A2A41F42A6BE00C5FD67 /* gps.c */,
+				E4A1A2C41F42A6BE00C5FD67 /* battery.h */,
+				E4A1A2C31F42A6BE00C5FD67 /* battery.c */,
 			);
 			name = sensors;
 			sourceTree = "<group>";
 		};
-		E4FBB4F81BC31C4000D6A64F /* avrlib */ = {
+		E4A1A2F31F42A72400C5FD67 /* setup */ = {
 			isa = PBXGroup;
 			children = (
-				E4FBB4FA1BC31C7800D6A64F /* config */,
-				E4FBB4CB1BC31C3200D6A64F /* avrlibdefs.h */,
-				E4FBB4CC1BC31C3200D6A64F /* avrlibtypes.h */,
-				E4FBB4D01BC31C3200D6A64F /* buffer.h */,
-				E4FBB4CF1BC31C3200D6A64F /* buffer.c */,
-				E4FBB4D71BC31C3200D6A64F /* i2c.h */,
-				E4FBB4D61BC31C3200D6A64F /* i2c.c */,
-				E4FBB4DF1BC31C3200D6A64F /* nmea.h */,
-				E4FBB4DE1BC31C3200D6A64F /* nmea.c */,
-				E4FBB4E41BC31C3200D6A64F /* uart4.h */,
-				E4FBB4E31BC31C3200D6A64F /* uart4.c */,
-				E4A0E7F61BC9189100168960 /* servo.h */,
-				E4A0E7F51BC9189100168960 /* servo.c */,
+				E4A1A2B21F42A6BE00C5FD67 /* global.h */,
+				E4A1A2A21F42A6BE00C5FD67 /* pinSetup.h */,
+				E4A1A2D51F42A6BE00C5FD67 /* i2cconf.h */,
+				E4A1A2C21F42A6BE00C5FD67 /* servoconf.h */,
 			);
-			name = avrlib;
+			name = setup;
 			sourceTree = "<group>";
 		};
-		E4FBB4F91BC31C4600D6A64F /* comms */ = {
+		E4A1A2F41F42A72E00C5FD67 /* Flight Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				E4FBB4E81BC31C3200D6A64F /* xBee.h */,
-				E4FBB4E71BC31C3200D6A64F /* xBee.c */,
-				E40EAC961BC3CA9600657063 /* communicationProtocol.pb.h */,
-				E40EAC951BC3CA9600657063 /* communicationProtocol.pb.c */,
-				E40EAC991BC3CB1000657063 /* communicationsHandler.h */,
-				E40EAC981BC3CB1000657063 /* communicationsHandler.c */,
-				E4D257DD1CBABFC100EF732C /* raspiComms.c */,
-				E4D257DE1CBABFC100EF732C /* raspiComms.h */,
+				E4A1A2B31F42A6BE00C5FD67 /* flightControllerTypes.h */,
+				E4A1A2B41F42A6BE00C5FD67 /* flightController.h */,
+				E4A1A2A71F42A6BE00C5FD67 /* flightController.c */,
+				E4A1A2A81F42A6BE00C5FD67 /* altitudePitchController.h */,
+				E4A1A2A91F42A6BE00C5FD67 /* altitudePitchController.c */,
+				E4A1A2B51F42A6BE00C5FD67 /* yawController.h */,
+				E4A1A2AA1F42A6BE00C5FD67 /* yawController.c */,
+			);
+			name = "Flight Controllers";
+			sourceTree = "<group>";
+		};
+		E4A1A2F51F42A75200C5FD67 /* comms */ = {
+			isa = PBXGroup;
+			children = (
+				E4A1A2BE1F42A6BE00C5FD67 /* communicationsHandler.h */,
+				E4A1A2AC1F42A6BE00C5FD67 /* communicationsHandler.c */,
+				E4A1A2B11F42A6BE00C5FD67 /* raspiComms.h */,
+				E4A1A2AE1F42A6BE00C5FD67 /* raspiComms.c */,
+				E4A1A2C61F42A6BE00C5FD67 /* xBee.h */,
+				E4A1A2B01F42A6BE00C5FD67 /* xBee.c */,
 			);
 			name = comms;
+			path = ..;
 			sourceTree = "<group>";
 		};
-		E4FBB4FA1BC31C7800D6A64F /* config */ = {
+		E4A1A2F61F42A79D00C5FD67 /* avrlib */ = {
 			isa = PBXGroup;
 			children = (
-				E4FBB4D11BC31C3200D6A64F /* global.h */,
-				E4FBB4D81BC31C3200D6A64F /* i2cconf.h */,
-				E4FBB4E01BC31C3200D6A64F /* pinSetup.h */,
-				E4A0E7F81BC9192900168960 /* servoconf.h */,
+				E4A1A2D61F42A6BE00C5FD67 /* avrlibdefs.h */,
+				E4A1A2D71F42A6BE00C5FD67 /* avrlibtypes.h */,
+				E4A1A2D41F42A6BE00C5FD67 /* i2c.h */,
+				E4A1A2D31F42A6BE00C5FD67 /* i2c.c */,
+				E4A1A2C91F42A6BE00C5FD67 /* servo.h */,
+				E4A1A2C51F42A6BE00C5FD67 /* servo.c */,
+				E4A1A2D01F42A6BE00C5FD67 /* timer.h */,
+				E4A1A2CD1F42A6BE00C5FD67 /* timer.c */,
+				E4A1A2CC1F42A6BE00C5FD67 /* nmea.h */,
+				E4A1A2C71F42A6BE00C5FD67 /* nmea.c */,
+				E4A1A2D91F42A6BE00C5FD67 /* buffer.h */,
+				E4A1A2D81F42A6BE00C5FD67 /* buffer.c */,
+				E4A1A2C81F42A6BE00C5FD67 /* uart4.h */,
+				E4A1A2BF1F42A6BE00C5FD67 /* uart4.c */,
 			);
-			name = config;
+			name = avrlib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
-		E4FBB4AA1BC31BFC00D6A64F /* All */ = {
+		E4855B961F42A653007A8D3C /* All */ = {
 			isa = PBXLegacyTarget;
 			buildArgumentsString = "all -C \"$(PROJECT)\"";
-			buildConfigurationList = E4FBB4BA1BC31BFC00D6A64F /* Build configuration list for PBXLegacyTarget "All" */;
+			buildConfigurationList = E4855BA51F42A653007A8D3C /* Build configuration list for PBXLegacyTarget "All" */;
 			buildPhases = (
 			);
 			buildToolPath = make;
@@ -251,10 +251,10 @@
 			passBuildSettingsInEnvironment = 1;
 			productName = All;
 		};
-		E4FBB4AB1BC31BFC00D6A64F /* Build */ = {
+		E4855B971F42A653007A8D3C /* Build */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "clean build -C \"$(PROJECT)\"";
-			buildConfigurationList = E4FBB4BD1BC31BFC00D6A64F /* Build configuration list for PBXLegacyTarget "Build" */;
+			buildArgumentsString = "build -C \"$(PROJECT)\"";
+			buildConfigurationList = E4855BA81F42A653007A8D3C /* Build configuration list for PBXLegacyTarget "Build" */;
 			buildPhases = (
 			);
 			buildToolPath = make;
@@ -264,10 +264,10 @@
 			passBuildSettingsInEnvironment = 1;
 			productName = Build;
 		};
-		E4FBB4AC1BC31BFC00D6A64F /* Upload */ = {
+		E4855B981F42A653007A8D3C /* Upload */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "clean build program -C \"$(PROJECT)\"";
-			buildConfigurationList = E4FBB4C01BC31BFC00D6A64F /* Build configuration list for PBXLegacyTarget "Upload" */;
+			buildArgumentsString = "program -C \"$(PROJECT)\"";
+			buildConfigurationList = E4855BAB1F42A653007A8D3C /* Build configuration list for PBXLegacyTarget "Upload" */;
 			buildPhases = (
 			);
 			buildToolPath = make;
@@ -277,10 +277,10 @@
 			passBuildSettingsInEnvironment = 1;
 			productName = Upload;
 		};
-		E4FBB4AD1BC31BFC00D6A64F /* Clean */ = {
+		E4855B991F42A653007A8D3C /* Clean */ = {
 			isa = PBXLegacyTarget;
 			buildArgumentsString = "clean -C \"$(PROJECT)\"";
-			buildConfigurationList = E4FBB4C31BC31BFC00D6A64F /* Build configuration list for PBXLegacyTarget "Clean" */;
+			buildConfigurationList = E4855BAE1F42A653007A8D3C /* Build configuration list for PBXLegacyTarget "Clean" */;
 			buildPhases = (
 			);
 			buildToolPath = make;
@@ -293,11 +293,11 @@
 /* End PBXLegacyTarget section */
 
 /* Begin PBXNativeTarget section */
-		E4FBB4AF1BC31BFC00D6A64F /* Index */ = {
+		E4855B9B1F42A653007A8D3C /* Index */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E4FBB4C61BC31BFC00D6A64F /* Build configuration list for PBXNativeTarget "Index" */;
+			buildConfigurationList = E4855BB11F42A653007A8D3C /* Build configuration list for PBXNativeTarget "Index" */;
 			buildPhases = (
-				E4FBB4AE1BC31BFC00D6A64F /* Sources */,
+				E4855B9A1F42A653007A8D3C /* Sources */,
 			);
 			buildRules = (
 			);
@@ -305,97 +305,102 @@
 			);
 			name = Index;
 			productName = Index;
-			productReference = E4FBB4B01BC31BFC00D6A64F /* Index */;
+			productReference = E4855B9C1F42A653007A8D3C /* Index */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		E4FBB4A61BC31BFC00D6A64F /* Project object */ = {
+		E4855B921F42A653007A8D3C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Ludger Heide";
 				TargetAttributes = {
-					E4FBB4AA1BC31BFC00D6A64F = {
-						CreatedOnToolsVersion = 7.0.1;
+					E4855B961F42A653007A8D3C = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
 					};
-					E4FBB4AB1BC31BFC00D6A64F = {
-						CreatedOnToolsVersion = 7.0.1;
+					E4855B971F42A653007A8D3C = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
 					};
-					E4FBB4AC1BC31BFC00D6A64F = {
-						CreatedOnToolsVersion = 7.0.1;
+					E4855B981F42A653007A8D3C = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
 					};
-					E4FBB4AD1BC31BFC00D6A64F = {
-						CreatedOnToolsVersion = 7.0.1;
+					E4855B991F42A653007A8D3C = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
 					};
-					E4FBB4AF1BC31BFC00D6A64F = {
-						CreatedOnToolsVersion = 7.0.1;
+					E4855B9B1F42A653007A8D3C = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
-			buildConfigurationList = E4FBB4A91BC31BFC00D6A64F /* Build configuration list for PBXProject "autopilot" */;
+			buildConfigurationList = E4855B951F42A653007A8D3C /* Build configuration list for PBXProject "autopilot" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = E4FBB4A51BC31BFC00D6A64F;
-			productRefGroup = E4FBB4B11BC31BFC00D6A64F /* Products */;
+			mainGroup = E4855B911F42A653007A8D3C;
+			productRefGroup = E4855B9D1F42A653007A8D3C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E4FBB4AA1BC31BFC00D6A64F /* All */,
-				E4FBB4AB1BC31BFC00D6A64F /* Build */,
-				E4FBB4AC1BC31BFC00D6A64F /* Upload */,
-				E4FBB4AD1BC31BFC00D6A64F /* Clean */,
-				E4FBB4AF1BC31BFC00D6A64F /* Index */,
+				E4855B961F42A653007A8D3C /* All */,
+				E4855B971F42A653007A8D3C /* Build */,
+				E4855B981F42A653007A8D3C /* Upload */,
+				E4855B991F42A653007A8D3C /* Clean */,
+				E4855B9B1F42A653007A8D3C /* Index */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		E4FBB4AE1BC31BFC00D6A64F /* Sources */ = {
+		E4855B9A1F42A653007A8D3C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4089A6F1BC47A5B00A7D508 /* pb_decode.c in Sources */,
-				E4FBB4F51BC31C3200D6A64F /* utils.c in Sources */,
-				E4FBB4F41BC31C3200D6A64F /* uart4.c in Sources */,
-				E4FBB4F21BC31C3200D6A64F /* nmea.c in Sources */,
-				E40EAC971BC3CA9600657063 /* communicationProtocol.pb.c in Sources */,
-				E4089A6E1BC47A5B00A7D508 /* pb_common.c in Sources */,
-				E4FBB4ED1BC31C3200D6A64F /* gyro.c in Sources */,
-				E4D257DF1CBABFC100EF732C /* raspiComms.c in Sources */,
-				E4FC11F41BEEA9BA0040534F /* battery.c in Sources */,
-				E4FBB4EC1BC31C3200D6A64F /* gps.c in Sources */,
-				E4FBB4F31BC31C3200D6A64F /* timer.c in Sources */,
-				E4074C4A1C1E2C7D006BCED4 /* altitudePitchController.c in Sources */,
-				E4FBB4F01BC31C3200D6A64F /* MadgwickAHRS.c in Sources */,
-				E4C6CE8E1BF66E7300545241 /* flightController.c in Sources */,
-				E4FBB4B71BC31BFC00D6A64F /* Makefile in Sources */,
-				E4089A701BC47A5B00A7D508 /* pb_encode.c in Sources */,
-				E4FBB4EA1BC31C3200D6A64F /* bmp.c in Sources */,
-				E4FBB4EE1BC31C3200D6A64F /* i2c.c in Sources */,
-				E4FBB4F61BC31C3200D6A64F /* xBee.c in Sources */,
-				E40EAC9A1BC3CB1000657063 /* communicationsHandler.c in Sources */,
-				E4FBB4EB1BC31C3200D6A64F /* buffer.c in Sources */,
-				E4FBB4F11BC31C3200D6A64F /* main.c in Sources */,
-				E4A0E7F71BC9189100168960 /* servo.c in Sources */,
-				E4FBB4E91BC31C3200D6A64F /* accelMag.c in Sources */,
-				E442391D1C22F42D00FD3D2B /* yawController.c in Sources */,
-				E4FBB4EF1BC31C3200D6A64F /* imuBoard.c in Sources */,
+				E4A1A2DF1F42A6BE00C5FD67 /* accelMag.c in Sources */,
+				E4A1A2EC1F42A6BE00C5FD67 /* battery.c in Sources */,
+				E4A1A2EF1F42A6BE00C5FD67 /* timer.c in Sources */,
+				E4A1A2E61F42A6BE00C5FD67 /* pb_decode.c in Sources */,
+				E4A1A2E51F42A6BE00C5FD67 /* pb_common.c in Sources */,
+				E4A1A2DD1F42A6BE00C5FD67 /* altitudePitchController.c in Sources */,
+				E4A1A2E91F42A6BE00C5FD67 /* uart4.c in Sources */,
+				E4A1A2EE1F42A6BE00C5FD67 /* nmea.c in Sources */,
+				E4A1A2E81F42A6BE00C5FD67 /* MadgwickAHRS.c in Sources */,
+				E4A1A2DE1F42A6BE00C5FD67 /* yawController.c in Sources */,
+				E4A1A2DA1F42A6BE00C5FD67 /* gps.c in Sources */,
+				E4A1A2E71F42A6BE00C5FD67 /* pb_encode.c in Sources */,
+				E4A1A2F01F42A6BE00C5FD67 /* i2c.c in Sources */,
+				E4A1A2DC1F42A6BE00C5FD67 /* flightController.c in Sources */,
+				E4A1A2DB1F42A6BE00C5FD67 /* communicationProtocol.pb.c in Sources */,
+				E4A1A2EB1F42A6BE00C5FD67 /* bmp.c in Sources */,
+				E4855BA01F42A653007A8D3C /* main.c in Sources */,
+				E4A1A2E41F42A6BE00C5FD67 /* xBee.c in Sources */,
+				E4A1A2E01F42A6BE00C5FD67 /* communicationsHandler.c in Sources */,
+				E4A1A2E11F42A6BE00C5FD67 /* imuBoard.c in Sources */,
+				E4A1A2E21F42A6BE00C5FD67 /* raspiComms.c in Sources */,
+				E4A1A2ED1F42A6BE00C5FD67 /* servo.c in Sources */,
+				E4A1A2EA1F42A6BE00C5FD67 /* gyro.c in Sources */,
+				E4A1A2F11F42A6BE00C5FD67 /* buffer.c in Sources */,
+				E4A1A2E31F42A6BE00C5FD67 /* utils.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		E4FBB4B81BC31BFC00D6A64F /* Debug */ = {
+		E4855BA31F42A653007A8D3C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -403,10 +408,13 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
@@ -429,9 +437,9 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					"/usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/include",
-					"/usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/include-fixed",
-					"/usr/local/CrossPack-AVR-20131216/avr/include",
+					"/Users/ludger/Developer/avr8-gnu-toolchain-darwin_x86_64/lib/gcc/avr/4.9.2/include",
+					"/Users/ludger/Developer/avr8-gnu-toolchain-darwin_x86_64/lib/gcc/avr/4.9.2/include-fixed",
+					"/Users/ludger/Developer/avr8-gnu-toolchain-darwin_x86_64/avr/include",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -440,10 +448,11 @@
 			};
 			name = Debug;
 		};
-		E4FBB4B91BC31BFC00D6A64F /* Release */ = {
+		E4855BA41F42A653007A8D3C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -451,10 +460,13 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
@@ -474,9 +486,9 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					"/usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/include",
-					"/usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/include-fixed",
-					"/usr/local/CrossPack-AVR-20131216/avr/include",
+					"/Users/ludger/Developer/avr8-gnu-toolchain-darwin_x86_64/lib/gcc/avr/4.9.2/include",
+					"/Users/ludger/Developer/avr8-gnu-toolchain-darwin_x86_64/lib/gcc/avr/4.9.2/include-fixed",
+					"/Users/ludger/Developer/avr8-gnu-toolchain-darwin_x86_64/avr/include",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PATH = "$(PATH):$(PROJECT_DIR)";
@@ -484,186 +496,126 @@
 			};
 			name = Release;
 		};
-		E4FBB4BB1BC31BFC00D6A64F /* Debug */ = {
+		E4855BA61F42A653007A8D3C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					"/usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/include",
-					"/usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/include-fixed",
-					"/usr/local/CrossPack-AVR-20131216/avr/include",
-					/usr/local/include,
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		E4FBB4BC1BC31BFC00D6A64F /* Release */ = {
+		E4855BA71F42A653007A8D3C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					"/usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/include",
-					"/usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/include-fixed",
-					"/usr/local/CrossPack-AVR-20131216/avr/include",
-					/usr/local/include,
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
-		E4FBB4BE1BC31BFC00D6A64F /* Debug */ = {
+		E4855BA91F42A653007A8D3C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					"/usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/include",
-					"/usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/include-fixed",
-					"/usr/local/CrossPack-AVR-20131216/avr/include",
-					/usr/local/include,
-				);
 			};
 			name = Debug;
 		};
-		E4FBB4BF1BC31BFC00D6A64F /* Release */ = {
+		E4855BAA1F42A653007A8D3C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					"/usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/include",
-					"/usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/include-fixed",
-					"/usr/local/CrossPack-AVR-20131216/avr/include",
-					/usr/local/include,
-				);
 			};
 			name = Release;
 		};
-		E4FBB4C11BC31BFC00D6A64F /* Debug */ = {
+		E4855BAC1F42A653007A8D3C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					"/usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/include",
-					"/usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/include-fixed",
-					"/usr/local/CrossPack-AVR-20131216/avr/include",
-					/usr/local/include,
-				);
 			};
 			name = Debug;
 		};
-		E4FBB4C21BC31BFC00D6A64F /* Release */ = {
+		E4855BAD1F42A653007A8D3C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					"/usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/include",
-					"/usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/include-fixed",
-					"/usr/local/CrossPack-AVR-20131216/avr/include",
-					/usr/local/include,
-				);
 			};
 			name = Release;
 		};
-		E4FBB4C41BC31BFC00D6A64F /* Debug */ = {
+		E4855BAF1F42A653007A8D3C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					"/usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/include",
-					"/usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/include-fixed",
-					"/usr/local/CrossPack-AVR-20131216/avr/include",
-					/usr/local/include,
-				);
 			};
 			name = Debug;
 		};
-		E4FBB4C51BC31BFC00D6A64F /* Release */ = {
+		E4855BB01F42A653007A8D3C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					"/usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/include",
-					"/usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/include-fixed",
-					"/usr/local/CrossPack-AVR-20131216/avr/include",
-					/usr/local/include,
-				);
 			};
 			name = Release;
 		};
-		E4FBB4C71BC31BFC00D6A64F /* Debug */ = {
+		E4855BB21F42A653007A8D3C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					"/usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/include",
-					"/usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/include-fixed",
-					"/usr/local/CrossPack-AVR-20131216/avr/include",
-					/usr/local/include,
-				);
 			};
 			name = Debug;
 		};
-		E4FBB4C81BC31BFC00D6A64F /* Release */ = {
+		E4855BB31F42A653007A8D3C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					"/usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/include",
-					"/usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/include-fixed",
-					"/usr/local/CrossPack-AVR-20131216/avr/include",
-					/usr/local/include,
-				);
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E4FBB4A91BC31BFC00D6A64F /* Build configuration list for PBXProject "autopilot" */ = {
+		E4855B951F42A653007A8D3C /* Build configuration list for PBXProject "autopilot" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E4FBB4B81BC31BFC00D6A64F /* Debug */,
-				E4FBB4B91BC31BFC00D6A64F /* Release */,
+				E4855BA31F42A653007A8D3C /* Debug */,
+				E4855BA41F42A653007A8D3C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E4FBB4BA1BC31BFC00D6A64F /* Build configuration list for PBXLegacyTarget "All" */ = {
+		E4855BA51F42A653007A8D3C /* Build configuration list for PBXLegacyTarget "All" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E4FBB4BB1BC31BFC00D6A64F /* Debug */,
-				E4FBB4BC1BC31BFC00D6A64F /* Release */,
+				E4855BA61F42A653007A8D3C /* Debug */,
+				E4855BA71F42A653007A8D3C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E4FBB4BD1BC31BFC00D6A64F /* Build configuration list for PBXLegacyTarget "Build" */ = {
+		E4855BA81F42A653007A8D3C /* Build configuration list for PBXLegacyTarget "Build" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E4FBB4BE1BC31BFC00D6A64F /* Debug */,
-				E4FBB4BF1BC31BFC00D6A64F /* Release */,
+				E4855BA91F42A653007A8D3C /* Debug */,
+				E4855BAA1F42A653007A8D3C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E4FBB4C01BC31BFC00D6A64F /* Build configuration list for PBXLegacyTarget "Upload" */ = {
+		E4855BAB1F42A653007A8D3C /* Build configuration list for PBXLegacyTarget "Upload" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E4FBB4C11BC31BFC00D6A64F /* Debug */,
-				E4FBB4C21BC31BFC00D6A64F /* Release */,
+				E4855BAC1F42A653007A8D3C /* Debug */,
+				E4855BAD1F42A653007A8D3C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E4FBB4C31BC31BFC00D6A64F /* Build configuration list for PBXLegacyTarget "Clean" */ = {
+		E4855BAE1F42A653007A8D3C /* Build configuration list for PBXLegacyTarget "Clean" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E4FBB4C41BC31BFC00D6A64F /* Debug */,
-				E4FBB4C51BC31BFC00D6A64F /* Release */,
+				E4855BAF1F42A653007A8D3C /* Debug */,
+				E4855BB01F42A653007A8D3C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E4FBB4C61BC31BFC00D6A64F /* Build configuration list for PBXNativeTarget "Index" */ = {
+		E4855BB11F42A653007A8D3C /* Build configuration list for PBXNativeTarget "Index" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E4FBB4C71BC31BFC00D6A64F /* Debug */,
-				E4FBB4C81BC31BFC00D6A64F /* Release */,
+				E4855BB21F42A653007A8D3C /* Debug */,
+				E4855BB31F42A653007A8D3C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = E4FBB4A61BC31BFC00D6A64F /* Project object */;
+	rootObject = E4855B921F42A653007A8D3C /* Project object */;
 }

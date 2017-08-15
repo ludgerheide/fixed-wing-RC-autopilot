@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0730"
+   LastUpgradeVersion = "0820"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E4FBB4AF1BC31BFC00D6A64F"
+               BlueprintIdentifier = "E4855B9B1F42A653007A8D3C"
                BuildableName = "Index"
                BlueprintName = "Index"
                ReferencedContainer = "container:autopilot.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E4FBB4AF1BC31BFC00D6A64F"
+            BlueprintIdentifier = "E4855B9B1F42A653007A8D3C"
             BuildableName = "Index"
             BlueprintName = "Index"
             ReferencedContainer = "container:autopilot.xcodeproj">
@@ -55,7 +55,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E4FBB4AF1BC31BFC00D6A64F"
+            BlueprintIdentifier = "E4855B9B1F42A653007A8D3C"
             BuildableName = "Index"
             BlueprintName = "Index"
             ReferencedContainer = "container:autopilot.xcodeproj">
@@ -74,7 +74,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E4FBB4AF1BC31BFC00D6A64F"
+            BlueprintIdentifier = "E4855B9B1F42A653007A8D3C"
             BuildableName = "Index"
             BlueprintName = "Index"
             ReferencedContainer = "container:autopilot.xcodeproj">
