@@ -9,23 +9,23 @@
 import Foundation
 import UIKit //TODO: REMOVE
 
-class InetInterface : NSObject, NSStreamDelegate {
-    private let host = "lht.no-ip.biz"
-    private let port: UInt32 = 5051
-    private var reconnectTimer: NSTimer?
-    private let reconnecTimeout: NSTimeInterval = 1
+class InetInterface : NSObject, StreamDelegate {
+    fileprivate let host = "lht.no-ip.biz"
+    fileprivate let port: UInt32 = 5051
+    fileprivate var reconnectTimer: Timer?
+    fileprivate let reconnecTimeout: TimeInterval = 1
     
-    private let msgStart = "-----BEGIN MESSAGE-----"
-    private let sigEnd = "-----END SIGNATURE-----"
-    private let maxReadLength = 1024
-    private var incompleteMessage: String = ""
+    fileprivate let msgStart = "-----BEGIN MESSAGE-----"
+    fileprivate let sigEnd = "-----END SIGNATURE-----"
+    fileprivate let maxReadLength = 1024
+    fileprivate var incompleteMessage: String = ""
     
-    private let sv: SignVerify
+    fileprivate let sv: SignVerify
     internal static let notificationName = "NewDroneMessageNotification"
     internal static let statusNotificationName = "statusNotification"
     
-    private var inStream: NSInputStream?
-    private var outStream: NSOutputStream?
+    fileprivate var inStream: InputStream?
+    fileprivate var outStream: OutputStream?
     
     override init() {
         Logger.log(" interface")
@@ -35,9 +35,9 @@ class InetInterface : NSObject, NSStreamDelegate {
     
     internal func startNetworkCommunication() {
         
-        var readStream: Unmanaged<CFReadStreamRef>?
-        var writeStream: Unmanaged<CFWriteStreamRef>?
-        let hostAsCFStringRef = host as CFStringRef
+        var readStream: Unmanaged<CFReadStream>?
+        var writeStream: Unmanaged<CFWriteStream>?
+        let hostAsCFStringRef = host as CFString
         
         //If we are already connected, try to close it
         closeNetwork()
@@ -50,8 +50,8 @@ class InetInterface : NSObject, NSStreamDelegate {
         inStream!.delegate = self
         outStream!.delegate = self
         
-        inStream!.scheduleInRunLoop(NSRunLoop.currentRunLoop(), forMode: NSDefaultRunLoopMode)
-        outStream!.scheduleInRunLoop(NSRunLoop.currentRunLoop(), forMode: NSDefaultRunLoopMode)
+        inStream!.schedule(in: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
+        outStream!.schedule(in: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
         
         inStream!.open()
         outStream!.open()
@@ -71,34 +71,34 @@ class InetInterface : NSObject, NSStreamDelegate {
             Logger.log("Closing outStream")
         }
         outStream = nil
-        incompleteMessage.removeAll(keepCapacity: true)
+        incompleteMessage.removeAll(keepingCapacity: true)
     }
     
-    @objc internal func stream(aStream: NSStream, handleEvent eventCode: NSStreamEvent) {
+    @objc internal func stream(_ aStream: Stream, handle eventCode: Stream.Event) {
         switch eventCode {
-        case NSStreamEvent.OpenCompleted:
+        case Stream.Event.openCompleted:
             Logger.log("Stream opened!")
-        case NSStreamEvent.HasBytesAvailable:
+        case Stream.Event.hasBytesAvailable:
             Logger.log("Stream has bytes available!")
             assert(aStream == inStream)
             inStreamHasBytesAvaliableHandler()
-        case NSStreamEvent.HasSpaceAvailable:
+        case Stream.Event.hasSpaceAvailable:
             Logger.log("Stream has space available!")
             assert(aStream == outStream)
             outStreamHasSpaceHandler(eventCode)
-        case NSStreamEvent.ErrorOccurred, NSStreamEvent.EndEncountered:
+        case Stream.Event.errorOccurred, Stream.Event.endEncountered:
             Logger.log("Error or end ocurred")
             closeNetwork()
             //Do this stuff in the main thread only
             reconnectTimer?.invalidate()
             reconnectTimer = nil
-            reconnectTimer = NSTimer.scheduledTimerWithTimeInterval(reconnecTimeout, target: self, selector: #selector(InetInterface.startNetworkCommunication), userInfo: nil, repeats: false)
+            reconnectTimer = Timer.scheduledTimer(timeInterval: reconnecTimeout, target: self, selector: #selector(InetInterface.startNetworkCommunication), userInfo: nil, repeats: false)
             
             //If this strem is the output stream, send an error notification
             if(aStream == outStream) {
-                let notificationCenter = NSNotificationCenter.defaultCenter()
-                let theNotification: NSNotification = NSNotification.init(name: InetInterface.statusNotificationName, object: eventCode.rawValue)
-                notificationCenter.postNotification(theNotification)
+                let notificationCenter = NotificationCenter.default
+                let theNotification: Notification = Notification.init(name: Notification.Name(rawValue: InetInterface.statusNotificationName), object: eventCode.rawValue)
+                notificationCenter.post(theNotification)
             }
             
         default:
@@ -107,26 +107,24 @@ class InetInterface : NSObject, NSStreamDelegate {
         }
     }
     
-    private func inStreamHasBytesAvaliableHandler() {
+    fileprivate func inStreamHasBytesAvaliableHandler() {
         //Read our message from the stream. If it matches a start sequnce, start storing it until we get an end sequence or the read times out
         let inData = NSMutableData(capacity: maxReadLength)
-        let inBuffer = UnsafeMutablePointer<UInt8>(inData!.mutableBytes)
+        let inBuffer = inData!.mutableBytes.bindMemory(to: UInt8.self, capacity: inData!.length)
         let readSize = inStream!.read(inBuffer, maxLength: maxReadLength)
-        let inBytes = NSData(bytes: inBuffer, length: readSize)
-        let inString = String(data: inBytes, encoding: NSASCIIStringEncoding)!
+        let inBytes = Data(bytes: UnsafePointer<UInt8>(inBuffer), count: readSize)
+        let inString = String(data: inBytes, encoding: String.Encoding.ascii)!
         
         incompleteMessage += inString
         if let receivedMessage = handleMessage() {
             let (verificationResult, payload) = sv.verifyMessage(receivedMessage)
             if(verificationResult == true && payload != nil) {
-                let error: NSErrorPointer = nil
-                let droneMessage: DroneMessage = DroneMessage.init(data: payload!, error: error)
-                
-                if(error == nil) {
-                    let notificationCenter = NSNotificationCenter.defaultCenter()
-                    let theNotification: NSNotification = NSNotification.init(name: InetInterface.notificationName, object: droneMessage)
-                    notificationCenter.postNotification(theNotification)
-                } else {
+                do {
+                let droneMessage: DroneMessage = try DroneMessage.init(data: payload!)
+                    let notificationCenter = NotificationCenter.default
+                    let theNotification: Notification = Notification.init(name: Notification.Name(rawValue: InetInterface.notificationName), object: droneMessage)
+                    notificationCenter.post(theNotification)
+                } catch {
                     Logger.log("Error decoding DroneMessage!")
                 }
             } else {
@@ -137,11 +135,11 @@ class InetInterface : NSObject, NSStreamDelegate {
         }
     }
     
-    func sendMessage(message: DroneMessage!) {
+    func sendMessage(_ message: DroneMessage!) {
         if(outStream == nil) {
-            let notificationCenter = NSNotificationCenter.defaultCenter()
-            let theNotification: NSNotification = NSNotification.init(name: InetInterface.statusNotificationName, object: NSStreamEvent.ErrorOccurred.rawValue)
-            notificationCenter.postNotification(theNotification)
+            let notificationCenter = NotificationCenter.default
+            let theNotification: Notification = Notification.init(name: Notification.Name(rawValue: InetInterface.statusNotificationName), object: Stream.Event.errorOccurred.rawValue)
+            notificationCenter.post(theNotification)
         } else {
             
             //Create a signed message
@@ -149,7 +147,7 @@ class InetInterface : NSObject, NSStreamDelegate {
             if(payload != nil) {
                 do {
                     let signedMessage = try sv.createSignedMessage(payload!)
-                    let buf = [UInt8](signedMessage.utf8)
+                    let buf = [UInt8](signedMessage!.utf8)
                     outStream!.write(buf, maxLength: buf.count)
                 } catch {
                     Logger.log("Error signing message!")
@@ -160,18 +158,18 @@ class InetInterface : NSObject, NSStreamDelegate {
         }
     }
     
-    private func handleMessage() -> String? {
-        if let startRange = incompleteMessage.rangeOfString(msgStart) {
-            let startMark = startRange.startIndex
+    fileprivate func handleMessage() -> String? {
+        if let startRange = incompleteMessage.range(of: msgStart) {
+            let startMark = startRange.lowerBound
             
-            if let endRange = incompleteMessage.rangeOfString(sigEnd) {
-                let endMark = endRange.endIndex
+            if let endRange = incompleteMessage.range(of: sigEnd) {
+                let endMark = endRange.upperBound
                 
                 let completeRange = Range(startMark ..< endMark)
-                let outString = incompleteMessage.substringWithRange(completeRange)
+                let outString = incompleteMessage.substring(with: completeRange)
                 
                 let rangeToRemove = Range(startMark ..< endMark)
-                incompleteMessage.removeRange(rangeToRemove)
+                incompleteMessage.removeSubrange(rangeToRemove)
                 
                 let messageFromRecursion: String? = handleMessage()
                 
@@ -184,15 +182,15 @@ class InetInterface : NSObject, NSStreamDelegate {
                 return nil
             }
         }
-        incompleteMessage.removeAll(keepCapacity: true)
+        incompleteMessage.removeAll(keepingCapacity: true)
         return nil
     }
     
-    private func outStreamHasSpaceHandler(eventCode: NSStreamEvent) {
+    fileprivate func outStreamHasSpaceHandler(_ eventCode: Stream.Event) {
         Logger.log("Outstream has space available!")
         
-        let notificationCenter = NSNotificationCenter.defaultCenter()
-        let theNotification: NSNotification = NSNotification.init(name: InetInterface.statusNotificationName, object: eventCode.rawValue)
-        notificationCenter.postNotification(theNotification)
+        let notificationCenter = NotificationCenter.default
+        let theNotification: Notification = Notification.init(name: Notification.Name(rawValue: InetInterface.statusNotificationName), object: eventCode.rawValue)
+        notificationCenter.post(theNotification)
     }
 }

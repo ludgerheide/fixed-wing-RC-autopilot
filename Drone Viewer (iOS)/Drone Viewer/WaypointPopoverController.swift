@@ -1,5 +1,40 @@
 import UIKit
 import MapKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l <= r
+  default:
+    return !(rhs < lhs)
+  }
+}
+
 
 class WaypointPopOverController: UIViewController {
     
@@ -18,14 +53,14 @@ class WaypointPopOverController: UIViewController {
     var controller: MapOverlayController?
     var routeManager: RouteManager?
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         tfAltitude.text = NSString(format: "%.0f", waypoint!.waypoint.point.altitude) as String
         tfRadius.text = NSString(format: "%.0f", waypoint!.radius!) as String
         
         if let orbitUntilAltitude = waypoint!.orbitUntilAltitude {
             swOrbitUntilAltitude.setOn(orbitUntilAltitude, animated: false)
         } else {
-            swOrbitUntilAltitude.enabled = false
+            swOrbitUntilAltitude.isEnabled = false
         }
         
         if let clockwise = waypoint!.clockwise {
@@ -35,20 +70,20 @@ class WaypointPopOverController: UIViewController {
                 buClockwise.selectedSegmentIndex = 1
             }
         } else {
-            buClockwise.enabled = false
-            laClockwise.textColor = UIColor.grayColor()
+            buClockwise.isEnabled = false
+            laClockwise.textColor = UIColor.gray
         }
         
         if let initialBearing = waypoint!.initialBearing {
             tfInitialBearing.text = NSString(format: "%.0f", initialBearing) as String
         } else {
-            tfInitialBearing.enabled = false
-            laInitialBearing1.textColor = UIColor.grayColor()
-            laInitialBearing2.textColor = UIColor.grayColor()
+            tfInitialBearing.isEnabled = false
+            laInitialBearing1.textColor = UIColor.gray
+            laInitialBearing2.textColor = UIColor.gray
         }
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         if(waypoint != nil) {
             tfAltitudeChanged(self)
             tfRadiusChanged(self)
@@ -59,11 +94,11 @@ class WaypointPopOverController: UIViewController {
         }
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         controller!.popoverCompleted(self.waypoint)
     }
     
-    @IBAction func tfAltitudeChanged(sender: AnyObject) {
+    @IBAction func tfAltitudeChanged(_ sender: AnyObject) {
         let newAltitude = Double(tfAltitude.text!)
         
         if(newAltitude != nil) {
@@ -74,7 +109,7 @@ class WaypointPopOverController: UIViewController {
         }
     }
     
-    @IBAction func tfRadiusChanged(sender: AnyObject) {
+    @IBAction func tfRadiusChanged(_ sender: AnyObject) {
         let newRadius = Double(tfRadius.text!)
         
         if(newRadius != nil && newRadius > 0) {
@@ -85,11 +120,11 @@ class WaypointPopOverController: UIViewController {
         }
     }
     
-    @IBAction func swOrbitUntilAltitudeChanged(sender: AnyObject) {
-        waypoint!.orbitUntilAltitude = swOrbitUntilAltitude.on
+    @IBAction func swOrbitUntilAltitudeChanged(_ sender: AnyObject) {
+        waypoint!.orbitUntilAltitude = swOrbitUntilAltitude.isOn
     }
     
-    @IBAction func buClockwiseChanged(sender: AnyObject) {
+    @IBAction func buClockwiseChanged(_ sender: AnyObject) {
         switch buClockwise.selectedSegmentIndex {
         case 0:
             waypoint!.clockwise = true
@@ -100,7 +135,7 @@ class WaypointPopOverController: UIViewController {
         }
     }
     
-    @IBAction func tfInitialBearingChanged(sender: AnyObject) {
+    @IBAction func tfInitialBearingChanged(_ sender: AnyObject) {
         let newInitialBearing = Double(tfInitialBearing.text!)
         
         if(newInitialBearing != nil && newInitialBearing > 0 && newInitialBearing <= 360) {
@@ -111,21 +146,21 @@ class WaypointPopOverController: UIViewController {
         }
     }
     
-    @IBAction func buDeletePressed(sender: AnyObject) {
-        routeManager!.removePoint(waypoint)
+    @IBAction func buDeletePressed(_ sender: AnyObject) {
+        _ = routeManager!.removePoint(waypoint)
         waypoint = nil
         controller!.redrawRouteAnnotations()
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func buDismissPressed(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func buDismissPressed(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     
     func showInvalidNumberAlert() {
-        let alert = UIAlertController(title: "Invalid radius!", message: "Please enter valid value!", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+        let alert = UIAlertController(title: "Invalid radius!", message: "Please enter valid value!", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }

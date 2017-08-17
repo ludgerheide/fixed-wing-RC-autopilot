@@ -15,30 +15,30 @@ class UploadViewController: UIViewController{
     var routeManager: RouteManager?
     var messageToSend: DroneMessage?
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         if(routeManager != nil) {
             //Get the route as an array
-            let routeToUpload: Array<Waypoint!>? = routeManager!.createRouteToUpload()
+            let routeToUpload: Array<Waypoint?>? = routeManager!.createRouteToUpload()
             
             
             //Create the description
             if(routeToUpload == nil) {
-                buUpload.enabled = false
+                buUpload.isEnabled = false
                 buUpload.alpha = 0.3
                 tfRouteDescription.text = "Could not create route. Please verify this route does not contain any bends without corresponding circle segements in the map view"
             } else {
                 var message: String = NSString(format: "Route contains %i waypoints.\n", routeToUpload!.count) as String
                 for i in 0  ..< routeToUpload!.count {
-                    let appendString = NSString(format: "Waypoint %i: Altitude %.0f", i+1, routeToUpload![i].point.altitude) as String
-                    message.appendContentsOf(appendString)
+                    let appendString = NSString(format: "Waypoint %i: Altitude %.0f", i+1, (routeToUpload![i]?.point.altitude)!) as String
+                    message.append(appendString)
                     
                     let secondAppendString: String!
-                    if(routeToUpload![i].orbit != nil) {
-                        secondAppendString = NSString(format: ", Orbit radius: %.0f\n", routeToUpload![i].orbit!.radius) as String
+                    if(routeToUpload![i]?.orbit != nil) {
+                        secondAppendString = NSString(format: ", Orbit radius: %.0f\n", (routeToUpload![i]?.orbit!.radius)!) as String
                     } else {
                         secondAppendString = "\n"
                     }
-                    message.appendContentsOf(secondAppendString)
+                    message.append(secondAppendString)
                 }
                 tfRouteDescription.text = message
             }
@@ -49,51 +49,51 @@ class UploadViewController: UIViewController{
                 messageToSend = DroneMessage.init()
                 
                 for wp in routeToUpload! {
-                    messageToSend!.routeArray.addObject(wp.toProtobuf())
+                    messageToSend!.routeArray.add(wp!.toProtobuf()!)
                 }
             }
             
         } else {
-            buUpload.enabled = false
+            buUpload.isEnabled = false
             buUpload.alpha = 0.3
             tfRouteDescription.text = "Soething went wrong (routeManager nil)"
         }
     }
     
-    @IBAction func buUploadPressed(sender: AnyObject) {
+    @IBAction func buUploadPressed(_ sender: AnyObject) {
         //Register for status update notifications
-        NSNotificationCenter.defaultCenter().addObserver(
+        NotificationCenter.default.addObserver(
             self,
             selector: #selector(UploadViewController.statusUpdateReceived),
-            name: InetInterface.statusNotificationName,
+            name: NSNotification.Name(rawValue: InetInterface.statusNotificationName),
             object: nil)
         
         //Get teh Inet Manager
-        if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             let inetComms = appDelegate.inetComms
             inetComms!.sendMessage(messageToSend!)
         }
     }
     
-    func statusUpdateReceived(notification: NSNotification) {
+    func statusUpdateReceived(_ notification: Notification) {
         if let statusCode = notification.object as? UInt {
-            let event = NSStreamEvent(rawValue: statusCode)
+            let event = Stream.Event(rawValue: statusCode)
             
             let alert: UIAlertController
-            if(event == NSStreamEvent.HasSpaceAvailable) {
-                alert = UIAlertController(title: "Success!", message: "Message sent successfully", preferredStyle: UIAlertControllerStyle.Alert)
+            if(event == Stream.Event.hasSpaceAvailable) {
+                alert = UIAlertController(title: "Success!", message: "Message sent successfully", preferredStyle: UIAlertControllerStyle.alert)
             } else {
-                alert = UIAlertController(title: "Failure!", message: "Sending message failed!", preferredStyle: UIAlertControllerStyle.Alert)
+                alert = UIAlertController(title: "Failure!", message: "Sending message failed!", preferredStyle: UIAlertControllerStyle.alert)
             }
-            let button = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
+            let button = UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
             alert.addAction(button)
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
             
-            NSNotificationCenter.defaultCenter().removeObserver(self)
+            NotificationCenter.default.removeObserver(self)
         }
     }
     
-    @IBAction func buCancelPressed(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func buCancelPressed(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
     }
 }

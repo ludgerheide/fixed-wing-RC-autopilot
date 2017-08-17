@@ -9,7 +9,7 @@
 import Foundation
 import Security
 
-public class SwiftyRSAError: NSError {
+open class SwiftyRSAError: NSError {
     init(message: String) {
         super.init(domain: "com.takescoop.SwiftyRSA", code: 500, userInfo: [
             NSLocalizedDescriptionKey: message
@@ -22,32 +22,32 @@ public class SwiftyRSAError: NSError {
     }
 }
 
-public class SwiftyRSA {
+open class SwiftyRSA {
     
-    private var keyTags: [NSData] = []
-    private static let defaultPadding: SecPadding = .PKCS1
+    fileprivate var keyTags: [Data] = []
+    fileprivate static let defaultPadding: SecPadding = .PKCS1
     
     // MARK: - Public Advanced Methods
     
     public init() {}
     
-    public func publicKeyFromDERData(keyData: NSData) throws -> SecKeyRef {
+    open func publicKeyFromDERData(_ keyData: Data) throws -> SecKey {
         return try addKey(keyData, isPublic: true)
     }
     
-    public func publicKeyFromPEMString(key: String) throws -> SecKeyRef {
+    open func publicKeyFromPEMString(_ key: String) throws -> SecKey {
         let data = try dataFromPEMKey(key)
         return try addKey(data, isPublic: true)
     }
     
-    public func privateKeyFromPEMString(key: String) throws -> SecKeyRef {
+    open func privateKeyFromPEMString(_ key: String) throws -> SecKey {
         let data = try dataFromPEMKey(key)
         return try addKey(data, isPublic: false)
     }
     
     // MARK: - Private
     
-    private func addKey(keyData: NSData, isPublic: Bool) throws -> SecKeyRef {
+    fileprivate func addKey(_ keyData: Data, isPublic: Bool) throws -> SecKey {
         
         var keyData = keyData
         
@@ -56,12 +56,12 @@ public class SwiftyRSA {
             try keyData = stripPublicKeyHeader(keyData)
         }
         
-        let tag = NSUUID().UUIDString
-        let tagData = NSData(bytes: tag, length: tag.lengthOfBytesUsingEncoding(NSUTF8StringEncoding))
+        let tag = UUID().uuidString
+        let tagData = Data(bytes: UnsafePointer<UInt8>(tag), count: tag.lengthOfBytes(using: String.Encoding.utf8))
         removeKeyWithTagData(tagData)
         
         // Add persistent version of the key to system keychain
-        let persistKey = UnsafeMutablePointer<AnyObject?>(nil)
+        //let persistKey = 0 TODO: is it really not needed?
         let keyClass   = isPublic ? kSecAttrKeyClassPublic : kSecAttrKeyClassPrivate
         
         // Add persistent version of the key to system keychain
@@ -71,10 +71,10 @@ public class SwiftyRSA {
         keyDict.setObject(kSecAttrKeyTypeRSA,   forKey: kSecAttrKeyType as! NSCopying)
         keyDict.setObject(keyData,              forKey: kSecValueData as! NSCopying)
         keyDict.setObject(keyClass,             forKey: kSecAttrKeyClass as! NSCopying)
-        keyDict.setObject(NSNumber(bool: true), forKey: kSecReturnPersistentRef as! NSCopying)
+        keyDict.setObject(NSNumber(value: true as Bool), forKey: kSecReturnPersistentRef as! NSCopying)
         keyDict.setObject(kSecAttrAccessibleWhenUnlocked, forKey: kSecAttrAccessible as! NSCopying)
         
-        var secStatus = SecItemAdd(keyDict as CFDictionary, persistKey)
+        var secStatus = SecItemAdd(keyDict as CFDictionary, nil)
         if secStatus != noErr && secStatus != errSecDuplicateItem {
             throw SwiftyRSAError(message: "Provided key couldn't be added to the keychain")
         }
@@ -83,21 +83,21 @@ public class SwiftyRSA {
         
         // Now fetch the SecKeyRef version of the key
         var keyRef: AnyObject? = nil
-        keyDict.removeObjectForKey(kSecValueData)
-        keyDict.removeObjectForKey(kSecReturnPersistentRef)
-        keyDict.setObject(NSNumber(bool: true), forKey: kSecReturnRef as! NSCopying)
+        keyDict.removeObject(forKey: kSecValueData)
+        keyDict.removeObject(forKey: kSecReturnPersistentRef)
+        keyDict.setObject(NSNumber(value: true as Bool), forKey: kSecReturnRef as! NSCopying)
         keyDict.setObject(kSecAttrKeyTypeRSA,   forKey: kSecAttrKeyType as! NSCopying)
-        secStatus = SecItemCopyMatching(keyDict as CFDictionaryRef, &keyRef)
+        secStatus = SecItemCopyMatching(keyDict as CFDictionary, &keyRef)
         
         guard let unwrappedKeyRef = keyRef else {
             throw SwiftyRSAError(message: "Couldn't get key reference from the keychain")
         }
         
-        return unwrappedKeyRef as! SecKeyRef
+        return unwrappedKeyRef as! SecKey
     }
     
-    private func dataFromPEMKey(key: String) throws -> NSData {
-        let rawLines = key.componentsSeparatedByString("\n")
+    fileprivate func dataFromPEMKey(_ key: String) throws -> Data {
+        let rawLines = key.components(separatedBy: "\n")
         var lines = [String]()
         
         for line in rawLines {
@@ -116,20 +116,20 @@ public class SwiftyRSA {
         }
         
         // Decode base64 key
-        let base64EncodedKey = lines.joinWithSeparator("")
-        let keyData = NSData(base64EncodedString: base64EncodedKey, options: .IgnoreUnknownCharacters)
+        let base64EncodedKey = lines.joined(separator: "")
+        let keyData = Data(base64Encoded: base64EncodedKey, options: .ignoreUnknownCharacters)
         
-        guard let unwrappedKeyData = keyData where unwrappedKeyData.length != 0 else {
+        guard let unwrappedKeyData = keyData, unwrappedKeyData.count != 0 else {
             throw SwiftyRSAError(message: "Couldn't decode PEM key data (base64)")
         }
         
         return unwrappedKeyData
     }
     
-    private func stripPublicKeyHeader(keyData: NSData) throws -> NSData {
-        let count = keyData.length / sizeof(CUnsignedChar)
-        var byteArray = [CUnsignedChar](count: count, repeatedValue: 0)
-        keyData.getBytes(&byteArray, length: keyData.length)
+    fileprivate func stripPublicKeyHeader(_ keyData: Data) throws -> Data {
+        let count = keyData.count / MemoryLayout<CUnsignedChar>.size
+        var byteArray = [CUnsignedChar](repeating: 0, count: count)
+        (keyData as NSData).getBytes(&byteArray, length: keyData.count)
         
         var index = 0
         if byteArray[index] != 0x30 {
@@ -146,7 +146,7 @@ public class SwiftyRSA {
         
         let seqiod: [CUnsignedChar] = [0x30, 0x0d, 0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01,
             0x01, 0x05, 0x00]
-        byteArray.replaceRange(Range<Int>(index ..< index + seqiod.count), with: seqiod)
+        byteArray.replaceSubrange(CountableRange<Int>(index ..< index + seqiod.count), with: seqiod)
         
         index += 15
         
@@ -167,19 +167,19 @@ public class SwiftyRSA {
         }
         index += 1
         
-        let test = [CUnsignedChar](byteArray[index...keyData.length - 1])
+        let test = [CUnsignedChar](byteArray[index...keyData.count - 1])
         
-        let data = NSData(bytes: test, length: keyData.length - index)
+        let data = Data(bytes: UnsafePointer<UInt8>(test), count: keyData.count - index)
         
         return data
     }
     
-    private func removeKeyWithTagData(tagData: NSData) {
+    fileprivate func removeKeyWithTagData(_ tagData: Data) {
         let publicKey = NSMutableDictionary()
         publicKey.setObject(kSecClassKey,       forKey: kSecClass as! NSCopying)
         publicKey.setObject(kSecAttrKeyTypeRSA, forKey: kSecAttrKeyType as! NSCopying)
         publicKey.setObject(tagData,            forKey: kSecAttrApplicationTag as! NSCopying)
-        SecItemDelete(publicKey as CFDictionaryRef)
+        SecItemDelete(publicKey as CFDictionary)
     }
     
     deinit {

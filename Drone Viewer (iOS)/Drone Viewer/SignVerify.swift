@@ -9,46 +9,48 @@
 import Foundation
 import Security
 
-enum SignVerifyError: ErrorType {
-    case SigningFailed
-    case VerifyingFailed
+enum SignVerifyError: Error {
+    case signingFailed
+    case verifyingFailed
 }
 
 class SignVerify {
-    private let msgStart = "-----BEGIN MESSAGE-----";
-    private let msgEnd = "-----END MESSAGE-----";
-    private let sigStart = "-----BEGIN SIGNATURE-----";
-    private let sigEnd = "-----END SIGNATURE-----";
+    fileprivate let msgStart = "-----BEGIN MESSAGE-----";
+    fileprivate let msgEnd = "-----END MESSAGE-----";
+    fileprivate let sigStart = "-----BEGIN SIGNATURE-----";
+    fileprivate let sigEnd = "-----END SIGNATURE-----";
     
-    private let privateSigningKey: SecKeyRef!
-    private let publicVerificationKey: SecKeyRef!
+    fileprivate let privateSigningKey: SecKey!
+    fileprivate let publicVerificationKey: SecKey!
     
-    func createSignedMessage(message: NSData!) throws -> String! {
+    func createSignedMessage(_ message: Data!) throws -> String! {
         //Create the SHA256 hash of the data
         let digest = NSMutableData(length: Int(CC_SHA256_DIGEST_LENGTH))!
-        CC_SHA256(message.bytes, CC_LONG(message.length), UnsafeMutablePointer<UInt8>(digest.mutableBytes))
-        
+        let buffer = digest.mutableBytes.bindMemory(to: UInt8.self, capacity: message.count)
+        message.withUnsafeBytes {(bytes: UnsafePointer<UInt8>)->Void in
+            CC_SHA256(bytes, CC_LONG(message.count), buffer)
+        }
         //Now sign the hash
         let signature = NSMutableData(length: SecKeyGetBlockSize(privateSigningKey))!
         var signatureLength = signature.length
         
         let err: OSStatus = SecKeyRawSign(privateSigningKey,
             SecPadding.PKCS1SHA256,
-            UnsafePointer<UInt8>(digest.bytes),
+            digest.bytes.bindMemory(to: UInt8.self, capacity: digest.length),
             digest.length,
-            UnsafeMutablePointer<UInt8>(signature.mutableBytes),
+            signature.mutableBytes.bindMemory(to: UInt8.self, capacity: signature.length),
             &signatureLength)
         
         if(err != errSecSuccess) {
             Logger.log("Error during signing!")
-            throw SignVerifyError.SigningFailed
+            throw SignVerifyError.signingFailed
         }
         
-        return msgStart + "\n" + message.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0)) + "\n" + msgEnd + "\n" + sigStart + "\n" + signature.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0)) + "\n" + sigEnd + "\n"
+        return msgStart + "\n" + message.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0)) + "\n" + msgEnd + "\n" + sigStart + "\n" + signature.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0)) + "\n" + sigEnd + "\n"
     }
     
-    func verifyMessage(message: String) -> (verified: Bool!, content: NSData?) {
-        let array = message.componentsSeparatedByString("\n")
+    func verifyMessage(_ message: String) -> (verified: Bool?, content: Data?) {
+        let array = message.components(separatedBy: "\n")
         
         var content = ""
         var signature = ""
@@ -87,21 +89,21 @@ class SignVerify {
         }
         
         //Decode the content and sig
-        let decodedContent = NSData(base64EncodedData: content.dataUsingEncoding(NSASCIIStringEncoding)!, options: NSDataBase64DecodingOptions(rawValue: 0))!
-        let decodedSignature = NSData(base64EncodedData: signature.dataUsingEncoding(NSASCIIStringEncoding)!, options: NSDataBase64DecodingOptions(rawValue: 0))!
-        let decodedSignatureLength = decodedSignature.length
+        let decodedContent = Data(base64Encoded: content.data(using: String.Encoding.ascii)!, options: NSData.Base64DecodingOptions(rawValue: 0))!
+        let decodedSignature = Data(base64Encoded: signature.data(using: String.Encoding.ascii)!, options: NSData.Base64DecodingOptions(rawValue: 0))!
+        let decodedSignatureLength = decodedSignature.count
         
         //Now verify the signature
         
         //Create the SHA256 hash of the data
         let digest = NSMutableData(length: Int(CC_SHA256_DIGEST_LENGTH))!
-        CC_SHA256(decodedContent.bytes, CC_LONG(decodedContent.length), UnsafeMutablePointer<UInt8>(digest.mutableBytes))
+        CC_SHA256((decodedContent as NSData).bytes, CC_LONG(decodedContent.count), digest.mutableBytes.bindMemory(to: UInt8.self, capacity: decodedContent.count))
         
         let status = SecKeyRawVerify(publicVerificationKey,
             SecPadding.PKCS1SHA256,
-            UnsafePointer<UInt8>(digest.bytes),
+            digest.bytes.bindMemory(to: UInt8.self, capacity: digest.length),
             digest.length,
-            UnsafeMutablePointer<UInt8>(decodedSignature.bytes),
+            UnsafeMutablePointer<UInt8>(mutating: (decodedSignature as NSData).bytes.bindMemory(to: UInt8.self, capacity: decodedSignature.count)),
             decodedSignatureLength)
         
         if (status != errSecSuccess) {
@@ -116,7 +118,7 @@ class SignVerify {
         
         do {
             //Import the public key
-            let pubKeyPath = NSBundle.mainBundle().pathForResource("drone.pub.pem", ofType: nil)
+            let pubKeyPath = Bundle.main.path(forResource: "drone.pub.pem", ofType: nil)
             let pubKeyString = try String(contentsOfFile: pubKeyPath!)
             publicVerificationKey = try rsa.publicKeyFromPEMString(pubKeyString)
         } catch {
@@ -128,7 +130,7 @@ class SignVerify {
         
         do{
             //Import the private key
-            let privKeyPath = NSBundle.mainBundle().pathForResource("controller.priv.pem", ofType: nil)
+            let privKeyPath = Bundle.main.path(forResource: "controller.priv.pem", ofType: nil)
             let privKeyString = try String(contentsOfFile: privKeyPath!)
             privateSigningKey = try rsa.privateKeyFromPEMString(privKeyString)
         } catch {

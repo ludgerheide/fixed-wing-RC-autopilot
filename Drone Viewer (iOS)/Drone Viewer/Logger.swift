@@ -7,15 +7,15 @@
 //
 
 class Logger {
-    static func log(content: String, functionName: String = #function, fileName: String = #file, lineNumber: Int = #line) {
+    static func log(_ content: String, functionName: String = #function, fileName: String = #file, lineNumber: Int = #line) {
         print(String(fileName) + ":" + String(lineNumber) + "(" + functionName + ") " + content)
     }
     
-    static func log(content: Int) {
+    static func log(_ content: Int) {
         Logger.log(String(content))
     }
     
-    static func log(content: Double) {
+    static func log(_ content: Double) {
         Logger.log(String(content))
     }
 }

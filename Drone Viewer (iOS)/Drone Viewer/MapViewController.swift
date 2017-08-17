@@ -16,17 +16,17 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
     @IBOutlet var laConnection: UILabel!
     @IBOutlet var laAltitude: UILabel!
     @IBOutlet var laBattery: UILabel!
-    var labelTimeoutTimer: NSTimer?
-    let labelTimeOut: NSTimeInterval = 5
+    var labelTimeoutTimer: Timer?
+    let labelTimeOut: TimeInterval = 5
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        NSNotificationCenter.defaultCenter().addObserver(
+        NotificationCenter.default.addObserver(
             self,
             selector: #selector(MapViewController.newDroneMessageReceived(_:)),
-            name: InetInterface.notificationName,
+            name: NSNotification.Name(rawValue: InetInterface.notificationName),
             object: nil)
         updateLabels(nil)
         
@@ -34,13 +34,13 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
         overlayController = MapOverlayController.init(mv: mapView, vc: self)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         //Make the overly controller plot the route and track
-        overlayController.newMapUpdateReady(NSNotification(name: "dummy", object: nil))
+        overlayController.newMapUpdateReady(Notification(name: Notification.Name(rawValue: "dummy"), object: nil))
         overlayController.redrawRouteComplete()
     }
     
-    @objc func newDroneMessageReceived(notification: NSNotification){
+    @objc func newDroneMessageReceived(_ notification: Notification){
         if let theMessage: DroneMessage = notification.object as? DroneMessage {
             Logger.log(Double(theMessage.timestamp) / 1000)
             updateLabels(theMessage)
@@ -49,40 +49,40 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
         }
     }
     
-    func updateLabels(msg: DroneMessage?) {
+    func updateLabels(_ msg: DroneMessage?) {
         if let localMsg = msg {
             if(localMsg.hasCurrentPosition) {
                 laConnection.text = "Connected"
-                laConnection.textColor = UIColor.greenColor()
+                laConnection.textColor = UIColor.green
             } else {
                 laConnection.text = "No position"
-                laConnection.textColor = UIColor.orangeColor()
+                laConnection.textColor = UIColor.orange
             }
             
             let altitude = Double(localMsg.currentAltitude)/100
             laAltitude.text = String(format: "%3.1f m", arguments: [altitude])
-            laAltitude.textColor = UIColor.blackColor()
+            laAltitude.textColor = UIColor.black
             
             let voltage = Double(localMsg.currentBatteryData.voltage) / 1000
             let current = Double(localMsg.currentBatteryData.current) / 1000
             laBattery.text = String(format: "%2.1fV %2.1fA", arguments: [voltage, current])
-            laBattery.textColor = UIColor.blackColor()
+            laBattery.textColor = UIColor.black
             
             labelTimeoutTimer?.invalidate()
-            labelTimeoutTimer = NSTimer.scheduledTimerWithTimeInterval(labelTimeOut, target: self, selector: #selector(MapViewController.clearLabels), userInfo: nil, repeats: false)
+            labelTimeoutTimer = Timer.scheduledTimer(timeInterval: labelTimeOut, target: self, selector: #selector(MapViewController.clearLabels), userInfo: nil, repeats: false)
         } else {
             laConnection.text = "No Data!"
-            laConnection.textColor = UIColor.redColor()
+            laConnection.textColor = UIColor.red
             
             laAltitude.text = "N/A"
-            laAltitude.textColor = UIColor.redColor()
+            laAltitude.textColor = UIColor.red
             
             laBattery.text = "N/A"
-            laBattery.textColor = UIColor.redColor()
+            laBattery.textColor = UIColor.red
         }
     }
     
-    @IBAction func buAddWaypointPressed(sender: AnyObject) {
+    @IBAction func buAddWaypointPressed(_ sender: AnyObject) {
         //Find the center of the map window
         let centerOfScreen = mapView.centerCoordinate
         let newWaypoint = Waypoint(latitude: centerOfScreen.latitude, longitude: centerOfScreen.longitude, altitude: Waypoint.defaultAltitude)
@@ -105,20 +105,20 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
     }
     
     func changeToMap() {
-        mapView.mapType = MKMapType.Standard
+        mapView.mapType = MKMapType.standard
         
     }
     
     func changeToSatellite() {
-        mapView.mapType = MKMapType.HybridFlyover
+        mapView.mapType = MKMapType.hybridFlyover
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //segue for the popover configuration window
         if segue.identifier == "MapSettingsPopoverSegue" {
-            if let controller = segue.destinationViewController as? MapSettingsViewController {
+            if let controller = segue.destination as? MapSettingsViewController {
                 controller.popoverPresentationController!.delegate = self
-                controller.preferredContentSize = controller.view.systemLayoutSizeFittingSize(CGSizeMake(0, 0))
+                controller.preferredContentSize = controller.view.systemLayoutSizeFitting(CGSize(width: 0, height: 0))
                 controller.mapViewController = self
                 controller.selectedMapType = mapView.mapType
                 controller.overlayController = self.overlayController

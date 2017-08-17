@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0710"
+   LastUpgradeVersion = "0800"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -159,6 +159,9 @@
                   Identifier = "GPBInt64UInt64DictionaryTests">
                </Test>
                <Test
+                  Identifier = "GPBObjectiveCPlusPlusTests">
+               </Test>
+               <Test
                   Identifier = "GPBStringBoolDictionaryTests">
                </Test>
                <Test
@@ -178,9 +181,6 @@
                </Test>
                <Test
                   Identifier = "GPBStringInt64DictionaryTests">
-               </Test>
-               <Test
-                  Identifier = "GPBStringTests">
                </Test>
                <Test
                   Identifier = "GPBStringUInt32DictionaryTests">

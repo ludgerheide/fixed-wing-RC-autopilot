@@ -10,18 +10,18 @@ import UIKit
 import MapKit
 
 class TrackCreator: NSObject, NSCoding {
-    private let countKey = "countKey"
+    fileprivate let countKey = "countKey"
     
     static let notificationName = "newPolyLine"
-    private var coordinates: Array<CLLocationCoordinate2D>
+    fileprivate var coordinates: Array<CLLocationCoordinate2D>
     
     override init() {
         coordinates = Array<CLLocationCoordinate2D>()
         super.init()
-        NSNotificationCenter.defaultCenter().addObserver(
+        NotificationCenter.default.addObserver(
             self,
             selector: #selector(TrackCreator.newDroneMessageReceived(_:)),
-            name: InetInterface.notificationName,
+            name: NSNotification.Name(rawValue: InetInterface.notificationName),
             object: nil)
     }
     
@@ -34,7 +34,7 @@ class TrackCreator: NSObject, NSCoding {
     required convenience init(coder aDecoder: NSCoder) {
         self.init()
         
-        let nbCounter = aDecoder.decodeIntegerForKey(countKey)
+        let nbCounter = aDecoder.decodeInteger(forKey: countKey)
         
         for _ in 0 ..< nbCounter {
             if let loc = aDecoder.decodeObject() as? CLLocation {
@@ -43,12 +43,12 @@ class TrackCreator: NSObject, NSCoding {
         }
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeInteger(coordinates.count, forKey: countKey)
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(coordinates.count, forKey: countKey)
         
         for loc in coordinates {
             let newCoord = CLLocation.init(latitude: loc.latitude, longitude: loc.longitude)
-            aCoder.encodeObject(newCoord)
+            aCoder.encode(newCoord)
         }
     }
     
@@ -65,17 +65,17 @@ class TrackCreator: NSObject, NSCoding {
     }
     
     func postNotification() {
-        let notificationCenter = NSNotificationCenter.defaultCenter()
-        let theNotification: NSNotification = NSNotification.init(name: TrackCreator.notificationName, object: nil)
-        notificationCenter.postNotification(theNotification)
+        let notificationCenter = NotificationCenter.default
+        let theNotification: Notification = Notification.init(name: Notification.Name(rawValue: TrackCreator.notificationName), object: nil)
+        notificationCenter.post(theNotification)
     }
     
     func clearTrack() {
-        coordinates.removeAll(keepCapacity: true)
+        coordinates.removeAll(keepingCapacity: true)
         postNotification()
     }
     
-    @objc func newDroneMessageReceived(notification: NSNotification){
+    @objc func newDroneMessageReceived(_ notification: Notification){
         if let theMessage: DroneMessage = notification.object as? DroneMessage {
             if(theMessage.hasCurrentPosition) {
                 let newCoord = CLLocationCoordinate2D.init(latitude: CLLocationDegrees(theMessage.currentPosition.latitude), longitude: CLLocationDegrees(theMessage.currentPosition.longitude))

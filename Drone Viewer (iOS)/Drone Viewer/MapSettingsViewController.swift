@@ -18,8 +18,8 @@ class MapSettingsViewController: UIViewController {
     var overlayController: MapOverlayController!
     @IBOutlet var swCenteringMode: UISwitch!
     
-    override func viewWillAppear(animated: Bool) {
-        if(selectedMapType == MKMapType.HybridFlyover) {
+    override func viewWillAppear(_ animated: Bool) {
+        if(selectedMapType == MKMapType.hybridFlyover) {
             mapSatelliteControl.selectedSegmentIndex = 1
         } else {
             mapSatelliteControl.selectedSegmentIndex = 0
@@ -28,16 +28,16 @@ class MapSettingsViewController: UIViewController {
         swCenteringMode.setOn(overlayController.centerOnCurrentPosition, animated: false)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //segue for the popover configuration window
         if segue.identifier == "UploadControllerSegue" {
-            if let controller = segue.destinationViewController as? UploadViewController {
+            if let controller = segue.destination as? UploadViewController {
                 controller.routeManager = overlayController.routeManager!
             }
         }
     }
     
-    @IBAction func segmentedControlChanged(sender: AnyObject) {
+    @IBAction func segmentedControlChanged(_ sender: AnyObject) {
         switch mapSatelliteControl.selectedSegmentIndex {
         case 0:
             mapViewController.changeToMap()
@@ -46,24 +46,24 @@ class MapSettingsViewController: UIViewController {
         default:
             Logger.log("Invalid status for degmented control!")
         }
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     
-    @IBAction func centeringModeSwitchChanged(sender: AnyObject) {
-        overlayController.centerOnCurrentPosition = swCenteringMode.on
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func centeringModeSwitchChanged(_ sender: AnyObject) {
+        overlayController.centerOnCurrentPosition = swCenteringMode.isOn
+        self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func buClearRotePressed(sender: AnyObject) {
+    @IBAction func buClearRotePressed(_ sender: AnyObject) {
         mapViewController.clearRoute()
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func clearTrack(sender: AnyObject) {
-        if let tc = (UIApplication.sharedApplication().delegate as? AppDelegate)?.trackCreator {
+    @IBAction func clearTrack(_ sender: AnyObject) {
+        if let tc = (UIApplication.shared.delegate as? AppDelegate)?.trackCreator {
             tc.clearTrack()
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         } else {
             Logger.log("getting the track creator failed!")
         }

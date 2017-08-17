@@ -10,22 +10,22 @@ import UIKit
 import MapKit
 
 class MapOverlayController: NSObject, MKMapViewDelegate {
-    private static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
-    private static let routeURL = DocumentsDirectory.URLByAppendingPathComponent("route")
+    fileprivate static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    fileprivate static let routeURL = DocumentsDirectory.appendingPathComponent("route")
     
-    private var parentViewController: UIViewController!
+    fileprivate var parentViewController: UIViewController!
     
-    private var mapView: MKMapView!
+    fileprivate var mapView: MKMapView!
     
-    private var trackPolyLine: MKPolyline?
+    fileprivate var trackPolyLine: MKPolyline?
     internal var centerOnCurrentPosition: Bool! = false
     
     var routeManager: RouteManager!
-    private var routePolylines: [MKOverlay]?
-    private var routePins: [MKAnnotation]?
+    fileprivate var routePolylines: [MKOverlay]?
+    fileprivate var routePins: [MKAnnotation]?
     
     override init() {
-        if let rm = NSKeyedUnarchiver.unarchiveObjectWithFile(MapOverlayController.routeURL.path!) as? RouteManager {
+        if let rm = NSKeyedUnarchiver.unarchiveObject(withFile: MapOverlayController.routeURL.path) as? RouteManager {
             routeManager = rm
         } else {
             routeManager = RouteManager()
@@ -33,17 +33,17 @@ class MapOverlayController: NSObject, MKMapViewDelegate {
         
         super.init()
         
-        NSNotificationCenter.defaultCenter().addObserver(
+        NotificationCenter.default.addObserver(
             self,
             selector: #selector(MapOverlayController.newMapUpdateReady(_:)),
-            name: TrackCreator.notificationName,
+            name: NSNotification.Name(rawValue: TrackCreator.notificationName),
             object: nil)
         
         //Register entering backgroudn to save track
-        NSNotificationCenter.defaultCenter().addObserver(
+        NotificationCenter.default.addObserver(
             self,
             selector: #selector(MapOverlayController.saveRoute),
-            name: UIApplicationDidEnterBackgroundNotification,
+            name: NSNotification.Name.UIApplicationDidEnterBackground,
             object: nil)
     }
     
@@ -56,7 +56,7 @@ class MapOverlayController: NSObject, MKMapViewDelegate {
     }
     
     func saveRoute() {
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(routeManager, toFile: MapOverlayController.routeURL.path!)
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(routeManager, toFile: MapOverlayController.routeURL.path)
         if !isSuccessfulSave {
             Logger.log("Failed to save route…")
         } else {
@@ -77,7 +77,7 @@ class MapOverlayController: NSObject, MKMapViewDelegate {
         if let pointsArray = routeManager.getAnnotatedWaypoints() {
             routePins = [MKAnnotation]()
             for point in pointsArray {
-                routePins!.append(point)
+                routePins!.append(point!)
             }
             
             mapView.addAnnotations(routePins!)
@@ -92,32 +92,32 @@ class MapOverlayController: NSObject, MKMapViewDelegate {
         if let polylines = routeManager.createSmoothedPolyLines() {
             routePolylines = [MKOverlay]()
             for line in polylines {
-                routePolylines!.append(line)
+                routePolylines!.append(line!)
             }
             
             mapView.addOverlays(routePolylines!)
         }
     }
     
-    @objc func newMapUpdateReady(notification: NSNotification) {
+    @objc func newMapUpdateReady(_ notification: Notification) {
         assert(notification.object == nil)
         
-        if let tc = (UIApplication.sharedApplication().delegate as? AppDelegate)?.trackCreator {
+        if let tc = (UIApplication.shared.delegate as? AppDelegate)?.trackCreator {
             //Delete the old polyline, if it exists
             if(trackPolyLine != nil) {
-                mapView.removeOverlay(trackPolyLine!)
+                mapView.remove(trackPolyLine!)
             }
             
             trackPolyLine = tc.getPolyLine()
             if(trackPolyLine != nil) {
-                mapView.addOverlay(trackPolyLine!)
+                mapView.add(trackPolyLine!)
             }
             
             //Center on thelatest coordinate if enabled
             if(centerOnCurrentPosition == true) {
                 if let currentLocation = tc.getLatestCoordinates() {
                     if(!MKMapRectContainsPoint(mapView.visibleMapRect, MKMapPointForCoordinate(currentLocation))) {
-                        mapView.setCenterCoordinate(currentLocation, animated: true)
+                        mapView.setCenter(currentLocation, animated: true)
                     }
                 }
             }
@@ -126,24 +126,24 @@ class MapOverlayController: NSObject, MKMapViewDelegate {
         }
     }
     
-    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let plRenderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
         
         //Render the track in red and the route in black
         if(overlay.isEqual(trackPolyLine)) {
-            plRenderer.strokeColor = UIColor.redColor()
+            plRenderer.strokeColor = UIColor.red
             plRenderer.lineWidth = 2.0
         } else {
-            plRenderer.strokeColor = UIColor.blackColor()
+            plRenderer.strokeColor = UIColor.black
             plRenderer.lineWidth = 2.0
         }
         
         return plRenderer
     }
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         // If the annotation is the user location, just return nil.
-        if (annotation.isKindOfClass(MKUserLocation)) {
+        if (annotation.isKind(of: MKUserLocation.self)) {
             return nil;
         }
         
@@ -154,7 +154,7 @@ class MapOverlayController: NSObject, MKMapViewDelegate {
             
             //Try to dequeue an existing view
             var view: MKPinAnnotationView
-            if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
+            if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
                 as? MKPinAnnotationView {
                     dequeuedView.annotation = annotation
                     view = dequeuedView
@@ -163,11 +163,11 @@ class MapOverlayController: NSObject, MKMapViewDelegate {
                 
                 view.animatesDrop = false
                 view.canShowCallout = true
-                view.draggable = true
+                view.isDraggable = true
                 
                 //Add a button on the rightt that goes to the "edit" screen
-                let rightButton = UIButton(type: UIButtonType.DetailDisclosure)
-                rightButton.addTarget(nil, action: nil, forControlEvents: UIControlEvents.TouchUpInside)
+                let rightButton = UIButton(type: UIButtonType.detailDisclosure)
+                //rightButton.addTarget(nil, action: nil, for: UIControlEvents.touchUpInside) //TODO: Really just remove the line?
                 view.rightCalloutAccessoryView = rightButton
             }
             return view
@@ -175,10 +175,10 @@ class MapOverlayController: NSObject, MKMapViewDelegate {
         return nil
     }
     
-    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let popoverController = storyboard.instantiateViewControllerWithIdentifier("WaypointPopover") as! WaypointPopOverController
-        popoverController.modalPresentationStyle = UIModalPresentationStyle.Popover
+        let popoverController = storyboard.instantiateViewController(withIdentifier: "WaypointPopover") as! WaypointPopOverController
+        popoverController.modalPresentationStyle = UIModalPresentationStyle.popover
         popoverController.popoverPresentationController?.sourceView = mapView
         popoverController.popoverPresentationController?.sourceRect = view.frame
         popoverController.preferredContentSize = CGSize(width: 270, height: 310)
@@ -187,10 +187,10 @@ class MapOverlayController: NSObject, MKMapViewDelegate {
         popoverController.controller = self
         popoverController.routeManager = routeManager
         
-        parentViewController.presentViewController(popoverController, animated: true, completion: nil)
+        parentViewController.present(popoverController, animated: true, completion: nil)
     }
     
-    func popoverCompleted(wp: RouteManager.WaypointWithAnnotations?) {
+    func popoverCompleted(_ wp: RouteManager.WaypointWithAnnotations?) {
         //Update the UI after the popover is done
         redrawRoutePolylines()
         
@@ -200,8 +200,8 @@ class MapOverlayController: NSObject, MKMapViewDelegate {
         }
     }
     
-    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
-        if(oldState == MKAnnotationViewDragState.Dragging && newState == MKAnnotationViewDragState.Ending) {
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, didChange newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
+        if(oldState == MKAnnotationViewDragState.dragging && newState == MKAnnotationViewDragState.ending) {
             //Redraw the polyline, the annotation coordinate is synced automatically
             redrawRoutePolylines()
         }
